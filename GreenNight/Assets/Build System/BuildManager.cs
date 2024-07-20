@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BuildManager : MonoBehaviour
@@ -21,7 +22,6 @@ public class BuildManager : MonoBehaviour
     public CustomCursor customCursor;
     public GameObject grid;
     public Tile[] tiles;
-
     public void UpdateResoureDisplay()
     {
         steelDisplay.text = steel.ToString();
@@ -55,6 +55,7 @@ public class BuildManager : MonoBehaviour
                 {
                     tile.gameObject.SetActive(false);
                 }
+
             }
         }
         if (Input.GetMouseButtonDown(0) && buildingToPlace != null)
@@ -62,24 +63,28 @@ public class BuildManager : MonoBehaviour
 
             Tile nearstTile = null;
             float nearstDistance = float.MaxValue;
-
             foreach (Tile tile in tiles)
             {
-                
-                 Debug.Log("Check area buy");
+                if (!tile.gameObject.activeSelf)
+                {
+                    continue; // Skip the rest of the loop if the tile is not active
+                }
                 float dist = Vector2.Distance(tile.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition));
                 if (dist < nearstDistance)
                 {
                     nearstDistance = dist;
                     nearstTile = tile;
                 }
-                if (nearstTile.isOccupied == false && nearstTile.gameObject.activeSelf == true)
-                {
-                    Instantiate(buildingToPlace.gameObject, nearstTile.transform.position, Quaternion.identity);
-                    buildingToPlace = null;
-                    nearstTile.isOccupied = true;
-                    UIUpdateAfterBuildOrCancelBuild();
-                }
+                Debug.Log("Check area buy");
+
+            }
+            if (nearstTile.isOccupied == false && nearstTile.gameObject.activeSelf == true && buildingToPlace != null)
+            {
+                Instantiate(buildingToPlace, nearstTile.transform.position, Quaternion.identity);
+                Debug.Log(nearstTile.name);
+                buildingToPlace = null;
+                nearstTile.isOccupied = true;
+                UIUpdateAfterBuildOrCancelBuild();
             }
         }
         else if (Input.GetMouseButtonDown(1))
@@ -97,7 +102,7 @@ public class BuildManager : MonoBehaviour
             UIUpdateAfterBuildOrCancelBuild();
         }
     }
-    
+
     public void UIUpdateAfterBuildOrCancelBuild()
     {
         customCursor.gameObject.SetActive(false);
@@ -116,6 +121,7 @@ public class BuildManager : MonoBehaviour
             ammo -= building.ammoCost;
 
             // มีภาพลากตามเมาส์ 
+            Cursor.visible = false;
             customCursor.gameObject.SetActive(true);
             customCursor.GetComponent<SpriteRenderer>().sprite = building.GetComponent<SpriteRenderer>().sprite;
             //
