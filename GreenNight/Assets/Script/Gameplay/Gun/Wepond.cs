@@ -68,7 +68,8 @@ public class Weapond : MonoBehaviour
         // Instantiate bullet and set its direction
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-
+        Bullet bulletScript = bullet.GetComponent<Bullet>();
+        bulletScript.damage = damage;
         // Adjust bullet direction based on accuracy (higher accuracy means less spread)
         Vector2 bulletDirection = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - firePoint.position).normalized;
         float accuracySpread = (100 - accuracy) / 1000f; // Spread based on accuracy value
