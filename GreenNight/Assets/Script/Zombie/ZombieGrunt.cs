@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ZombieArmour : Zombie
+public class ZombieGrunt : Zombie
 {
     // Start is called before the first frame update
     void Start()
@@ -12,7 +12,8 @@ public class ZombieArmour : Zombie
 
     // Update is called once per frame
     void Update()
-    {
-        ZombieMoveFindPlayer();
+    {   
+        ZombieAttack();
+        ZombieMoveFindBarrier();
     }
 }

@@ -6,10 +6,11 @@ public class Bullet : MonoBehaviour
 {
     public float damage ;
     private void OnTriggerEnter2D(Collider2D other) 
-    {
-        if(other.gameObject.tag == "Zombie")
+    {   
+        Zombie zombie = other.GetComponent<Zombie>();
+        if(zombie != null)
         {
-            
+            zombie.ZombieTakeDamage(damage);
         }
     }
 }
