@@ -13,15 +13,15 @@ public class Weapond : MonoBehaviour
     public bool fullAuto; // Full auto or not
 
     // Internal variables
-    private int currentAmmo;
-    private float fireRate;
-    private float nextFireTime;
-    private bool isReloading = false;
+    [SerializeField] public int currentAmmo;
+    [SerializeField] public float fireRate;
+    [SerializeField] public float nextFireTime;
+    [SerializeField] public bool isReloading = false;
 
     // References
     public Transform firePoint; // Point from where bullets are fired
     public GameObject bulletPrefab; // Bullet prefab
-
+    public Vector2 bulletDirection;
     void Start()
     {
         currentAmmo = capacity;
@@ -31,7 +31,8 @@ public class Weapond : MonoBehaviour
     void Update()
     {
         if (isReloading) return;
-
+        // Adjust bullet direction based on accuracy (higher accuracy means less spread)
+        bulletDirection = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - firePoint.position).normalized;
         if (fullAuto)
         {
             if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
@@ -55,7 +56,7 @@ public class Weapond : MonoBehaviour
         }
     }
 
-    void Shoot()
+    public void Shoot()
     {
         if (currentAmmo <= 0)
         {
@@ -70,8 +71,7 @@ public class Weapond : MonoBehaviour
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         Bullet bulletScript = bullet.GetComponent<Bullet>();
         bulletScript.damage = damage;
-        // Adjust bullet direction based on accuracy (higher accuracy means less spread)
-        Vector2 bulletDirection = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - firePoint.position).normalized;
+        
         float accuracySpread = (100 - accuracy) / 1000f; // Spread based on accuracy value
         bulletDirection += new Vector2(Random.Range(-accuracySpread, accuracySpread), Random.Range(-accuracySpread, accuracySpread));
         rb.velocity = bulletDirection * 20f; // Adjust bullet speed as necessary
@@ -83,7 +83,7 @@ public class Weapond : MonoBehaviour
         Debug.Log("Shot fired!");
     }
 
-    IEnumerator Reload()
+    public IEnumerator Reload()
     {
         isReloading = true;
         Debug.Log("Reloading...");
