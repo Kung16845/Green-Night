@@ -9,6 +9,7 @@ public class Building : MonoBehaviour
     public int foodCost;
     public int fuelCost;
     public int ammoCost;
+    public int useDayTime;
     public bool isBuildingLarge;
     public bool isBuildingMedium;
     public bool isBuildingSmall;
