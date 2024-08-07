@@ -11,10 +11,12 @@ public class WeapondNpc : Weapond
     {
         if (isReloading) return;
 
-        if(listZombiesInRanageAttack.Count != 0)
-            bulletDirection = TargetClosestZombieInRanageAttack();
-        else 
-        {   
+        if (listZombiesInRanageAttack.Count != 0)
+        {
+            TargetClosestZombieInRanageAttack();
+        }
+        else
+        {
             targetAttack = null;
             return;
         }
@@ -42,8 +44,9 @@ public class WeapondNpc : Weapond
             StartCoroutine(Reload());
         }
     }
-    public Vector2 TargetClosestZombieInRanageAttack()
+    public void TargetClosestZombieInRanageAttack()
     {
+        if (listZombiesInRanageAttack.Count == 0) return;
 
         Zombie zombieTarget = listZombiesInRanageAttack[0];
         Transform transformZombie = zombieTarget.transform;
@@ -61,7 +64,7 @@ public class WeapondNpc : Weapond
         }
 
         Vector2 directionShot = (transformZombie.position - this.transform.position).normalized;
-        return directionShot;
+        bulletDirection = directionShot;
     }
     private void OnTriggerEnter2D(Collider2D other)
     {

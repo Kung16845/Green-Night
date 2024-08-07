@@ -32,7 +32,7 @@ public class Weapond : MonoBehaviour
     void Update()
     {
         if (isReloading) return;
-        
+
         if (fullAuto)
         {
             if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
@@ -72,8 +72,11 @@ public class Weapond : MonoBehaviour
         Bullet bulletScript = bullet.GetComponent<Bullet>();
         bulletScript.damage = damage;
         // Adjust bullet direction based on accuracy (higher accuracy means less spread)
-        if(!isNpc)
+        if (!isNpc)
+        {
             bulletDirection = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - firePoint.position).normalized;
+
+        }
         float accuracySpread = (100 - accuracy) / 1000f; // Spread based on accuracy value
         bulletDirection += new Vector2(Random.Range(-accuracySpread, accuracySpread), Random.Range(-accuracySpread, accuracySpread));
         rb.velocity = bulletDirection * 20f; // Adjust bullet speed as necessary
