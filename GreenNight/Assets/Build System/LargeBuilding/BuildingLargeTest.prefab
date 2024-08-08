@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7577125230850006993
 SpriteRenderer:
@@ -102,6 +102,15 @@ MonoBehaviour:
   foodCost: 0
   fuelCost: 0
   ammoCost: 0
+  numDayBuindingTime: 2
+  finishDayBuildingTime: 0
   isBuildingLarge: 1
   isBuildingMedium: 0
   isBuildingSmall: 0
+  timeManager: {fileID: 0}
+  dateTime:
+    day: 0
+    hour: 0
+    minutes: 0
+    isDayNight: 0
+  spriteRenderer: {fileID: 0}
