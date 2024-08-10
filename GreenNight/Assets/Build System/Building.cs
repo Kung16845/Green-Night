@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Building : MonoBehaviour
-{
+{   
+    public string name;
     public int steelCost;
     public int plankCost;
     public int foodCost;
@@ -41,7 +42,7 @@ public class Building : MonoBehaviour
         else 
         {   
             Debug.Log("Is Building");
-            spriteRenderer.color = Color.black;
+            spriteRenderer.color = Color.yellow;
         }
     }
 }
