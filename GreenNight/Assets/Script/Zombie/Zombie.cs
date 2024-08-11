@@ -15,42 +15,44 @@ public class Zombie : MonoBehaviour
     public Vector2 direction;
     public Rigidbody2D rb2D;
     public Barrier barrier;
+
     private void Awake()
     {
-        transformbarrier = FindObjectOfType<Barrier>().gameObject.transform;
+        FindClosestBarrier();
         currentSpeed = maxSpeed;
         currentHp = maxHp;
         rb2D = GetComponent<Rigidbody2D>();
-        CheckDirectionMovw();
+        CheckDirectionMove();
     }
+
     public void ZombieAttack()
     {
-        if(barrier != null)
+        if (barrier != null)
         {
-            if(countTImer > 0)
+            if (countTImer > 0)
                 countTImer -= Time.deltaTime;
-            else 
+            else
             {
                 barrier.BarrierTakeDamage(attackDamage);
                 countTImer = attackTimer;
             }
         }
     }
-    public void CheckDirectionMovw()
+
+    public void CheckDirectionMove()
     {
         Vector2 toBarrier = transformbarrier.position - transform.position;
 
-        // Determine the primary direction to move in
         if (Mathf.Abs(toBarrier.x) > Mathf.Abs(toBarrier.y))
         {
             // Move horizontally
             if (toBarrier.x > 0)
             {
-                direction = Vector2.right;
+                direction = Vector2.right;  // Move right
             }
             else
             {
-                direction = Vector2.left;
+                direction = Vector2.left;   // Move left
             }
         }
         else
@@ -58,30 +60,58 @@ public class Zombie : MonoBehaviour
             // Move vertically
             if (toBarrier.y > 0)
             {
-                direction = Vector2.up;
+                direction = Vector2.up;     // Move up
             }
             else
             {
-                direction = Vector2.down;
+                direction = Vector2.down;   // Move down
             }
         }
     }
+
+    public void FindClosestBarrier()
+    {
+        Barrier[] barriers = FindObjectsOfType<Barrier>();
+        float closestDistance = Mathf.Infinity;
+        Transform closestBarrierTransform = null;
+
+        foreach (Barrier b in barriers)
+        {
+            float distanceToBarrier = Vector2.Distance(transform.position, b.transform.position);
+            if (distanceToBarrier < closestDistance)
+            {
+                closestDistance = distanceToBarrier;
+                closestBarrierTransform = b.transform;
+            }
+        }
+
+        if (closestBarrierTransform != null)
+        {
+            transformbarrier = closestBarrierTransform;
+            barrier = transformbarrier.GetComponent<Barrier>();
+        }
+    }
+
     public void ZombieMoveFindBarrier()
     {
         rb2D.velocity = direction * currentSpeed;
     }
+
     public void ZombieTakeDamage(float damage)
     {
         currentHp -= damage;
+        if(currentHp < 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
-    private void OnTriggerEnter2D(Collider2D other) 
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         Barrier triggerbarrier = other.GetComponent<Barrier>();
-        if(triggerbarrier != null)
+        if (triggerbarrier != null)
         {
             barrier = triggerbarrier;
         }
     }
-    
-    
 }

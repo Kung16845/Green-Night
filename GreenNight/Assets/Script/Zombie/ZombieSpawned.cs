@@ -9,10 +9,33 @@ public class ZombieSpawned : MonoBehaviour
     public float treatValue = 50;
     Coroutine spawnCoroutine;
     public List<GameObject> prefabMonster;
-  
+    public Transform transformBarrier;
     private void Start()
-    {
+    {   
+        FindClosestBarrier();
         StartCoroutine(SpawnMon());
+    }
+    public void FindClosestBarrier()
+    {
+        Barrier[] barriers = FindObjectsOfType<Barrier>();
+        float closestDistance = Mathf.Infinity;
+        Transform closestBarrierTransform = null;
+
+        foreach (Barrier b in barriers)
+        {
+            float distanceToBarrier = Vector2.Distance(transform.position, b.transform.position);
+            if (distanceToBarrier < closestDistance)
+            {
+                closestDistance = distanceToBarrier;
+                closestBarrierTransform = b.transform;
+            }
+        }
+
+        if (closestBarrierTransform != null)
+        {
+            transformBarrier = closestBarrierTransform;
+            
+        }
     }
 
     public void StopSpawnEnemy()
@@ -32,8 +55,17 @@ public class ZombieSpawned : MonoBehaviour
 
     public void SpawnedMonster()
     {
-
-        var transformSpawnMonster = new Vector3(this.transform.position.x, Random.Range(-4.0f, 4.0f));
+        Vector2 toBarrier = transformBarrier.position - transform.position;
+        Vector3 transformSpawnMonster = new Vector3();
+        if (Mathf.Abs(toBarrier.x) > Mathf.Abs(toBarrier.y))
+        {   
+            transformSpawnMonster = new Vector3(this.transform.position.x, Random.Range(-4.0f, 4.0f));
+        }
+        else
+        {
+            transformSpawnMonster = new Vector3(Random.Range(-7.0f, 7.0f),this.transform.position.y);
+        }
+        
         // float[] probabilities = { 0.5f, 0.45f, 0.05f };
         // float randomValue = Random.value;
         // int n = 0;
