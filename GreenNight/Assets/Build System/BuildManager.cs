@@ -5,7 +5,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class BuildManager : MonoBehaviour
-{
+{   
+    public static BuildManager Instance { get; private set; }
     [Header("Resources")]
     public int steel;
     public TextMeshProUGUI steelDisplay;
@@ -17,11 +18,26 @@ public class BuildManager : MonoBehaviour
     public TextMeshProUGUI fuelDisplay;
     public int ammo;
     public TextMeshProUGUI ammoDisplay;
+    public int npc;
+    public TextMeshProUGUI npcDisplay;
     [Header("Scipt")]
+    public Building building;
     public Building buildingToPlace;
     public CustomCursor customCursor;
     public GameObject grid;
     public Tile[] tiles;
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
     public void UpdateResoureDisplay()
     {
         steelDisplay.text = steel.ToString();
@@ -29,6 +45,7 @@ public class BuildManager : MonoBehaviour
         foodDisplay.text = food.ToString();
         fuelDisplay.text = fuel.ToString();
         ammoDisplay.text = ammo.ToString();
+        npcDisplay.text = npc.ToString();
     }
     // Update is called once per frame
     void Update()
@@ -97,29 +114,30 @@ public class BuildManager : MonoBehaviour
                 food += buildingToPlace.foodCost;
                 fuel += buildingToPlace.fuelCost;
                 ammo += buildingToPlace.ammoCost;
+                npc += buildingToPlace.npcCost;
                 buildingToPlace = null;
             }
             UIUpdateAfterBuildOrCancelBuild();
         }
     }
-
+    
     public void UIUpdateAfterBuildOrCancelBuild()
     {
         customCursor.gameObject.SetActive(false);
         Cursor.visible = true;
         grid.SetActive(false);
     }
-    public void BuyBuilding(Building building)
+    public void BuyBuilding()
     {
         if (steel >= building.steelCost && plank >= building.plankCost && food >= building.foodCost
-        && fuel >= building.fuelCost && ammo >= building.ammoCost)
+        && fuel >= building.fuelCost && ammo >= building.ammoCost && npc >= building.npcCost)
         {
             steel -= building.steelCost;
             plank -= building.plankCost;
             food -= building.foodCost;
             fuel -= building.fuelCost;
             ammo -= building.ammoCost;
-
+            npc -= building.npcCost;
             // มีภาพลากตามเมาส์ 
             Cursor.visible = false;
             customCursor.gameObject.SetActive(true);
