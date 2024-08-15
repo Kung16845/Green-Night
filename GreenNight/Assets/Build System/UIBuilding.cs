@@ -17,7 +17,7 @@ public class UIBuilding : MonoBehaviour
     {
         textNameBuild.text = building.nameBuild;
         textDescriveBuild.text = building.detailBuild;
-        image.sprite = building.GetComponent<Sprite>();
+        image.sprite = building.GetComponent<SpriteRenderer>().sprite;
         buildManager.building = building;
     }
 }
