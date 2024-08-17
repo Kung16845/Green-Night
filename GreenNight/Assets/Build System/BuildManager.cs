@@ -25,6 +25,7 @@ public class BuildManager : MonoBehaviour
     public Building buildingToPlace;
     public CustomCursor customCursor;
     public GameObject grid;
+    public GameObject uIBuilding;
     public Tile[] tiles;
     private void Awake()
     {
@@ -128,7 +129,8 @@ public class BuildManager : MonoBehaviour
         grid.SetActive(false);
     }
     public void BuyBuilding()
-    {
+    {   
+        
         if (steel >= building.steelCost && plank >= building.plankCost && food >= building.foodCost
         && fuel >= building.fuelCost && ammo >= building.ammoCost && npc >= building.npcCost)
         {
@@ -144,7 +146,9 @@ public class BuildManager : MonoBehaviour
             customCursor.GetComponent<SpriteRenderer>().sprite = building.GetComponent<SpriteRenderer>().sprite;
             //
             buildingToPlace = building;
+            uIBuilding.SetActive(false);
             grid.SetActive(true);
+
         }
     }
 }
