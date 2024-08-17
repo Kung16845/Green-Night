@@ -1,13 +1,8 @@
 using UnityEngine;
 using UnityEngine.Events;
 public class TimeManager : MonoBehaviour
-{
-    public int day;
-    [Range(0, 24)]
-    public int hour;
-    [Range(0, 6)]
-    public int minute;
-    public bool isHaveDayNight;
+{   
+    public SceneSystem sceneSystem1;
     public DateTime dateTime;
     [Header("Tick Setting")]
     public int tickSeconedIncrease = 10;
@@ -16,10 +11,13 @@ public class TimeManager : MonoBehaviour
     public static UnityAction<DateTime> OnDateTimeChanged;
     private void Awake()
     {
-        dateTime = new DateTime(day, hour, minute * 10,isHaveDayNight);
+        dateTime = new DateTime(0, 0, 0, false,sceneSystem1);
         dateTime.SetTimeStartDay();
     }
-   
+    public void SetDayNIght()
+    {
+        dateTime.isDayNight = true;
+    }
     private void Start()
     {
         OnDateTimeChanged?.Invoke(dateTime);
@@ -27,7 +25,7 @@ public class TimeManager : MonoBehaviour
     private void Update()
     {
         currentTimeBetweenTricks += Time.deltaTime;
-        if(currentTimeBetweenTricks > timeBetweenTicks)
+        if (currentTimeBetweenTricks > timeBetweenTicks)
         {
             currentTimeBetweenTricks = 0;
             Tick();
@@ -49,12 +47,14 @@ public class DateTime
     public int hour;
     public int minutes;
     public bool isDayNight;
-    public DateTime(int day, int hour, int minutes,bool isHaveDayNight)
+    public SceneSystem sceneSystem;
+    public DateTime(int day, int hour, int minutes, bool isHaveDayNight, SceneSystem sceneSystem)
     {
         this.day = day;
         this.hour = hour;
         this.minutes = minutes;
         this.isDayNight = isHaveDayNight;
+        this.sceneSystem = sceneSystem;
     }
     public void SetTimeStartDay()
     {
@@ -68,44 +68,49 @@ public class DateTime
     }
     public void AdvanceMinutes(int secondToAdvanceBy)
     {
-        if(minutes + secondToAdvanceBy >= 60)
+        if (minutes + secondToAdvanceBy >= 60)
         {
             minutes = (minutes + secondToAdvanceBy) % 60;
             hour++;
             AdvanceDay();
         }
-        else 
+        else
         {
             minutes += secondToAdvanceBy;
         }
     }
-    
+
     public void AdvanceDay()
     {
-        if(!isDayNight)
+        if (!isDayNight)
         {
-            if(this.hour == 18 && this.minutes == 0)
+            if (this.hour == 18 && this.minutes == 0)
             {
                 SetTimeStartDay();
+                
                 this.day++;
             }
         }
-        else 
+        else
         {
-            
-            if(this.hour == 24 && this.minutes == 0)
-            {   
+
+            if (this.hour == 24 && this.minutes == 0)
+            {
                 this.hour = 0;
             }
-            else if(this.hour == 4 && this.minutes == 0)
+            else if (this.hour == 4 && this.minutes == 0)
             {
-                
+
                 this.isDayNight = false;
                 this.day++;
                 SetTimeStartDay();
+                sceneSystem.SwitchScene("TownBaseScene");
             }
-            else 
+            else
+            {   
                 SetTimeNightDay();
+                sceneSystem.SwitchScene("DefendSceneFare");
+            }   
         }
     }
 }
