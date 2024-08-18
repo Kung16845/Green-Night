@@ -30,3 +30,4 @@ public class UIBuilding : MonoBehaviour
         
     }
 }
+
