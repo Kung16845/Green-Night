@@ -29,7 +29,7 @@ public class Building : MonoBehaviour
         dateTime = timeManager.dateTime;
         finishDayBuildingTime += dateTime.day + numDayBuindingTime;
         spriteRenderer = GetComponent<SpriteRenderer>();
-        isBuilding =true;
+        isBuilding = true;
     }
     private void Update() 
     {
@@ -46,7 +46,7 @@ public class Building : MonoBehaviour
             spriteRenderer.color = Color.white;
             return;
         }
-        else 
+        else if(dateTime.day < finishDayBuildingTime)
         {   
             Debug.Log("Is Building");
             spriteRenderer.color = Color.yellow;
