@@ -12,7 +12,7 @@ public class Building : MonoBehaviour
     public int fuelCost;
     public int ammoCost;
     public int npcCost;
-    public int numDayBuindingTime;
+    public int dayCost;
     public int finishDayBuildingTime;
     public bool isBuildingLarge;
     public bool isBuildingMedium;
@@ -27,7 +27,7 @@ public class Building : MonoBehaviour
         timeManager = FindObjectOfType<TimeManager>();
         buildManager = FindObjectOfType<BuildManager>();
         dateTime = timeManager.dateTime;
-        finishDayBuildingTime += dateTime.day + numDayBuindingTime;
+        finishDayBuildingTime += dateTime.day + dayCost;
         spriteRenderer = GetComponent<SpriteRenderer>();
         isBuilding = true;
     }
