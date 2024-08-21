@@ -22,6 +22,7 @@ public class Building : MonoBehaviour
     public DateTime dateTime;
     public SpriteRenderer spriteRenderer;
     public BuildManager buildManager;
+    public bool isfinsih;
     private void Start() 
     {
         timeManager = FindObjectOfType<TimeManager>();
@@ -30,6 +31,8 @@ public class Building : MonoBehaviour
         finishDayBuildingTime += dateTime.day + dayCost;
         spriteRenderer = GetComponent<SpriteRenderer>();
         isBuilding = true;
+        isfinsih = false;
+
     }
     private void Update() 
     {
@@ -44,6 +47,7 @@ public class Building : MonoBehaviour
             isBuilding = false;
             buildManager.npc += npcCost;
             spriteRenderer.color = Color.white;
+            isfinsih = true;
             return;
         }
         else if(dateTime.day < finishDayBuildingTime)

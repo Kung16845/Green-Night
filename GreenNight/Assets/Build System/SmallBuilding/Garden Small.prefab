@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9026928260892753525}
   - component: {fileID: 3446403083643831181}
   - component: {fileID: 2190436421147607673}
+  - component: {fileID: 6534951269304189992}
   m_Layer: 0
   m_Name: Garden Small
   m_TagString: Untagged
@@ -120,3 +121,27 @@ MonoBehaviour:
     sceneSystem: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buildManager: {fileID: 0}
+  isfinsih: 0
+--- !u!114 &6534951269304189992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7655338572965771469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27d832216b853de4d848643135c544d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeManager: {fileID: 0}
+  dateTime:
+    day: 0
+    hour: 0
+    minutes: 0
+    isDayNight: 0
+    sceneSystem: {fileID: 0}
+  buildManager: {fileID: 0}
+  building: {fileID: 0}
+  foodgainperday: 2
+  currentday: 0
