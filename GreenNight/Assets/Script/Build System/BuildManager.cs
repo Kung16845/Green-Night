@@ -127,6 +127,7 @@ public class BuildManager : MonoBehaviour
         customCursor.gameObject.SetActive(false);
         Cursor.visible = true;
         grid.SetActive(false);
+        uIBuilding.SetActive(true);
     }
     public void BuyBuilding()
     {   
