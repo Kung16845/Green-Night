@@ -40,7 +40,7 @@ public class Building : MonoBehaviour
     }
     public void WaitBuilding()
     {      
-        Debug.Log("WaitBuilding");
+        // Debug.Log("WaitBuilding");
         
         if(dateTime.day >= finishDayBuildingTime && isBuilding)
         {   
@@ -52,7 +52,7 @@ public class Building : MonoBehaviour
         }
         else if(dateTime.day < finishDayBuildingTime)
         {   
-            Debug.Log("Is Building");
+            // Debug.Log("Is Building");
             spriteRenderer.color = Color.yellow;
         }
     }

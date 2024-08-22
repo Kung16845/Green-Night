@@ -54,7 +54,7 @@ public class BuildManager : MonoBehaviour
         UpdateResoureDisplay();
         if (buildingToPlace != null)
         {
-            Debug.Log("Check area plce");
+            // Debug.Log("Check area plce");
             foreach (Tile tile in tiles)
             {
                 if (tile.isTileLarge == true && buildingToPlace.isBuildingLarge == true)
@@ -93,7 +93,7 @@ public class BuildManager : MonoBehaviour
                     nearstDistance = dist;
                     nearstTile = tile;
                 }
-                Debug.Log("Check area buy");
+                // Debug.Log("Check area buy");
 
             }
             if (nearstTile.isOccupied == false && nearstTile.gameObject.activeSelf == true && buildingToPlace != null)

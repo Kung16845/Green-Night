@@ -17,19 +17,24 @@ public class UpgradeBuilding : MonoBehaviour
     public int dayCost;
     public int finishDayBuildingTime;
     public bool isBuilding;
+    public UpgradeUi upgradeUi;
     public TimeManager timeManager;
     public DateTime dateTime;
     public SpriteRenderer spriteRenderer;
     public BuildManager buildManager;
-    public GameObject UpgradeUi; // Change to GameObject
+    public Building building;
+    public UImanger uImanger; // Change to GameObject
     public bool isfinsih;
 
     void Awake()
     {
+        uImanger = FindObjectOfType<UImanger>();
+        // UpgradeUI = FindObjectOfType<UpgradeUi>().gameObject;
         timeManager = FindObjectOfType<TimeManager>();
         buildManager = FindObjectOfType<BuildManager>();
         dateTime = timeManager.dateTime;
         finishDayBuildingTime += dateTime.day + dayCost;
+        building = GetComponent<Building>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         isBuilding = true;
         isfinsih = false;
@@ -37,13 +42,11 @@ public class UpgradeBuilding : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (UpgradeUi != null) // Check if UpgradeUi is assigned
+        if(building.isfinsih)
         {
-            UpgradeUi.SetActive(true);
-        }
-        else
-        {
-            Debug.LogWarning("UpgradeUi is not assigned in the Inspector!");
+            uImanger.ActiveUpgradeUI();
+            upgradeUi = FindObjectOfType<UpgradeUi>();
+            upgradeUi.Initialize(this);
         }
     }
 }

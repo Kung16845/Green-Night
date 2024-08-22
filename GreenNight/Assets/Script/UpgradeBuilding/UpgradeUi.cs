@@ -5,7 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 public class UpgradeUi : MonoBehaviour
 {
-    public UpgradeBuilding building;
+    public UpgradeBuilding currentBuildingScript;
+    public BuildManager buildManager;
     public Image image;
     public GameObject Waterimage;
     public GameObject Electiciteisimage;
@@ -17,16 +18,40 @@ public class UpgradeUi : MonoBehaviour
     public TextMeshProUGUI textNpcCost;
     public TextMeshProUGUI textDayCost;
 
+    void Awake()
+    {
+        buildManager = FindObjectOfType<BuildManager>();
+    }
+
+    public void Initialize(UpgradeBuilding upgradeBuilding)
+    {
+        currentBuildingScript = upgradeBuilding;
+        SetDataUpgrade();
+    }
     public void SetDataUpgrade()
     {
-        textNameBuild.text = building.nameBuild;
-        textDescriveBuild.text = building.detailBuild;
-        textPlankCost.text = building.plankCost.ToString();
-        textSteelCost.text = building.steelCost.ToString();
-        textNpcCost.text = building.npcCost.ToString();
-        textDayCost.text = building.dayCost.ToString();
-        image.sprite = building.GetComponent<SpriteRenderer>().sprite;
-        Waterimage.SetActive(building.isneedwater);
-        Electiciteisimage.SetActive(building.isneedElecticities);
+        // textNameBuild.text = building.nameBuild;
+        // textDescriveBuild.text = building.detailBuild;
+        textPlankCost.text = currentBuildingScript.plankCost.ToString();
+        textSteelCost.text = currentBuildingScript.steelCost.ToString();
+        textNpcCost.text = currentBuildingScript.npcCost.ToString();
+        textDayCost.text = currentBuildingScript.dayCost.ToString();
+        // image.sprite = building.GetComponent<SpriteRenderer>().sprite;
+        Waterimage.SetActive(currentBuildingScript.isneedwater);
+        Electiciteisimage.SetActive(currentBuildingScript.isneedElecticities);
+    }
+    void OnDisable()
+    {
+        // Clear the reference when the UI is hidden (optional)
+        currentBuildingScript = null;
+    }
+    public void ComfirmUpgrade()
+    {
+        if (buildManager.steel >= currentBuildingScript.steelCost && buildManager.plank >= currentBuildingScript.plankCost && buildManager.npc >= currentBuildingScript.npcCost)
+        {
+            buildManager.steel -= currentBuildingScript.steelCost;
+            buildManager.plank -= currentBuildingScript.plankCost;
+            buildManager.npc -= currentBuildingScript.npcCost;
+        }
     }
 }
