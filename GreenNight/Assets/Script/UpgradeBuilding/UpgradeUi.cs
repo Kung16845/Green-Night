@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class UpgradeUi : MonoBehaviour
 {
     public UpgradeBuilding currentBuildingScript;
@@ -30,28 +31,63 @@ public class UpgradeUi : MonoBehaviour
         currentBuildingScript = upgradeBuilding;
         SetDataUpgrade();
     }
+
     public void SetDataUpgrade()
     {
-        // textNameBuild.text = building.nameBuild;
-        // textDescriveBuild.text = building.detailBuild;
         textPlankCost.text = currentBuildingScript.plankCost.ToString();
         textSteelCost.text = currentBuildingScript.steelCost.ToString();
         textNpcCost.text = currentBuildingScript.npcCost.ToString();
         textDayCost.text = currentBuildingScript.dayCost.ToString();
-        // image.sprite = building.GetComponent<SpriteRenderer>().sprite;
         Waterimage.SetActive(currentBuildingScript.isneedwater);
         Electiciteisimage.SetActive(currentBuildingScript.isneedElecticities);
     }
+
     void OnDisable()
     {
-        // Clear the reference when the UI is hidden (optional)
         currentBuildingScript = null;
     }
+
+    // New helper method to check if all required conditions are met
+    private bool AreUpgradeConditionsMet()
+    {
+        // List of conditions to check
+        var conditions = new List<(bool condition, string failMessage)>
+        {
+            // Condition 1: If water is needed, check if it's active
+            (!currentBuildingScript.isneedwater || buildManager.iswateractive, 
+            "Water is required but not active."),
+            
+            // Condition 2: If electricity is needed, check if it's active
+            (!currentBuildingScript.isneedElecticities || buildManager.iselecticitiesactive, 
+            "Electricity is required but not active."),
+        };
+
+        // Check all conditions
+        foreach (var (condition, failMessage) in conditions)
+        {
+            if (!condition)
+            {
+                Debug.Log(failMessage);
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    // New helper method to check if resources are sufficient
+    private bool AreResourcesSufficient()
+    {
+        return buildManager.steel >= currentBuildingScript.steelCost &&
+               buildManager.plank >= currentBuildingScript.plankCost &&
+               buildManager.npc >= currentBuildingScript.npcCost;
+    }
+
     public void ComfirmUpgrade()
     {
-        if(currentBuildingScript.isneedwater && buildManager.iswateractive)
+        if (AreUpgradeConditionsMet())
         {
-            if (buildManager.steel >= currentBuildingScript.steelCost && buildManager.plank >= currentBuildingScript.plankCost && buildManager.npc >= currentBuildingScript.npcCost)
+            if (AreResourcesSufficient())
             {
                 buildManager.steel -= currentBuildingScript.steelCost;
                 buildManager.plank -= currentBuildingScript.plankCost;
@@ -59,21 +95,10 @@ public class UpgradeUi : MonoBehaviour
                 currentBuildingScript.isBuilding = true;
                 uImanger.DisableUpgradeUI();
             }
-        }
-        else if(!currentBuildingScript.isneedwater && buildManager.iswateractive)
-        {
-            if (buildManager.steel >= currentBuildingScript.steelCost && buildManager.plank >= currentBuildingScript.plankCost && buildManager.npc >= currentBuildingScript.npcCost)
+            else
             {
-                buildManager.steel -= currentBuildingScript.steelCost;
-                buildManager.plank -= currentBuildingScript.plankCost;
-                buildManager.npc -= currentBuildingScript.npcCost;
-                currentBuildingScript.isBuilding = true;
-                uImanger.DisableUpgradeUI();
+                Debug.Log("Not enough resources to upgrade.");
             }
-        }
-        else if(currentBuildingScript.isneedwater && !buildManager.iswateractive)
-        {
-            Debug.Log("Can't upgrade");
         }
     }
 }

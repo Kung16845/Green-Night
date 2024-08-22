@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 9026928260892753525}
   - component: {fileID: 3446403083643831181}
   - component: {fileID: 2190436421147607673}
+  - component: {fileID: 6206519893476788189}
+  - component: {fileID: 43814626846735988}
+  - component: {fileID: 6862267510454491016}
   m_Layer: 0
   m_Name: Solar Small
   m_TagString: Untagged
@@ -120,3 +123,108 @@ MonoBehaviour:
     sceneSystem: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buildManager: {fileID: 0}
+  isfinsih: 0
+--- !u!114 &6206519893476788189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7655338572965771469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44970f71bc3e31c42ba4f915ebf46baf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildManager: {fileID: 0}
+  building: {fileID: 0}
+  timeManager: {fileID: 0}
+  upgradeBuilding: {fileID: 0}
+  dateTime:
+    day: 0
+    hour: 0
+    minutes: 0
+    isDayNight: 0
+    sceneSystem: {fileID: 0}
+  currentday: 0
+  steelCost: 1
+--- !u!114 &43814626846735988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7655338572965771469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83bad588e134a3f4692eef30d28ea68a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameBuild: 
+  detailBuild: 
+  steelCost: 5
+  plankCost: 10
+  isneedwater: 0
+  isneedElecticities: 0
+  npcCost: 1
+  dayCost: 1
+  finishDayBuildingTime: 0
+  isBuilding: 0
+  upgradeUi: {fileID: 0}
+  timeManager: {fileID: 0}
+  dateTime:
+    day: 0
+    hour: 0
+    minutes: 0
+    isDayNight: 0
+    sceneSystem: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  buildManager: {fileID: 0}
+  building: {fileID: 0}
+  uImanger: {fileID: 0}
+  isfinsih: 0
+--- !u!61 &6862267510454491016
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7655338572965771469}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 4, y: 3.6}
+    newSize: {x: 5, y: 5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 4, y: 3.6}
+  m_EdgeRadius: 0
