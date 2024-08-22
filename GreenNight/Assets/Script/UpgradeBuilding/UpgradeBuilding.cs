@@ -36,17 +36,39 @@ public class UpgradeBuilding : MonoBehaviour
         finishDayBuildingTime += dateTime.day + dayCost;
         building = GetComponent<Building>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        isBuilding = true;
+        isBuilding = false;
         isfinsih = false;
+    }
+    void Update()
+    {
+        if(isBuilding)
+        {
+        WaitUpgrade();
+        }
     }
 
     void OnMouseDown()
     {
-        if(building.isfinsih)
+        if(building.isfinsih && !isfinsih && !isBuilding)
         {
             uImanger.ActiveUpgradeUI();
             upgradeUi = FindObjectOfType<UpgradeUi>();
             upgradeUi.Initialize(this);
+        }
+    }
+    void WaitUpgrade()
+    {      
+        if(dateTime.day >= finishDayBuildingTime && isBuilding)
+        {   
+            buildManager.npc += npcCost;
+            spriteRenderer.color = Color.white;
+            isfinsih = true;
+            isBuilding = false;
+            return;
+        }
+        else if(dateTime.day < finishDayBuildingTime)
+        {   
+            spriteRenderer.color = Color.yellow;
         }
     }
 }

@@ -9,4 +9,8 @@ public class UImanger : MonoBehaviour
     {
         UpgradeUI.SetActive(true);
     }
+    public void DisableUpgradeUI()
+    {
+        UpgradeUI.SetActive(false);
+    }
 }

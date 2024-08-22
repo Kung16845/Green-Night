@@ -21,6 +21,8 @@ public class BuildManager : MonoBehaviour
     public int npc;
     public TextMeshProUGUI npcDisplay;
     [Header("Scipt")]
+    public bool iswateractive;
+    public bool iselecticitiesactive;
     public Building building;
     public Building buildingToPlace;
     public CustomCursor customCursor;

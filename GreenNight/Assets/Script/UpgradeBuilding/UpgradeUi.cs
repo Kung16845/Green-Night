@@ -7,6 +7,7 @@ public class UpgradeUi : MonoBehaviour
 {
     public UpgradeBuilding currentBuildingScript;
     public BuildManager buildManager;
+    public UImanger uImanger; 
     public Image image;
     public GameObject Waterimage;
     public GameObject Electiciteisimage;
@@ -21,6 +22,7 @@ public class UpgradeUi : MonoBehaviour
     void Awake()
     {
         buildManager = FindObjectOfType<BuildManager>();
+        uImanger = FindObjectOfType<UImanger>();
     }
 
     public void Initialize(UpgradeBuilding upgradeBuilding)
@@ -47,11 +49,31 @@ public class UpgradeUi : MonoBehaviour
     }
     public void ComfirmUpgrade()
     {
-        if (buildManager.steel >= currentBuildingScript.steelCost && buildManager.plank >= currentBuildingScript.plankCost && buildManager.npc >= currentBuildingScript.npcCost)
+        if(currentBuildingScript.isneedwater && buildManager.iswateractive)
         {
-            buildManager.steel -= currentBuildingScript.steelCost;
-            buildManager.plank -= currentBuildingScript.plankCost;
-            buildManager.npc -= currentBuildingScript.npcCost;
+            if (buildManager.steel >= currentBuildingScript.steelCost && buildManager.plank >= currentBuildingScript.plankCost && buildManager.npc >= currentBuildingScript.npcCost)
+            {
+                buildManager.steel -= currentBuildingScript.steelCost;
+                buildManager.plank -= currentBuildingScript.plankCost;
+                buildManager.npc -= currentBuildingScript.npcCost;
+                currentBuildingScript.isBuilding = true;
+                uImanger.DisableUpgradeUI();
+            }
+        }
+        else if(!currentBuildingScript.isneedwater && buildManager.iswateractive)
+        {
+            if (buildManager.steel >= currentBuildingScript.steelCost && buildManager.plank >= currentBuildingScript.plankCost && buildManager.npc >= currentBuildingScript.npcCost)
+            {
+                buildManager.steel -= currentBuildingScript.steelCost;
+                buildManager.plank -= currentBuildingScript.plankCost;
+                buildManager.npc -= currentBuildingScript.npcCost;
+                currentBuildingScript.isBuilding = true;
+                uImanger.DisableUpgradeUI();
+            }
+        }
+        else if(currentBuildingScript.isneedwater && !buildManager.iswateractive)
+        {
+            Debug.Log("Can't upgrade");
         }
     }
 }
