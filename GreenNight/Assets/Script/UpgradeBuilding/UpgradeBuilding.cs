@@ -33,17 +33,16 @@ public class UpgradeBuilding : MonoBehaviour
         timeManager = FindObjectOfType<TimeManager>();
         buildManager = FindObjectOfType<BuildManager>();
         dateTime = timeManager.dateTime;
-        finishDayBuildingTime += dateTime.day + dayCost;
         building = GetComponent<Building>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         isBuilding = false;
         isfinsih = false;
     }
-    void Update()
+    void LateUpdate()
     {
         if(isBuilding)
         {
-        WaitUpgrade();
+            WaitUpgrade();
         }
     }
 
@@ -64,6 +63,7 @@ public class UpgradeBuilding : MonoBehaviour
             spriteRenderer.color = Color.white;
             isfinsih = true;
             isBuilding = false;
+            Debug.Log("Upgraded");
             return;
         }
         else if(dateTime.day < finishDayBuildingTime)

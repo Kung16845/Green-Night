@@ -8,6 +8,8 @@ public class UpgradeUi : MonoBehaviour
 {
     public UpgradeBuilding currentBuildingScript;
     public BuildManager buildManager;
+    public DateTime dateTime;
+    public TimeManager timeManager;
     public UImanger uImanger; 
     public Image image;
     public GameObject Waterimage;
@@ -23,7 +25,12 @@ public class UpgradeUi : MonoBehaviour
     void Awake()
     {
         buildManager = FindObjectOfType<BuildManager>();
+        timeManager = FindObjectOfType<TimeManager>();
         uImanger = FindObjectOfType<UImanger>();
+    }
+    void Start()
+    {
+        dateTime = timeManager.dateTime;
     }
 
     public void Initialize(UpgradeBuilding upgradeBuilding)
@@ -93,6 +100,7 @@ public class UpgradeUi : MonoBehaviour
                 buildManager.plank -= currentBuildingScript.plankCost;
                 buildManager.npc -= currentBuildingScript.npcCost;
                 currentBuildingScript.isBuilding = true;
+                currentBuildingScript.finishDayBuildingTime += dateTime.day + currentBuildingScript.dayCost;
                 uImanger.DisableUpgradeUI();
             }
             else

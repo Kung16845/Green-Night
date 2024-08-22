@@ -6,14 +6,42 @@ public class Waterpump : MonoBehaviour
 {
     public BuildManager buildManager;
     public Building building;
+    public TimeManager timeManager;
+    public UpgradeBuilding upgradeBuilding;
+    public DateTime dateTime;
+    public int currentday;
+    public int FuelCost;
     void Start()
     {
+        timeManager = FindObjectOfType<TimeManager>();
         buildManager = FindObjectOfType<BuildManager>();
+        upgradeBuilding = FindObjectOfType<UpgradeBuilding>();
         building = GetComponent<Building>();
+        dateTime = timeManager.dateTime;
+        currentday = dateTime.day;
     }
     void Update()
     {
-        Activewater();
+        if(currentday != dateTime.day)
+        {
+            if(!upgradeBuilding.isfinsih)
+            {
+                if(buildManager.fuel >= FuelCost)
+                {
+                    buildManager.fuel -= FuelCost;
+                    Activewater();
+                }
+                else if(buildManager.fuel < FuelCost)
+                {
+                    DeactiveWater();
+                }
+            }
+            else if(upgradeBuilding.isfinsih)
+            {
+                Activewater();
+            }
+            currentday = dateTime.day;  
+        }
     }
     void Activewater()
     {
@@ -21,5 +49,9 @@ public class Waterpump : MonoBehaviour
         {
             buildManager.iswateractive = true;
         }
+    }
+     void DeactiveWater()
+    {
+        buildManager.iswateractive = false;
     }
 }

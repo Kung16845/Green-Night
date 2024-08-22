@@ -26,12 +26,12 @@ public class Solar : MonoBehaviour
         {
             if(!upgradeBuilding.isfinsih)
             {
-                if(buildManager.fuel >= steelCost)
+                if(buildManager.steel >= steelCost)
                 {
-                    buildManager.fuel -= steelCost;
+                    buildManager.steel -= steelCost;
                     ActiveElecticities();
                 }
-                else if(buildManager.fuel < steelCost)
+                else if(buildManager.steel < steelCost)
                 {
                     DeactiveElecticities();
                 }
