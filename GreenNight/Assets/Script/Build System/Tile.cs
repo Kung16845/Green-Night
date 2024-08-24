@@ -23,7 +23,7 @@ public class Tile : MonoBehaviour
         }
         else 
         {   
-            Debug.Log("Grean Color");
+            // Debug.Log("Grean Color");
             rend.color = greenColor;
         }
     }

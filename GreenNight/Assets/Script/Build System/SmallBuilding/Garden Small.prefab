@@ -162,12 +162,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameBuild: 
   detailBuild: 
-  steelCost: 0
-  plankCost: 0
-  npcCost: 0
-  dayCost: 0
+  steelCost: 5
+  plankCost: 10
+  isneedwater: 1
+  isneedElecticities: 0
+  npcCost: 1
+  dayCost: 2
   finishDayBuildingTime: 0
   isBuilding: 0
+  upgradeUi: {fileID: 0}
   timeManager: {fileID: 0}
   dateTime:
     day: 0
@@ -177,6 +180,7 @@ MonoBehaviour:
     sceneSystem: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buildManager: {fileID: 0}
+  uImanger: {fileID: 0}
   isfinsih: 0
 --- !u!61 &-6672396067321963644
 BoxCollider2D:

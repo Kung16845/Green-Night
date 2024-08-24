@@ -21,6 +21,8 @@ public class BuildManager : MonoBehaviour
     public int npc;
     public TextMeshProUGUI npcDisplay;
     [Header("Scipt")]
+    public bool iswateractive;
+    public bool iselecticitiesactive;
     public Building building;
     public Building buildingToPlace;
     public CustomCursor customCursor;
@@ -54,7 +56,7 @@ public class BuildManager : MonoBehaviour
         UpdateResoureDisplay();
         if (buildingToPlace != null)
         {
-            Debug.Log("Check area plce");
+            // Debug.Log("Check area plce");
             foreach (Tile tile in tiles)
             {
                 if (tile.isTileLarge == true && buildingToPlace.isBuildingLarge == true)
@@ -93,7 +95,7 @@ public class BuildManager : MonoBehaviour
                     nearstDistance = dist;
                     nearstTile = tile;
                 }
-                Debug.Log("Check area buy");
+                // Debug.Log("Check area buy");
 
             }
             if (nearstTile.isOccupied == false && nearstTile.gameObject.activeSelf == true && buildingToPlace != null)
@@ -127,6 +129,7 @@ public class BuildManager : MonoBehaviour
         customCursor.gameObject.SetActive(false);
         Cursor.visible = true;
         grid.SetActive(false);
+        uIBuilding.SetActive(true);
     }
     public void BuyBuilding()
     {   
