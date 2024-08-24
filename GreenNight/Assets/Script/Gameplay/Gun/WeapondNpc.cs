@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeapondNpc : Weapond
+public class WeapondNpc : Weapon
 {
     public List<Zombie> listZombiesInRanageAttack;
     public Zombie targetAttack;
