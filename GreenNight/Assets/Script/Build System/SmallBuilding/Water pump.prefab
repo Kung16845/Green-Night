@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 9026928260892753525}
   - component: {fileID: 3446403083643831181}
   - component: {fileID: 2190436421147607673}
+  - component: {fileID: -1403080695954312902}
+  - component: {fileID: 4376539036384696863}
+  - component: {fileID: -489717814226675011}
   m_Layer: 0
   m_Name: Water pump
   m_TagString: Untagged
@@ -121,3 +124,108 @@ MonoBehaviour:
     sceneSystem: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buildManager: {fileID: 0}
+  isfinsih: 0
+--- !u!114 &-1403080695954312902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7655338572965771469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36a67692019bf42479d66b8dd89ec5c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildManager: {fileID: 0}
+  building: {fileID: 0}
+  timeManager: {fileID: 0}
+  upgradeBuilding: {fileID: 0}
+  dateTime:
+    day: 0
+    hour: 0
+    minutes: 0
+    isDayNight: 0
+    sceneSystem: {fileID: 0}
+  currentday: 0
+  FuelCost: 2
+--- !u!61 &4376539036384696863
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7655338572965771469}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.0553056}
+  m_SpriteTilingProperty:
+    border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.16, y: 0.16}
+    newSize: {x: 5, y: 5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.4544479, y: 1.4544477}
+  m_EdgeRadius: 0
+--- !u!114 &-489717814226675011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7655338572965771469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83bad588e134a3f4692eef30d28ea68a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameBuild: 
+  detailBuild: 
+  steelCost: 5
+  plankCost: 10
+  isneedwater: 0
+  isneedElecticities: 0
+  npcCost: 1
+  dayCost: 1
+  finishDayBuildingTime: 0
+  isBuilding: 0
+  upgradeUi: {fileID: 0}
+  timeManager: {fileID: 0}
+  dateTime:
+    day: 0
+    hour: 0
+    minutes: 0
+    isDayNight: 0
+    sceneSystem: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  buildManager: {fileID: 0}
+  building: {fileID: 0}
+  uImanger: {fileID: 0}
+  isfinsih: 0
