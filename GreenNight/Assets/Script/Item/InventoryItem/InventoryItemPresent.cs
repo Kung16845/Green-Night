@@ -69,8 +69,8 @@ public class InventoryItemPresent : MonoBehaviour
     public void RemoveItem(ItemData itemDataRemove)
     {
 
-        ItemData itemDataInList = listItemsData.FirstOrDefault(item => item.idItem == itemDataRemove.idItem);
-        itemDataInList.count--;
+        ItemData itemDataInList = listItemsData.LastOrDefault(item => item.idItem == itemDataRemove.idItem);
+        itemDataInList.count -= itemDataRemove.count;
         if (itemDataInList.count <= 0)
         {
             listItemsData.Remove(itemDataInList);
