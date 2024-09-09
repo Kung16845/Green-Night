@@ -23,9 +23,10 @@ public class Weapon : MonoBehaviour
     [SerializeField] public bool isReloading = false;
     [SerializeField] private bool isNpc;
     private float initialAccuracy;
-    private float accuracyPenalty = 0f; // Additional penalty to accuracy based on stability
+    public float accuracyPenalty; // Additional penalty to accuracy based on stability
     private PlayerMovement playerMovement;
-    private int shotsFiredConsecutively = 0; // Tracks the number of consecutive shots fired
+    public int shotsFiredConsecutively = 0; // Tracks the number of consecutive shots fired
+    private bool isFiring; 
 
     // References
     public Transform firePoint; // Point from where bullets are fired
@@ -44,22 +45,24 @@ public class Weapon : MonoBehaviour
     {
         if (isReloading) return;
 
+        // Check if the mouse button is being held down
+        isFiring = Input.GetMouseButton(0);
+
         if (fullAuto)
         {
-            if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
+            if (isFiring && Time.time >= nextFireTime)
             {
                 Shoot();
                 nextFireTime = Time.time + fireRate;
-
                 shotsFiredConsecutively++;
                 if (shotsFiredConsecutively >= stabilityThreshold)
                 {
                     ApplyStabilityPenalty();
                 }
             }
-            else
+            else if (!isFiring)
             {
-                RecoverAccuracy();
+                RecoverAccuracy(); // Only recover accuracy if the mouse button is released
             }
         }
         else
@@ -75,9 +78,9 @@ public class Weapon : MonoBehaviour
                     ApplyStabilityPenalty();
                 }
             }
-            else
+            else if (!isFiring)
             {
-                RecoverAccuracy();
+                RecoverAccuracy(); // Only recover accuracy if the mouse button is released
             }
         }
 
@@ -163,23 +166,29 @@ public class Weapon : MonoBehaviour
     private float GetAccuracyFactor()
     {
         // Determine accuracy factor based on the accuracy value
+        float baseAccuracy;
         if (accuracy <= 30)
         {
-            return 0.60f; // 60% accuracy
+            baseAccuracy = 0.60f; // 60% accuracy
         }
         else if (accuracy <= 60)
         {
-            return 0.60f + (0.65f - 0.60f) * ((accuracy - 30) / 20f); // Interpolate between 60% and 65%
+            baseAccuracy = 0.60f + (0.65f - 0.60f) * ((accuracy - 30) / 30f); // Interpolate between 60% and 65%
         }
         else if (accuracy <= 80)
         {
-            return 0.65f + (0.75f - 0.65f) * ((accuracy - 60) / 20f); // Interpolate between 65% and 75%
+            baseAccuracy = 0.65f + (0.75f - 0.65f) * ((accuracy - 60) / 20f); // Interpolate between 65% and 75%
         }
         else
         {
-            return 0.75f + (1.0f - 0.75f) * ((accuracy - 80) / 20f); // Interpolate between 75% and 100%
+            baseAccuracy = 0.75f + (1.0f - 0.75f) * ((accuracy - 80) / 20f); // Interpolate between 75% and 100%
         }
+
+        // Adjust the accuracy based on the penalty
+        float penaltyFactor = Mathf.Clamp01(accuracyPenalty / 25f); // Normalize penalty between 0 and 1
+        return baseAccuracy * (1 - penaltyFactor); // Reduce base accuracy by penalty factor
     }
+
 
 
     private void ApplyStabilityPenalty()
@@ -196,15 +205,16 @@ public class Weapon : MonoBehaviour
         }
         else if (stability <= 90)
         {
-            penaltyFactor = 0.125f - (0.125f * ((stability - 60) / 20f)); // Further reduce penalty between 60 and 80
+            penaltyFactor = 0.125f - (0.125f * ((stability - 60) / 30f)); // Further reduce penalty between 60 and 90
         }
         else
         {
             penaltyFactor = 0f; // No penalty at max stability
         }
-
+        Debug.Log(penaltyFactor);
         accuracyPenalty = Mathf.Min(25f, accuracyPenalty + (penaltyFactor * Time.deltaTime * 100f)); // Apply penalty based on the factor
     }
+
 
 
     private void RecoverAccuracy()
