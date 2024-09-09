@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InventoryItemPresent : MonoBehaviour
@@ -35,7 +36,7 @@ public class InventoryItemPresent : MonoBehaviour
         ItemData itemDataInList = listItemsData.FirstOrDefault(item => item.idItem == itemDataAdd.idItem && item.count != item.maxCount);
 
         if (itemDataInList != null)
-        {   
+        {
             int itemCount = itemDataInList.count + itemDataAdd.count;
             if (itemCount <= itemDataInList.maxCount)
             {
@@ -51,12 +52,12 @@ public class InventoryItemPresent : MonoBehaviour
                 newItemData.count = itemCount - itemDataInList.maxCount;
                 newItemData.maxCount = itemDataInList.maxCount;
                 newItemData.itemtype = itemDataInList.itemtype;
-            
+
                 listItemsData.Add(newItemData);
 
                 itemDataInList.count = itemDataInList.maxCount;
 
-                
+
             }
         }
         else
@@ -70,11 +71,19 @@ public class InventoryItemPresent : MonoBehaviour
     {
 
         ItemData itemDataInList = listItemsData.LastOrDefault(item => item.idItem == itemDataRemove.idItem);
-        itemDataInList.count -= itemDataRemove.count;
-        if (itemDataInList.count <= 0)
-        {
-            listItemsData.Remove(itemDataInList);
-        }
 
+        if (itemDataInList.count - itemDataRemove.count >= 0)
+        {
+            itemDataInList.count -= itemDataRemove.count;
+            if (itemDataInList.count == 0)
+            {
+                listItemsData.Remove(itemDataInList);
+            }
+        }
+        else 
+        {
+            //ถ้าไปเท็มในกล่องไม่พอให้ทำอะไร
+        }
+        RefreshUI();
     }
 }
