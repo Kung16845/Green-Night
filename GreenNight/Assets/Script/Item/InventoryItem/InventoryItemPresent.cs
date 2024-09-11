@@ -11,7 +11,7 @@ public class InventoryItemPresent : MonoBehaviour
     public Transform inventoryUI;
     private void Start()
     {
-        RefreshUI();
+        // RefreshUI();
     }
     public void RefreshUI()
     {
