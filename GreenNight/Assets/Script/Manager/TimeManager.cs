@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 public class TimeManager : MonoBehaviour
@@ -7,7 +8,7 @@ public class TimeManager : MonoBehaviour
     public SceneSystem sceneSystem1;
     public DateTime dateTime;
     [Header("Tick Setting")]
-    public int tickSeconedIncrease = 10;
+    public int tickSeconedIncrease;
     public float timeBetweenTicks = 1;
     public float currentTimeBetweenTricks = 0;
     public static UnityAction<DateTime> OnDateTimeChanged;
@@ -15,20 +16,10 @@ public class TimeManager : MonoBehaviour
     {
         dateTime = new DateTime(0, 0, 0, false, sceneSystem1);
         dateTime.SetTimeStartDay();
-        StartCoroutine(CountdownTime(1500));
-    }
-    public IEnumerator CountdownTime(int time)
-    {
-        float ratio = time / 1000f;
-        float timeInSeconds = ratio * 60;
+       
         
-        Debug.Log(timeInSeconds);
-        while (timeInSeconds > 0)
-        {
-            timeInSeconds -= 1;
-            yield return new WaitForSeconds(1f);
-        }
     }
+    
     public void SetDayNIght()
     {
         dateTime.isDayNight = true;
