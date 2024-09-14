@@ -1,19 +1,25 @@
+using System;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 public class TimeManager : MonoBehaviour
-{   
+{
     public SceneSystem sceneSystem1;
     public DateTime dateTime;
     [Header("Tick Setting")]
-    public int tickSeconedIncrease = 10;
+    public int tickSeconedIncrease;
     public float timeBetweenTicks = 1;
     public float currentTimeBetweenTricks = 0;
     public static UnityAction<DateTime> OnDateTimeChanged;
     private void Awake()
     {
-        dateTime = new DateTime(0, 0, 0, false,sceneSystem1);
+        dateTime = new DateTime(0, 0, 0, false, sceneSystem1);
         dateTime.SetTimeStartDay();
+       
+        
     }
+    
     public void SetDayNIght()
     {
         dateTime.isDayNight = true;
@@ -87,7 +93,7 @@ public class DateTime
             if (this.hour == 18 && this.minutes == 0)
             {
                 SetTimeStartDay();
-                
+
                 this.day++;
             }
         }
@@ -107,10 +113,10 @@ public class DateTime
                 sceneSystem.SwitchScene("TownBaseScene");
             }
             else
-            {   
+            {
                 SetTimeNightDay();
                 sceneSystem.SwitchScene("DefendSceneFare");
-            }   
+            }
         }
     }
 }

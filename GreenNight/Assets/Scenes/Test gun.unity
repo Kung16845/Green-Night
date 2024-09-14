@@ -238,18 +238,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e65d13d3058e4bc49a51c0df922a672f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rateOfFire: 400
-  handling: 20
-  accuracy: 66
-  capacity: 30
-  stability: 100
-  damage: 14
+  rateOfFire: 750
+  handling: 50
+  accuracy: 33
+  capacity: 100
+  stability: 61
+  damage: 33
   fullAuto: 1
+  isShotgun: 0
+  pellets: 12
+  spreadAngle: 45
+  stabilityThreshold: 15
   currentAmmo: 0
   fireRate: 0
   nextFireTime: 0
   isReloading: 0
   isNpc: 0
+  accuracyPenalty: 0
+  shotsFiredConsecutively: 0
   firePoint: {fileID: 177228543}
   bulletPrefab: {fileID: 1617540189290291661, guid: 24767a2c5fdcaf449bcb669d907ddf44, type: 3}
   bulletDirection: {x: 0, y: 0}
@@ -478,18 +484,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 022fbf8ba621bfc45957cba9d4f10d74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rateOfFire: 400
+  rateOfFire: 50
   handling: 50
   accuracy: 70
   capacity: 5
   stability: 100
-  damage: 20
+  damage: 12
   fullAuto: 0
+  isShotgun: 1
+  pellets: 12
+  spreadAngle: 30
+  stabilityThreshold: 5
   currentAmmo: 0
   fireRate: 0
   nextFireTime: 0
   isReloading: 0
   isNpc: 1
+  accuracyPenalty: 0
+  shotsFiredConsecutively: 0
   firePoint: {fileID: 1027179896}
   bulletPrefab: {fileID: 1617540189290291661, guid: 24767a2c5fdcaf449bcb669d907ddf44, type: 3}
   bulletDirection: {x: 0, y: 0}
@@ -528,6 +540,7 @@ MonoBehaviour:
   treatValue: 50
   prefabMonster:
   - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
+  transformBarrier: {fileID: 0}
 --- !u!4 &1179423596
 Transform:
   m_ObjectHideFlags: 0
@@ -793,6 +806,14 @@ PrefabInstance:
     - target: {fileID: 7793501274145667475, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8153986500931480031, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
+      propertyPath: maxHp
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8153986500931480031, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
+      propertyPath: maxSpeed
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8153986500931480031, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
       propertyPath: attackTimer
