@@ -7,8 +7,6 @@ using UnityEngine.UI;
 
 public class UIItemData : MonoBehaviour 
 {
-    
-   
     public TextMeshProUGUI count;
     public int idItem;
     public Itemtype itemtype;
