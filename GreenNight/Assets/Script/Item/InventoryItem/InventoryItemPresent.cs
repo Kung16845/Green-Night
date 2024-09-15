@@ -7,27 +7,33 @@ using UnityEngine;
 public class InventoryItemPresent : MonoBehaviour
 {
     public List<ItemData> listItemsData = new List<ItemData>();
-    public List<UIItemData> listUIItem;
-    public Transform inventoryUI;
+    public List<UIItemData> listUIItemPrefab;
+    public Transform transformsBoxes;
+
     private void Start()
     {
-        // RefreshUI();
+        RefreshUIBox();
     }
-    public void RefreshUI()
+    
+    public void RefreshUIBox()
     {
-        foreach (Transform child in inventoryUI)
+        foreach (Transform child in transformsBoxes)
         {
             Destroy(child.gameObject);
         }
-
+        
         foreach (ItemData itemData in listItemsData)
         {
-            GameObject uiItem = listUIItem.FirstOrDefault(idItem => idItem.idItem == itemData.idItem).gameObject;
-            Instantiate(uiItem, inventoryUI, false);
+            GameObject uiItem = listUIItemPrefab.FirstOrDefault(idItem => idItem.idItem == itemData.idItem).gameObject;
+            Instantiate(uiItem, transformsBoxes, false);
 
             UIItemData uIItemData = uiItem.GetComponent<UIItemData>();
             uIItemData.UpdateDataUI(itemData);
         }
+
+    }
+    public void Category()
+    {
 
     }
     public void AddItem(ItemData itemDataAdd)
@@ -65,7 +71,7 @@ public class InventoryItemPresent : MonoBehaviour
             listItemsData.Add(itemDataAdd);
         }
 
-        RefreshUI();
+        RefreshUIBox();
     }
     public void RemoveItem(ItemData itemDataRemove)
     {
@@ -84,6 +90,6 @@ public class InventoryItemPresent : MonoBehaviour
         {
             //ถ้าไปเท็มในกล่องไม่พอให้ทำอะไร
         }
-        RefreshUI();
+        RefreshUIBox();
     }
 }

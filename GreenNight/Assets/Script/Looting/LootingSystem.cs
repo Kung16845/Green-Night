@@ -74,7 +74,7 @@ public class LootingSystem : MonoBehaviour
         // Use the loot pool to get a random item
         ItemData itemToLoot = lootPool.GetRandomItem();
         inventoryItemPresent.AddItem(itemToLoot);
-        inventoryItemPresent.RefreshUI();
+        inventoryItemPresent.RefreshUIBox();
         itemdropped = true;
     }
 

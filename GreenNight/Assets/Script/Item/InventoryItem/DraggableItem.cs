@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 public class DraggableItem : MonoBehaviour,IBeginDragHandler, IDragHandler, IEndDragHandler
 {   
-    
+    public SlotType uITypeItem;
     public Transform parentAfterDray;
     public Transform parentBeforeDray;
     public Image imageItem;
