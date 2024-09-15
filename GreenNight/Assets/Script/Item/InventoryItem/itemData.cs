@@ -22,5 +22,5 @@ public enum Itemtype
     Weapon,
     Ammo,
     Pill,
-    Gadget
+    General
 }

@@ -10,6 +10,9 @@ public class ItemVest : ItemClass
     public float staminaIncreasePercent;
     public string buff;
     public string debuff;
+    public float riskdecrease;
+    public float Repairmaterial;
+    public float Quality;
     // Start is called before the first frame update
     void Start()
     {

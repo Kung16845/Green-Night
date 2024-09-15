@@ -7,8 +7,10 @@ public class ItemGrenade : ItemClass
     [Header("Stat Grenade")]
     public float damage;
     public bool isAOE;
+    public float AoeRange;
     public float armTime;
-    public float thrownRange;
+    public float MinimumRange;
+    public float Maxrange;
     public string effect;
     public string typeGrende;
 
