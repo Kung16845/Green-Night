@@ -1,9 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemWeapon : ItemClass
 {   
+    [Header("Quality")]
+    public int Repairmaterial;
+    public float Quality;  
     [Header("Stat Weapon")]
     public int rateOfFire;
     public int handling; 
@@ -14,6 +18,15 @@ public class ItemWeapon : ItemClass
     public bool fullAuto; 
     public bool isShotgun;
     public float damageDropOff;
-    public string ammoType;
-    
+    public int Pellets;
+    public float Spreadangle;
+    public Ammotype ammoType; 
+}
+
+public enum Ammotype
+{
+    HighCaliber, 
+    MediumCaliber,
+    LowCaliber,
+    Shotgun
 }
