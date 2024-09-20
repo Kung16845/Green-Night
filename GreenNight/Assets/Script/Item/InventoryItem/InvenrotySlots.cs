@@ -7,22 +7,33 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
 {
     public SlotType slotTypeInventory;
     public GameObject uIMoveItems;
+    public Canvas canvas;
     public int maxCountItems;
     // Start is called before the first frame update
     void Start()
     {
-
+        canvas = FindObjectOfType<Canvas>();
     }
 
     public void OnDrop(PointerEventData eventData)
     {
         GameObject uIitem = eventData.pointerDrag;
         DraggableItem draggableItem = uIitem.GetComponent<DraggableItem>();
-        if (slotTypeInventory == SlotType.SlotBag || slotTypeInventory == draggableItem.uITypeItem )
+        
+        if (slotTypeInventory == SlotType.SlotBag || slotTypeInventory == draggableItem.uITypeItem)
         {
-            draggableItem.parentAfterDray = transform;  
+            draggableItem.parentAfterDray = transform;
             uIMoveItems.SetActive(true);
-            uIMoveItems.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            Vector2 mousePos;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                canvas.transform as RectTransform,
+                Input.mousePosition,
+                canvas.worldCamera, // กล้องที่ใช้ใน Canvas (ถ้าเป็น World Space)
+                out mousePos);
+
+            uIMoveItems.GetComponent<RectTransform>().anchoredPosition = mousePos;
+            uIMoveItems.GetComponent<ScriptMoveItems>().itemClassMove = uIitem.GetComponent<ItemClass>();
             
         }
     }

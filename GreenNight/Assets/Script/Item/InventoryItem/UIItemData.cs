@@ -10,10 +10,15 @@ public class UIItemData : MonoBehaviour
     public TextMeshProUGUI count;
     public int idItem;
     public Itemtype itemtype;
-    public void UpdateDataUI(ItemData itemData)
-    {
-        
-        count.text = itemData.count.ToString();
+    public SlotType slotType;
+    public void UpdateDataUI(ItemClass itemClass)
+    {   
+        Debug.Log("Item Class");
+        Debug.Log(itemClass.quantityItem);
+        if(slotType == SlotType.SlotBoxes)
+            count.text = itemClass.quantityItem.ToString();
+        else 
+            count.text = itemClass.quantityItem.ToString() + "/" + itemClass.maxCountItem.ToString();
        
     }
     // Start is called before the first frame update

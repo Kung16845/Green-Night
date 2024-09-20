@@ -28,9 +28,15 @@ public class InventoryItemPresent : MonoBehaviour
             Instantiate(uiItem, transformsBoxes, false);
 
             UIItemData uIItemData = uiItem.GetComponent<UIItemData>();
-            uIItemData.UpdateDataUI(itemData);
+            ItemClass itemClass = uiItem.GetComponent<ItemClass>();
+            Debug.Log(itemData.count + "  " +itemData.maxCount);
+            
+            itemClass.quantityItem = itemData.count;
+            itemClass.maxCountItem = itemData.maxCount;
+            Debug.Log(itemClass.quantityItem + "  " + itemClass.maxCountItem);
+            uIItemData.UpdateDataUI(itemClass);
         }
-
+        
     }
     public void Category()
     {
