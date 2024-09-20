@@ -9,6 +9,7 @@ public class TimeManager : MonoBehaviour
     public DateTime dateTime;
     [Header("Tick Setting")]
     [SerializeField] private int tickSeconedIncrease;
+    [SerializeField] private int speedGame;
     public int currentTickSeconedIncrease;
     public float timeBetweenTicks = 1;
     public float currentTimeBetweenTricks = 0;
@@ -21,7 +22,8 @@ public class TimeManager : MonoBehaviour
         
     }
     public void AccelerateTime(int speed)
-    {
+    {   
+        speedGame = speed;  
         currentTickSeconedIncrease = tickSeconedIncrease * speed;
     }
     public void SetDayNIght()

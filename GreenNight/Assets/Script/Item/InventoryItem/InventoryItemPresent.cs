@@ -34,7 +34,7 @@ public class InventoryItemPresent : MonoBehaviour
     }
     public void Category()
     {
-
+        
     }
     public void AddItem(ItemData itemDataAdd)
     {
