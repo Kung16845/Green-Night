@@ -40,6 +40,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
         ItemClass itemClassInChild = GetComponentInChildren<ItemClass>();
         // Script Move
         ScriptMoveItems scriptMoveItems = uIMoveItemsBoxesToInventory.GetComponent<ScriptMoveItems>();
+
         if ((slotTypeInventory == SlotType.SlotBag || slotTypeInventory == draggableItem.uITypeItem)
         && transform.childCount == 0)
         {
@@ -50,7 +51,10 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
 
             // scriptMoveItems.countItemMove = 1;
             // scriptMoveItems.countText.text = "1";
-            OpenUIMoveITems(scriptMoveItems);
+            if (draggableItem.parentBeforeDray.GetComponentInParent<InvenrotySlots>().slotTypeInventory == SlotType.SlotBoxes)
+            {
+                OpenUIMoveITems(scriptMoveItems);
+            }
         }
         else if (uIItemData.idItem == uIItemDataInChild.idItem)
         {
@@ -68,7 +72,8 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
             ItemData itemDataMove = inventoryItemPresent.listItemsDataBox.FirstOrDefault(item => item.idItem == uIItemData.idItem);
             if (itemDataMove != null)
             {
-
+                Debug.Log("ItemDataMove Not null");
+                
             }
         }
         uIItemData.slotTypeParent = slotTypeInventory;

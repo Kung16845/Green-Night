@@ -30,7 +30,6 @@ public class ScriptMoveItems : MonoBehaviour
                 countItemMove = itemClassMove.quantityItem;
             }
 
-            
         }
         else
         {
@@ -60,45 +59,53 @@ public class ScriptMoveItems : MonoBehaviour
         List<ItemData> listItemData = inventoryItemPresent.listItemsDataBox;
         ItemData itemData = listItemData.FirstOrDefault(item => item.idItem == itemClassMove.idItem);
 
-        itemData.count -= countItemMove;
-        itemClassMove.quantityItem = countItemMove;
-
         if (draggableItemMove.parentBeforeDray.GetComponent<InvenrotySlots>().slotTypeInventory == SlotType.SlotBoxes
         && itemClassInChild == null)
         {
+            itemData.count -= countItemMove;
+            itemClassMove.quantityItem = countItemMove;
             UpdateUIItemMove();
-
+            
         }
         else if (itemClassInChild != null)
         {
 
-            // itemData.count -= countItemMove;
-            // itemClassMove.quantityItem -= countItemMove;
-
+            itemClassMove.quantityItem -= countItemMove;
+            if(itemClassMove.gameObject.GetComponentInParent<InvenrotySlots>().slotTypeInventory == SlotType.SlotBoxes)
+            {
+                itemData.count -= countItemMove;
+            }
             itemClassInChild.quantityItem += countItemMove;
-
 
             GameObject uIItemInChildObject = itemClassInChild.gameObject;
             UIItemData uIItemDataInChild = uIItemInChildObject.GetComponent<UIItemData>();
             uIItemDataInChild.UpdateDataUI(itemClassInChild);
 
-            if(itemClassMove.quantityItem > 0)
+            if (itemClassMove.quantityItem > 0)
+            {
                 UpdateUIItemMove();
-                
+            }
+            else
+            {
+                Destroy(itemClassMove.gameObject);
+            }
+           
             Debug.Log("Not Parant Slot is SlotBoxes");
         }
 
-        if(itemData.count <= 0)
+        if (itemData.count <= 0)
         {
             listItemData.Remove(itemData);
             if (itemClassMove != null)
             {
                 Destroy(itemClassMove.gameObject);
             }
-
+            
         }
-        
+
         itemClassInChild = null;
+
+        inventoryItemPresent.RefreshUIBox();
         inventoryItemPresent.RefreshUIBox();
     }
     public void UpdateUIItemMove()
@@ -110,7 +117,8 @@ public class ScriptMoveItems : MonoBehaviour
     public void CancleMove()
     {
         gameObject.SetActive(false);
-        draggableItemMove.gameObject.transform.SetParent(draggableItemMove.parentBeforeDray);
+        DraggableItem draggableItemMove = itemClassMove.gameObject.GetComponent<DraggableItem>();
+        draggableItemMove.transform.SetParent(draggableItemMove.parentBeforeDray);
         draggableItemMove.parentAfterDray = draggableItemMove.parentBeforeDray;
     }
 }

@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIItemData : MonoBehaviour 
+public class UIItemData : MonoBehaviour
 {
     public TextMeshProUGUI count;
     public int idItem;
@@ -13,16 +13,22 @@ public class UIItemData : MonoBehaviour
     public SlotType slotType;
     public SlotType slotTypeParent;
     public void UpdateDataUI(ItemClass itemClass)
-    {   
-        // Debug.Log("Item Class");
+    {
+        // Debug.Log(" Run Funtion UpdateDataUI");
         // Debug.Log(itemClass.quantityItem);
         // Debug.Log(slotTypeParent);
-        
-        if(slotTypeParent == SlotType.SlotBoxes)
-            count.text = itemClass.quantityItem.ToString();
-        else 
-            count.text = itemClass.quantityItem.ToString() + "/" + itemClass.maxCountItem.ToString();
-       
+        // Debug.Log("Item Class Count / MaxCount " + itemClass.quantityItem + "  " + itemClass.maxCountItem);
+        int countItem = itemClass.quantityItem;
+        // Debug.Log("Int CoutItem : " + countItem);
+        if (slotTypeParent == SlotType.SlotBoxes)
+        {
+            count.text = countItem.ToString();
+        }
+        else
+        {
+            count.text = countItem.ToString() + "/" + itemClass.maxCountItem.ToString();
+        }
+
     }
     // Start is called before the first frame update
     void Start()
@@ -35,5 +41,5 @@ public class UIItemData : MonoBehaviour
     {
 
     }
-    
+
 }
