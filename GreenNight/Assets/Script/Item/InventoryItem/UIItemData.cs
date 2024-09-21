@@ -9,7 +9,6 @@ public class UIItemData : MonoBehaviour
 {
     public TextMeshProUGUI count;
     public int idItem;
-    public Itemtype itemtype;
     public SlotType slotType;
     public SlotType slotTypeParent;
     public void UpdateDataUI(ItemClass itemClass)

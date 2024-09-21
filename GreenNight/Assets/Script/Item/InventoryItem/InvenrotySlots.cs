@@ -33,7 +33,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
         // GameObject Dragging
         GameObject uIitem = eventData.pointerDrag;
         DraggableItem draggableItem = uIitem.GetComponent<DraggableItem>();
-        UIItemData uIItemData = uIitem.GetComponent<UIItemData>();
+        UIItemData uIItemDataDrag = uIitem.GetComponent<UIItemData>();
         ItemClass itemClassMove = uIitem.GetComponent<ItemClass>();
         // GameObject InChild if Have
         UIItemData uIItemDataInChild = GetComponentInChildren<UIItemData>();
@@ -56,7 +56,24 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
                 OpenUIMoveITems(scriptMoveItems);
             }
         }
-        else if (uIItemData.idItem == uIItemDataInChild.idItem)
+        else if (slotTypeInventory == SlotType.SlotBoxes && uIItemDataInChild == null)
+        {
+            ItemData itemDataMove = inventoryItemPresent.listItemsDataBox.FirstOrDefault(item => item.idItem == uIItemDataDrag.idItem);
+            Debug.Log("slotTypeInventory == SlotType.SlotBoxes");
+            scriptMoveItems.itemClassMove = itemClassMove;
+            if (itemDataMove != null)
+            {
+                Debug.Log("ItemDataMove Not null");
+     
+                OpenUIMoveITems(scriptMoveItems);
+            }
+            else 
+            {   
+
+                OpenUIMoveITems(scriptMoveItems);
+            }
+        }
+        else if (uIItemDataDrag.idItem == uIItemDataInChild.idItem && slotTypeInventory != SlotType.SlotBoxes)
         {
             Debug.Log("UIItemdata In chind Have");
             scriptMoveItems.itemClassMove = itemClassMove;
@@ -67,16 +84,8 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
             OpenUIMoveITems(scriptMoveItems);
 
         }
-        else if (slotTypeInventory == SlotType.SlotBoxes)
-        {
-            ItemData itemDataMove = inventoryItemPresent.listItemsDataBox.FirstOrDefault(item => item.idItem == uIItemData.idItem);
-            if (itemDataMove != null)
-            {
-                Debug.Log("ItemDataMove Not null");
-                
-            }
-        }
-        uIItemData.slotTypeParent = slotTypeInventory;
+
+        uIItemDataDrag.slotTypeParent = slotTypeInventory;
 
     }
 

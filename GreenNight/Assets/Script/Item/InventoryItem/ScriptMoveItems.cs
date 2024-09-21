@@ -34,12 +34,15 @@ public class ScriptMoveItems : MonoBehaviour
         else
         {
             Debug.Log("item classInChild is not null ");
-            if (itemClassInChild.quantityItem + countItemMove > itemClassMove.maxCountItem
-            && countItemMove > itemClassMove.quantityItem)
+            if (countItemMove > itemClassMove.quantityItem)
             {
                 countItemMove = itemClassMove.quantityItem;
-            }
 
+                if (itemClassInChild.quantityItem + countItemMove > itemClassMove.maxCountItem)
+                {
+                    countItemMove = itemClassMove.maxCountItem - itemClassInChild.quantityItem;
+                }
+            }
         }
         countText.text = countItemMove.ToString();
     }
@@ -54,28 +57,29 @@ public class ScriptMoveItems : MonoBehaviour
     }
     public void MoveItem()
     {
-        gameObject.SetActive(false);
+
 
         List<ItemData> listItemData = inventoryItemPresent.listItemsDataBox;
         ItemData itemData = listItemData.FirstOrDefault(item => item.idItem == itemClassMove.idItem);
+        SlotType slotTypeItemMoveParantBefore = draggableItemMove.parentBeforeDray.GetComponent<InvenrotySlots>().slotTypeInventory;
 
-        if (draggableItemMove.parentBeforeDray.GetComponent<InvenrotySlots>().slotTypeInventory == SlotType.SlotBoxes
-        && itemClassInChild == null)
+        if (slotTypeItemMoveParantBefore == SlotType.SlotBoxes && itemClassInChild == null)
         {
             itemData.count -= countItemMove;
             itemClassMove.quantityItem = countItemMove;
             UpdateUIItemMove();
-            
+
         }
         else if (itemClassInChild != null)
         {
 
             itemClassMove.quantityItem -= countItemMove;
-            if(itemClassMove.gameObject.GetComponentInParent<InvenrotySlots>().slotTypeInventory == SlotType.SlotBoxes)
+            itemClassInChild.quantityItem += countItemMove;
+
+            if (itemClassMove.gameObject.GetComponentInParent<InvenrotySlots>().slotTypeInventory == SlotType.SlotBoxes)
             {
                 itemData.count -= countItemMove;
             }
-            itemClassInChild.quantityItem += countItemMove;
 
             GameObject uIItemInChildObject = itemClassInChild.gameObject;
             UIItemData uIItemDataInChild = uIItemInChildObject.GetComponent<UIItemData>();
@@ -89,36 +93,71 @@ public class ScriptMoveItems : MonoBehaviour
             {
                 Destroy(itemClassMove.gameObject);
             }
-           
+
             Debug.Log("Not Parant Slot is SlotBoxes");
         }
-
-        if (itemData.count <= 0)
+        else if (slotTypeItemMoveParantBefore != SlotType.SlotBoxes)
         {
-            listItemData.Remove(itemData);
-            if (itemClassMove != null)
+            Debug.Log("slotTypeItemMoveParantBefore != SlotType.SlotBoxes");
+
+
+            if (itemData != null)
             {
-                Destroy(itemClassMove.gameObject);
+                itemData.count += countItemMove;
+                itemClassMove.quantityItem -= countItemMove;
+                UpdateUIItemMove();
+                //    itemData.count += countItemMove;
+                //    itemClassInChild.quantityItem -= countItemMove;  
             }
-            
+            else
+            {   
+                itemClassMove.quantityItem -= countItemMove;
+                if (itemClassMove.quantityItem == 0)
+                {   
+                    itemClassMove.quantityItem = countItemMove;
+                    Destroy(itemClassMove.gameObject);
+                }
+
+                ItemData newItemData = inventoryItemPresent.ConventItemClassToItemData(itemClassMove);
+                inventoryItemPresent.AddItem(newItemData);
+            }
+        }
+
+        if (itemData != null)
+        {
+            if (itemData.count <= 0)
+            {
+                listItemData.Remove(itemData);
+            }
+        }
+
+        if (itemClassMove.quantityItem <= 0)
+        {
+            Destroy(itemClassMove.gameObject);
         }
 
         itemClassInChild = null;
+        itemClassMove = null;
+
 
         inventoryItemPresent.RefreshUIBox();
         inventoryItemPresent.RefreshUIBox();
+        gameObject.SetActive(false);
     }
     public void UpdateUIItemMove()
     {
         GameObject uIItemObject = itemClassMove.gameObject;
         UIItemData uIItemData = uIItemObject.GetComponent<UIItemData>();
+        uIItemData.slotTypeParent = uIItemData.GetComponentInParent<InvenrotySlots>().slotTypeInventory;
         uIItemData.UpdateDataUI(itemClassMove);
     }
     public void CancleMove()
     {
-        gameObject.SetActive(false);
+
         DraggableItem draggableItemMove = itemClassMove.gameObject.GetComponent<DraggableItem>();
         draggableItemMove.transform.SetParent(draggableItemMove.parentBeforeDray);
         draggableItemMove.parentAfterDray = draggableItemMove.parentBeforeDray;
+
+        gameObject.SetActive(false);
     }
 }

@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10
+  m_text: 9
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -282,8 +282,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   count: {fileID: 7534671795205046289}
   idItem: 1
-  itemtype: 4
   slotType: 0
+  slotTypeParent: 6
 --- !u!114 &-5325946956145635609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,8 +297,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameItem: 
-  quantityItem: 10
+  quantityItem: 9
   maxCountItem: 10
+  itemtype: 4
   rarityItem: 0
   tradeValueItem: 0
   carftableItem: 0
