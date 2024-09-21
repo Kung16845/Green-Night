@@ -16,7 +16,7 @@ public class UIItemData : MonoBehaviour
     {   
         // Debug.Log("Item Class");
         // Debug.Log(itemClass.quantityItem);
-        Debug.Log(slotTypeParent);
+        // Debug.Log(slotTypeParent);
         
         if(slotTypeParent == SlotType.SlotBoxes)
             count.text = itemClass.quantityItem.ToString();

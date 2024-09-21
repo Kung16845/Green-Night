@@ -2377,9 +2377,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
-  uIMoveItems: {fileID: 1996253336}
+  uIMoveItemsBoxesToInventory: {fileID: 0}
   canvas: {fileID: 1018277091}
   maxCountItems: 0
+  inventoryItemPresent: {fileID: 0}
 --- !u!114 &146108543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3372,9 +3373,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotTypeInventory: 4
-  uIMoveItems: {fileID: 1996253336}
+  uIMoveItemsBoxesToInventory: {fileID: 0}
   canvas: {fileID: 1018277091}
   maxCountItems: 0
+  inventoryItemPresent: {fileID: 0}
 --- !u!114 &211898345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5173,7 +5175,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &365819259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6257,9 +6259,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotTypeInventory: 4
-  uIMoveItems: {fileID: 1996253336}
+  uIMoveItemsBoxesToInventory: {fileID: 0}
   canvas: {fileID: 1018277091}
   maxCountItems: 0
+  inventoryItemPresent: {fileID: 0}
 --- !u!114 &472465598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6710,10 +6713,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 342b0473d1067fc498463c2ea7411052, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItemsData:
-  - nameItem: Weapon
+  listItemsDataBox:
+  - nameItem: 
     idItem: 1
-    count: 8
+    count: 9
     maxCount: 10
     itemtype: 0
   listUIItemPrefab:
@@ -6922,9 +6925,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
-  uIMoveItems: {fileID: 1996253336}
+  uIMoveItemsBoxesToInventory: {fileID: 0}
   canvas: {fileID: 1018277091}
   maxCountItems: 0
+  inventoryItemPresent: {fileID: 0}
 --- !u!114 &484053959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8277,14 +8281,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 1996253340}
+        m_TargetAssemblyTypeName: ScriptMoveItems, Assembly-CSharp
+        m_MethodName: DecreasteCountItem
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -11115,9 +11119,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
-  uIMoveItems: {fileID: 1996253336}
+  uIMoveItemsBoxesToInventory: {fileID: 0}
   canvas: {fileID: 1018277091}
   maxCountItems: 0
+  inventoryItemPresent: {fileID: 0}
 --- !u!114 &796917016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11498,13 +11503,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1996253336}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1996253340}
+        m_TargetAssemblyTypeName: ScriptMoveItems, Assembly-CSharp
+        m_MethodName: CancleMove
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -12515,9 +12520,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotTypeInventory: 6
-  uIMoveItems: {fileID: 1996253336}
+  uIMoveItemsBoxesToInventory: {fileID: 0}
   canvas: {fileID: 1018277091}
   maxCountItems: 0
+  inventoryItemPresent: {fileID: 0}
 --- !u!222 &926604380
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14321,9 +14327,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
-  uIMoveItems: {fileID: 1996253336}
+  uIMoveItemsBoxesToInventory: {fileID: 0}
   canvas: {fileID: 1018277091}
   maxCountItems: 0
+  inventoryItemPresent: {fileID: 0}
 --- !u!114 &1109365422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16474,9 +16481,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotTypeInventory: 3
-  uIMoveItems: {fileID: 0}
+  uIMoveItemsBoxesToInventory: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
+  inventoryItemPresent: {fileID: 0}
 --- !u!114 &1258931334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17467,9 +17475,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotTypeInventory: 4
-  uIMoveItems: {fileID: 1996253336}
+  uIMoveItemsBoxesToInventory: {fileID: 0}
   canvas: {fileID: 1018277091}
   maxCountItems: 0
+  inventoryItemPresent: {fileID: 0}
 --- !u!114 &1391157259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20206,9 +20215,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
-  uIMoveItems: {fileID: 0}
+  uIMoveItemsBoxesToInventory: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
+  inventoryItemPresent: {fileID: 0}
 --- !u!114 &1542546377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23386,9 +23396,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
-  uIMoveItems: {fileID: 1996253336}
+  uIMoveItemsBoxesToInventory: {fileID: 0}
   canvas: {fileID: 1018277091}
   maxCountItems: 0
+  inventoryItemPresent: {fileID: 0}
 --- !u!114 &1724034614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25603,9 +25614,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
-  uIMoveItems: {fileID: 0}
+  uIMoveItemsBoxesToInventory: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
+  inventoryItemPresent: {fileID: 0}
 --- !u!114 &1829504449
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25782,9 +25794,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotTypeInventory: 3
-  uIMoveItems: {fileID: 0}
+  uIMoveItemsBoxesToInventory: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
+  inventoryItemPresent: {fileID: 0}
 --- !u!114 &1832949512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27163,9 +27176,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotTypeInventory: 1
-  uIMoveItems: {fileID: 0}
+  uIMoveItemsBoxesToInventory: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
+  inventoryItemPresent: {fileID: 0}
 --- !u!1 &1923559822
 GameObject:
   m_ObjectHideFlags: 0
@@ -27219,9 +27233,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotTypeInventory: 4
-  uIMoveItems: {fileID: 1996253336}
+  uIMoveItemsBoxesToInventory: {fileID: 0}
   canvas: {fileID: 1018277091}
   maxCountItems: 0
+  inventoryItemPresent: {fileID: 0}
 --- !u!114 &1923559825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27815,14 +27830,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 1996253340}
+        m_TargetAssemblyTypeName: ScriptMoveItems, Assembly-CSharp
+        m_MethodName: DecreasteCountItem
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -28211,9 +28226,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotTypeInventory: 4
-  uIMoveItems: {fileID: 1996253336}
+  uIMoveItemsBoxesToInventory: {fileID: 0}
   canvas: {fileID: 1018277091}
   maxCountItems: 0
+  inventoryItemPresent: {fileID: 0}
 --- !u!114 &1968043534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28563,9 +28579,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotTypeInventory: 1
-  uIMoveItems: {fileID: 0}
+  uIMoveItemsBoxesToInventory: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
+  inventoryItemPresent: {fileID: 0}
 --- !u!114 &1993499652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28689,6 +28706,8 @@ MonoBehaviour:
   countItemMove: 1
   countText: {fileID: 494461568}
   itemClassMove: {fileID: 0}
+  itemClassInChild: {fileID: 0}
+  draggableItemMove: {fileID: 0}
   inventoryItemPresent: {fileID: 0}
 --- !u!1 &2002009900
 GameObject:
@@ -28975,9 +28994,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotTypeInventory: 0
-  uIMoveItems: {fileID: 0}
+  uIMoveItemsBoxesToInventory: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
+  inventoryItemPresent: {fileID: 0}
 --- !u!114 &2015249236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29093,9 +29113,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
-  uIMoveItems: {fileID: 1996253336}
+  uIMoveItemsBoxesToInventory: {fileID: 0}
   canvas: {fileID: 1018277091}
   maxCountItems: 0
+  inventoryItemPresent: {fileID: 0}
 --- !u!114 &2053105216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29211,9 +29232,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slotTypeInventory: 4
-  uIMoveItems: {fileID: 1996253336}
+  uIMoveItemsBoxesToInventory: {fileID: 0}
   canvas: {fileID: 1018277091}
   maxCountItems: 0
+  inventoryItemPresent: {fileID: 0}
 --- !u!114 &2075658539
 MonoBehaviour:
   m_ObjectHideFlags: 0
