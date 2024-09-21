@@ -9,6 +9,7 @@ public class ScriptMoveItems : MonoBehaviour
     public int countItemMove = 1;
     public TextMeshProUGUI countText;
     public ItemClass itemClassMove;
+    public DraggableItem draggableItemMove;
     public InventoryItemPresent inventoryItemPresent;
     // Start is called before the first frame update
     void Start()
@@ -58,9 +59,9 @@ public class ScriptMoveItems : MonoBehaviour
         uIItemData.UpdateDataUI(itemClassMove);
         inventoryItemPresent.RefreshUIBox();
     }
-    // Update is called once per frame
-    void Update()
+    public void CancleMove()
     {
-
+        gameObject.SetActive(false);
+        draggableItemMove.gameObject.transform.SetParent(draggableItemMove.parentBeforeDray);
     }
 }

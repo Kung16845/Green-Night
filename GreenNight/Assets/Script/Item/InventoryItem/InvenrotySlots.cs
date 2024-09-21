@@ -34,6 +34,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
 
             uIMoveItems.GetComponent<RectTransform>().anchoredPosition = mousePos;
             uIMoveItems.GetComponent<ScriptMoveItems>().itemClassMove = uIitem.GetComponent<ItemClass>();
+            uIMoveItems.GetComponent<ScriptMoveItems>().draggableItemMove = uIitem.GetComponent<DraggableItem>();
             
         }
         uIItemData.slotTypeParent = slotTypeInventory;
