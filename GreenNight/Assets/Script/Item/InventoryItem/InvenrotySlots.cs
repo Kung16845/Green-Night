@@ -19,7 +19,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
     {
         GameObject uIitem = eventData.pointerDrag;
         DraggableItem draggableItem = uIitem.GetComponent<DraggableItem>();
-        
+        UIItemData uIItemData = uIitem.GetComponent<UIItemData>();
         if (slotTypeInventory == SlotType.SlotBag || slotTypeInventory == draggableItem.uITypeItem)
         {
             draggableItem.parentAfterDray = transform;
@@ -36,6 +36,8 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
             uIMoveItems.GetComponent<ScriptMoveItems>().itemClassMove = uIitem.GetComponent<ItemClass>();
             
         }
+        uIItemData.slotTypeParent = slotTypeInventory;
+        
     }
 }
 public enum SlotType

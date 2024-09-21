@@ -34,6 +34,8 @@ public class InventoryItemPresent : MonoBehaviour
             itemClass.quantityItem = itemData.count;
             itemClass.maxCountItem = itemData.maxCount;
             Debug.Log(itemClass.quantityItem + "  " + itemClass.maxCountItem);
+            Debug.Log(transformsBoxes.GetComponentInParent<InvenrotySlots>().slotTypeInventory);
+            uIItemData.slotTypeParent = transformsBoxes.GetComponent<InvenrotySlots>().slotTypeInventory;
             uIItemData.UpdateDataUI(itemClass);
         }
         

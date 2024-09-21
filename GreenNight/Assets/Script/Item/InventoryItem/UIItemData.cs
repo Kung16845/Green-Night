@@ -11,11 +11,14 @@ public class UIItemData : MonoBehaviour
     public int idItem;
     public Itemtype itemtype;
     public SlotType slotType;
+    public SlotType slotTypeParent;
     public void UpdateDataUI(ItemClass itemClass)
     {   
-        Debug.Log("Item Class");
-        Debug.Log(itemClass.quantityItem);
-        if(slotType == SlotType.SlotBoxes)
+        // Debug.Log("Item Class");
+        // Debug.Log(itemClass.quantityItem);
+        Debug.Log(slotTypeParent);
+        
+        if(slotTypeParent == SlotType.SlotBoxes)
             count.text = itemClass.quantityItem.ToString();
         else 
             count.text = itemClass.quantityItem.ToString() + "/" + itemClass.maxCountItem.ToString();
