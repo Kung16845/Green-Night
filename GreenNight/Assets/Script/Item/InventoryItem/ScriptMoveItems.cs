@@ -22,28 +22,47 @@ public class ScriptMoveItems : MonoBehaviour
     public void IncreateCountItem(int count)
     {
         countItemMove += count;
-
-        if (itemClassInChild == null)
-        {
-            if (countItemMove >= itemClassMove.quantityItem)
-            {
-                countItemMove = itemClassMove.quantityItem;
+        SlotType slotTypeItemMove = itemClassMove.gameObject.GetComponentInParent<InvenrotySlots>().slotTypeInventory;
+        if (itemClassInChild == null )
+        {   
+            Debug.Log("itemClassInChild == null");
+            if (countItemMove > itemClassMove.quantityItem && itemClassMove.quantityItem < itemClassMove.maxCountItem)
+            {   
+                Debug.Log("countItemMove = itemClassMove.quantityItem && itemClassMove.quantityItem < itemClassMove.maxCountItem");
+                countItemMove = itemClassMove.quantityItem;  
+            }
+            else if(countItemMove < itemClassMove.quantityItem && itemClassMove.quantityItem  > itemClassMove.maxCountItem)
+            {   
+                Debug.Log("countItemMove < itemClassMove.quantityItem &x& itemClassMove.quantityItem  > itemClassMove.maxCountItem");
+             
+                countItemMove = itemClassMove.maxCountItem;
             }
 
         }
-        else
+        else if (itemClassInChild != null)
         {
             Debug.Log("item classInChild is not null ");
-            if (countItemMove > itemClassMove.quantityItem)
+            if (slotTypeItemMove != SlotType.SlotBoxes)
             {
-                countItemMove = itemClassMove.quantityItem;
-
-                if (itemClassInChild.quantityItem + countItemMove > itemClassMove.maxCountItem)
+                if (countItemMove > itemClassMove.quantityItem)
                 {
-                    countItemMove = itemClassMove.maxCountItem - itemClassInChild.quantityItem;
+                    countItemMove = itemClassMove.quantityItem;
+
+                    if (itemClassInChild.quantityItem + countItemMove > itemClassMove.maxCountItem)
+                    {
+                        countItemMove = itemClassMove.maxCountItem - itemClassInChild.quantityItem;
+                    }
+                }
+            }
+            else 
+            {
+                if(countItemMove > itemClassMove.quantityItem)
+                {
+                    countItemMove = itemClassMove.quantityItem;
                 }
             }
         }
+
         countText.text = countItemMove.ToString();
     }
     public void DecreasteCountItem(int count)
@@ -98,8 +117,7 @@ public class ScriptMoveItems : MonoBehaviour
         }
         else if (slotTypeItemMoveParantBefore != SlotType.SlotBoxes)
         {
-            Debug.Log("slotTypeItemMoveParantBefore != SlotType.SlotBoxes");
-
+            Debug.Log("slotTypeItemMoveParantBefore != SlotType.SlotBoxes ");
 
             if (itemData != null)
             {
@@ -110,10 +128,10 @@ public class ScriptMoveItems : MonoBehaviour
                 //    itemClassInChild.quantityItem -= countItemMove;  
             }
             else
-            {   
+            {
                 itemClassMove.quantityItem -= countItemMove;
                 if (itemClassMove.quantityItem == 0)
-                {   
+                {
                     itemClassMove.quantityItem = countItemMove;
                     Destroy(itemClassMove.gameObject);
                 }

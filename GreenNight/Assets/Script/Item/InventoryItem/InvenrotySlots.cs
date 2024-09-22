@@ -73,18 +73,21 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
                 OpenUIMoveITems(scriptMoveItems);
             }
         }
-        else if (uIItemDataDrag.idItem == uIItemDataInChild.idItem && slotTypeInventory != SlotType.SlotBoxes)
+        else if (uIItemDataDrag.idItem == uIItemDataInChild.idItem && slotTypeInventory != SlotType.SlotBoxes 
+        && itemClassInChild.quantityItem < itemClassInChild.maxCountItem)
         {
             Debug.Log("UIItemdata In chind Have");
             scriptMoveItems.itemClassMove = itemClassMove;
             scriptMoveItems.itemClassInChild = itemClassInChild;
-
             // scriptMoveItems.countItemMove = 1;
             // scriptMoveItems.countText.text = "1";
             OpenUIMoveITems(scriptMoveItems);
 
         }
-
+        else 
+        {
+            Debug.Log("Last Conition");
+        }
         uIItemDataDrag.slotTypeParent = slotTypeInventory;
 
     }

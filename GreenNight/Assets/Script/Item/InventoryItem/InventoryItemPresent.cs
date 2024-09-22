@@ -31,7 +31,7 @@ public class InventoryItemPresent : MonoBehaviour
             UIItemData uIItemData = uiItem.GetComponent<UIItemData>();
             ItemClass itemClass = uiItem.GetComponent<ItemClass>();
 
-            Debug.Log("Item Data Count / MaxCount " + itemData.count + "  " + itemData.maxCount);
+            // Debug.Log("Item Data Count / MaxCount " + itemData.count + "  " + itemData.maxCount);
 
             itemClass.quantityItem = itemData.count;
             itemClass.maxCountItem = itemData.maxCount;
