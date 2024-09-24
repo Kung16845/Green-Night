@@ -55,7 +55,7 @@ public class Zombie : MonoBehaviour
     public float[] acidBarrierDamage = { 5f, 7f, 9f };   // Damage per tick for barrier
     public float[] acidZombieDamage = { 7f, 10f, 15f };  // Damage per tick for zombies
     public float[] acidDuration = { 5f, 10f, 15f };      // Duration of acid pool
-    public float[] acidRadius = { 2f, 3f, 4f };          // Effect radius per tier
+    public float[] acidRadius = { 1f, 2f, 2.5f };          // Effect radius per tier
 
     [Header("Exploder Mutation Settings")]
     public GameObject explosionPrefab;
@@ -160,7 +160,7 @@ public class Zombie : MonoBehaviour
             if (damageType == DamageType.Bullet)
             {
                 // Reduce bullet damage by 5
-                float reducedDamage = damage - 0.70f;
+                float reducedDamage = damage * 0.70f;
                 if (reducedDamage < 0)
                     reducedDamage = 0f;
 
@@ -181,6 +181,13 @@ public class Zombie : MonoBehaviour
                     currentHp += ArmourHp; // ArmourHp is negative
                     ArmourHp = 0f;
                 }
+            }
+            if(damageType == DamageType.Explosive)
+            {
+                float Damagetoarmour = damage * 0.60f;
+                float Damagetohealth = damage * 0.40f;
+                ArmourHp -= Damagetoarmour;
+                currentHp -= Damagetohealth;
             }
             else if (damageType == DamageType.Pulse)
             {
@@ -219,7 +226,6 @@ public class Zombie : MonoBehaviour
         }
         else
         {
-            // No armor left, apply damage to health
             currentHp -= damage;
         }
 
@@ -333,36 +339,25 @@ public class Zombie : MonoBehaviour
         currentSpeed = originalSpeed;
     }
     private void ApplyAcidDeathEffect()
-{
-    if (AcidPool.Instance != null)
     {
-        // Reinitialize the existing acid pool instead of spawning a new one
-        AcidPool.Instance.Reinitialize(
-            acidBarrierDamage[mutationTier - 1],
-            acidZombieDamage[mutationTier - 1],
-            acidDuration[mutationTier - 1],
-            acidRadius[mutationTier - 1],
-            0.3f,
-            transform.position
-        );
-    }
-    else if (acidPoolPrefab != null)
-    {
-        GameObject acidPoolInstance = Instantiate(acidPoolPrefab, transform.position, Quaternion.identity);
-        AcidPool acidPoolScript = acidPoolInstance.GetComponent<AcidPool>();
-        if (acidPoolScript != null)
+        // Instantiate an acid pool at the zombie's position
+        if (acidPoolPrefab != null)
         {
-            int index = mutationTier - 1; // Adjust for array indexing
-            acidPoolScript.Initialize(
-                acidBarrierDamage[index],
-                acidZombieDamage[index],
-                acidDuration[index],
-                acidRadius[index],
-                0.3f // Damage interval
-            );
+            GameObject acidPool = Instantiate(acidPoolPrefab, transform.position, Quaternion.identity);
+            AcidPool acidPoolScript = acidPool.GetComponent<AcidPool>();
+            if (acidPoolScript != null)
+            {
+                int index = mutationTier - 1; // Adjust for array indexing
+                acidPoolScript.Initialize(
+                    acidBarrierDamage[index],
+                    acidZombieDamage[index],
+                    acidDuration[index],
+                    acidRadius[index],
+                    1// Damage interval
+                );
+            }
         }
     }
-}
 
 
     private void ApplyExploderDeathEffect()

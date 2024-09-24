@@ -4,111 +4,77 @@ using UnityEngine;
 
 public class AcidPool : MonoBehaviour
 {
-    public static AcidPool Instance { get; private set; }
+    private float barrierDamagePerTick;
+    private float zombieDamagePerTick;
+    private float duration;
+    private float radius;
+    private float damageInterval;
 
-    [Header("Damage Settings")]
-    private float barrierDamagePerTick;   // Damage dealt to barriers each tick
-    private float zombieDamagePerTick;    // Damage dealt to zombies each tick
-    private float duration;               // Total duration of the acid pool
-    private float radius;                 // Effective radius of the acid pool
-    private float damageInterval;         // Time between each damage tick
-
-    [Header("Visual Settings")]
-    public SpriteRenderer spriteRenderer; // Optional: Assign a SpriteRenderer for visual representation
+    private Dictionary<Zombie, Coroutine> zombieDamageCoroutines = new Dictionary<Zombie, Coroutine>();
 
     public void Initialize(float barrierDamage, float zombieDamage, float duration, float radius, float interval)
     {
-        // If an acid pool already exists, reposition and reinitialize it
-        if (Instance != null && Instance != this)
-        {
-            Instance.Reinitialize(barrierDamage, zombieDamage, duration, radius, interval, transform.position);
-            Destroy(this.gameObject);
-            return;
-        }
-
-        // Initialization code as before...
         this.barrierDamagePerTick = barrierDamage;
         this.zombieDamagePerTick = zombieDamage;
         this.duration = duration;
         this.radius = radius;
         this.damageInterval = interval;
-
-        if (spriteRenderer != null)
-        {
-            spriteRenderer.transform.localScale = Vector3.one * radius * 2;
-        }
-
-        CircleCollider2D collider = GetComponent<CircleCollider2D>();
-        if (collider != null)
-        {
-            collider.isTrigger = true;
-            collider.radius = radius;
-        }
-        else
-        {
-            collider = gameObject.AddComponent<CircleCollider2D>();
-            collider.isTrigger = true;
-            collider.radius = radius;
-        }
+        this.transform.localScale = new Vector3(radius, radius, 1f);
 
         StartCoroutine(ApplyDamageOverTime());
     }
-    public void Reinitialize(float barrierDamage, float zombieDamage, float duration, float radius, float interval, Vector3 newPosition)
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        this.barrierDamagePerTick = barrierDamage;
-        this.zombieDamagePerTick = zombieDamage;
-        this.duration = duration;
-        this.radius = radius;
-        this.damageInterval = interval;
-
-        transform.position = newPosition;
-
-        if (spriteRenderer != null)
+        Zombie zombie = other.GetComponent<Zombie>();
+        if (zombie != null && !zombieDamageCoroutines.ContainsKey(zombie))
         {
-            spriteRenderer.transform.localScale = Vector3.one * radius * 2;
+            Coroutine coroutine = StartCoroutine(ApplyDamageOverTimeToZombie(zombie));
+            zombieDamageCoroutines.Add(zombie, coroutine);
         }
-
-        CircleCollider2D collider = GetComponent<CircleCollider2D>();
-        if (collider != null)
-        {
-            collider.radius = radius;
-        }
-
-        StopAllCoroutines();
-        StartCoroutine(ApplyDamageOverTime());
     }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        Zombie zombie = other.GetComponent<Zombie>();
+        if (zombie != null && zombieDamageCoroutines.ContainsKey(zombie))
+        {
+            StopCoroutine(zombieDamageCoroutines[zombie]);
+            zombieDamageCoroutines.Remove(zombie);
+        }
+    }
+
+    private IEnumerator ApplyDamageOverTimeToZombie(Zombie zombie)
+    {
+        while (zombie != null && zombie.gameObject != null)
+        {
+            zombie.ZombieTakeDamage(zombieDamagePerTick, DamageType.Acid);
+            yield return new WaitForSeconds(damageInterval);
+        }
+        zombieDamageCoroutines.Remove(zombie);
+    }
+
     private IEnumerator ApplyDamageOverTime()
     {
         float elapsed = 0f;
-
         while (elapsed < duration)
         {
-            // Find all colliders within the radius
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius);
-
-            foreach (Collider2D collider in colliders)
-            {
-                // Apply damage to Zombies
-                Zombie zombie = collider.GetComponent<Zombie>();
-                if (zombie != null)
-                {
-                    zombie.ZombieTakeDamage(zombieDamagePerTick, DamageType.Acid);
-                }
-
-                // Apply damage to Barriers
-                Barrier barrier = collider.GetComponent<Barrier>();
-                if (barrier != null)
-                {
-                    barrier.BarrierTakeDamage(barrierDamagePerTick);
-                }
-            }
-
-            // Wait for the next damage tick
-            yield return new WaitForSeconds(damageInterval);
-            elapsed += damageInterval;
+            elapsed += Time.deltaTime;
+            yield return null;
         }
 
-        // Destroy the acid pool after duration
         Destroy(this.gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        foreach (var coroutine in zombieDamageCoroutines.Values)
+        {
+            if (coroutine != null)
+            {
+                StopCoroutine(coroutine);
+            }
+        }
+        zombieDamageCoroutines.Clear();
     }
 }
