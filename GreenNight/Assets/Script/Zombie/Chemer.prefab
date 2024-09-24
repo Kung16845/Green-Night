@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7793501274145667475}
-  - component: {fileID: 8153986500931480031}
+  - component: {fileID: 487199212157994389}
   - component: {fileID: 8051091936370712935}
   - component: {fileID: 633828766855133476}
   - component: {fileID: 3343816310919699681}
@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -4477498444932220001}
   - component: {fileID: 5536341593726160959}
   m_Layer: 0
-  m_Name: Zombie
+  m_Name: Chemer
   m_TagString: Zombie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,7 +38,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8153986500931480031
+--- !u!114 &487199212157994389
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47,27 +47,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 7550034601582792165}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a623b4c831e86f5418ba201ee6b4f102, type: 3}
+  m_Script: {fileID: 11500000, guid: b1bc316fb69818745a9e1e9be762ed68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   transformbarrier: {fileID: 0}
   currentHp: 0
-  maxHp: 120
+  maxHp: 90
   maxArmourHp: 0
   ArmourHp: 0
   currentSpeed: 0
-  maxSpeed: 1
-  attackDamage: 100
-  attackTimer: 3
+  maxSpeed: 2
+  attackDamage: 10
+  attackTimer: 1
   countTImer: 0
   direction: {x: 0, y: 0}
   rb2D: {fileID: 0}
   barrier: {fileID: 0}
   slowdownAmount: 0.25
-  damageEffectDuration: 1
-  mutationType: 4
-  mutationTier: 3
-  acidPoolPrefab: {fileID: 8974713031636886679, guid: 674bad897b4809b43a15a1123c5b506a, type: 3}
+  damageEffectDuration: 0.01
+  mutationType: 0
+  mutationTier: 1
+  acidPoolPrefab: {fileID: 0}
   acidBarrierDamage:
   - 5
   - 7
@@ -84,7 +84,7 @@ MonoBehaviour:
   - 1
   - 2
   - 2.5
-  explosionPrefab: {fileID: 5215708325425232465, guid: 03e6a4dee4f07524fa190297e43e61ad, type: 3}
+  explosionPrefab: {fileID: 0}
   explosionBarrierDamage:
   - 50
   - 70
@@ -97,6 +97,12 @@ MonoBehaviour:
   - 2
   - 3
   - 4
+  speedBoostAreaPrefab: {fileID: 5270464586629645707, guid: 41109857229177f46850021d888d4c0c, type: 3}
+  areaRadius: 2
+  areaDuration: 3
+  speedIncreaseAmount: 1.5
+  attackSpeedIncreaseAmount: 2
+  speedIncreaseDuration: 2.5
 --- !u!114 &8051091936370712935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,7 +110,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7550034601582792165}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c70c9e0ce6162344fb2994235d328ef2, type: 3}
   m_Name: 
@@ -112,7 +118,7 @@ MonoBehaviour:
   IsAttack: 0
   IsDead: 0
   IsWalk: 0
-  zombieGrunt: {fileID: 8153986500931480031}
+  zombieGrunt: {fileID: 0}
 --- !u!212 &633828766855133476
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -155,7 +161,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: 272240064, guid: 7bd60e9726a073a4b94a6a394d42093d, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.55869526, g: 0.8640643, b: 0.8773585, a: 1}
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0

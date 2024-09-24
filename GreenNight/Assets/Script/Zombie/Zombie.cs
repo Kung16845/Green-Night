@@ -21,6 +21,9 @@ public enum MutationType
 
 public class Zombie : MonoBehaviour
 {
+    protected Dictionary<DamageType, float> damageMultipliers;
+    private float speedMultiplier = 1f;     // Movement speed multiplier
+    private float attackSpeedMultiplier = 1f;
     public Transform transformbarrier;
     public float currentHp;
     public float maxHp;
@@ -63,6 +66,8 @@ public class Zombie : MonoBehaviour
     public float[] explosionZombieDamage = { 55f, 100f, 150f };
     public float[] explosionRadius = { 2f, 3f, 4f };
 
+    private float damageEffectDurationRemaining;
+    
     private void Awake()
     {
         FindClosestBarrier();
@@ -77,6 +82,7 @@ public class Zombie : MonoBehaviour
         {
             originalColor = spriteRenderer.color;
         }
+        InitializeDamageMultipliers();
         ApplyMutationEffects();
     }
 
@@ -85,7 +91,7 @@ public class Zombie : MonoBehaviour
         if (barrier != null)
         {
             if (countTImer > 0)
-                countTImer -= Time.deltaTime;
+                countTImer -= Time.deltaTime * attackSpeedMultiplier;
             else
             {
                 barrier.BarrierTakeDamage(attackDamage);
@@ -154,89 +160,103 @@ public class Zombie : MonoBehaviour
 
      public void ZombieTakeDamage(float damage, DamageType damageType)
     {
-        // Armor and health calculations
+        // Calculate adjusted damage based on multipliers
+        float multiplier = 1f;
+        if (damageMultipliers != null && damageMultipliers.ContainsKey(damageType))
+        {
+            multiplier = damageMultipliers[damageType];
+        }
+        float adjustedDamage = damage * multiplier;
+
         if (ArmourHp > 0)
         {
             if (damageType == DamageType.Bullet)
             {
-                // Reduce bullet damage by 5
-                float reducedDamage = damage * 0.70f;
-                if (reducedDamage < 0)
-                    reducedDamage = 0f;
-
+                // Bullet damage reduces damage by 30% to armor
+                float reducedDamage = adjustedDamage * 0.70f;
                 ArmourHp -= reducedDamage;
 
-                if (ArmourHp <= 0 && !armourDepleted)
-                {
-                    armourDepleted = true;
-                    if (mutationType == MutationType.ArmourShell)
-                    {
-                        StartCoroutine(ArmourDepletedEffect());
-                    }
-                }
+                // Handle armor depletion
+                HandleArmorDepletion();
 
-                // If armor is depleted, apply leftover damage to health
-                if (ArmourHp < 0)
-                {
-                    currentHp += ArmourHp; // ArmourHp is negative
-                    ArmourHp = 0f;
-                }
+                // Apply overflow damage to health
+                ApplyOverflowDamageToHealth();
             }
-            if(damageType == DamageType.Explosive)
+            else if (damageType == DamageType.Explosive)
             {
-                float Damagetoarmour = damage * 0.60f;
-                float Damagetohealth = damage * 0.40f;
-                ArmourHp -= Damagetoarmour;
-                currentHp -= Damagetohealth;
+                // Explosive damage splits between armor and health
+                float damageToArmor = adjustedDamage * 0.60f;
+                float damageToHealth = adjustedDamage * 0.40f;
+                ArmourHp -= damageToArmor;
+                currentHp -= damageToHealth;
+
+                // Handle armor depletion
+                HandleArmorDepletion();
+
+                // Apply overflow damage to health
+                ApplyOverflowDamageToHealth();
             }
             else if (damageType == DamageType.Pulse)
             {
-                // Remove all armor
+                // Pulse damage removes all armor
                 ArmourHp = 0f;
-
-                if (!armourDepleted)
-                {
-                    armourDepleted = true;
-                    if (mutationType == MutationType.ArmourShell)
-                    {
-                        StartCoroutine(ArmourDepletedEffect());
-                    }
-                }
+                HandleArmorDepletion();
             }
             else
             {
-                // For other damage types, apply full damage to armor
-                ArmourHp -= damage;
+                // Other damage types apply full damage to armor
+                ArmourHp -= adjustedDamage;
 
-                if (ArmourHp <= 0 && !armourDepleted)
-                {
-                    armourDepleted = true;
-                    if (mutationType == MutationType.ArmourShell)
-                    {
-                        StartCoroutine(ArmourDepletedEffect());
-                    }
-                }
+                // Handle armor depletion
+                HandleArmorDepletion();
 
-                if (ArmourHp < 0)
-                {
-                    currentHp += ArmourHp; // ArmourHp is negative
-                    ArmourHp = 0f;
-                }
+                // Apply overflow damage to health
+                ApplyOverflowDamageToHealth();
             }
         }
         else
         {
-            currentHp -= damage;
+            currentHp -= adjustedDamage;
         }
 
-        // Apply damage effects: slowdown and sprite color change
+        // Apply damage effects and check for death
+        ApplyDamageEffects();
+        CheckForDeath();
+    }
+    private void HandleArmorDepletion()
+    {
+        if (ArmourHp <= 0 && !armourDepleted)
+        {
+            armourDepleted = true;
+            if (mutationType == MutationType.ArmourShell)
+            {
+                StartCoroutine(ArmourDepletedEffect());
+            }
+        }
+    }
+
+    private void ApplyOverflowDamageToHealth()
+    {
+        if (ArmourHp < 0)
+        {
+            currentHp += ArmourHp; // ArmourHp is negative
+            ArmourHp = 0f;
+        }
+    }
+
+    private void ApplyDamageEffects()
+    {
         if (damageEffectCoroutine != null)
         {
             StopCoroutine(damageEffectCoroutine);
+            speedMultiplier = 1.0f;
+            UpdateCurrentSpeed();
         }
         damageEffectCoroutine = StartCoroutine(DamageEffect());
+    }
 
-        // Check for death
+    private void CheckForDeath()
+    {
         if (currentHp <= 0)
         {
             OnDeath();
@@ -246,7 +266,8 @@ public class Zombie : MonoBehaviour
     private IEnumerator DamageEffect()
     {
         // Slow down the zombie
-        currentSpeed = maxSpeed * slowdownAmount;
+        speedMultiplier = slowdownAmount;
+        UpdateCurrentSpeed();
 
         // Change sprite color to red
         if (spriteRenderer != null)
@@ -257,15 +278,19 @@ public class Zombie : MonoBehaviour
         // Wait for the effect duration
         yield return new WaitForSeconds(damageEffectDuration);
 
-        // Reset speed and sprite color
-        currentSpeed = originalSpeed;
+        // Reset speed multiplier to original value
+        speedMultiplier = 1.0f;
+        UpdateCurrentSpeed();
 
         if (spriteRenderer != null)
         {
             spriteRenderer.color = originalColor;
         }
+
+        damageEffectCoroutine = null;
     }
-     private void OnDeath()
+
+    protected virtual void OnDeath()
     {
         switch (mutationType)
         {
@@ -378,6 +403,17 @@ public class Zombie : MonoBehaviour
             }
         }
     }
+    protected virtual void InitializeDamageMultipliers()
+    {
+        damageMultipliers = new Dictionary<DamageType, float>
+        {
+            { DamageType.Bullet, 1f },
+            { DamageType.Pulse, 1f },
+            { DamageType.Fire, 1f },
+            { DamageType.Acid, 1f },
+            { DamageType.Explosive, 1f },
+        };
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         Barrier triggerbarrier = other.GetComponent<Barrier>();
@@ -385,5 +421,30 @@ public class Zombie : MonoBehaviour
         {
             barrier = triggerbarrier;
         }
+    }
+    public void IncreaseSpeed(float multiplier)
+    {
+        speedMultiplier *= multiplier;
+        UpdateCurrentSpeed();
+    }
+
+    public void ResetSpeed()
+    {
+        speedMultiplier = 1f;
+        UpdateCurrentSpeed();
+    }
+
+    private void UpdateCurrentSpeed()
+    {
+        currentSpeed = maxSpeed * speedMultiplier;
+    }
+     public void IncreaseAttackSpeed(float multiplier)
+    {
+        attackSpeedMultiplier *= multiplier;
+    }
+
+    public void ResetAttackSpeed()
+    {
+        attackSpeedMultiplier = 1f;
     }
 }
