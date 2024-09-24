@@ -135,7 +135,7 @@ public class Weapon : MonoBehaviour
         float accuracyFactor = GetAccuracyFactor();
         float accuracySpread = (1 - accuracyFactor) / 10f; // Calculate spread based on accuracy factor
         bulletDirection += new Vector2(Random.Range(-accuracySpread, accuracySpread), Random.Range(-accuracySpread, accuracySpread));
-        rb.velocity = bulletDirection * 20f; // Adjust bullet speed as necessary
+        rb.velocity = bulletDirection * 100f; // Adjust bullet speed as necessary
     }
 
     private void FirePellet()
@@ -159,7 +159,7 @@ public class Weapon : MonoBehaviour
         directionWithSpread += new Vector2(Random.Range(-accuracySpread, accuracySpread), Random.Range(-accuracySpread, accuracySpread));
 
         // Set the pellet velocity based on the calculated direction
-        rb.velocity = directionWithSpread * 20f; // Adjust bullet speed as necessary
+        rb.velocity = directionWithSpread * 1000f; // Adjust bullet speed as necessary
     }
 
 
