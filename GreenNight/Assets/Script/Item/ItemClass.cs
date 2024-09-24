@@ -8,6 +8,8 @@ public class ItemClass : MonoBehaviour
     [Header("Stat")]
     public string nameItem;
     public int quantityItem;
+    public int maxCountItem;
+    public Itemtype itemtype;
     [Header("Item value")]
     public int rarityItem;
     public int tradeValueItem;

@@ -8,7 +8,9 @@ public class TimeManager : MonoBehaviour
     public SceneSystem sceneSystem1;
     public DateTime dateTime;
     [Header("Tick Setting")]
-    public int tickSeconedIncrease;
+    [SerializeField] private int tickSeconedIncrease;
+    [SerializeField] private int speedGame;
+    public int currentTickSeconedIncrease;
     public float timeBetweenTicks = 1;
     public float currentTimeBetweenTricks = 0;
     public static UnityAction<DateTime> OnDateTimeChanged;
@@ -16,10 +18,14 @@ public class TimeManager : MonoBehaviour
     {
         dateTime = new DateTime(0, 0, 0, false, sceneSystem1);
         dateTime.SetTimeStartDay();
-       
+        currentTickSeconedIncrease = tickSeconedIncrease;
         
     }
-    
+    public void AccelerateTime(int speed)
+    {   
+        speedGame = speed;  
+        currentTickSeconedIncrease = tickSeconedIncrease * speed;
+    }
     public void SetDayNIght()
     {
         dateTime.isDayNight = true;
@@ -43,7 +49,7 @@ public class TimeManager : MonoBehaviour
     }
     public void AdvanceTime()
     {
-        dateTime.AdvanceMinutes(tickSeconedIncrease);
+        dateTime.AdvanceMinutes(currentTickSeconedIncrease);
     }
 }
 [System.Serializable]
