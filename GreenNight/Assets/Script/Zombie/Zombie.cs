@@ -158,7 +158,7 @@ public class Zombie : MonoBehaviour
         rb2D.velocity = direction * currentSpeed;
     }
 
-     public void ZombieTakeDamage(float damage, DamageType damageType)
+    public virtual void ZombieTakeDamage(float damage, DamageType damageType, float extraMultiplier = 1f)
     {
         // Calculate adjusted damage based on multipliers
         float multiplier = 1f;
@@ -166,8 +166,7 @@ public class Zombie : MonoBehaviour
         {
             multiplier = damageMultipliers[damageType];
         }
-        float adjustedDamage = damage * multiplier;
-
+        float adjustedDamage = damage * multiplier * extraMultiplier;
         if (ArmourHp > 0)
         {
             if (damageType == DamageType.Bullet)

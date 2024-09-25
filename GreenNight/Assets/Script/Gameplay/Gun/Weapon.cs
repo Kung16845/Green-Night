@@ -114,8 +114,6 @@ public class Weapon : MonoBehaviour
         {
             FireBullet();
         }
-
-        Debug.Log("Shot fired!");
     }
 
     private void FireBullet()
