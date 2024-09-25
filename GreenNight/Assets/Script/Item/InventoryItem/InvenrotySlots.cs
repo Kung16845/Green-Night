@@ -40,6 +40,8 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
         ItemClass itemClassInChild = GetComponentInChildren<ItemClass>();
         // Script Move
         ScriptMoveItems scriptMoveItems = uIMoveItemsBoxesToInventory.GetComponent<ScriptMoveItems>();
+        //ItemData In ListItemData
+
 
         if ((slotTypeInventory == SlotType.SlotBag || slotTypeInventory == draggableItem.uITypeItem)
         && transform.childCount == 0)
@@ -49,47 +51,44 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
             scriptMoveItems.itemClassMove = itemClassMove;
             scriptMoveItems.draggableItemMove = uIitem.GetComponent<DraggableItem>();
 
-            // scriptMoveItems.countItemMove = 1;
-            // scriptMoveItems.countText.text = "1";
+
             if (draggableItem.parentBeforeDray.GetComponentInParent<InvenrotySlots>().slotTypeInventory == SlotType.SlotBoxes)
             {
                 OpenUIMoveITems(scriptMoveItems);
             }
-        }
-        else if (slotTypeInventory == SlotType.SlotBoxes && uIItemDataInChild == null)
-        {
-            ItemData itemDataMove = inventoryItemPresent.listItemsDataBox.FirstOrDefault(item => item.idItem == uIItemDataDrag.idItem);
-            Debug.Log("slotTypeInventory == SlotType.SlotBoxes");
-            scriptMoveItems.itemClassMove = itemClassMove;
-            if (itemDataMove != null)
-            {
-                Debug.Log("ItemDataMove Not null");
-     
-                OpenUIMoveITems(scriptMoveItems);
-            }
-            else 
-            {   
-
-                OpenUIMoveITems(scriptMoveItems);
-            }
-        }
-        else if (uIItemDataDrag.idItem == uIItemDataInChild.idItem && slotTypeInventory != SlotType.SlotBoxes 
+        }   
+        else if (itemClassInChild != null &&uIItemDataDrag.idItem == uIItemDataInChild.idItem && slotTypeInventory != SlotType.SlotBoxes
         && itemClassInChild.quantityItem < itemClassInChild.maxCountItem)
         {
-            Debug.Log("UIItemdata In chind Have");
+            Debug.Log("UIItemdata In chind Have && slotTypeInventory != SlotType.SlotBoxes && itemClassInChild.quantityItem < itemClassInChild.maxCountItem");
             scriptMoveItems.itemClassMove = itemClassMove;
             scriptMoveItems.itemClassInChild = itemClassInChild;
-            // scriptMoveItems.countItemMove = 1;
-            // scriptMoveItems.countText.text = "1";
-            OpenUIMoveITems(scriptMoveItems);
 
+            OpenUIMoveITems(scriptMoveItems);
         }
-        else 
+        else
         {
+            List<ItemData> listItemData = inventoryItemPresent.listItemsDataBox;
+            ItemData itemData = listItemData.FirstOrDefault(item => item.idItem == itemClassMove.idItem);
             Debug.Log("Last Conition");
+            if (itemData != null)
+            {
+                itemData.count += itemClassMove.quantityItem;
+                
+            }
+            else
+            {
+                ItemData newItemData = inventoryItemPresent.ConventItemClassToItemData(itemClassMove);
+                
+                inventoryItemPresent.AddItem(newItemData);
+            }
+            Destroy(itemClassMove.gameObject);
         }
+
         uIItemDataDrag.slotTypeParent = slotTypeInventory;
 
+        inventoryItemPresent.RefreshUIBox();
+        inventoryItemPresent.RefreshUIBox();
     }
 
     public void OpenUIMoveITems(ScriptMoveItems scriptMoveItems)
