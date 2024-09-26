@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
         Zombie zombie = other.GetComponent<Zombie>();
         if(zombie != null)
         {
-            zombie.ZombieTakeDamage(damage, DamageType.Bullet);
+            zombie.ZombieTakeDamage(damage, DamageType.HighcalliberBullet);
             Destroy(this.gameObject);
         }
         if(other.CompareTag("Wall"))

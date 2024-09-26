@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum DamageType
 {
-    Bullet,
+    LowcalliberBullet,
+    HighcalliberBullet,
     Pulse,
     Fire,
     Acid,
@@ -169,7 +170,7 @@ public class Zombie : MonoBehaviour
         float adjustedDamage = damage * multiplier * extraMultiplier;
         if (ArmourHp > 0)
         {
-            if (damageType == DamageType.Bullet)
+            if (damageType == DamageType.HighcalliberBullet)
             {
                 // Bullet damage reduces damage by 30% to armor
                 float reducedDamage = adjustedDamage * 0.70f;
@@ -179,6 +180,13 @@ public class Zombie : MonoBehaviour
                 HandleArmorDepletion();
 
                 // Apply overflow damage to health
+                ApplyOverflowDamageToHealth();
+            }
+            if (damageType == DamageType.LowcalliberBullet)
+            {
+                float reducedDamage = adjustedDamage * 0.50f;
+                ArmourHp -= reducedDamage;
+                HandleArmorDepletion();
                 ApplyOverflowDamageToHealth();
             }
             else if (damageType == DamageType.Explosive)
@@ -357,7 +365,7 @@ public class Zombie : MonoBehaviour
         float originalSpeed = currentSpeed;
         currentSpeed = 0f;
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
 
         // Resume speed
         currentSpeed = originalSpeed;
@@ -383,7 +391,6 @@ public class Zombie : MonoBehaviour
         }
     }
 
-
     private void ApplyExploderDeathEffect()
     {
         // Instantiate an explosion at the zombie's position
@@ -406,7 +413,8 @@ public class Zombie : MonoBehaviour
     {
         damageMultipliers = new Dictionary<DamageType, float>
         {
-            { DamageType.Bullet, 1f },
+            { DamageType.HighcalliberBullet, 1f },
+            { DamageType.LowcalliberBullet, 1f },
             { DamageType.Pulse, 1f },
             { DamageType.Fire, 1f },
             { DamageType.Acid, 1f },
