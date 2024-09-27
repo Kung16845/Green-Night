@@ -1129,14 +1129,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 483800077}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 483800078}
+        m_TargetAssemblyTypeName: InventoryItemPresent, Assembly-CSharp
+        m_MethodName: RefreshUIBoxCategory
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -3856,6 +3856,37 @@ MonoBehaviour:
   textSteelCost: {fileID: 639622034}
   textNpcCost: {fileID: 1375928113}
   textDayCost: {fileID: 1403909075}
+--- !u!1 &255920932
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 255920933}
+  m_Layer: 0
+  m_Name: 'Npc Manager '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &255920933
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255920932}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 741425701}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &263671178
 GameObject:
   m_ObjectHideFlags: 0
@@ -5727,14 +5758,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 483800077}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 483800078}
+        m_TargetAssemblyTypeName: InventoryItemPresent, Assembly-CSharp
+        m_MethodName: RefreshUIBoxCategory
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -6721,6 +6752,21 @@ MonoBehaviour:
     itemtype: 0
   listUIItemPrefab:
   - {fileID: 1291614654634707552, guid: d54c6f2497f160a47baaad622a133c96, type: 3}
+  listInvenrotySlots:
+  - {fileID: 472465597}
+  - {fileID: 1923559824}
+  - {fileID: 1391157258}
+  - {fileID: 211898344}
+  - {fileID: 2075658538}
+  - {fileID: 1968043533}
+  - {fileID: 2053105215}
+  - {fileID: 1724034613}
+  - {fileID: 146108542}
+  - {fileID: 484053958}
+  - {fileID: 1109365421}
+  - {fileID: 796917015}
+  invenrotySlotSpecialMilitaryLock: {fileID: 1829504448}
+  invenrotySlotSpecialScavenger: {fileID: 1542546376}
   transformsBoxes: {fileID: 926604377}
 --- !u!4 &483800079
 Transform:
@@ -8528,14 +8574,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 483800077}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 483800078}
+        m_TargetAssemblyTypeName: InventoryItemPresent, Assembly-CSharp
+        m_MethodName: RefreshUIBoxCategory
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 6
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -8958,6 +9004,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 483800077}
+        m_TargetAssemblyTypeName: PickUpItem, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -10436,6 +10494,7 @@ Transform:
   - {fileID: 1890103466}
   - {fileID: 949315568}
   - {fileID: 483800079}
+  - {fileID: 255920933}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -16340,14 +16399,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 483800077}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 483800078}
+        m_TargetAssemblyTypeName: InventoryItemPresent, Assembly-CSharp
+        m_MethodName: RefreshUIBoxCategory
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -18368,14 +18427,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 483800077}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 483800078}
+        m_TargetAssemblyTypeName: InventoryItemPresent, Assembly-CSharp
+        m_MethodName: RefreshUIBoxCategory
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -19183,8 +19242,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 483800078}
         m_TargetAssemblyTypeName: InventoryItemPresent, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
+        m_MethodName: RefreshUIBoxCategory
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -22035,14 +22094,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 483800077}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 483800078}
+        m_TargetAssemblyTypeName: InventoryItemPresent, Assembly-CSharp
+        m_MethodName: RefreshUIBoxCategory
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 7
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -27075,7 +27134,7 @@ GameObject:
   - component: {fileID: 1922872828}
   - component: {fileID: 1922872827}
   m_Layer: 5
-  m_Name: 'Vest Slot Lock  '
+  m_Name: 'Vest Slot   '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29981,14 +30040,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 483800077}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 483800078}
+        m_TargetAssemblyTypeName: InventoryItemPresent, Assembly-CSharp
+        m_MethodName: RefreshUIBoxCategory
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 5
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

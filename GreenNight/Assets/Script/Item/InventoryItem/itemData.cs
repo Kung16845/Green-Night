@@ -15,11 +15,12 @@ public class ItemData
 }
 public enum Itemtype
 {   
-    Backpack,
-    Grenade,
-    Tool,
-    Vest,
+       
     Weapon,
+    Vest,
+    Backpack,
+    Tool,
+    Grenade,
     Ammo,
     Pill,
     General
