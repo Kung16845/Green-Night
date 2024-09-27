@@ -38,6 +38,16 @@ public class Zombie : MonoBehaviour
     public Vector2 direction;
     public Rigidbody2D rb2D;
     public Barrier barrier;
+
+    [HideInInspector]
+    public Lane lane;                        // Assigned lane
+    private int currentWaypointIndex = 0;    // Index of the current waypoint
+
+    public float movementSpeed = 1.0f;       // Movement speed
+
+    // Fields for Engaging Area
+    public bool canLeaveLane = false;        // Ability to leave lane in Engaging Area
+    public bool isInEngagingArea = false;    // Whether the zombie is in the Engaging Area
     
     [Header("Damage Effects")]
     public float slowdownAmount = 0.25f;           // Amount to slow down (e.g., 0.5 means half speed)
@@ -440,7 +450,47 @@ public class Zombie : MonoBehaviour
         speedMultiplier = 1f;
         UpdateCurrentSpeed();
     }
+    void MoveAlongLane()
+    {
+        if (lane != null && currentWaypointIndex < lane.waypoints.Count)
+        {
+            Transform targetWaypoint = lane.waypoints[currentWaypointIndex];
+            Vector3 direction = (targetWaypoint.position - transform.position).normalized;
+            transform.position += direction * movementSpeed * Time.deltaTime;
 
+            // Check if reached the waypoint
+            if (Vector3.Distance(transform.position, targetWaypoint.position) < 0.1f)
+            {
+                currentWaypointIndex++;
+
+                // Check if entering Engaging Area
+                if (currentWaypointIndex == lane.waypoints.Count / 2)
+                {
+                    isInEngagingArea = true;
+
+                    // Decide whether to leave lane
+                    if (canLeaveLane)
+                    {
+                        LeaveLane();
+                    }
+                }
+            }
+        }
+        else
+        {
+            // Reached end of waypoints, attack the barrier
+            AttackBarrier();
+        }
+    }
+    void LeaveLane()
+    {
+        // Implement behavior for leaving the lane
+    }
+
+    void AttackBarrier()
+    {
+        // Implement attack logic here
+    }
     private void UpdateCurrentSpeed()
     {
         currentSpeed = maxSpeed * speedMultiplier;
