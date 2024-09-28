@@ -4,60 +4,87 @@ using UnityEngine;
 
 public class MainSpawner : MonoBehaviour
 {
-    public List<ComboDeck> comboDecks;
-    public List<Lane> lanes;
+    [Header("Lanes Configuration")]
+    public List<Lane> lanes = new List<Lane>();
+
+    [Header("Spawn Decks Configuration")]
+    public List<SpawnDeck> spawnDecks = new List<SpawnDeck>();
+
     private int currentDeckIndex = 0;
+    private Coroutine deckCoroutine;
 
-    void Start()
+    private void Start()
     {
-        StartCoroutine(ManageDecks());
+        InitializeSpawnPoints();
+        StartNextDeck();
     }
 
-    IEnumerator ManageDecks()
+    private void InitializeSpawnPoints()
     {
-        while (currentDeckIndex < comboDecks.Count)
+        foreach (Lane lane in lanes)
         {
-            ComboDeck deck = comboDecks[currentDeckIndex];
-            StartCoroutine(RunComboDeck(deck));
-
-            yield return new WaitForSeconds(deck.deckDuration);
-
-            currentDeckIndex++;
-        }
-    }
-
-    IEnumerator RunComboDeck(ComboDeck deck)
-    {
-        foreach (SpawnInstruction instruction in deck.spawnInstructions)
-        {
-            StartCoroutine(RunSpawnInstruction(instruction));
-        }
-
-        yield return null;
-    }
-
-    IEnumerator RunSpawnInstruction(SpawnInstruction instruction)
-    {
-        int spawned = 0;
-        float instructionTimer = instruction.instructionDuration;
-
-        while (spawned < instruction.amountToSpawn && instructionTimer > 0f)
-        {
-            Lane lane = lanes[instruction.laneIndex];
-            GameObject zombieObject = Instantiate(instruction.zombiePrefab, lane.spawnPoint.position, lane.spawnPoint.rotation);
-
-            Zombie zombieScript = zombieObject.GetComponent<Zombie>();
-            if (zombieScript != null)
+            // Ensure the spawn point has a SpawnPoint component
+            SpawnPoint spawnPoint = lane.spawnPoint.GetComponent<SpawnPoint>();
+            if (spawnPoint == null)
             {
-                zombieScript.lane = lane;
-                // Set mutation tier or other properties as needed
+                spawnPoint = lane.spawnPoint.gameObject.AddComponent<SpawnPoint>();
             }
 
-            spawned++;
-
-            yield return new WaitForSeconds(instruction.timeBetweenSpawns);
-
-            instructionTimer -= instruction.timeBetweenSpawns;
+            spawnPoint.Initialize(lane);
         }
+    }
+
+    private void StartNextDeck()
+    {
+        if (currentDeckIndex < spawnDecks.Count)
+        {
+            SpawnDeck currentDeck = spawnDecks[currentDeckIndex];
+            deckCoroutine = StartCoroutine(ProcessDeck(currentDeck));
+        }
+        else
+        {
+            Debug.Log("All spawn decks have been completed.");
+        }
+    }
+
+    private IEnumerator ProcessDeck(SpawnDeck deck)
+    {
+        foreach (SpawnWave wave in deck.spawnWaves)
+        {
+            SpawnPoint spawnPoint = GetSpawnPointByLaneID(wave.laneID);
+
+            if (spawnPoint != null)
+            {
+                spawnPoint.zombiePrefabs = wave.zombiePrefabs;
+                spawnPoint.spawnInterval = wave.spawnInterval;
+                spawnPoint.zombiesToSpawn = wave.zombiesToSpawn;
+                spawnPoint.zombieTier = wave.zombieTier;
+
+                spawnPoint.StartSpawning();
+            }
+            else
+            {
+                Debug.LogWarning($"No spawn point found for lane ID {wave.laneID}");
+            }
+
+            yield return new WaitForSeconds(wave.timeUntilNextWave);
+        }
+
+        // Wait for the deck's total duration
+        yield return new WaitForSeconds(deck.deckDuration);
+
+        // Move to the next deck
+        currentDeckIndex++;
+        StartNextDeck();
+    }
+
+    private SpawnPoint GetSpawnPointByLaneID(int laneID)
+    {
+        Lane lane = lanes.Find(l => l.laneID == laneID);
+        if (lane != null)
+        {
+            return lane.spawnPoint.GetComponent<SpawnPoint>();
+        }
+        return null;
     }
 }

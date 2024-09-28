@@ -1,11 +1,10 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class Lane
 {
-    public int laneIndex;
+    public int laneID;
     public Transform spawnPoint;
+    public Transform engagingArea;
     public Transform attackPoint;
-    public List<Transform> waypoints;
 }

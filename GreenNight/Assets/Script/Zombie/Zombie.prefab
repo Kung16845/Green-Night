@@ -50,7 +50,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a623b4c831e86f5418ba201ee6b4f102, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformbarrier: {fileID: 0}
   currentHp: 0
   maxHp: 130
   maxArmourHp: 0
@@ -59,10 +58,16 @@ MonoBehaviour:
   maxSpeed: 1
   attackDamage: 100
   attackTimer: 3
-  countTImer: 0
-  direction: {x: 0, y: 0}
+  countTimer: 0
   rb2D: {fileID: 0}
   barrier: {fileID: 0}
+  movementSpeed: 1
+  currentLane:
+    laneID: 0
+    spawnPoint: {fileID: 0}
+    engagingArea: {fileID: 0}
+    attackPoint: {fileID: 0}
+  isInEngagingArea: 0
   slowdownAmount: 0.25
   damageEffectDuration: 1
   mutationType: 4
@@ -221,7 +226,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.027735574}

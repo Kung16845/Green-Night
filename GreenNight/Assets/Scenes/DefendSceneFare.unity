@@ -11096,7 +11096,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1179423594}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8efa3e265c00d7459e536f147314eee, type: 3}
   m_Name: 
@@ -11120,7 +11120,8 @@ MonoBehaviour:
   - laneIndex: 1
     spawnPoint: {fileID: 1486524293}
     attackPoint: {fileID: 1800576230}
-    waypoints: []
+    waypoints:
+    - {fileID: 0}
   - laneIndex: 2
     spawnPoint: {fileID: 976193133}
     attackPoint: {fileID: 755528655}
@@ -11129,19 +11130,6 @@ MonoBehaviour:
     spawnPoint: {fileID: 731834173}
     attackPoint: {fileID: 1911803340}
     waypoints: []
-  - laneIndex: 4
-    spawnPoint: {fileID: 0}
-    attackPoint: {fileID: 0}
-    waypoints: []
-  - laneIndex: 5
-    spawnPoint: {fileID: 0}
-    attackPoint: {fileID: 0}
-    waypoints: []
-  - laneIndex: 6
-    spawnPoint: {fileID: 0}
-    attackPoint: {fileID: 0}
-    waypoints:
-    - {fileID: 0}
 --- !u!1 &1188953942
 GameObject:
   m_ObjectHideFlags: 0

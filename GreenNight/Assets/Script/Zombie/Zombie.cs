@@ -25,7 +25,6 @@ public class Zombie : MonoBehaviour
     protected Dictionary<DamageType, float> damageMultipliers;
     private float speedMultiplier = 1f;     // Movement speed multiplier
     private float attackSpeedMultiplier = 1f;
-    public Transform transformbarrier;
     public float currentHp;
     public float maxHp;
     public float maxArmourHp; 
@@ -34,19 +33,14 @@ public class Zombie : MonoBehaviour
     public float maxSpeed;
     public float attackDamage;
     public float attackTimer;
-    public float countTImer;
-    public Vector2 direction;
+    public float countTimer;
     public Rigidbody2D rb2D;
     public Barrier barrier;
-
-    [HideInInspector]
-    public Lane lane;                        // Assigned lane
-    private int currentWaypointIndex = 0;    // Index of the current waypoint
 
     public float movementSpeed = 1.0f;       // Movement speed
 
     // Fields for Engaging Area
-    public bool canLeaveLane = false;        // Ability to leave lane in Engaging Area
+    public Lane currentLane;
     public bool isInEngagingArea = false;    // Whether the zombie is in the Engaging Area
     
     [Header("Damage Effects")]
@@ -81,12 +75,10 @@ public class Zombie : MonoBehaviour
     
     private void Awake()
     {
-        FindClosestBarrier();
         currentSpeed = maxSpeed;
         currentHp = maxHp;
         ArmourHp = maxArmourHp; // Initialize armor
         rb2D = GetComponent<Rigidbody2D>();
-        CheckDirectionMove();
         originalSpeed = maxSpeed;
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
@@ -96,79 +88,58 @@ public class Zombie : MonoBehaviour
         InitializeDamageMultipliers();
         ApplyMutationEffects();
     }
+    private void Update()
+    {
+        if (HasReachedAttackPoint())
+        {
+            // Stop moving
+            rb2D.velocity = Vector2.zero;
+
+            // Attack the barrier
+            ZombieAttack();
+        }
+        else
+        {
+            // Move towards the attack point
+            ZombieMoveFindBarrier();
+        }
+    }
+    public void ZombieMoveFindBarrier()
+    {
+        // Move towards the attack point
+        if (currentLane != null && currentLane.attackPoint != null)
+        {
+            Vector2 direction = (currentLane.attackPoint.position - transform.position).normalized;
+            rb2D.velocity = direction * currentSpeed;
+        }
+    }
+    private bool HasReachedAttackPoint()
+    {
+        if (currentLane != null && currentLane.attackPoint != null)
+        {
+            float distanceToAttackPoint = Vector2.Distance(transform.position, currentLane.attackPoint.position);
+
+            // Define a threshold distance to consider as 'reached'
+            float thresholdDistance = 0.1f;
+
+            return distanceToAttackPoint <= thresholdDistance;
+        }
+        return false;
+    }
 
     public void ZombieAttack()
     {
         if (barrier != null)
         {
-            if (countTImer > 0)
-                countTImer -= Time.deltaTime * attackSpeedMultiplier;
+            if (countTimer > 0)
+                countTimer -= Time.deltaTime * attackSpeedMultiplier;
             else
             {
                 barrier.BarrierTakeDamage(attackDamage);
-                countTImer = attackTimer;
+                countTimer = attackTimer;
             }
         }
     }
-
-    public void CheckDirectionMove()
-    {
-        Vector2 toBarrier = transformbarrier.position - transform.position;
-
-        if (Mathf.Abs(toBarrier.x) > Mathf.Abs(toBarrier.y))
-        {
-            // Move horizontally
-            if (toBarrier.x > 0)
-            {
-                direction = Vector2.right;  // Move right
-            }
-            else
-            {
-                direction = Vector2.left;   // Move left
-            }
-        }
-        else
-        {
-            // Move vertically
-            if (toBarrier.y > 0)
-            {
-                direction = Vector2.up;     // Move up
-            }
-            else
-            {
-                direction = Vector2.down;   // Move down
-            }
-        }
-    }
-
-    public void FindClosestBarrier()
-    {
-        Barrier[] barriers = FindObjectsOfType<Barrier>();
-        float closestDistance = Mathf.Infinity;
-        Transform closestBarrierTransform = null;
-
-        foreach (Barrier b in barriers)
-        {
-            float distanceToBarrier = Vector2.Distance(transform.position, b.transform.position);
-            if (distanceToBarrier < closestDistance)
-            {
-                closestDistance = distanceToBarrier;
-                closestBarrierTransform = b.transform;
-            }
-        }
-
-        if (closestBarrierTransform != null)
-        {
-            transformbarrier = closestBarrierTransform;
-            barrier = transformbarrier.GetComponent<Barrier>();
-        }
-    }
-
-    public void ZombieMoveFindBarrier()
-    {
-        rb2D.velocity = direction * currentSpeed;
-    }
-
     public virtual void ZombieTakeDamage(float damage, DamageType damageType, float extraMultiplier = 1f)
     {
         // Calculate adjusted damage based on multipliers
@@ -450,47 +421,6 @@ public class Zombie : MonoBehaviour
         speedMultiplier = 1f;
         UpdateCurrentSpeed();
     }
-    void MoveAlongLane()
-    {
-        if (lane != null && currentWaypointIndex < lane.waypoints.Count)
-        {
-            Transform targetWaypoint = lane.waypoints[currentWaypointIndex];
-            Vector3 direction = (targetWaypoint.position - transform.position).normalized;
-            transform.position += direction * movementSpeed * Time.deltaTime;
-
-            // Check if reached the waypoint
-            if (Vector3.Distance(transform.position, targetWaypoint.position) < 0.1f)
-            {
-                currentWaypointIndex++;
-
-                // Check if entering Engaging Area
-                if (currentWaypointIndex == lane.waypoints.Count / 2)
-                {
-                    isInEngagingArea = true;
-
-                    // Decide whether to leave lane
-                    if (canLeaveLane)
-                    {
-                        LeaveLane();
-                    }
-                }
-            }
-        }
-        else
-        {
-            // Reached end of waypoints, attack the barrier
-            AttackBarrier();
-        }
-    }
-    void LeaveLane()
-    {
-        // Implement behavior for leaving the lane
-    }
-
-    void AttackBarrier()
-    {
-        // Implement attack logic here
-    }
     private void UpdateCurrentSpeed()
     {
         currentSpeed = maxSpeed * speedMultiplier;
@@ -504,4 +434,20 @@ public class Zombie : MonoBehaviour
     {
         attackSpeedMultiplier = 1f;
     }
+    public void SetLane(Lane lane)
+    {
+        currentLane = lane;
+
+        // Get the Barrier component from the attack point
+        if (currentLane.attackPoint != null)
+        {
+            barrier = currentLane.attackPoint.GetComponent<Barrier>();
+        }
+    }
+    public void SetTier(int tier)
+    {
+        mutationTier = tier;
+        ApplyMutationEffects();
+    }
+
 }
