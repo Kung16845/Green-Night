@@ -17,6 +17,7 @@ public class InventoryItemPresent : MonoBehaviour
     {
         RefreshUIBox();
         RefreshUIBox();
+        
     }
 
     public void RefreshUIBox()
@@ -32,6 +33,7 @@ public class InventoryItemPresent : MonoBehaviour
     public void RefreshUIBoxCategory(int numCategory)
     {   
         ClearUIBoxes();
+
         Itemtype itemtypeCategory = (Itemtype)numCategory;
 
         foreach (ItemData itemData in listItemsDataBox)
@@ -65,9 +67,36 @@ public class InventoryItemPresent : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-
     }
+    public void UnlockSlotInventory(int numUnlock,SpecialistRoleNpc specialistRoleNpc)
+    {  
+        foreach (InvenrotySlots slot in listInvenrotySlots)
+        {
+            slot.slotTypeInventory = SlotType.SlotLock;
+        }
 
+        for (int i = 1; i <= numUnlock; i++)
+        {
+            InvenrotySlots slot = listInvenrotySlots.ElementAt(i-1);
+            slot.slotTypeInventory = SlotType.SlotBag;
+        }
+        
+        if(specialistRoleNpc == SpecialistRoleNpc.Military_training)
+        {
+            invenrotySlotSpecialMilitaryLock.slotTypeInventory = SlotType.SlotWeapon;
+        }
+
+        else if(specialistRoleNpc == SpecialistRoleNpc.Scavenger)
+        {
+            invenrotySlotSpecialScavenger.slotTypeInventory = SlotType.SlotTool;
+        }
+
+        else 
+        {
+            invenrotySlotSpecialMilitaryLock.slotTypeInventory = SlotType.SlotLock;
+            invenrotySlotSpecialScavenger.slotTypeInventory = SlotType.SlotLock;
+        }
+    } 
     public void AddItem(ItemData itemDataAdd)
     {
 

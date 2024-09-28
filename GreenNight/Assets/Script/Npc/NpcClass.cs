@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
 
-public class NpcClass : MonoBehaviour
+[Serializable]
+public class NpcClass 
 {
     [Header("Resoure Per Day ")]
     public int foodPerDay;
@@ -26,14 +28,15 @@ public class NpcClass : MonoBehaviour
     [Header("Player Link")]
     [Range(6,12)]
     public int countInventorySlot;
-    public SpecialistNpc roleNpc;
+    public int idnpc;
+    public SpecialistRoleNpc roleNpc;
     public string leaderSkill;
     [Header("ID Coutume")]
     public int idHead;
     public int idBody;
     public int idFeed;
 }
-public enum SpecialistNpc
+public enum SpecialistRoleNpc
 {
     Handicraft,
     Maintainance,
