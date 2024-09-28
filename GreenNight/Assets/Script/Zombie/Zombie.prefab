@@ -70,8 +70,8 @@ MonoBehaviour:
   isInEngagingArea: 0
   slowdownAmount: 0.25
   damageEffectDuration: 1
-  mutationType: 4
-  mutationTier: 3
+  mutationType: 0
+  mutationTier: 1
   acidPoolPrefab: {fileID: 8974713031636886679, guid: 674bad897b4809b43a15a1123c5b506a, type: 3}
   acidBarrierDamage:
   - 5
@@ -102,6 +102,7 @@ MonoBehaviour:
   - 2
   - 3
   - 4
+  currentState: 0
 --- !u!114 &8051091936370712935
 MonoBehaviour:
   m_ObjectHideFlags: 0

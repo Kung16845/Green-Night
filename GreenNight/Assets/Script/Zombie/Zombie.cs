@@ -19,6 +19,14 @@ public enum MutationType
     Exploder,
     ArmourShell
 }
+public enum ZombieState
+{
+    Moving,
+    Attacking,
+    Stopped,
+    Dead,
+    // Add other states as needed
+}
 
 public class Zombie : MonoBehaviour
 {
@@ -71,6 +79,8 @@ public class Zombie : MonoBehaviour
     public float[] explosionZombieDamage = { 55f, 100f, 150f };
     public float[] explosionRadius = { 2f, 3f, 4f };
 
+    [Header("State Tracking")]
+    [SerializeField] private ZombieState currentState = ZombieState.Moving;
     private float damageEffectDurationRemaining;
     
     private void Awake()
@@ -88,18 +98,31 @@ public class Zombie : MonoBehaviour
         InitializeDamageMultipliers();
         ApplyMutationEffects();
     }
+    public ZombieState CurrentState
+    {
+        get { return currentState; }
+        private set { currentState = value; }
+    }
     private void Update()
     {
+        if (currentHp <= 0)
+        {
+            currentState = ZombieState.Dead;
+            // Handle death logic
+            return;
+        }
+
         if (HasReachedAttackPoint())
         {
+            currentState = ZombieState.Attacking;
             // Stop moving
             rb2D.velocity = Vector2.zero;
-
             // Attack the barrier
             ZombieAttack();
         }
         else
         {
+            currentState = ZombieState.Moving;
             // Move towards the attack point
             ZombieMoveFindBarrier();
         }
@@ -280,6 +303,7 @@ public class Zombie : MonoBehaviour
 
     protected virtual void OnDeath()
     {
+        currentState = ZombieState.Dead;
         switch (mutationType)
         {
             case MutationType.Acid:
@@ -449,5 +473,24 @@ public class Zombie : MonoBehaviour
         mutationTier = tier;
         ApplyMutationEffects();
     }
+     public void StopZombie()
+    {
+        currentState = ZombieState.Stopped;
+        rb2D.velocity = Vector2.zero;
+        // Additional logic for stopping
+    }
+    public void ResumeZombie()
+    {
+        currentState = ZombieState.Moving;
+        // Additional logic for resuming movement
+    }
+    private void OnEnable()
+    {
+        ZombieManager.Instance.RegisterZombie(this);
+    }
 
+    private void OnDisable()
+    {
+        ZombieManager.Instance.UnregisterZombie(this);
+    }
 }
