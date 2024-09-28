@@ -30,7 +30,7 @@ public class AnimationControllerGrunt : MonoBehaviour
             return;
         }
 
-        if (zombieGrunt.countTImer == 0)
+        if (zombieGrunt.countTimer == 0)
         {
             IsWalk = true;
             animator.SetBool("Isreach", false);
