@@ -12,6 +12,7 @@ public class MainSpawner : MonoBehaviour
 
     private int currentDeckIndex = 0;
     private Coroutine deckCoroutine;
+    
 
     private void Start()
     {

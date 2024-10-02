@@ -11,6 +11,8 @@ public class AcidPool : MonoBehaviour
     private float damageInterval;
 
     private Dictionary<Zombie, Coroutine> zombieDamageCoroutines = new Dictionary<Zombie, Coroutine>();
+    private Coroutine barrierDamageCoroutine;
+    private Barrier barrier;
 
     public void Initialize(float barrierDamage, float zombieDamage, float duration, float radius, float interval)
     {
@@ -19,8 +21,11 @@ public class AcidPool : MonoBehaviour
         this.duration = duration;
         this.radius = radius;
         this.damageInterval = interval;
-        this.transform.localScale = new Vector3(radius, radius, 1f);
 
+        // Set the scale of the acid pool based on the radius
+        this.transform.localScale = new Vector3(radius * 2, radius * 2, 1f);
+
+        // Start the coroutine to manage the acid pool's lifetime
         StartCoroutine(ApplyDamageOverTime());
     }
 
@@ -32,6 +37,13 @@ public class AcidPool : MonoBehaviour
             Coroutine coroutine = StartCoroutine(ApplyDamageOverTimeToZombie(zombie));
             zombieDamageCoroutines.Add(zombie, coroutine);
         }
+
+        Barrier barrierComponent = other.GetComponent<Barrier>();
+        if (barrierComponent != null && barrierDamageCoroutine == null)
+        {
+            barrier = barrierComponent;
+            barrierDamageCoroutine = StartCoroutine(ApplyDamageOverTimeToBarrier(barrier));
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -41,6 +53,14 @@ public class AcidPool : MonoBehaviour
         {
             StopCoroutine(zombieDamageCoroutines[zombie]);
             zombieDamageCoroutines.Remove(zombie);
+        }
+
+        Barrier barrierComponent = other.GetComponent<Barrier>();
+        if (barrierComponent != null && barrierDamageCoroutine != null)
+        {
+            StopCoroutine(barrierDamageCoroutine);
+            barrierDamageCoroutine = null;
+            barrier = null;
         }
     }
 
@@ -54,6 +74,15 @@ public class AcidPool : MonoBehaviour
         zombieDamageCoroutines.Remove(zombie);
     }
 
+    private IEnumerator ApplyDamageOverTimeToBarrier(Barrier barrier)
+    {
+        while (barrier != null)
+        {
+            barrier.BarrierTakeDamage(barrierDamagePerTick);
+            yield return new WaitForSeconds(damageInterval);
+        }
+    }
+
     private IEnumerator ApplyDamageOverTime()
     {
         float elapsed = 0f;
@@ -63,11 +92,13 @@ public class AcidPool : MonoBehaviour
             yield return null;
         }
 
+        // Destroy the acid pool after its duration
         Destroy(this.gameObject);
     }
 
     private void OnDestroy()
     {
+        // Stop all coroutines to prevent errors
         foreach (var coroutine in zombieDamageCoroutines.Values)
         {
             if (coroutine != null)
@@ -76,5 +107,11 @@ public class AcidPool : MonoBehaviour
             }
         }
         zombieDamageCoroutines.Clear();
+
+        if (barrierDamageCoroutine != null)
+        {
+            StopCoroutine(barrierDamageCoroutine);
+            barrierDamageCoroutine = null;
+        }
     }
 }
