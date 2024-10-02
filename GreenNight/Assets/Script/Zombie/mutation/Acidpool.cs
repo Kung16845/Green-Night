@@ -27,6 +27,24 @@ public class AcidPool : MonoBehaviour
 
         // Start the coroutine to manage the acid pool's lifetime
         StartCoroutine(ApplyDamageOverTime());
+
+        // Check for overlapping barrier at initialization
+        CheckForOverlappingBarrier();
+    }
+
+    private void CheckForOverlappingBarrier()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius);
+        foreach (Collider2D collider in colliders)
+        {
+            Barrier barrierComponent = collider.GetComponent<Barrier>();
+            if (barrierComponent != null && barrierDamageCoroutine == null)
+            {
+                barrier = barrierComponent;
+                barrierDamageCoroutine = StartCoroutine(ApplyDamageOverTimeToBarrier(barrier));
+                break; // Assuming there's only one barrier to affect
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

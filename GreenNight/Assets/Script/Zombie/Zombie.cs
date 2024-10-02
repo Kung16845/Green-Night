@@ -437,7 +437,7 @@ public class Zombie : MonoBehaviour
     {
         attackSpeedMultiplier = 1f;
     }
-    public void SetLane(Lane lane)
+    public virtual void SetLane(Lane lane)
     {
         currentLane = lane;
 

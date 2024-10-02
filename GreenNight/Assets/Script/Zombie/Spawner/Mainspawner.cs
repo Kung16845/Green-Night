@@ -16,6 +16,7 @@ public class MainSpawner : MonoBehaviour
 
     private void Start()
     {
+        LaneManager.Instance.RegisterLanes(lanes);
         InitializeSpawnPoints();
         StartNextDeck();
     }

@@ -11227,10 +11227,24 @@ MonoBehaviour:
     - laneID: 2
       zombiePrefabs:
       - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
-      zombiesToSpawn: 14
-      spawnInterval: 0.5
+      zombiesToSpawn: 5
+      spawnInterval: 0.25
       zombieTier: 1
-      timeUntilNextWave: 47
+      timeUntilNextWave: 0
+    - laneID: 1
+      zombiePrefabs:
+      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
+      zombiesToSpawn: 5
+      spawnInterval: 0.25
+      zombieTier: 1
+      timeUntilNextWave: 0
+    - laneID: 3
+      zombiePrefabs:
+      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
+      zombiesToSpawn: 5
+      spawnInterval: 0.25
+      zombieTier: 1
+      timeUntilNextWave: 80
 --- !u!1 &1188953942
 GameObject:
   m_ObjectHideFlags: 0
