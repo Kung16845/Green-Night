@@ -19,6 +19,11 @@ public class NpcManager : MonoBehaviour
     public List<NpcClass> listNpcWorkingMoreOneDay = new List<NpcClass>();
     public TMP_Dropdown dropdown;
     public InventoryItemPresent inventoryItemPresent;
+    [Header("TextMeshProUGUI")]
+    public TextMeshProUGUI levelEnduranceText;
+    public TextMeshProUGUI levelCombatText;
+    public TextMeshProUGUI levelSpeedText; 
+    public TextMeshProUGUI specialistNpcText; 
     private void Start()
     {   
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
@@ -38,7 +43,7 @@ public class NpcManager : MonoBehaviour
 
         foreach (NpcClass npcData in listNpc)
         {
-            newOption.Add(npcData.roleNpc.ToString());
+            newOption.Add(npcData.nameNpc.ToString());
         }
 
         dropdown.AddOptions(newOption); 
@@ -60,28 +65,51 @@ public class NpcManager : MonoBehaviour
         string randomFirstName = firstNames[Random.Range(0, firstNames.Length)];
         string randomLastName = lastNames[Random.Range(0, lastNames.Length)];
 
-        // newNpc.name = randomFirstName + " " + randomLastName;   
+        newNpc.nameNpc = randomFirstName + " " + randomLastName;   
         newNpc.roleNpc = (SpecialistRoleNpc)Random.Range(0,8);
 
+        newNpc.endurance = Random.Range(1,3);
+        newNpc.combat = Random.Range(1,3);
+        newNpc.speed = Random.Range(1,3);
         newNpc.countInventorySlot = Random.Range(6,13);
 
         newNpc.idnpc = idNpc;
-
         newNpc.idHead = Random.Range(0, listHeadCoutume.Count);
         newNpc.idBody = Random.Range(0,listBodyCoutume.Count);
         newNpc.idFeed = Random.Range(0,listFeedCoutume.Count);
 
         listNpc.Add(newNpc);
     }
+    public void NpcWorking(int idNpc,bool isWithinDay)
+    {
+        NpcClass npcWorking = listNpc.FirstOrDefault(npc => npc.idnpc == idNpc);
+
+        if(isWithinDay)
+            listNpcWorkingWIthInOneDay.Add(npcWorking);
+        else 
+            listNpcWorkingMoreOneDay.Add(npcWorking);
+            
+        listNpc.Remove(npcWorking);
+
+    }
+
     public void OnDropdownValueChanged(int selectedValue)
     {
-        Debug.Log("Dropdown index changed to: " + selectedValue);
-        Debug.Log("Dropdown Option changed to: " + dropdown.options[selectedValue].text);
+        // Debug.Log("Dropdown index changed to: " + selectedValue);
+        // Debug.Log("Dropdown Option changed to: " + dropdown.options[selectedValue].text);
         NpcClass npcClassSelest = listNpc.FirstOrDefault(npc => npc.idnpc == selectedValue);
 
         inventoryItemPresent.UnlockSlotInventory(npcClassSelest.countInventorySlot,npcClassSelest.roleNpc);
+        SetText(npcClassSelest);
 
         HandleSpecialistNpcChange(selectedValue);
+    }
+    public void SetText(NpcClass npcClass)
+    {
+        levelCombatText.text = npcClass.combat.ToString(); 
+        levelEnduranceText.text = npcClass.endurance.ToString();
+        levelSpeedText.text = npcClass.speed.ToString();
+        specialistNpcText.text = npcClass.roleNpc.ToString();
     }
     public void HandleSpecialistNpcChange(int numSpecialistNpc)
     {

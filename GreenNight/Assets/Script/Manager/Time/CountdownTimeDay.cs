@@ -12,7 +12,7 @@ public class CountdownTimeDay : MonoBehaviour
     public int finishHourCraftingTime;
     public int finishMinutesCraftingTime;
     public TimeManager timeManager;
-
+    
     private void Awake()
     {
         timeManager = FindObjectOfType<TimeManager>();

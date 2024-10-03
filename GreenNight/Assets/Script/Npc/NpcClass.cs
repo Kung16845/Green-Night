@@ -12,6 +12,7 @@ public class NpcClass
     public int bed;
     
     [Header("Stat Npc")]
+    public string nameNpc;
     
     [Range(1,10)]
     public float hp; 
@@ -47,14 +48,15 @@ public enum SpecialistRoleNpc
     Doctor,
     Entertainer
 
-
 }
-public class HeadCoutume : MonoBehaviour
+[Serializable]
+public class HeadCoutume  
 {
     public int idHead;
     public Sprite spriteHead;
 }
-public class BodyCoutume : MonoBehaviour
+[Serializable]
+public class BodyCoutume 
 {
     public int idBody;
     public Sprite spriteBody;
@@ -64,7 +66,8 @@ public class BodyCoutume : MonoBehaviour
     public Sprite spriteShoulderRight;
 
 }
-public class FeedCoutume: MonoBehaviour
+[Serializable]
+public class FeedCoutume
 {
     public int idFeed;
     public Sprite spriteUpperLagRight;

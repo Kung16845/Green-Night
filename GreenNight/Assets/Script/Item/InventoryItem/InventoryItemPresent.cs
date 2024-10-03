@@ -99,7 +99,7 @@ public class InventoryItemPresent : MonoBehaviour
     } 
     public void AddItem(ItemData itemDataAdd)
     {
-
+        
         ItemData itemDataInList = listItemsDataBox.FirstOrDefault(item => item.idItem == itemDataAdd.idItem && item.count != item.maxCount);
 
         if (itemDataInList != null)
