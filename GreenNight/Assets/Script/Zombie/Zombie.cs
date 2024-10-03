@@ -80,7 +80,7 @@ public class Zombie : MonoBehaviour
     public float[] explosionRadius = { 2f, 3f, 4f };
 
     [Header("State Tracking")]
-    [SerializeField] private ZombieState currentState = ZombieState.Moving;
+    public ZombieState currentState;
     private float damageEffectDurationRemaining;
     
     private void Awake()
@@ -103,48 +103,27 @@ public class Zombie : MonoBehaviour
         get { return currentState; }
         private set { currentState = value; }
     }
-    private void Update()
+    void Update()
     {
-        if (currentHp <= 0)
-        {
-            currentState = ZombieState.Dead;
-            // Handle death logic
-            return;
-        }
-
-        if (HasReachedAttackPoint())
-        {
-            currentState = ZombieState.Attacking;
-            // Stop moving
-            rb2D.velocity = Vector2.zero;
-            // Attack the barrier
-            ZombieAttack();
-        }
-        else
-        {
-            currentState = ZombieState.Moving;
-            // Move towards the attack point
-            ZombieMoveFindBarrier();
-        }
     }
     public void ZombieMoveFindBarrier()
     {
         // Move towards the attack point
         if (currentLane != null && currentLane.attackPoint != null)
         {
+            currentState = ZombieState.Moving;
             Vector2 direction = (currentLane.attackPoint.position - transform.position).normalized;
             rb2D.velocity = direction * currentSpeed;
         }
     }
-    private bool HasReachedAttackPoint()
+    public bool HasReachedAttackPoint()
     {
         if (currentLane != null && currentLane.attackPoint != null)
         {
             float distanceToAttackPoint = Vector2.Distance(transform.position, currentLane.attackPoint.position);
 
-            // Define a threshold distance to consider as 'reached'
+            currentState = ZombieState.Attacking;
             float thresholdDistance = 0.1f;
-
             return distanceToAttackPoint <= thresholdDistance;
         }
         return false;
@@ -458,7 +437,7 @@ public class Zombie : MonoBehaviour
     {
         attackSpeedMultiplier = 1f;
     }
-    public void SetLane(Lane lane)
+    public virtual void SetLane(Lane lane)
     {
         currentLane = lane;
 

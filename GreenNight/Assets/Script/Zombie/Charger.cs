@@ -65,7 +65,6 @@ public class Charger : Zombie
                 break;
         }
     }
-
     private void HandleStoppedState()
     {
         stopTimer -= Time.deltaTime;
@@ -84,7 +83,7 @@ public class Charger : Zombie
             rb2D.velocity = Vector2.zero;
         }
     }
-     private void HandleChargingState()
+    private void HandleChargingState()
     {
         chargeTimer -= Time.deltaTime;
         if (chargeTimer <= 0f)

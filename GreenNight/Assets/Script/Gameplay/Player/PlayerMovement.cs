@@ -1,22 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
     public float currentSpeed = 5f;
-    // Start is called before the first frame update
-    void Start()
-    {
+    private bool isMovementStopped = false;
 
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        float vertical = Input.GetAxis("Vertical");
-        float horizontal = Input.GetAxis("Horizontal");
-         Vector2 direction = new Vector2(horizontal, vertical);
-        transform.Translate(direction * currentSpeed * Time.deltaTime);
+        if (!isMovementStopped)
+        {
+            float vertical = Input.GetAxis("Vertical");
+            float horizontal = Input.GetAxis("Horizontal");
+            Vector2 direction = new Vector2(horizontal, vertical);
+            transform.Translate(direction * currentSpeed * Time.deltaTime);
+        }
+    }
+
+    public void StopMovementForDuration(float duration)
+    {
+        StartCoroutine(StopMovementCoroutine(duration));
+    }
+
+    private IEnumerator StopMovementCoroutine(float duration)
+    {
+        isMovementStopped = true;
+        yield return new WaitForSeconds(duration);
+        isMovementStopped = false;
     }
 }
