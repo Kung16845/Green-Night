@@ -70,8 +70,9 @@ public class BodyCoutume
 public class FeedCoutume
 {
     public int idFeed;
-    public Sprite spriteUpperLagRight;
     public Sprite spriteUpperLagLeft;
-    public Sprite spriteLowerLagRight;
+    public Sprite spriteUpperLagRight;
     public Sprite spriteLowerLagLeft;
+    public Sprite spriteLowerLagRight;
+    
 }

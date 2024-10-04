@@ -19,6 +19,8 @@ public class NpcManager : MonoBehaviour
     public List<NpcClass> listNpcWorkingMoreOneDay = new List<NpcClass>();
     public TMP_Dropdown dropdown;
     public InventoryItemPresent inventoryItemPresent;
+    public Transform listPointSpawnerNpc;
+    public GameObject prefabNpc;
     [Header("TextMeshProUGUI")]
     public TextMeshProUGUI levelEnduranceText;
     public TextMeshProUGUI levelCombatText;
@@ -74,10 +76,19 @@ public class NpcManager : MonoBehaviour
         newNpc.countInventorySlot = Random.Range(6,13);
 
         newNpc.idnpc = idNpc;
-        newNpc.idHead = Random.Range(0, listHeadCoutume.Count);
-        newNpc.idBody = Random.Range(0,listBodyCoutume.Count);
-        newNpc.idFeed = Random.Range(0,listFeedCoutume.Count);
+        newNpc.idHead = Random.Range(0, listHeadCoutume.Count-1);
+        newNpc.idBody = Random.Range(0,listBodyCoutume.Count-1);
+        newNpc.idFeed = Random.Range(0,listFeedCoutume.Count-1);
 
+        HeadCoutume headCoutume = listHeadCoutume.FirstOrDefault(coutume => coutume.idHead == newNpc.idHead);
+        BodyCoutume bodyCoutume = listBodyCoutume.FirstOrDefault(coutume => coutume.idBody == newNpc.idBody);
+        FeedCoutume feedCoutume = listFeedCoutume.FirstOrDefault(coutume => coutume.idFeed == newNpc.idFeed);
+
+        GameObject npcOBJ = Instantiate(prefabNpc,listPointSpawnerNpc);
+        NpcCoutume npcCoutume = npcOBJ.GetComponent<NpcCoutume>();
+
+        npcCoutume.SetCostume(headCoutume, bodyCoutume,feedCoutume);
+        
         listNpc.Add(newNpc);
     }
     public void NpcWorking(int idNpc,bool isWithinDay)

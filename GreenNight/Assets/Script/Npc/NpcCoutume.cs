@@ -6,22 +6,23 @@ public class NpcCoutume : MonoBehaviour
 {
     [Header("HeadCoutuneNpc")]
     public SpriteRenderer coutumeHead;
-     [Header("BodyCoutuneNpc")]
+    [Header("BodyCoutuneNpc")]
     public SpriteRenderer coutumeBody;
     public SpriteRenderer coutumeLeftArm;
     public SpriteRenderer coutumeRightArm;
     public SpriteRenderer coutumeShoulderLeft;
     public SpriteRenderer coutumeShoulderRight;
-     [Header("FeedCoutuneNpc")]
-    public SpriteRenderer coutumeeUpperLagRight;
+    [Header("FeedCoutuneNpc")]
     public SpriteRenderer coutumeUpperLagLeft;
-    public SpriteRenderer coutumeLowerLagRight;
+    public SpriteRenderer coutumeeUpperLagRight;
     public SpriteRenderer coutumeLowerLagLeft;
+    public SpriteRenderer coutumeLowerLagRight;
+
     private void Awake()
     {
 
     }
-    public void SetCostume(HeadCoutume headCoutume,BodyCoutume bodyCoutume,FeedCoutume feedCoutume)
+    public void SetCostume(HeadCoutume headCoutume, BodyCoutume bodyCoutume, FeedCoutume feedCoutume)
     {
         coutumeHead.sprite = headCoutume.spriteHead;
 

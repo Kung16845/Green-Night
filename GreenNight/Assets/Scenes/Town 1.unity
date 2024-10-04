@@ -3977,14 +3977,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a91dbd2939471641925b860932adfba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listHeadCoutume: []
-  listBodyCoutume: []
-  listFeedCoutume: []
+  listHeadCoutume:
+  - idHead: 0
+    spriteHead: {fileID: -1520836183, guid: cdca247a1a44b9b478888294add648ff, type: 3}
+  - idHead: 1
+    spriteHead: {fileID: 485299014, guid: cdca247a1a44b9b478888294add648ff, type: 3}
+  - idHead: 2
+    spriteHead: {fileID: 1502302626, guid: cdca247a1a44b9b478888294add648ff, type: 3}
+  - idHead: 2
+    spriteHead: {fileID: 868151960, guid: cdca247a1a44b9b478888294add648ff, type: 3}
+  listBodyCoutume:
+  - idBody: 0
+    spriteBody: {fileID: 833608094, guid: 773f2aaa69a5ec34fa54714830f24b8f, type: 3}
+    spriteLeftArm: {fileID: 1175386622, guid: 773f2aaa69a5ec34fa54714830f24b8f, type: 3}
+    spriteRightArm: {fileID: -859013318, guid: 773f2aaa69a5ec34fa54714830f24b8f, type: 3}
+    spriteShoulderLeft: {fileID: 496776349, guid: 773f2aaa69a5ec34fa54714830f24b8f, type: 3}
+    spriteShoulderRight: {fileID: -1333054604, guid: 773f2aaa69a5ec34fa54714830f24b8f, type: 3}
+  - idBody: 1
+    spriteBody: {fileID: -1578173984, guid: 773f2aaa69a5ec34fa54714830f24b8f, type: 3}
+    spriteLeftArm: {fileID: 339899287, guid: 773f2aaa69a5ec34fa54714830f24b8f, type: 3}
+    spriteRightArm: {fileID: 1692866450, guid: 773f2aaa69a5ec34fa54714830f24b8f, type: 3}
+    spriteShoulderLeft: {fileID: -1239678673, guid: 773f2aaa69a5ec34fa54714830f24b8f, type: 3}
+    spriteShoulderRight: {fileID: 41703723, guid: 773f2aaa69a5ec34fa54714830f24b8f, type: 3}
+  - idBody: 2
+    spriteBody: {fileID: 233736668, guid: 773f2aaa69a5ec34fa54714830f24b8f, type: 3}
+    spriteLeftArm: {fileID: -1477485334, guid: 773f2aaa69a5ec34fa54714830f24b8f, type: 3}
+    spriteRightArm: {fileID: -676936795, guid: 773f2aaa69a5ec34fa54714830f24b8f, type: 3}
+    spriteShoulderLeft: {fileID: -966632816, guid: 773f2aaa69a5ec34fa54714830f24b8f, type: 3}
+    spriteShoulderRight: {fileID: 1669329953, guid: 773f2aaa69a5ec34fa54714830f24b8f, type: 3}
+  - idBody: 3
+    spriteBody: {fileID: 861081932, guid: 773f2aaa69a5ec34fa54714830f24b8f, type: 3}
+    spriteLeftArm: {fileID: 1175386622, guid: 773f2aaa69a5ec34fa54714830f24b8f, type: 3}
+    spriteRightArm: {fileID: -859013318, guid: 773f2aaa69a5ec34fa54714830f24b8f, type: 3}
+    spriteShoulderLeft: {fileID: 496776349, guid: 773f2aaa69a5ec34fa54714830f24b8f, type: 3}
+    spriteShoulderRight: {fileID: -1333054604, guid: 773f2aaa69a5ec34fa54714830f24b8f, type: 3}
+  listFeedCoutume:
+  - idFeed: 0
+    spriteUpperLagLeft: {fileID: -653878980, guid: f3bcec638db6e9f4cac6070fa092cdce, type: 3}
+    spriteUpperLagRight: {fileID: 1214042752, guid: f3bcec638db6e9f4cac6070fa092cdce, type: 3}
+    spriteLowerLagLeft: {fileID: 1980420805, guid: f3bcec638db6e9f4cac6070fa092cdce, type: 3}
+    spriteLowerLagRight: {fileID: 393871010, guid: f3bcec638db6e9f4cac6070fa092cdce, type: 3}
+  - idFeed: 1
+    spriteUpperLagLeft: {fileID: -819147239, guid: f3bcec638db6e9f4cac6070fa092cdce, type: 3}
+    spriteUpperLagRight: {fileID: -1716774824, guid: f3bcec638db6e9f4cac6070fa092cdce, type: 3}
+    spriteLowerLagLeft: {fileID: 627808386, guid: f3bcec638db6e9f4cac6070fa092cdce, type: 3}
+    spriteLowerLagRight: {fileID: 1713533143, guid: f3bcec638db6e9f4cac6070fa092cdce, type: 3}
+  - idFeed: 2
+    spriteUpperLagLeft: {fileID: 1017078421, guid: f3bcec638db6e9f4cac6070fa092cdce, type: 3}
+    spriteUpperLagRight: {fileID: -1191055939, guid: f3bcec638db6e9f4cac6070fa092cdce, type: 3}
+    spriteLowerLagLeft: {fileID: -1490630267, guid: f3bcec638db6e9f4cac6070fa092cdce, type: 3}
+    spriteLowerLagRight: {fileID: -1108293632, guid: f3bcec638db6e9f4cac6070fa092cdce, type: 3}
+  - idFeed: 3
+    spriteUpperLagLeft: {fileID: 1415085872, guid: f3bcec638db6e9f4cac6070fa092cdce, type: 3}
+    spriteUpperLagRight: {fileID: -1802137714, guid: f3bcec638db6e9f4cac6070fa092cdce, type: 3}
+    spriteLowerLagLeft: {fileID: 23353871, guid: f3bcec638db6e9f4cac6070fa092cdce, type: 3}
+    spriteLowerLagRight: {fileID: 89410057, guid: f3bcec638db6e9f4cac6070fa092cdce, type: 3}
   listNpc: []
   listNpcWorkingWIthInOneDay: []
   listNpcWorkingMoreOneDay: []
   dropdown: {fileID: 0}
   inventoryItemPresent: {fileID: 0}
+  listPointSpawnerNpc: {fileID: 924564515}
+  prefabNpc: {fileID: 4958575212990922125, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
   levelEnduranceText: {fileID: 1510035984}
   levelCombatText: {fileID: 1103522708}
   levelSpeedText: {fileID: 1630252145}
@@ -12604,6 +12658,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 920856774}
   m_CullTransparentMesh: 1
+--- !u!1 &924564514
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 924564515}
+  m_Layer: 0
+  m_Name: SpawnNpc
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &924564515
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 924564514}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.91, y: 0.23, z: 8.132027}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &926604376
 GameObject:
   m_ObjectHideFlags: 0
@@ -23160,7 +23245,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1519611831}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.81333333
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
