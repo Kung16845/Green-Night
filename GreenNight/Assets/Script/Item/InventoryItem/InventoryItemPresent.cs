@@ -8,47 +8,98 @@ public class InventoryItemPresent : MonoBehaviour
 {
     public List<ItemData> listItemsDataBox = new List<ItemData>();
     public List<UIItemData> listUIItemPrefab;
+    public List<InvenrotySlots> listInvenrotySlots = new List<InvenrotySlots>();
+    public InvenrotySlots invenrotySlotSpecialMilitaryLock;
+    public InvenrotySlots invenrotySlotSpecialScavenger;
     public Transform transformsBoxes;
 
     private void Start()
     {
         RefreshUIBox();
         RefreshUIBox();
+        
     }
 
     public void RefreshUIBox()
+    {
+        ClearUIBoxes();
+        
+        foreach (ItemData itemData in listItemsDataBox)
+        {
+            CreateUIBoxes(itemData);
+        }
+
+    }
+    public void RefreshUIBoxCategory(int numCategory)
+    {   
+        ClearUIBoxes();
+
+        Itemtype itemtypeCategory = (Itemtype)numCategory;
+
+        foreach (ItemData itemData in listItemsDataBox)
+        {
+            if (itemData.itemtype == itemtypeCategory)
+            {
+                CreateUIBoxes(itemData);
+                
+            }
+        }
+
+    }
+    public void CreateUIBoxes(ItemData itemData)
+    {   
+
+        GameObject uiItem = listUIItemPrefab.FirstOrDefault(idItem => idItem.idItem == itemData.idItem).gameObject;
+        GameObject uIItemOBJ = Instantiate(uiItem, transformsBoxes, false);
+
+        UIItemData uIItemData = uIItemOBJ.GetComponent<UIItemData>();
+        ItemClass itemClass = uIItemOBJ.GetComponent<ItemClass>();
+
+        itemClass.quantityItem = itemData.count;
+        itemClass.maxCountItem = itemData.maxCount;
+
+        uIItemData.slotTypeParent = transformsBoxes.GetComponent<InvenrotySlots>().slotTypeInventory;
+        uIItemData.UpdateDataUI(itemClass);
+    }
+    public void ClearUIBoxes()
     {
         foreach (Transform child in transformsBoxes)
         {
             Destroy(child.gameObject);
         }
-
-        foreach (ItemData itemData in listItemsDataBox)
+    }
+    public void UnlockSlotInventory(int numUnlock,SpecialistRoleNpc specialistRoleNpc)
+    {  
+        foreach (InvenrotySlots slot in listInvenrotySlots)
         {
-            GameObject uiItem = listUIItemPrefab.FirstOrDefault(idItem => idItem.idItem == itemData.idItem).gameObject;
-            Instantiate(uiItem, transformsBoxes, false);
-
-            UIItemData uIItemData = uiItem.GetComponent<UIItemData>();
-            ItemClass itemClass = uiItem.GetComponent<ItemClass>();
-
-            // Debug.Log("Item Data Count / MaxCount " + itemData.count + "  " + itemData.maxCount);
-
-            itemClass.quantityItem = itemData.count;
-            itemClass.maxCountItem = itemData.maxCount;
-            // Debug.Log("Item Class Count / MaxCount " + itemClass.quantityItem + "  " + itemClass.maxCountItem);
-            // Debug.Log(transformsBoxes.GetComponentInParent<InvenrotySlots>().slotTypeInventory);
-            uIItemData.slotTypeParent = transformsBoxes.GetComponent<InvenrotySlots>().slotTypeInventory;
-            uIItemData.UpdateDataUI(itemClass);
+            slot.slotTypeInventory = SlotType.SlotLock;
         }
 
-    }
-    public void Category()
-    {
+        for (int i = 1; i <= numUnlock; i++)
+        {
+            InvenrotySlots slot = listInvenrotySlots.ElementAt(i-1);
+            slot.slotTypeInventory = SlotType.SlotBag;
+        }
+        
+        if(specialistRoleNpc == SpecialistRoleNpc.Military_training)
+        {
+            invenrotySlotSpecialMilitaryLock.slotTypeInventory = SlotType.SlotWeapon;
+        }
 
-    }
+        else if(specialistRoleNpc == SpecialistRoleNpc.Scavenger)
+        {
+            invenrotySlotSpecialScavenger.slotTypeInventory = SlotType.SlotTool;
+        }
+
+        else 
+        {
+            invenrotySlotSpecialMilitaryLock.slotTypeInventory = SlotType.SlotLock;
+            invenrotySlotSpecialScavenger.slotTypeInventory = SlotType.SlotLock;
+        }
+    } 
     public void AddItem(ItemData itemDataAdd)
     {
-
+        
         ItemData itemDataInList = listItemsDataBox.FirstOrDefault(item => item.idItem == itemDataAdd.idItem && item.count != item.maxCount);
 
         if (itemDataInList != null)

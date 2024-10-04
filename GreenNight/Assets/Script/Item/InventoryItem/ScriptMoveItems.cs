@@ -23,44 +23,38 @@ public class ScriptMoveItems : MonoBehaviour
     {
         countItemMove += count;
         SlotType slotTypeItemMove = itemClassMove.gameObject.GetComponentInParent<InvenrotySlots>().slotTypeInventory;
-        if (itemClassInChild == null )
-        {   
+        if (itemClassInChild == null)
+        {
+            Debug.Log("itemClassMove.quantityItem : " + itemClassMove.quantityItem);
             Debug.Log("itemClassInChild == null");
-            if (countItemMove > itemClassMove.quantityItem && itemClassMove.quantityItem < itemClassMove.maxCountItem)
-            {   
-                Debug.Log("countItemMove = itemClassMove.quantityItem && itemClassMove.quantityItem < itemClassMove.maxCountItem");
-                countItemMove = itemClassMove.quantityItem;  
-            }
-            else if(countItemMove < itemClassMove.quantityItem && itemClassMove.quantityItem  > itemClassMove.maxCountItem)
-            {   
-                Debug.Log("countItemMove < itemClassMove.quantityItem &x& itemClassMove.quantityItem  > itemClassMove.maxCountItem");
-             
+            if (countItemMove > itemClassMove.maxCountItem)
+            {
                 countItemMove = itemClassMove.maxCountItem;
+
+                if (countItemMove > itemClassMove.quantityItem)
+                {
+                    countItemMove = itemClassMove.quantityItem;
+                }
             }
 
         }
         else if (itemClassInChild != null)
         {
             Debug.Log("item classInChild is not null ");
-            if (slotTypeItemMove != SlotType.SlotBoxes)
+            
+            if (countItemMove > itemClassMove.quantityItem)
             {
-                if (countItemMove > itemClassMove.quantityItem)
+                countItemMove = itemClassMove.quantityItem;
+                if (itemClassInChild.quantityItem + countItemMove > itemClassMove.maxCountItem)
                 {
-                    countItemMove = itemClassMove.quantityItem;
-
-                    if (itemClassInChild.quantityItem + countItemMove > itemClassMove.maxCountItem)
-                    {
-                        countItemMove = itemClassMove.maxCountItem - itemClassInChild.quantityItem;
-                    }
+                    countItemMove = itemClassMove.maxCountItem - itemClassInChild.quantityItem;
                 }
             }
-            else 
+            else if (itemClassInChild.quantityItem + countItemMove > itemClassMove.maxCountItem)
             {
-                if(countItemMove > itemClassMove.quantityItem)
-                {
-                    countItemMove = itemClassMove.quantityItem;
-                }
+                countItemMove = itemClassMove.maxCountItem - itemClassInChild.quantityItem;
             }
+            
         }
 
         countText.text = countItemMove.ToString();
@@ -76,7 +70,6 @@ public class ScriptMoveItems : MonoBehaviour
     }
     public void MoveItem()
     {
-
 
         List<ItemData> listItemData = inventoryItemPresent.listItemsDataBox;
         ItemData itemData = listItemData.FirstOrDefault(item => item.idItem == itemClassMove.idItem);
@@ -115,31 +108,31 @@ public class ScriptMoveItems : MonoBehaviour
 
             Debug.Log("Not Parant Slot is SlotBoxes");
         }
-        else if (slotTypeItemMoveParantBefore != SlotType.SlotBoxes)
-        {
-            Debug.Log("slotTypeItemMoveParantBefore != SlotType.SlotBoxes ");
+        // else if (slotTypeItemMoveParantBefore != SlotType.SlotBoxes)
+        // {
+        //     Debug.Log("slotTypeItemMoveParantBefore != SlotType.SlotBoxes ");
 
-            if (itemData != null)
-            {
-                itemData.count += countItemMove;
-                itemClassMove.quantityItem -= countItemMove;
-                UpdateUIItemMove();
-                //    itemData.count += countItemMove;
-                //    itemClassInChild.quantityItem -= countItemMove;  
-            }
-            else
-            {
-                itemClassMove.quantityItem -= countItemMove;
-                if (itemClassMove.quantityItem == 0)
-                {
-                    itemClassMove.quantityItem = countItemMove;
-                    Destroy(itemClassMove.gameObject);
-                }
+        //     if (itemData != null)
+        //     {
+        //         itemData.count += countItemMove;
+        //         itemClassMove.quantityItem -= countItemMove;
+        //         UpdateUIItemMove();
+        //         //    itemData.count += countItemMove;
+        //         //    itemClassInChild.quantityItem -= countItemMove;  
+        //     }
+        //     else
+        //     {
+        //         itemClassMove.quantityItem -= countItemMove;
+        //         if (itemClassMove.quantityItem == 0)
+        //         {
+        //             itemClassMove.quantityItem = countItemMove;
+        //             Destroy(itemClassMove.gameObject);
+        //         }
 
-                ItemData newItemData = inventoryItemPresent.ConventItemClassToItemData(itemClassMove);
-                inventoryItemPresent.AddItem(newItemData);
-            }
-        }
+        //         ItemData newItemData = inventoryItemPresent.ConventItemClassToItemData(itemClassMove);
+        //         inventoryItemPresent.AddItem(newItemData);
+        //     }
+        // }
 
         if (itemData != null)
         {
