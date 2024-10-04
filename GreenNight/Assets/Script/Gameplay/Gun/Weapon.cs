@@ -24,6 +24,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private bool isNpc;
     private float initialAccuracy;
     public float accuracyPenalty; // Additional penalty to accuracy based on stability
+    private StatAmplifier statAmplifier;
     private PlayerMovement playerMovement;
     public int shotsFiredConsecutively = 0; // Tracks the number of consecutive shots fired
     private bool isFiring; 
@@ -36,9 +37,13 @@ public class Weapon : MonoBehaviour
     void Start()
     {
         currentAmmo = capacity;
-        fireRate = 60f / rateOfFire; // Calculate fire rate in seconds per shot
+        fireRate = 60f / rateOfFire;
         initialAccuracy = accuracy;
-        playerMovement = GetComponentInParent<PlayerMovement>(); // Assuming the weapon is a child of the player
+        playerMovement = GetComponentInParent<PlayerMovement>();
+        statAmplifier = GetComponent<StatAmplifier>(); // Ensure this is attached
+
+        ApplyHandlingPenalty();
+        ApplyStatAmplifier();
     }
 
     void Update()
@@ -88,8 +93,6 @@ public class Weapon : MonoBehaviour
         {
             StartCoroutine(Reload());
         }
-
-        ApplyHandlingPenalty();
     }
 
     public void Shoot()
@@ -189,7 +192,7 @@ public class Weapon : MonoBehaviour
 
 
 
-    private void ApplyStabilityPenalty()
+     private void ApplyStabilityPenalty()
     {
         float penaltyFactor;
 
@@ -199,21 +202,19 @@ public class Weapon : MonoBehaviour
         }
         else if (stability <= 60)
         {
-            penaltyFactor = 0.25f - (0.25f * ((stability - 40) / 20f)); // Interpolate penalty reduction between 40 and 60
+            penaltyFactor = 0.25f - (0.25f * ((stability - 40) / 20f)); 
         }
         else if (stability <= 90)
         {
-            penaltyFactor = 0.125f - (0.125f * ((stability - 60) / 30f)); // Further reduce penalty between 60 and 90
+            penaltyFactor = 0.125f - (0.125f * ((stability - 60) / 30f));
         }
         else
         {
             penaltyFactor = 0f; // No penalty at max stability
         }
-        Debug.Log(penaltyFactor);
-        accuracyPenalty = Mathf.Min(25f, accuracyPenalty + (penaltyFactor * Time.deltaTime * 100f)); // Apply penalty based on the factor
+
+        accuracyPenalty = Mathf.Min(25f, accuracyPenalty + (penaltyFactor * Time.deltaTime * 100f * statAmplifier.GetCombatMultiplier())); // Amplified by combat stat
     }
-
-
 
     private void RecoverAccuracy()
     {
@@ -228,7 +229,8 @@ public class Weapon : MonoBehaviour
     {
         if (playerMovement != null)
         {
-            playerMovement.currentSpeed = 5f * (1f - (0.5f * (100f - handling) / 100f)); // Decrease player speed up to 50%
+            playerMovement.currentSpeed = playerMovement.currentSpeed  * (1f - (0.5f * (100f - handling) / 100f)); 
+            playerMovement.sprintSpeed = playerMovement.sprintSpeed * (1f - (0.3f * (100f - handling) / 100f)); 
         }
     }
 
@@ -241,5 +243,11 @@ public class Weapon : MonoBehaviour
         isReloading = false;
         shotsFiredConsecutively = 0; // Reset shot counter on reload
         Debug.Log("Reloaded!");
+    }
+    private void ApplyStatAmplifier()
+    {
+        stability *= statAmplifier.GetCombatMultiplier();
+        accuracy *= statAmplifier.GetCombatMultiplier();
+        fireRate /= statAmplifier.GetCombatMultiplier(); // Decreases reload time by amplifying fire rate
     }
 }
