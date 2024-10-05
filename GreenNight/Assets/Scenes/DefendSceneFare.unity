@@ -11472,7 +11472,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.042020798}
+  m_Offset: {x: 0, y: 3.3019257}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -11483,7 +11483,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 28.56482}
+  m_Size: {x: 1, y: 62.00428}
   m_EdgeRadius: 0
 --- !u!4 &1200450495
 Transform:
@@ -12734,6 +12734,7 @@ GameObject:
   - component: {fileID: 1268715204}
   - component: {fileID: 1268715207}
   - component: {fileID: 1268715206}
+  - component: {fileID: 1268715211}
   - component: {fileID: 1268715208}
   - component: {fileID: 1268715209}
   - component: {fileID: 1268715210}
@@ -12823,17 +12824,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e65d13d3058e4bc49a51c0df922a672f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rateOfFire: 750
-  handling: 50
-  accuracy: 65
+  rateOfFire: 870
+  handling: 65
+  accuracy: 35
   capacity: 30
   stability: 70
-  damage: 33
+  damage: 28
   fullAuto: 1
   isShotgun: 0
   pellets: 0
   spreadAngle: 0
-  stabilityThreshold: 6
+  stabilityThreshold: 15
   currentAmmo: 0
   fireRate: 0
   nextFireTime: 0
@@ -12856,7 +12857,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8173d5c823a2d5e4583f065290486466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentSpeed: 5
+  currentSpeed: 3
+  sprintSpeed: 5
+  maxStamina: 100
+  currentStamina: 0
+  staminaRecoverSpeed: 20
+  staminaConsumeSpeed: 40
+  minStaminaToSprint: 1
 --- !u!61 &1268715208
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12974,6 +12981,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1268715211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268715203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aea5c92fcf221d74986f4c29571ab365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  endurance: 10
+  combat: 10
+  speed: 10
 --- !u!1 &1270024151
 GameObject:
   m_ObjectHideFlags: 0

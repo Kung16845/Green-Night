@@ -5,7 +5,7 @@ public class Weapon : MonoBehaviour
 {
     // Weapon properties
     public int rateOfFire; // Rounds per minute
-    public int handling; // Speed penalty and reload speed (1-100)
+    public float handling; // Speed penalty and reload speed (1-100)
     public float accuracy; // Bullet precision (1-100)
     public int capacity; // Ammo in magazine (1-100)
     public float stability; // Recoil (1-100)
@@ -237,17 +237,24 @@ public class Weapon : MonoBehaviour
     public IEnumerator Reload()
     {
         isReloading = true;
-        Debug.Log("Reloading...");
-        yield return new WaitForSeconds(3f * (100f - handling) / 100f); // Adjust reload speed based on handling
+        Debug.Log(6.5f * (100f - handling) / 100f);
+        yield return new WaitForSeconds(6.5f  * (100f - handling) / 100f);
         currentAmmo = capacity;
         isReloading = false;
-        shotsFiredConsecutively = 0; // Reset shot counter on reload
+        shotsFiredConsecutively = 0; 
         Debug.Log("Reloaded!");
     }
     private void ApplyStatAmplifier()
     {
         stability *= statAmplifier.GetCombatMultiplier();
         accuracy *= statAmplifier.GetCombatMultiplier();
-        fireRate /= statAmplifier.GetCombatMultiplier(); // Decreases reload time by amplifying fire rate
+        if(accuracy > 100)
+        {
+            accuracy = 99;
+        }
+        if(stability > 100)
+        {
+            stability = 99;
+        }
     }
 }
