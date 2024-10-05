@@ -70,11 +70,13 @@ public class ScriptMoveItems : MonoBehaviour
     }
     public void MoveItem()
     {
-
-        List<ItemData> listItemData = inventoryItemPresent.listItemsDataBox;
-        ItemData itemData = listItemData.FirstOrDefault(item => item.idItem == itemClassMove.idItem);
+        //Move Item from boxes to inventoryslot
+        List<ItemData> listItemDataBox = inventoryItemPresent.listItemsDataBox;
+        ItemData itemData = listItemDataBox.FirstOrDefault(item => item.idItem == itemClassMove.idItem);
         SlotType slotTypeItemMoveParantBefore = draggableItemMove.parentBeforeDray.GetComponent<InvenrotySlots>().slotTypeInventory;
-
+        //Move Item within InventorySlot
+        List<ItemData> listItemDataInventory = inventoryItemPresent.listItemsDataInventorySlot;
+        
         if (slotTypeItemMoveParantBefore == SlotType.SlotBoxes && itemClassInChild == null)
         {
             itemData.count -= countItemMove;
@@ -84,7 +86,7 @@ public class ScriptMoveItems : MonoBehaviour
         }
         else if (itemClassInChild != null)
         {
-
+            
             itemClassMove.quantityItem -= countItemMove;
             itemClassInChild.quantityItem += countItemMove;
 
@@ -108,37 +110,12 @@ public class ScriptMoveItems : MonoBehaviour
 
             Debug.Log("Not Parant Slot is SlotBoxes");
         }
-        // else if (slotTypeItemMoveParantBefore != SlotType.SlotBoxes)
-        // {
-        //     Debug.Log("slotTypeItemMoveParantBefore != SlotType.SlotBoxes ");
-
-        //     if (itemData != null)
-        //     {
-        //         itemData.count += countItemMove;
-        //         itemClassMove.quantityItem -= countItemMove;
-        //         UpdateUIItemMove();
-        //         //    itemData.count += countItemMove;
-        //         //    itemClassInChild.quantityItem -= countItemMove;  
-        //     }
-        //     else
-        //     {
-        //         itemClassMove.quantityItem -= countItemMove;
-        //         if (itemClassMove.quantityItem == 0)
-        //         {
-        //             itemClassMove.quantityItem = countItemMove;
-        //             Destroy(itemClassMove.gameObject);
-        //         }
-
-        //         ItemData newItemData = inventoryItemPresent.ConventItemClassToItemData(itemClassMove);
-        //         inventoryItemPresent.AddItem(newItemData);
-        //     }
-        // }
 
         if (itemData != null)
         {
             if (itemData.count <= 0)
             {
-                listItemData.Remove(itemData);
+                listItemDataBox.Remove(itemData);
             }
         }
 

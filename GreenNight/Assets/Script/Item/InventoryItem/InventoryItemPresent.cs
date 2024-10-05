@@ -1,25 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class InventoryItemPresent : MonoBehaviour
 {
     public List<ItemData> listItemsDataBox = new List<ItemData>();
+    public List<ItemData> listItemsDataInventorySlot = new List<ItemData>();
     public List<UIItemData> listUIItemPrefab;
     public List<InvenrotySlots> listInvenrotySlots = new List<InvenrotySlots>();
     public InvenrotySlots invenrotySlotSpecialMilitaryLock;
     public InvenrotySlots invenrotySlotSpecialScavenger;
     public Transform transformsBoxes;
-
+    public Canvas canvas;
+    public GameObject uIInventoryPrefab;
     private void Start()
     {
         RefreshUIBox();
         RefreshUIBox();
         
+        canvas = FindAnyObjectByType<Canvas>();
+        GameObject uIInventory = Instantiate(uIInventoryPrefab,canvas.transform,true);
+        uIInventory.SetActive(true);
     }
-
+    private void RefreshUIInventorySlot()
+    {
+        
+    }
     public void RefreshUIBox()
     {
         ClearUIBoxes();
@@ -30,6 +39,7 @@ public class InventoryItemPresent : MonoBehaviour
         }
 
     }
+
     public void RefreshUIBoxCategory(int numCategory)
     {   
         ClearUIBoxes();

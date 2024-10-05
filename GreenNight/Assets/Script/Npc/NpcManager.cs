@@ -30,12 +30,12 @@ public class NpcManager : MonoBehaviour
     {   
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
 
-        dropdown = FindObjectOfType<TMP_Dropdown>();
-        dropdown.onValueChanged.AddListener(OnDropdownValueChanged);
+        // dropdown = FindObjectOfType<TMP_Dropdown>();
+        // dropdown.onValueChanged.AddListener(OnDropdownValueChanged);
         
         StartGameCreateGropNpx();
-        SetOptionDropDown();
-        OnDropdownValueChanged(0);
+        // SetOptionDropDown();
+        // OnDropdownValueChanged(0);
     }
     public void SetOptionDropDown()
     {   
