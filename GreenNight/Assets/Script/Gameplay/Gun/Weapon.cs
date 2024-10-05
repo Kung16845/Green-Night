@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    
     // Weapon properties
     public int rateOfFire; // Rounds per minute
     public float handling; // Speed penalty and reload speed (1-100)
@@ -15,6 +16,7 @@ public class Weapon : MonoBehaviour
     public int pellets; // Number of pellets for shotgun
     public float spreadAngle; // Spread angle for shotgun
     public int stabilityThreshold = 5; // Number of shots before stability penalty starts
+    public CaliberType caliberType;
 
     // Internal variables
     [SerializeField] public int currentAmmo;
@@ -40,7 +42,7 @@ public class Weapon : MonoBehaviour
         fireRate = 60f / rateOfFire;
         initialAccuracy = accuracy;
         playerMovement = GetComponentInParent<PlayerMovement>();
-        statAmplifier = GetComponent<StatAmplifier>(); // Ensure this is attached
+        statAmplifier = GetComponent<StatAmplifier>();
 
         ApplyHandlingPenalty();
         ApplyStatAmplifier();
@@ -50,7 +52,6 @@ public class Weapon : MonoBehaviour
     {
         if (isReloading) return;
 
-        // Check if the mouse button is being held down
         isFiring = Input.GetMouseButton(0);
 
         if (fullAuto)
@@ -67,7 +68,7 @@ public class Weapon : MonoBehaviour
             }
             else if (!isFiring)
             {
-                RecoverAccuracy(); // Only recover accuracy if the mouse button is released
+                RecoverAccuracy();
             }
         }
         else
@@ -76,7 +77,6 @@ public class Weapon : MonoBehaviour
             {
                 Shoot();
                 nextFireTime = Time.time + fireRate;
-
                 shotsFiredConsecutively++;
                 if (shotsFiredConsecutively >= stabilityThreshold)
                 {
@@ -85,7 +85,7 @@ public class Weapon : MonoBehaviour
             }
             else if (!isFiring)
             {
-                RecoverAccuracy(); // Only recover accuracy if the mouse button is released
+                RecoverAccuracy();
             }
         }
 
@@ -99,7 +99,6 @@ public class Weapon : MonoBehaviour
     {
         if (currentAmmo <= 0)
         {
-            Debug.Log("Out of ammo!");
             return;
         }
 
@@ -107,7 +106,6 @@ public class Weapon : MonoBehaviour
 
         if (isShotgun)
         {
-            // Shotgun logic: Fire multiple pellets
             for (int i = 0; i < pellets; i++)
             {
                 FirePellet();
@@ -121,11 +119,13 @@ public class Weapon : MonoBehaviour
 
     private void FireBullet()
     {
-        // Instantiate bullet and set its direction
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         Bullet bulletScript = bullet.GetComponent<Bullet>();
+        
+        // Assign damage and caliber type to the bullet
         bulletScript.damage = damage;
+        bulletScript.caliberType = caliberType;
 
         // Adjust bullet direction based on accuracy
         if (!isNpc)
@@ -134,36 +134,28 @@ public class Weapon : MonoBehaviour
         }
 
         float accuracyFactor = GetAccuracyFactor();
-        float accuracySpread = (1 - accuracyFactor) / 10f; // Calculate spread based on accuracy factor
+        float accuracySpread = (1 - accuracyFactor) / 10f;
         bulletDirection += new Vector2(Random.Range(-accuracySpread, accuracySpread), Random.Range(-accuracySpread, accuracySpread));
-        rb.velocity = bulletDirection * 100f; // Adjust bullet speed as necessary
+        rb.velocity = bulletDirection * 100f;
     }
 
     private void FirePellet()
     {
-        // Calculate the initial direction towards the player's aim point
         Vector2 aimDirection = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - firePoint.position).normalized;
-
-        // Apply the spread angle to the aim direction
         float angle = Random.Range(-spreadAngle / 2, spreadAngle / 2);
         Vector2 directionWithSpread = Quaternion.Euler(0, 0, angle) * aimDirection;
 
-        // Instantiate pellet and set its direction with spread
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         Bullet bulletScript = bullet.GetComponent<Bullet>();
-        bulletScript.damage = damage / pellets; // Damage per pellet
+        bulletScript.damage = damage / pellets; 
+        bulletScript.caliberType = caliberType; // Assign shotgun caliber
 
-        // Calculate the spread caused by accuracy
         float accuracyFactor = GetAccuracyFactor();
-        float accuracySpread = (1 - accuracyFactor) / 10f; // Calculate spread based on accuracy factor
+        float accuracySpread = (1 - accuracyFactor) / 10f;
         directionWithSpread += new Vector2(Random.Range(-accuracySpread, accuracySpread), Random.Range(-accuracySpread, accuracySpread));
-
-        // Set the pellet velocity based on the calculated direction
-        rb.velocity = directionWithSpread * 1000f; // Adjust bullet speed as necessary
+        rb.velocity = directionWithSpread * 100f;
     }
-
-
     private float GetAccuracyFactor()
     {
         // Determine accuracy factor based on the accuracy value
@@ -237,8 +229,8 @@ public class Weapon : MonoBehaviour
     public IEnumerator Reload()
     {
         isReloading = true;
-        Debug.Log(6.5f * (100f - handling) / 100f);
-        yield return new WaitForSeconds(6.5f  * (100f - handling) / 100f);
+        Debug.Log((6.5f * (1-(statAmplifier.GetCombatMultiplier()-1)))  * (100f - handling) / 100f);
+        yield return new WaitForSeconds((6.5f * (1-(statAmplifier.GetCombatMultiplier()-1)))  * (100f - handling) / 100f);
         currentAmmo = capacity;
         isReloading = false;
         shotsFiredConsecutively = 0; 
@@ -248,6 +240,7 @@ public class Weapon : MonoBehaviour
     {
         stability *= statAmplifier.GetCombatMultiplier();
         accuracy *= statAmplifier.GetCombatMultiplier();
+        Debug.Log (1-(statAmplifier.GetCombatMultiplier()-1));
         if(accuracy > 100)
         {
             accuracy = 99;

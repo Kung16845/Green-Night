@@ -11,8 +11,8 @@ public class StatAmplifier : MonoBehaviour
     {
         if (level >= 2 && level <= 3) return 0.05f * (level - 1);    // 5% per level
         if (level >= 4 && level <= 6) return 0.10f + 0.07f * (level - 3); // 7% per level
-        if (level >= 7 && level <= 9) return 0.31f + 0.06f * (level - 6); // 6% per level
-        if (level == 10) return 0.49f + 0.11f;                       // 11% for level 10
+        if (level >= 7 && level <= 9) return 0.31f + 0.04f * (level - 6); // 4% per level
+        if (level == 10) return 0.46f + 0.10f;                       // 10% for level 10
         return 0f;
     }
 

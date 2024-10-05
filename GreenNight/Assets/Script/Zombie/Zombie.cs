@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum DamageType
 {
-    LowcalliberBullet,
+
+    LowcaliberBullet,
+    MediumcaliberBullet,
+    ShotgunPellet,
     HighcalliberBullet,
     Pulse,
     Fire,
@@ -155,8 +158,8 @@ public class Zombie : MonoBehaviour
         {
             if (damageType == DamageType.HighcalliberBullet)
             {
-                // Bullet damage reduces damage by 30% to armor
-                float reducedDamage = adjustedDamage * 0.70f;
+                // Bullet damage reduces damage by 15% to armor
+                float reducedDamage = adjustedDamage * 0.85f;
                 ArmourHp -= reducedDamage;
 
                 // Handle armor depletion
@@ -165,7 +168,16 @@ public class Zombie : MonoBehaviour
                 // Apply overflow damage to health
                 ApplyOverflowDamageToHealth();
             }
-            if (damageType == DamageType.LowcalliberBullet)
+            if (damageType == DamageType.MediumcaliberBullet)
+            {
+                // Bullet damage reduces damage by 25% to armor
+                float reducedDamage = adjustedDamage * 0.75f;
+                ArmourHp -= reducedDamage;
+
+                HandleArmorDepletion();
+                ApplyOverflowDamageToHealth();
+            }
+            if (damageType == DamageType.LowcaliberBullet || damageType == DamageType.ShotgunPellet)
             {
                 float reducedDamage = adjustedDamage * 0.50f;
                 ArmourHp -= reducedDamage;
@@ -398,7 +410,9 @@ public class Zombie : MonoBehaviour
         damageMultipliers = new Dictionary<DamageType, float>
         {
             { DamageType.HighcalliberBullet, 1f },
-            { DamageType.LowcalliberBullet, 1f },
+            { DamageType.LowcaliberBullet, 1f },
+            { DamageType.MediumcaliberBullet, 1f },
+            { DamageType.ShotgunPellet, 1f },
             { DamageType.Pulse, 1f },
             { DamageType.Fire, 1f },
             { DamageType.Acid, 1f },

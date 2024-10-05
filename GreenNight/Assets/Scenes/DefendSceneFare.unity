@@ -6389,6 +6389,7 @@ GameObject:
   - component: {fileID: 736084986}
   - component: {fileID: 736084985}
   - component: {fileID: 736084984}
+  - component: {fileID: 736084987}
   m_Layer: 0
   m_Name: Npc Turret (3)
   m_TagString: Untagged
@@ -6434,6 +6435,7 @@ MonoBehaviour:
   pellets: 0
   spreadAngle: 0
   stabilityThreshold: 5
+  caliberType: 0
   currentAmmo: 0
   fireRate: 0
   nextFireTime: 0
@@ -6543,6 +6545,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &736084987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736084982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aea5c92fcf221d74986f4c29571ab365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  endurance: 5
+  combat: 5
+  speed: 5
 --- !u!1 &738602793
 GameObject:
   m_ObjectHideFlags: 0
@@ -9747,6 +9764,7 @@ MonoBehaviour:
   pellets: 0
   spreadAngle: 0
   stabilityThreshold: 5
+  caliberType: 0
   currentAmmo: 0
   fireRate: 0
   nextFireTime: 0
@@ -11021,6 +11039,7 @@ MonoBehaviour:
   pellets: 0
   spreadAngle: 0
   stabilityThreshold: 5
+  caliberType: 0
   currentAmmo: 0
   fireRate: 0
   nextFireTime: 0
@@ -11221,6 +11240,30 @@ MonoBehaviour:
     engagingArea: {fileID: 1716045786}
     attackPoint: {fileID: 1911803340}
   spawnDecks:
+  - deckName: TestDeck
+    deckDuration: 250
+    spawnWaves:
+    - laneID: 2
+      zombiePrefabs:
+      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
+      zombiesToSpawn: 5
+      spawnInterval: 0.8
+      zombieTier: 3
+      timeUntilNextWave: 0
+    - laneID: 1
+      zombiePrefabs:
+      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
+      zombiesToSpawn: 5
+      spawnInterval: 0.8
+      zombieTier: 3
+      timeUntilNextWave: 0
+    - laneID: 3
+      zombiePrefabs:
+      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
+      zombiesToSpawn: 5
+      spawnInterval: 0.8
+      zombieTier: 3
+      timeUntilNextWave: 80
   - deckName: Test reeker
     deckDuration: 900
     spawnWaves:
@@ -11231,30 +11274,6 @@ MonoBehaviour:
       spawnInterval: 0.25
       zombieTier: 1
       timeUntilNextWave: 0
-  - deckName: TestDeck
-    deckDuration: 250
-    spawnWaves:
-    - laneID: 2
-      zombiePrefabs:
-      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
-      zombiesToSpawn: 5
-      spawnInterval: 0.25
-      zombieTier: 1
-      timeUntilNextWave: 0
-    - laneID: 1
-      zombiePrefabs:
-      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
-      zombiesToSpawn: 5
-      spawnInterval: 0.25
-      zombieTier: 1
-      timeUntilNextWave: 0
-    - laneID: 3
-      zombiePrefabs:
-      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
-      zombiesToSpawn: 5
-      spawnInterval: 0.25
-      zombieTier: 1
-      timeUntilNextWave: 80
 --- !u!1 &1188953942
 GameObject:
   m_ObjectHideFlags: 0
@@ -12824,17 +12843,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e65d13d3058e4bc49a51c0df922a672f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rateOfFire: 870
-  handling: 65
-  accuracy: 35
-  capacity: 30
-  stability: 70
-  damage: 28
+  rateOfFire: 600
+  handling: 40
+  accuracy: 45
+  capacity: 25
+  stability: 50
+  damage: 42
   fullAuto: 1
   isShotgun: 0
   pellets: 0
   spreadAngle: 0
-  stabilityThreshold: 15
+  stabilityThreshold: 5
+  caliberType: 1
   currentAmmo: 0
   fireRate: 0
   nextFireTime: 0
@@ -12857,8 +12877,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8173d5c823a2d5e4583f065290486466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentSpeed: 3
-  sprintSpeed: 5
+  currentSpeed: 2.5
+  sprintSpeed: 4.6
   maxStamina: 100
   currentStamina: 0
   staminaRecoverSpeed: 20
@@ -12993,9 +13013,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aea5c92fcf221d74986f4c29571ab365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endurance: 10
-  combat: 10
-  speed: 10
+  endurance: 4
+  combat: 3
+  speed: 3
 --- !u!1 &1270024151
 GameObject:
   m_ObjectHideFlags: 0
@@ -13428,6 +13448,7 @@ GameObject:
   - component: {fileID: 1352017379}
   - component: {fileID: 1352017378}
   - component: {fileID: 1352017377}
+  - component: {fileID: 1352017380}
   m_Layer: 0
   m_Name: Npc Turret (2)
   m_TagString: Untagged
@@ -13473,6 +13494,7 @@ MonoBehaviour:
   pellets: 0
   spreadAngle: 0
   stabilityThreshold: 5
+  caliberType: 0
   currentAmmo: 0
   fireRate: 0
   nextFireTime: 0
@@ -13582,6 +13604,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1352017380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1352017375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aea5c92fcf221d74986f4c29571ab365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  endurance: 5
+  combat: 5
+  speed: 5
 --- !u!1 &1372038878
 GameObject:
   m_ObjectHideFlags: 0

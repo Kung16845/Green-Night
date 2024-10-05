@@ -112,7 +112,7 @@ public class Charger : Zombie
     protected override void InitializeDamageMultipliers()
     {
         base.InitializeDamageMultipliers();
-        damageMultipliers[DamageType.LowcalliberBullet] = bulletDamageReduction;
+        damageMultipliers[DamageType.LowcaliberBullet] = bulletDamageReduction;
         damageMultipliers[DamageType.HighcalliberBullet] = bulletDamageReduction;
     }
     public override void ZombieTakeDamage(float damage, DamageType damageType, float extraMultiplier = 1f)
@@ -161,7 +161,7 @@ public class Charger : Zombie
 
         // Remove bullet damage reduction during weakness
         bulletDamageReduction = 1f; // No reduction
-        damageMultipliers[DamageType.LowcalliberBullet] = bulletDamageReduction;
+        damageMultipliers[DamageType.LowcaliberBullet] = bulletDamageReduction;
         damageMultipliers[DamageType.HighcalliberBullet] = bulletDamageReduction;
         // Optionally: Play a stunned animation or effect
     }
