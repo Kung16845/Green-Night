@@ -21,6 +21,8 @@ public class Building : MonoBehaviour
     public TimeManager timeManager;
     public DateTime dateTime;
     public SpriteRenderer spriteRenderer;
+    public Sprite OriginalSprite;
+    public Sprite Constructhreshold;
     public BuildManager buildManager;
     public bool isfinsih;
     private void Start() 
@@ -46,14 +48,14 @@ public class Building : MonoBehaviour
         {   
             isBuilding = false;
             buildManager.npc += npcCost;
-            spriteRenderer.color = Color.white;
+            spriteRenderer.sprite = OriginalSprite;
             isfinsih = true;
             return;
         }
         else if(dateTime.day < finishDayBuildingTime)
         {   
             // Debug.Log("Is Building");
-            spriteRenderer.color = Color.yellow;
+            spriteRenderer.sprite = Constructhreshold;
         }
     }
 }

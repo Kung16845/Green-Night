@@ -21,6 +21,8 @@ public class UpgradeBuilding : MonoBehaviour
     public TimeManager timeManager;
     public DateTime dateTime;
     public SpriteRenderer spriteRenderer;
+    public Sprite Lv2Sprite;
+    public Sprite ConstructSprite;
     public BuildManager buildManager;
     public Building building;
     public UImanger uImanger; // Change to GameObject
@@ -56,19 +58,22 @@ public class UpgradeBuilding : MonoBehaviour
         }
     }
     void WaitUpgrade()
-    {      
-        if(dateTime.day >= finishDayBuildingTime && isBuilding)
-        {   
+    {
+        // Check if building time is complete
+        if (dateTime.day >= finishDayBuildingTime && isBuilding)
+        {
             buildManager.npc += npcCost;
-            spriteRenderer.color = Color.white;
+            spriteRenderer.sprite = Lv2Sprite; // Assign the upgraded sprite
             isfinsih = true;
             isBuilding = false;
             Debug.Log("Upgraded");
             return;
         }
-        else if(dateTime.day < finishDayBuildingTime)
-        {   
-            spriteRenderer.color = Color.yellow;
+        // If the building is still under construction
+        else if (dateTime.day < finishDayBuildingTime)
+        {
+            spriteRenderer.sprite = ConstructSprite; // Assign the construction sprite
         }
     }
+
 }
