@@ -150,7 +150,7 @@ public class Weapon : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         Bullet bulletScript = bullet.GetComponent<Bullet>();
-        bulletScript.damage = damage / pellets; 
+        bulletScript.damage = damage; 
         bulletScript.caliberType = caliberType; // Assign shotgun caliber
 
         float accuracyFactor = GetAccuracyFactor();
@@ -215,7 +215,7 @@ public class Weapon : MonoBehaviour
         accuracyPenalty = Mathf.Max(0f, accuracyPenalty - (50f * Time.deltaTime)); // Recover accuracy when not shooting
         if (accuracyPenalty == 0f)
         {
-            shotsFiredConsecutively = 0; // Reset shot counter when accuracy fully recovers
+            shotsFiredConsecutively = 0; 
         }
     }
 
@@ -238,6 +238,7 @@ public class Weapon : MonoBehaviour
         shotsFiredConsecutively = 0; 
         Debug.Log("Reloaded!");
     }
+    
     private void ApplyStatAmplifier()
     {
         stability *= statAmplifier.GetCombatMultiplier();
