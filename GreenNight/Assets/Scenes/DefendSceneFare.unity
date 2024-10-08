@@ -11247,22 +11247,22 @@ MonoBehaviour:
       zombiePrefabs:
       - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
       zombiesToSpawn: 5
-      spawnInterval: 0.8
-      zombieTier: 3
+      spawnInterval: 1.5
+      zombieTier: 1
       timeUntilNextWave: 0
     - laneID: 1
       zombiePrefabs:
       - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
       zombiesToSpawn: 5
-      spawnInterval: 0.8
-      zombieTier: 3
+      spawnInterval: 1.5
+      zombieTier: 1
       timeUntilNextWave: 0
     - laneID: 3
       zombiePrefabs:
       - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
       zombiesToSpawn: 5
-      spawnInterval: 0.8
-      zombieTier: 3
+      spawnInterval: 1.5
+      zombieTier: 1
       timeUntilNextWave: 80
   - deckName: Test reeker
     deckDuration: 900
@@ -12843,12 +12843,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e65d13d3058e4bc49a51c0df922a672f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rateOfFire: 600
-  handling: 40
-  accuracy: 45
-  capacity: 25
-  stability: 50
-  damage: 42
+  rateOfFire: 750
+  handling: 50
+  accuracy: 65
+  capacity: 30
+  stability: 70
+  damage: 33
   fullAuto: 1
   isShotgun: 0
   pellets: 0
@@ -12878,7 +12878,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentSpeed: 2.5
-  sprintSpeed: 4.6
+  sprintSpeed: 4.5
   maxStamina: 100
   currentStamina: 0
   staminaRecoverSpeed: 20
@@ -13014,7 +13014,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endurance: 4
-  combat: 3
+  combat: 8
   speed: 3
 --- !u!1 &1270024151
 GameObject:

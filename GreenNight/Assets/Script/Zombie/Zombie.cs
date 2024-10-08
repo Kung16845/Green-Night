@@ -168,7 +168,7 @@ public class Zombie : MonoBehaviour
                 // Apply overflow damage to health
                 ApplyOverflowDamageToHealth();
             }
-            if (damageType == DamageType.MediumcaliberBullet)
+            else if (damageType == DamageType.MediumcaliberBullet)
             {
                 // Bullet damage reduces damage by 25% to armor
                 float reducedDamage = adjustedDamage * 0.75f;
@@ -177,7 +177,7 @@ public class Zombie : MonoBehaviour
                 HandleArmorDepletion();
                 ApplyOverflowDamageToHealth();
             }
-            if (damageType == DamageType.LowcaliberBullet || damageType == DamageType.ShotgunPellet)
+            else if (damageType == DamageType.LowcaliberBullet || damageType == DamageType.ShotgunPellet)
             {
                 float reducedDamage = adjustedDamage * 0.50f;
                 ArmourHp -= reducedDamage;

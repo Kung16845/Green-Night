@@ -117,15 +117,17 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    private void FireBullet()
+      private void FireBullet()
     {
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         Bullet bulletScript = bullet.GetComponent<Bullet>();
-        
-        // Assign damage and caliber type to the bullet
-        bulletScript.damage = damage;
+
+        // Set the caliber type and initial penetration count at the time of bullet instantiation
         bulletScript.caliberType = caliberType;
+        bulletScript.InitializePenetration();  // Call the function to initialize penetration
+
+        bulletScript.damage = damage;
 
         // Adjust bullet direction based on accuracy
         if (!isNpc)
