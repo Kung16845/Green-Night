@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float damage ;
+    public float damage;
     private void OnTriggerEnter2D(Collider2D other) 
     {   
         Zombie zombie = other.GetComponent<Zombie>();
         if(zombie != null)
         {
-            zombie.ZombieTakeDamage(damage);
-            
+            zombie.ZombieTakeDamage(damage, DamageType.HighcalliberBullet);
+            Destroy(this.gameObject);
+        }
+        if(other.CompareTag("Wall"))
+        {
+            Destroy(this.gameObject);
         }
     }
 }

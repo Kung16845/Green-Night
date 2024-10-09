@@ -16,6 +16,6 @@ public class PickUpItem : MonoBehaviour
     {   
         Debug.Log("Add ITem");  
         inventoryItemPresent.AddItem(itemData);   
-        inventoryItemPresent.RefreshUI(); 
+        inventoryItemPresent.RefreshUIBox(); 
     }
 }

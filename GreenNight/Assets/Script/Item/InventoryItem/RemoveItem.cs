@@ -16,6 +16,6 @@ public class RemoveItem : MonoBehaviour
     {   
         Debug.Log("Remove ITem");  
         inventoryItemPresent.RemoveItem(itemData);   
-        inventoryItemPresent.RefreshUI(); 
+        inventoryItemPresent.RefreshUIBox(); 
     }
 }

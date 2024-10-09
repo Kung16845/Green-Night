@@ -19,5 +19,8 @@ public enum Itemtype
     Grenade,
     Tool,
     Vest,
-    Weapon
+    Weapon,
+    Ammo,
+    Pill,
+    General
 }
