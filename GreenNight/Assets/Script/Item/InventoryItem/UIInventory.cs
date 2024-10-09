@@ -25,8 +25,8 @@ public class UIInventory : MonoBehaviour
         npcManager = FindObjectOfType<NpcManager>();
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
 
-        npcManager.dropdown = this.dropdown;
-
+        npcManager.dropdown = this.dropdown;    
+        npcManager.uIInventory = this;
         npcManager.levelCombatText = levelEnduranceText; 
         npcManager.levelEnduranceText = levelCombatText;
         npcManager.levelSpeedText = levelSpeedText;
@@ -53,7 +53,12 @@ public class UIInventory : MonoBehaviour
     {
         PlayerMovement player = FindObjectOfType<PlayerMovement>();
         player.currentSpeed = npcSelecying.speed;
-            
+
+        StatAmplifier statAmplifier = FindObjectOfType<StatAmplifier>();
+
+        statAmplifier.endurance = npcSelecying.endurance;
+        statAmplifier.combat = npcSelecying.combat;
+        statAmplifier.speed = npcSelecying.speed;
 
     }
     private void OnDestroy()
