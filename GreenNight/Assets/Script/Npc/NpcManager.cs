@@ -18,6 +18,7 @@ public class NpcManager : MonoBehaviour
     public List<NpcClass> listNpcWorkingWIthInOneDay = new List<NpcClass>();
     public List<NpcClass> listNpcWorkingMoreOneDay = new List<NpcClass>();
     public TMP_Dropdown dropdown;
+    public UIInventory uIInventory;
     public InventoryItemPresent inventoryItemPresent;
     public Transform listPointSpawnerNpc;
     public GameObject prefabNpc;
@@ -26,6 +27,9 @@ public class NpcManager : MonoBehaviour
     public TextMeshProUGUI levelCombatText;
     public TextMeshProUGUI levelSpeedText; 
     public TextMeshProUGUI specialistNpcText; 
+    private void Awake() {
+        StartGameCreateGropNpx();
+    }
     private void Start()
     {   
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
@@ -33,7 +37,7 @@ public class NpcManager : MonoBehaviour
         // dropdown = FindObjectOfType<TMP_Dropdown>();
         // dropdown.onValueChanged.AddListener(OnDropdownValueChanged);
         
-        StartGameCreateGropNpx();
+        
         // SetOptionDropDown();
         // OnDropdownValueChanged(0);
     }
@@ -109,7 +113,7 @@ public class NpcManager : MonoBehaviour
         // Debug.Log("Dropdown index changed to: " + selectedValue);
         // Debug.Log("Dropdown Option changed to: " + dropdown.options[selectedValue].text);
         NpcClass npcClassSelest = listNpc.FirstOrDefault(npc => npc.idnpc == selectedValue);
-
+        uIInventory.npcSelecying = npcClassSelest;
         inventoryItemPresent.UnlockSlotInventory(npcClassSelest.countInventorySlot,npcClassSelest.roleNpc);
         SetText(npcClassSelest);
 
@@ -117,8 +121,8 @@ public class NpcManager : MonoBehaviour
     }
     public void SetText(NpcClass npcClass)
     {
-        levelCombatText.text = npcClass.combat.ToString(); 
         levelEnduranceText.text = npcClass.endurance.ToString();
+        levelCombatText.text = npcClass.combat.ToString(); 
         levelSpeedText.text = npcClass.speed.ToString();
         specialistNpcText.text = npcClass.roleNpc.ToString();
     }
