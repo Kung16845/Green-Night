@@ -6,7 +6,14 @@ using UnityEngine.SceneManagement;
 public class SceneSystem : MonoBehaviour
 {
     public Animator transitionAnim;
-
+    public TimeManager timeManager;
+    private void Start() 
+    {
+        timeManager = FindObjectOfType<TimeManager>();
+        timeManager.sceneSystem1 = this;
+        timeManager.dateTime.sceneSystem = this;
+        Debug.Log("sceneSystem"); 
+    }
     public void SwitchScene(string sceneName)
     {
         StartCoroutine(LoadScene(sceneName));

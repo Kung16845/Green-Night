@@ -51,7 +51,7 @@ public class NpcManager : MonoBehaviour
         {
             newOption.Add(npcData.nameNpc.ToString());
         }
-
+        
         dropdown.AddOptions(newOption); 
     }
     public void StartGameCreateGropNpx()

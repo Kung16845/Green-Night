@@ -49,7 +49,7 @@ public class UIInventory : MonoBehaviour
             }
         }
     }
-    public void SelectNpc()
+    public void SelectNpcDefenseScene()
     {
         PlayerMovement player = FindObjectOfType<PlayerMovement>();
         player.currentSpeed = npcSelecying.speed;
@@ -59,6 +59,8 @@ public class UIInventory : MonoBehaviour
         statAmplifier.endurance = npcSelecying.endurance;
         statAmplifier.combat = npcSelecying.combat;
         statAmplifier.speed = npcSelecying.speed;
+        
+        // npcManager.listNpc.Remove(npcSelecying);
 
     }
     private void OnDestroy()

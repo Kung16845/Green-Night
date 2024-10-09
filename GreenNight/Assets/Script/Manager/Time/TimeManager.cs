@@ -32,10 +32,11 @@ public class TimeManager : MonoBehaviour
         dateTime.isDayNight = true;
     }
     private void Start()
-    {
+    {   
+        Debug.Log("Start Scene");
         OnDateTimeChanged?.Invoke(dateTime);
-        sceneSystem1 = FindObjectOfType<SceneSystem>();
-        dateTime.sceneSystem = sceneSystem1;
+        // sceneSystem1 = FindObjectOfType<SceneSystem>();
+        // dateTime.sceneSystem = sceneSystem1;
     }
     private void Update()
     {
