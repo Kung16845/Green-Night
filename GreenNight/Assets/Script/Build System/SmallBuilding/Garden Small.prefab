@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: c704ff37355fb2642b3acfb648219b37, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4183ff1763fea9e4d9abf65f0edfe989, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -122,6 +122,8 @@ MonoBehaviour:
     isDayNight: 0
     sceneSystem: {fileID: 0}
   spriteRenderer: {fileID: 0}
+  OriginalSprite: {fileID: 21300000, guid: 4183ff1763fea9e4d9abf65f0edfe989, type: 3}
+  Constructhreshold: {fileID: 21300000, guid: 07b4a0e102a4f7c4bb870c4250e6d18e, type: 3}
   buildManager: {fileID: 0}
   isfinsih: 0
 --- !u!114 &6534951269304189992
@@ -145,8 +147,8 @@ MonoBehaviour:
     sceneSystem: {fileID: 0}
   buildManager: {fileID: 0}
   building: {fileID: 0}
-  foodgainperday: 2
-  currentday: 0
+  foodGainPerDay: 0
+  currentDay: 0
   upgradeBuilding: {fileID: 0}
 --- !u!114 &-3802205401601025771
 MonoBehaviour:
@@ -162,14 +164,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameBuild: 
   detailBuild: 
-  steelCost: 5
-  plankCost: 10
-  isneedwater: 1
-  isneedElecticities: 0
-  npcCost: 1
-  dayCost: 2
-  finishDayBuildingTime: 0
+  upgradeLevels:
+  - levelNumber: 2
+    steelCost: 4
+    plankCost: 10
+    npcCost: 1
+    dayCost: 2
+    levelSprite: {fileID: 21300000, guid: 324b45633a0022e4680cdca7593609ed, type: 3}
+    isneedwater: 1
+    isneedElecticities: 0
+  currentLevel: 1
   isBuilding: 0
+  isFinished: 0
   upgradeUi: {fileID: 0}
   timeManager: {fileID: 0}
   dateTime:
@@ -179,9 +185,11 @@ MonoBehaviour:
     isDayNight: 0
     sceneSystem: {fileID: 0}
   spriteRenderer: {fileID: 0}
+  ConstructSprite: {fileID: 21300000, guid: 07b4a0e102a4f7c4bb870c4250e6d18e, type: 3}
   buildManager: {fileID: 0}
+  building: {fileID: 0}
   uImanger: {fileID: 0}
-  isfinsih: 0
+  finishDayBuildingTime: 0
 --- !u!61 &-6672396067321963644
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -218,7 +226,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4, y: 3.6}
+    oldSize: {x: 1.7, y: 1.7}
     newSize: {x: 5, y: 5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

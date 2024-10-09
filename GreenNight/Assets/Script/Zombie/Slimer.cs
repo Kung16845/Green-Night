@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Slimer : Zombie
 {
-    private enum SlimerState
+    private enum SlimerStates
     {
         Moving,
         Attacking,
@@ -16,7 +16,7 @@ public class Slimer : Zombie
     public GameObject slimeProjectilePrefab;     // Prefab of the slime projectile to spawn
     public float projectileSpeed = 5f;           // Speed of the projectile
 
-    private SlimerState currentState = SlimerState.Moving;
+    private SlimerStates slimerState = SlimerStates.Moving;
     private float attackTimer = 0f;
     private float attackCooldown = 0f;
 
@@ -34,7 +34,8 @@ public class Slimer : Zombie
         // Initialize necessary components
         rb2D = GetComponent<Rigidbody2D>();
         // Initialize variables
-        currentState = SlimerState.Moving;
+        slimerState = SlimerStates.Moving;
+        // Get all lanes from LaneManager
         allLanes = LaneManager.Instance.allLanes;
 
         // Check if allLanes is set
@@ -95,15 +96,15 @@ public class Slimer : Zombie
 
     private void Update()
     {
-        switch (currentState)
+        switch (slimerState)
         {
-            case SlimerState.Moving:
+            case SlimerStates.Moving:
                 HandleMovingState();
                 break;
-            case SlimerState.Attacking:
+            case SlimerStates.Attacking:
                 HandleAttackingState();
                 break;
-            case SlimerState.SwitchingLanes:
+            case SlimerStates.SwitchingLanes:
                 HandleSwitchingLanesState();
                 break;
             default:
@@ -115,7 +116,7 @@ public class Slimer : Zombie
     {
         if (HasReachedEngagingPoint())
         {
-            currentState = SlimerState.Attacking;
+            slimerState = SlimerStates.Attacking;
             attackTimer = attackingDuration;
             attackCooldown = 0f;
             rb2D.velocity = Vector2.zero; // Stop moving while attacking
@@ -140,7 +141,7 @@ public class Slimer : Zombie
 
         if (attackTimer <= 0f)
         {
-            currentState = SlimerState.SwitchingLanes;
+            slimerState = SlimerStates.SwitchingLanes;
         }
     }
 
@@ -201,12 +202,12 @@ public class Slimer : Zombie
             // Do not change the Slimer's position; it will start moving towards the new engaging point from its current position
 
             // Reset the state to moving
-            currentState = SlimerState.Moving;
+            slimerState = SlimerStates.Moving;
         }
         else
         {
             // No other lanes to switch to
-            currentState = SlimerState.Moving;
+            slimerState = SlimerStates.Moving;
         }
     }
 
@@ -215,6 +216,4 @@ public class Slimer : Zombie
         base.SetLane(lane);
         engagingPoint = lane.engagingArea;
     }
-
-    // Override movement towards the barrier
 }

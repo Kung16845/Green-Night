@@ -39,9 +39,20 @@ public class MediumGarden : MonoBehaviour
     }
     void IsUpgraded()
     {
-        if(upgradeBuilding.isfinsih)
+       if (upgradeBuilding != null)
         {
-            foodgainperday = 5;
+            switch (upgradeBuilding.currentLevel)
+            {
+                case 1:
+                    foodgainperday = 3; // Level 1
+                    break;
+                case 2:
+                    foodgainperday = 5; // Level 2
+                    break;
+                default:
+                    foodgainperday = 3; // Default to Level 1
+                    break;
+            }
         }
     }
 }

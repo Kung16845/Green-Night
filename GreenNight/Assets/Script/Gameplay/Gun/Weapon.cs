@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    
     // Weapon properties
     public int rateOfFire; // Rounds per minute
-    public int handling; // Speed penalty and reload speed (1-100)
+    public float handling; // Speed penalty and reload speed (1-100)
     public float accuracy; // Bullet precision (1-100)
     public int capacity; // Ammo in magazine (1-100)
     public float stability; // Recoil (1-100)
@@ -15,6 +16,7 @@ public class Weapon : MonoBehaviour
     public int pellets; // Number of pellets for shotgun
     public float spreadAngle; // Spread angle for shotgun
     public int stabilityThreshold = 5; // Number of shots before stability penalty starts
+    public CaliberType caliberType;
 
     // Internal variables
     [SerializeField] public int currentAmmo;
@@ -24,6 +26,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private bool isNpc;
     private float initialAccuracy;
     public float accuracyPenalty; // Additional penalty to accuracy based on stability
+    private StatAmplifier statAmplifier;
     private PlayerMovement playerMovement;
     public int shotsFiredConsecutively = 0; // Tracks the number of consecutive shots fired
     private bool isFiring; 
@@ -36,16 +39,19 @@ public class Weapon : MonoBehaviour
     void Start()
     {
         currentAmmo = capacity;
-        fireRate = 60f / rateOfFire; // Calculate fire rate in seconds per shot
+        fireRate = 60f / rateOfFire;
         initialAccuracy = accuracy;
-        playerMovement = GetComponentInParent<PlayerMovement>(); // Assuming the weapon is a child of the player
+        playerMovement = GetComponentInParent<PlayerMovement>();
+        statAmplifier = GetComponent<StatAmplifier>();
+
+        ApplyHandlingPenalty();
+        ApplyStatAmplifier();
     }
 
     void Update()
     {
         if (isReloading) return;
 
-        // Check if the mouse button is being held down
         isFiring = Input.GetMouseButton(0);
 
         if (fullAuto)
@@ -62,7 +68,7 @@ public class Weapon : MonoBehaviour
             }
             else if (!isFiring)
             {
-                RecoverAccuracy(); // Only recover accuracy if the mouse button is released
+                RecoverAccuracy();
             }
         }
         else
@@ -71,7 +77,6 @@ public class Weapon : MonoBehaviour
             {
                 Shoot();
                 nextFireTime = Time.time + fireRate;
-
                 shotsFiredConsecutively++;
                 if (shotsFiredConsecutively >= stabilityThreshold)
                 {
@@ -80,7 +85,7 @@ public class Weapon : MonoBehaviour
             }
             else if (!isFiring)
             {
-                RecoverAccuracy(); // Only recover accuracy if the mouse button is released
+                RecoverAccuracy();
             }
         }
 
@@ -88,15 +93,12 @@ public class Weapon : MonoBehaviour
         {
             StartCoroutine(Reload());
         }
-
-        ApplyHandlingPenalty();
     }
 
     public void Shoot()
     {
         if (currentAmmo <= 0)
         {
-            Debug.Log("Out of ammo!");
             return;
         }
 
@@ -104,7 +106,6 @@ public class Weapon : MonoBehaviour
 
         if (isShotgun)
         {
-            // Shotgun logic: Fire multiple pellets
             for (int i = 0; i < pellets; i++)
             {
                 FirePellet();
@@ -116,12 +117,16 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    private void FireBullet()
+      private void FireBullet()
     {
-        // Instantiate bullet and set its direction
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         Bullet bulletScript = bullet.GetComponent<Bullet>();
+
+        // Set the caliber type and initial penetration count at the time of bullet instantiation
+        bulletScript.caliberType = caliberType;
+        bulletScript.InitializePenetration();  // Call the function to initialize penetration
+
         bulletScript.damage = damage;
 
         // Adjust bullet direction based on accuracy
@@ -131,36 +136,28 @@ public class Weapon : MonoBehaviour
         }
 
         float accuracyFactor = GetAccuracyFactor();
-        float accuracySpread = (1 - accuracyFactor) / 10f; // Calculate spread based on accuracy factor
+        float accuracySpread = (1 - accuracyFactor) / 10f;
         bulletDirection += new Vector2(Random.Range(-accuracySpread, accuracySpread), Random.Range(-accuracySpread, accuracySpread));
-        rb.velocity = bulletDirection * 100f; // Adjust bullet speed as necessary
+        rb.velocity = bulletDirection * 100f;
     }
 
     private void FirePellet()
     {
-        // Calculate the initial direction towards the player's aim point
         Vector2 aimDirection = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - firePoint.position).normalized;
-
-        // Apply the spread angle to the aim direction
         float angle = Random.Range(-spreadAngle / 2, spreadAngle / 2);
         Vector2 directionWithSpread = Quaternion.Euler(0, 0, angle) * aimDirection;
 
-        // Instantiate pellet and set its direction with spread
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         Bullet bulletScript = bullet.GetComponent<Bullet>();
-        bulletScript.damage = damage / pellets; // Damage per pellet
+        bulletScript.damage = damage; 
+        bulletScript.caliberType = caliberType; // Assign shotgun caliber
 
-        // Calculate the spread caused by accuracy
         float accuracyFactor = GetAccuracyFactor();
-        float accuracySpread = (1 - accuracyFactor) / 10f; // Calculate spread based on accuracy factor
+        float accuracySpread = (1 - accuracyFactor) / 10f;
         directionWithSpread += new Vector2(Random.Range(-accuracySpread, accuracySpread), Random.Range(-accuracySpread, accuracySpread));
-
-        // Set the pellet velocity based on the calculated direction
-        rb.velocity = directionWithSpread * 1000f; // Adjust bullet speed as necessary
+        rb.velocity = directionWithSpread * 100f;
     }
-
-
     private float GetAccuracyFactor()
     {
         // Determine accuracy factor based on the accuracy value
@@ -189,7 +186,7 @@ public class Weapon : MonoBehaviour
 
 
 
-    private void ApplyStabilityPenalty()
+     private void ApplyStabilityPenalty()
     {
         float penaltyFactor;
 
@@ -199,28 +196,26 @@ public class Weapon : MonoBehaviour
         }
         else if (stability <= 60)
         {
-            penaltyFactor = 0.25f - (0.25f * ((stability - 40) / 20f)); // Interpolate penalty reduction between 40 and 60
+            penaltyFactor = 0.25f - (0.25f * ((stability - 40) / 20f)); 
         }
         else if (stability <= 90)
         {
-            penaltyFactor = 0.125f - (0.125f * ((stability - 60) / 30f)); // Further reduce penalty between 60 and 90
+            penaltyFactor = 0.125f - (0.125f * ((stability - 60) / 30f));
         }
         else
         {
             penaltyFactor = 0f; // No penalty at max stability
         }
-        Debug.Log(penaltyFactor);
-        accuracyPenalty = Mathf.Min(25f, accuracyPenalty + (penaltyFactor * Time.deltaTime * 100f)); // Apply penalty based on the factor
+
+        accuracyPenalty = Mathf.Min(25f, accuracyPenalty + (penaltyFactor * Time.deltaTime * 100f * statAmplifier.GetCombatMultiplier())); // Amplified by combat stat
     }
-
-
 
     private void RecoverAccuracy()
     {
         accuracyPenalty = Mathf.Max(0f, accuracyPenalty - (50f * Time.deltaTime)); // Recover accuracy when not shooting
         if (accuracyPenalty == 0f)
         {
-            shotsFiredConsecutively = 0; // Reset shot counter when accuracy fully recovers
+            shotsFiredConsecutively = 0; 
         }
     }
 
@@ -228,18 +223,34 @@ public class Weapon : MonoBehaviour
     {
         if (playerMovement != null)
         {
-            playerMovement.currentSpeed = 5f * (1f - (0.5f * (100f - handling) / 100f)); // Decrease player speed up to 50%
+            playerMovement.currentSpeed = playerMovement.currentSpeed  * (1f - (0.5f * (100f - handling) / 100f)); 
+            playerMovement.sprintSpeed = playerMovement.sprintSpeed * (1f - (0.3f * (100f - handling) / 100f)); 
         }
     }
 
     public IEnumerator Reload()
     {
         isReloading = true;
-        Debug.Log("Reloading...");
-        yield return new WaitForSeconds(3f * (100f - handling) / 100f); // Adjust reload speed based on handling
+        Debug.Log((6.5f * (1-(statAmplifier.GetCombatMultiplier()-1)))  * (100f - handling) / 100f);
+        yield return new WaitForSeconds((6.5f * (1-(statAmplifier.GetCombatMultiplier()-1)))  * (100f - handling) / 100f);
         currentAmmo = capacity;
         isReloading = false;
-        shotsFiredConsecutively = 0; // Reset shot counter on reload
+        shotsFiredConsecutively = 0; 
         Debug.Log("Reloaded!");
+    }
+    
+    private void ApplyStatAmplifier()
+    {
+        stability *= statAmplifier.GetCombatMultiplier();
+        accuracy *= statAmplifier.GetCombatMultiplier();
+        Debug.Log (1-(statAmplifier.GetCombatMultiplier()-1));
+        if(accuracy > 100)
+        {
+            accuracy = 99;
+        }
+        if(stability > 100)
+        {
+            stability = 99;
+        }
     }
 }

@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum DamageType
 {
-    LowcalliberBullet,
+
+    LowcaliberBullet,
+    MediumcaliberBullet,
+    ShotgunPellet,
     HighcalliberBullet,
     Pulse,
     Fire,
@@ -82,7 +85,7 @@ public class Zombie : MonoBehaviour
     [Header("State Tracking")]
     public ZombieState currentState;
     private float damageEffectDurationRemaining;
-    
+    private float previousDirectionX = 1f;
     private void Awake()
     {
         currentSpeed = maxSpeed;
@@ -114,6 +117,17 @@ public class Zombie : MonoBehaviour
             currentState = ZombieState.Moving;
             Vector2 direction = (currentLane.attackPoint.position - transform.position).normalized;
             rb2D.velocity = direction * currentSpeed;
+
+            previousDirectionX = direction.x;
+            // Flip the sprite based on movement direction along the x-axis
+            if (direction.x < 0)
+            {
+                transform.localScale = new Vector3(-0.7f, 0.7f, 1); // Flip left
+            }
+            else if (direction.x > 0)
+            {
+                transform.localScale = new Vector3(0.7f, 0.7f, 1); // Face right
+            }
         }
     }
     public bool HasReachedAttackPoint()
@@ -121,13 +135,29 @@ public class Zombie : MonoBehaviour
         if (currentLane != null && currentLane.attackPoint != null)
         {
             float distanceToAttackPoint = Vector2.Distance(transform.position, currentLane.attackPoint.position);
-
-            currentState = ZombieState.Attacking;
             float thresholdDistance = 0.1f;
-            return distanceToAttackPoint <= thresholdDistance;
+
+            if (distanceToAttackPoint <= thresholdDistance)
+            {
+                // Zombie has reached the attack point, set to Attacking state
+                currentState = ZombieState.Attacking;
+
+                // Keep the sprite direction based on the previous movement
+                if (previousDirectionX < 0)
+                {
+                    transform.localScale = new Vector3(-0.7f, 0.7f, 1); // Keep facing left
+                }
+                else if (previousDirectionX > 0)
+                {
+                    transform.localScale = new Vector3(0.7f, 0.7f, 1); // Keep facing right
+                }
+
+                return true;
+            }
         }
         return false;
     }
+
 
     public void ZombieAttack()
     {
@@ -155,21 +185,23 @@ public class Zombie : MonoBehaviour
         {
             if (damageType == DamageType.HighcalliberBullet)
             {
-                // Bullet damage reduces damage by 30% to armor
-                float reducedDamage = adjustedDamage * 0.70f;
+                // Bullet damage reduces damage by 15% to armor
+                float reducedDamage = adjustedDamage * 0.85f;
                 ArmourHp -= reducedDamage;
-
-                // Handle armor depletion
-                HandleArmorDepletion();
-
                 // Apply overflow damage to health
                 ApplyOverflowDamageToHealth();
             }
-            if (damageType == DamageType.LowcalliberBullet)
+            else if (damageType == DamageType.MediumcaliberBullet)
+            {
+                // Bullet damage reduces damage by 25% to armor
+                float reducedDamage = adjustedDamage * 0.75f;
+                ArmourHp -= reducedDamage;
+                ApplyOverflowDamageToHealth();
+            }
+            else if (damageType == DamageType.LowcaliberBullet || damageType == DamageType.ShotgunPellet)
             {
                 float reducedDamage = adjustedDamage * 0.50f;
                 ArmourHp -= reducedDamage;
-                HandleArmorDepletion();
                 ApplyOverflowDamageToHealth();
             }
             else if (damageType == DamageType.Explosive)
@@ -180,9 +212,6 @@ public class Zombie : MonoBehaviour
                 ArmourHp -= damageToArmor;
                 currentHp -= damageToHealth;
 
-                // Handle armor depletion
-                HandleArmorDepletion();
-
                 // Apply overflow damage to health
                 ApplyOverflowDamageToHealth();
             }
@@ -190,16 +219,11 @@ public class Zombie : MonoBehaviour
             {
                 // Pulse damage removes all armor
                 ArmourHp = 0f;
-                HandleArmorDepletion();
             }
             else
             {
                 // Other damage types apply full damage to armor
                 ArmourHp -= adjustedDamage;
-
-                // Handle armor depletion
-                HandleArmorDepletion();
-
                 // Apply overflow damage to health
                 ApplyOverflowDamageToHealth();
             }
@@ -212,17 +236,6 @@ public class Zombie : MonoBehaviour
         // Apply damage effects and check for death
         ApplyDamageEffects();
         CheckForDeath();
-    }
-    private void HandleArmorDepletion()
-    {
-        if (ArmourHp <= 0 && !armourDepleted)
-        {
-            armourDepleted = true;
-            if (mutationType == MutationType.ArmourShell)
-            {
-                StartCoroutine(ArmourDepletedEffect());
-            }
-        }
     }
 
     private void ApplyOverflowDamageToHealth()
@@ -342,18 +355,6 @@ public class Zombie : MonoBehaviour
         ArmourHp += extraArmourHp;
         maxArmourHp += extraArmourHp;
     }
-
-    private IEnumerator ArmourDepletedEffect()
-    {
-        // Stop the zombie for 1 second
-        float originalSpeed = currentSpeed;
-        currentSpeed = 0f;
-
-        yield return new WaitForSeconds(1.5f);
-
-        // Resume speed
-        currentSpeed = originalSpeed;
-    }
     private void ApplyAcidDeathEffect()
     {
         // Instantiate an acid pool at the zombie's position
@@ -398,7 +399,9 @@ public class Zombie : MonoBehaviour
         damageMultipliers = new Dictionary<DamageType, float>
         {
             { DamageType.HighcalliberBullet, 1f },
-            { DamageType.LowcalliberBullet, 1f },
+            { DamageType.LowcaliberBullet, 1f },
+            { DamageType.MediumcaliberBullet, 1f },
+            { DamageType.ShotgunPellet, 1f },
             { DamageType.Pulse, 1f },
             { DamageType.Fire, 1f },
             { DamageType.Acid, 1f },
