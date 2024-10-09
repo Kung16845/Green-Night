@@ -124,7 +124,7 @@ public class DateTime
             else
             {
                 SetTimeNightDay();
-                sceneSystem.SwitchScene("DefendSceneFare");
+                sceneSystem.SwitchScene("TestTransferData");
             }
         }
     }
