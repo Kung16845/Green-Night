@@ -8,11 +8,10 @@ public class GardenBuilding : MonoBehaviour
     public DateTime dateTime;
     public BuildManager buildManager;
     public Building building;
-    public int foodgainperday;
-    public int currentday;
+    public int foodGainPerDay;
+    public int currentDay;
     public UpgradeBuilding upgradeBuilding;
-    
-    // Start is called before the first frame update
+
     void Start()
     {
         timeManager = FindObjectOfType<TimeManager>();
@@ -20,28 +19,40 @@ public class GardenBuilding : MonoBehaviour
         building = FindObjectOfType<Building>();
         upgradeBuilding = GetComponent<UpgradeBuilding>();
         dateTime = timeManager.dateTime;
-        currentday = dateTime.day;
+        currentDay = dateTime.day;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        foodgain();   
-        IsUpgraded();
+        FoodGain();
+        UpdateFoodGainPerDay();
     }
-    void foodgain()
+
+    void FoodGain()
     {
-        if(dateTime.day != currentday && building.isfinsih)
+        if (dateTime.day != currentDay && building.isfinsih)
         {
-            buildManager.food += foodgainperday;
-            currentday = dateTime.day;   
+            buildManager.food += foodGainPerDay;
+            currentDay = dateTime.day;
         }
     }
-    void IsUpgraded()
+
+    void UpdateFoodGainPerDay()
     {
-        if(upgradeBuilding.isfinsih)
+        if (upgradeBuilding != null)
         {
-            foodgainperday = 4;
+            switch (upgradeBuilding.currentLevel)
+            {
+                case 1:
+                    foodGainPerDay = 2; // Level 1
+                    break;
+                case 2:
+                    foodGainPerDay = 4; // Level 2
+                    break;
+                default:
+                    foodGainPerDay = 2; // Default to Level 1
+                    break;
+            }
         }
     }
 }

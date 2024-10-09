@@ -24,7 +24,7 @@ public class Solar : MonoBehaviour
     {
         if(currentday != dateTime.day)
         {
-            if(!upgradeBuilding.isfinsih)
+            if(upgradeBuilding.currentLevel != 2)
             {
                 if(buildManager.steel >= steelCost)
                 {
@@ -36,7 +36,7 @@ public class Solar : MonoBehaviour
                     DeactiveElecticities();
                 }
             }
-            else if(upgradeBuilding.isfinsih)
+            else if(upgradeBuilding.currentLevel == 2)
             {
                 ActiveElecticities();
             }

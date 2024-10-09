@@ -122,7 +122,7 @@ MonoBehaviour:
     isDayNight: 0
     sceneSystem: {fileID: 0}
   spriteRenderer: {fileID: 0}
-  OriginalSprite: {fileID: 21300000, guid: 1ca3780fd6c7efb42a36dc6242e4e547, type: 3}
+  OriginalSprite: {fileID: 21300000, guid: 4183ff1763fea9e4d9abf65f0edfe989, type: 3}
   Constructhreshold: {fileID: 21300000, guid: 07b4a0e102a4f7c4bb870c4250e6d18e, type: 3}
   buildManager: {fileID: 0}
   isfinsih: 0
@@ -147,8 +147,8 @@ MonoBehaviour:
     sceneSystem: {fileID: 0}
   buildManager: {fileID: 0}
   building: {fileID: 0}
-  foodgainperday: 2
-  currentday: 0
+  foodGainPerDay: 0
+  currentDay: 0
   upgradeBuilding: {fileID: 0}
 --- !u!114 &-3802205401601025771
 MonoBehaviour:
@@ -164,14 +164,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameBuild: 
   detailBuild: 
-  steelCost: 5
-  plankCost: 10
-  isneedwater: 1
-  isneedElecticities: 0
-  npcCost: 1
-  dayCost: 2
-  finishDayBuildingTime: 0
+  upgradeLevels:
+  - levelNumber: 2
+    steelCost: 4
+    plankCost: 10
+    npcCost: 1
+    dayCost: 2
+    levelSprite: {fileID: 21300000, guid: 324b45633a0022e4680cdca7593609ed, type: 3}
+    isneedwater: 1
+    isneedElecticities: 0
+  currentLevel: 1
   isBuilding: 0
+  isFinished: 0
   upgradeUi: {fileID: 0}
   timeManager: {fileID: 0}
   dateTime:
@@ -181,12 +185,11 @@ MonoBehaviour:
     isDayNight: 0
     sceneSystem: {fileID: 0}
   spriteRenderer: {fileID: 0}
-  Lv2Sprite: {fileID: 21300000, guid: 324b45633a0022e4680cdca7593609ed, type: 3}
   ConstructSprite: {fileID: 21300000, guid: 07b4a0e102a4f7c4bb870c4250e6d18e, type: 3}
   buildManager: {fileID: 0}
   building: {fileID: 0}
   uImanger: {fileID: 0}
-  isfinsih: 0
+  finishDayBuildingTime: 0
 --- !u!61 &-6672396067321963644
 BoxCollider2D:
   m_ObjectHideFlags: 0

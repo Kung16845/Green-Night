@@ -24,7 +24,7 @@ public class Waterpump : MonoBehaviour
     {
         if(currentday != dateTime.day)
         {
-            if(!upgradeBuilding.isfinsih)
+            if(upgradeBuilding.currentLevel != 2)
             {
                 if(buildManager.fuel >= FuelCost)
                 {
@@ -36,7 +36,7 @@ public class Waterpump : MonoBehaviour
                     DeactiveWater();
                 }
             }
-            else if(upgradeBuilding.isfinsih)
+            else if(upgradeBuilding.currentLevel == 2)
             {
                 Activewater();
             }

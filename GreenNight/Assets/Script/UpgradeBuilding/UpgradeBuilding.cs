@@ -1,48 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 public class UpgradeBuilding : MonoBehaviour
 {
     public string nameBuild;
     public string detailBuild;
-    public int steelCost;
-    public int plankCost;
-    public bool isneedwater;
-    public bool isneedElecticities;
-    // public bool isneedspeciallist;
-    public int npcCost;
-    public int dayCost;
-    public int finishDayBuildingTime;
+
+    // Upgrade levels
+    public List<UpgradeLevel> upgradeLevels = new List<UpgradeLevel>();
+
+    public int currentLevel = 1;
+    public int maxLevel;
+
     public bool isBuilding;
+    public bool isFinished;
+
     public UpgradeUi upgradeUi;
     public TimeManager timeManager;
     public DateTime dateTime;
     public SpriteRenderer spriteRenderer;
-    public Sprite Lv2Sprite;
     public Sprite ConstructSprite;
     public BuildManager buildManager;
     public Building building;
-    public UImanger uImanger; // Change to GameObject
-    public bool isfinsih;
+    public UImanger uImanger;
+
+    public int finishDayBuildingTime;
 
     void Awake()
     {
         uImanger = FindObjectOfType<UImanger>();
-        // UpgradeUI = FindObjectOfType<UpgradeUi>().gameObject;
         timeManager = FindObjectOfType<TimeManager>();
         buildManager = FindObjectOfType<BuildManager>();
         dateTime = timeManager.dateTime;
         building = GetComponent<Building>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         isBuilding = false;
-        isfinsih = false;
+        isFinished = false;
+        maxLevel = upgradeLevels.Count+1;
     }
+
     void LateUpdate()
     {
-        if(isBuilding)
+        if (isBuilding)
         {
             WaitUpgrade();
         }
@@ -50,30 +50,50 @@ public class UpgradeBuilding : MonoBehaviour
 
     void OnMouseDown()
     {
-        if(building.isfinsih && !isfinsih && !isBuilding)
+        if (building.isfinsih && !isBuilding && currentLevel < maxLevel)
         {
+            Debug.Log("showupgradeUI");
             uImanger.ActiveUpgradeUI();
             upgradeUi = FindObjectOfType<UpgradeUi>();
             upgradeUi.Initialize(this);
         }
     }
+
     void WaitUpgrade()
     {
-        // Check if building time is complete
         if (dateTime.day >= finishDayBuildingTime && isBuilding)
         {
-            buildManager.npc += npcCost;
-            spriteRenderer.sprite = Lv2Sprite; // Assign the upgraded sprite
-            isfinsih = true;
+            UpgradeLevel completedLevel = upgradeLevels[currentLevel - 1];
+
+            buildManager.npc += completedLevel.npcCost;
+            spriteRenderer.sprite = completedLevel.levelSprite;
             isBuilding = false;
-            Debug.Log("Upgraded");
-            return;
+            currentLevel++;
+
+            if (currentLevel > maxLevel)
+            {
+                currentLevel = maxLevel;
+                isFinished = true;
+            }
+
+            Debug.Log("Upgraded to Level " + currentLevel);
         }
-        // If the building is still under construction
         else if (dateTime.day < finishDayBuildingTime)
         {
-            spriteRenderer.sprite = ConstructSprite; // Assign the construction sprite
+            spriteRenderer.sprite = ConstructSprite;
         }
     }
-
+}
+[System.Serializable]
+public class UpgradeLevel
+{
+    public int levelNumber;
+    public int steelCost;
+    public int plankCost;
+    public int npcCost;
+    public int dayCost;
+    public Sprite levelSprite;
+    public bool isneedwater;
+    public bool isneedElecticities;
+    // Add any other properties specific to the upgrade level
 }

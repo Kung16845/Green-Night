@@ -10,13 +10,12 @@ public class UpgradeUi : MonoBehaviour
     public BuildManager buildManager;
     public DateTime dateTime;
     public TimeManager timeManager;
-    public UImanger uImanger; 
+    public UImanger uImanger;
     public Image image;
-    public GameObject Waterimage;
-    public GameObject Electiciteisimage;
-    public GameObject SpecialistImage;
+    public GameObject WaterImage;
+    public GameObject ElectricityImage;
     public TextMeshProUGUI textNameBuild;
-    public TextMeshProUGUI textDescriveBuild;
+    public TextMeshProUGUI textDescribeBuild;
     public TextMeshProUGUI textPlankCost;
     public TextMeshProUGUI textSteelCost;
     public TextMeshProUGUI textNpcCost;
@@ -28,6 +27,7 @@ public class UpgradeUi : MonoBehaviour
         timeManager = FindObjectOfType<TimeManager>();
         uImanger = FindObjectOfType<UImanger>();
     }
+
     void Start()
     {
         dateTime = timeManager.dateTime;
@@ -41,12 +41,23 @@ public class UpgradeUi : MonoBehaviour
 
     public void SetDataUpgrade()
     {
-        textPlankCost.text = currentBuildingScript.plankCost.ToString();
-        textSteelCost.text = currentBuildingScript.steelCost.ToString();
-        textNpcCost.text = currentBuildingScript.npcCost.ToString();
-        textDayCost.text = currentBuildingScript.dayCost.ToString();
-        Waterimage.SetActive(currentBuildingScript.isneedwater);
-        Electiciteisimage.SetActive(currentBuildingScript.isneedElecticities);
+        int nextLevelIndex = currentBuildingScript.currentLevel - 1;
+
+        if (nextLevelIndex >= currentBuildingScript.upgradeLevels.Count)
+        {
+            Debug.Log("No further upgrades available.");
+            return;
+        }
+
+        UpgradeLevel nextLevel = currentBuildingScript.upgradeLevels[nextLevelIndex];
+
+        textPlankCost.text = nextLevel.plankCost.ToString();
+        textSteelCost.text = nextLevel.steelCost.ToString();
+        textNpcCost.text = nextLevel.npcCost.ToString();
+        textDayCost.text = nextLevel.dayCost.ToString();
+        image.sprite = nextLevel.levelSprite;
+        WaterImage.SetActive(nextLevel.isneedwater);
+        ElectricityImage.SetActive(nextLevel.isneedElecticities);
     }
 
     void OnDisable()
@@ -54,22 +65,17 @@ public class UpgradeUi : MonoBehaviour
         currentBuildingScript = null;
     }
 
-    // New helper method to check if all required conditions are met
     private bool AreUpgradeConditionsMet()
     {
-        // List of conditions to check
+        int nextLevelIndex = currentBuildingScript.currentLevel - 1;
+        UpgradeLevel nextLevel = currentBuildingScript.upgradeLevels[nextLevelIndex];
+
         var conditions = new List<(bool condition, string failMessage)>
         {
-            // Condition 1: If water is needed, check if it's active
-            (!currentBuildingScript.isneedwater || buildManager.iswateractive, 
-            "Water is required but not active."),
-            
-            // Condition 2: If electricity is needed, check if it's active
-            (!currentBuildingScript.isneedElecticities || buildManager.iselecticitiesactive, 
-            "Electricity is required but not active."),
+            (!nextLevel.isneedwater || buildManager.iswateractive, "Water is required but not active."),
+            (!nextLevel.isneedElecticities || buildManager.iselecticitiesactive, "Electricity is required but not active."),
         };
 
-        // Check all conditions
         foreach (var (condition, failMessage) in conditions)
         {
             if (!condition)
@@ -82,25 +88,32 @@ public class UpgradeUi : MonoBehaviour
         return true;
     }
 
-    // New helper method to check if resources are sufficient
     private bool AreResourcesSufficient()
     {
-        return buildManager.steel >= currentBuildingScript.steelCost &&
-               buildManager.plank >= currentBuildingScript.plankCost &&
-               buildManager.npc >= currentBuildingScript.npcCost;
+        int nextLevelIndex = currentBuildingScript.currentLevel - 1;
+        UpgradeLevel nextLevel = currentBuildingScript.upgradeLevels[nextLevelIndex];
+
+        return buildManager.steel >= nextLevel.steelCost &&
+               buildManager.plank >= nextLevel.plankCost &&
+               buildManager.npc >= nextLevel.npcCost;
     }
 
-    public void ComfirmUpgrade()
+    public void ConfirmUpgrade()
     {
         if (AreUpgradeConditionsMet())
         {
             if (AreResourcesSufficient())
             {
-                buildManager.steel -= currentBuildingScript.steelCost;
-                buildManager.plank -= currentBuildingScript.plankCost;
-                buildManager.npc -= currentBuildingScript.npcCost;
+                int nextLevelIndex = currentBuildingScript.currentLevel - 1;
+                UpgradeLevel nextLevel = currentBuildingScript.upgradeLevels[nextLevelIndex];
+
+                buildManager.steel -= nextLevel.steelCost;
+                buildManager.plank -= nextLevel.plankCost;
+                buildManager.npc -= nextLevel.npcCost;
+
                 currentBuildingScript.isBuilding = true;
-                currentBuildingScript.finishDayBuildingTime += dateTime.day + currentBuildingScript.dayCost;
+                currentBuildingScript.finishDayBuildingTime = dateTime.day + nextLevel.dayCost;
+
                 uImanger.DisableUpgradeUI();
             }
             else

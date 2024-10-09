@@ -184,14 +184,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameBuild: 
   detailBuild: 
-  steelCost: 10
-  plankCost: 5
-  isneedwater: 0
-  isneedElecticities: 0
-  npcCost: 1
-  dayCost: 1
-  finishDayBuildingTime: 0
+  upgradeLevels:
+  - levelNumber: 2
+    steelCost: 5
+    plankCost: 10
+    npcCost: 1
+    dayCost: 1
+    levelSprite: {fileID: 21300000, guid: b5472476c96bcc74890b16ef80e41b50, type: 3}
+    isneedwater: 0
+    isneedElecticities: 0
+  currentLevel: 1
   isBuilding: 0
+  isFinished: 0
   upgradeUi: {fileID: 0}
   timeManager: {fileID: 0}
   dateTime:
@@ -201,9 +205,8 @@ MonoBehaviour:
     isDayNight: 0
     sceneSystem: {fileID: 0}
   spriteRenderer: {fileID: 0}
-  Lv2Sprite: {fileID: 21300000, guid: b5472476c96bcc74890b16ef80e41b50, type: 3}
   ConstructSprite: {fileID: 21300000, guid: 07b4a0e102a4f7c4bb870c4250e6d18e, type: 3}
   buildManager: {fileID: 0}
   building: {fileID: 0}
   uImanger: {fileID: 0}
-  isfinsih: 0
+  finishDayBuildingTime: 0
