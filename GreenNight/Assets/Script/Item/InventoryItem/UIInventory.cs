@@ -52,17 +52,20 @@ public class UIInventory : MonoBehaviour
     public void SelectNpcDefenseScene()
     {
         PlayerMovement player = FindObjectOfType<PlayerMovement>();
-        player.currentSpeed = npcSelecying.speed;
-
         StatAmplifier statAmplifier = FindObjectOfType<StatAmplifier>();
 
         statAmplifier.endurance = npcSelecying.endurance;
         statAmplifier.combat = npcSelecying.combat;
         statAmplifier.speed = npcSelecying.speed;
 
-        npcManager.listNpc.Remove(npcSelecying);
-        
+        // Assign the NPC's specialist role to the StatAmplifier
+        statAmplifier.specialistRole = npcSelecying.roleNpc;
+        statAmplifier.ApplyRoleModifiers();
+
+        // Update player and weapon stats if necessary
+        player.currentStamina = player.GetMaxStamina();
     }
+
     private void OnDestroy()
     {
         ClearItemDataInAllInventorySlot();

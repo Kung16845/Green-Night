@@ -223,8 +223,8 @@ public class Weapon : MonoBehaviour
     {
         if (playerMovement != null)
         {
-            playerMovement.currentSpeed = playerMovement.currentSpeed  * (1f - (0.5f * (100f - handling) / 100f)); 
-            playerMovement.sprintSpeed = playerMovement.sprintSpeed * (1f - (0.3f * (100f - handling) / 100f)); 
+            playerMovement.baseSpeed = playerMovement.baseSpeed  * (1f - (0.5f * (100f - handling) / 100f)); 
+            playerMovement.baseSprintSpeed  = playerMovement.baseSprintSpeed  * (1f - (0.3f * (100f - handling) / 100f)); 
         }
     }
 
@@ -232,7 +232,8 @@ public class Weapon : MonoBehaviour
     {
         isReloading = true;
         Debug.Log((6.5f * (1-(statAmplifier.GetCombatMultiplier()-1)))  * (100f - handling) / 100f);
-        yield return new WaitForSeconds((6.5f * (1-(statAmplifier.GetCombatMultiplier()-1)))  * (100f - handling) / 100f);
+        float reloadTime = ((6.5f * (1-(statAmplifier.GetCombatMultiplier()-1)))  * (100f - handling) / 100f) * statAmplifier.GetReloadSpeedMultiplier();;
+        yield return new WaitForSeconds(reloadTime);
         currentAmmo = capacity;
         isReloading = false;
         shotsFiredConsecutively = 0; 
@@ -243,14 +244,15 @@ public class Weapon : MonoBehaviour
     {
         stability *= statAmplifier.GetCombatMultiplier();
         accuracy *= statAmplifier.GetCombatMultiplier();
-        Debug.Log (1-(statAmplifier.GetCombatMultiplier()-1));
-        if(accuracy > 100)
-        {
-            accuracy = 99;
-        }
-        if(stability > 100)
-        {
-            stability = 99;
-        }
+        float damageMultiplier = statAmplifier.GetDamageMultiplier();
+
+        accuracy *= statAmplifier.GetAccuracyMultiplier();
+        handling *= statAmplifier.GetHandlingMultiplier();
+        stability *= statAmplifier.GetStabilityMultiplier();
+        damage *= damageMultiplier;
+
+        accuracy = Mathf.Clamp(accuracy, 0, 100);
+        handling = Mathf.Clamp(handling, 0, 100);
+        stability = Mathf.Clamp(stability, 0, 100);
     }
 }

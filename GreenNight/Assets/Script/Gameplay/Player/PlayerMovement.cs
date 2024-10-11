@@ -3,26 +3,30 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float currentSpeed = 5f;
-    public float sprintSpeed = 8f;
-    
-    public float maxStamina = 100f;
+    public float baseSpeed = 5f;
+    public float baseSprintSpeed = 8f;
+
+    public float baseMaxStamina = 100f;
     public float currentStamina;
-    public float staminaRecoverSpeed = 10f;
-    public float staminaConsumeSpeed = 15f;
+    public float baseStaminaRecoverSpeed = 10f;
+    public float baseStaminaConsumeSpeed = 15f;
     public float minStaminaToSprint = 10f;
-    
+
     private bool isMovementStopped = false;
     private bool isSprinting = false;
-    
+
     private StatAmplifier statAmplifier;
 
     void Start()
     {
-        // Initialize current stamina to max stamina at the start
         statAmplifier = GetComponent<StatAmplifier>();
-        ApplyStatAmplifier();
-        currentStamina = maxStamina;
+        if (statAmplifier == null)
+        {
+            Debug.LogError("StatAmplifier component not found on the player.");
+        }
+
+        // Initialize current stamina to max stamina at the start
+        currentStamina = GetMaxStamina();
     }
 
     void Update()
@@ -38,26 +42,34 @@ public class PlayerMovement : MonoBehaviour
     {
         float vertical = Input.GetAxis("Vertical");
         float horizontal = Input.GetAxis("Horizontal");
-        Vector2 direction = new Vector2(horizontal, vertical);
-        
+        Vector2 direction = new Vector2(horizontal, vertical).normalized;
+
+        float speedMultiplier = statAmplifier.GetSpeedMultiplier();
+        float movementSpeed = baseSpeed * speedMultiplier;
+        float sprintMovementSpeed = baseSprintSpeed * speedMultiplier;
+
         // Check if the player is pressing the sprint key (Shift) and has enough stamina
         if (Input.GetKey(KeyCode.LeftShift) && currentStamina > minStaminaToSprint)
         {
             isSprinting = true;
-            transform.Translate(direction * sprintSpeed * statAmplifier.GetSpeedMultiplier() * Time.deltaTime);
+            transform.Translate(direction * sprintMovementSpeed * Time.deltaTime);
         }
         else
         {
             isSprinting = false;
-            transform.Translate(direction * currentSpeed * statAmplifier.GetSpeedMultiplier() * Time.deltaTime);
+            transform.Translate(direction * movementSpeed * Time.deltaTime);
         }
     }
 
     private void HandleStamina()
     {
+        float staminaConsumeMultiplier = statAmplifier.GetStaminaConsumeMultiplier();
+        float staminaRecoverMultiplier = statAmplifier.GetStaminaRecoverMultiplier();
+
         if (isSprinting)
         {
-            currentStamina -= staminaConsumeSpeed * Time.deltaTime;
+            // Consume stamina while sprinting
+            currentStamina -= baseStaminaConsumeSpeed * staminaConsumeMultiplier * Time.deltaTime;
             if (currentStamina < 0f)
             {
                 currentStamina = 0f;
@@ -65,12 +77,18 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            currentStamina += staminaRecoverSpeed * statAmplifier.GetSpeedMultiplier() * Time.deltaTime;
-            if (currentStamina > maxStamina)
+            // Recover stamina when not sprinting
+            currentStamina += baseStaminaRecoverSpeed * staminaRecoverMultiplier * Time.deltaTime;
+            if (currentStamina > GetMaxStamina())
             {
-                currentStamina = maxStamina;
+                currentStamina = GetMaxStamina();
             }
         }
+    }
+
+    public float GetMaxStamina()
+    {
+        return baseMaxStamina * statAmplifier.GetMaxStaminaMultiplier();
     }
 
     public void StopMovementForDuration(float duration)
@@ -83,9 +101,5 @@ public class PlayerMovement : MonoBehaviour
         isMovementStopped = true;
         yield return new WaitForSeconds(duration);
         isMovementStopped = false;
-    }
-    private void ApplyStatAmplifier()
-    {
-        maxStamina *= statAmplifier.GetEnduranceMultiplier();
     }
 }
