@@ -59,9 +59,9 @@ public class UIInventory : MonoBehaviour
         statAmplifier.endurance = npcSelecying.endurance;
         statAmplifier.combat = npcSelecying.combat;
         statAmplifier.speed = npcSelecying.speed;
-        
-        // npcManager.listNpc.Remove(npcSelecying);
 
+        npcManager.listNpc.Remove(npcSelecying);
+        
     }
     private void OnDestroy()
     {
