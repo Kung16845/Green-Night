@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 6365253814989702133}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.61, y: -3.37, z: 0}
-  m_LocalScale: {x: 0.77903, y: 0.77903, z: 0.77903}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 9
@@ -97,11 +97,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c9b2dfaa75c6734cb43f35e33c8e243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nameBuild: 
+  detailBuild: 
   steelCost: 5
   plankCost: 5
   foodCost: 0
   fuelCost: 0
   ammoCost: 0
+  npcCost: 0
+  dayCost: 0
+  finishDayBuildingTime: 0
   isBuildingLarge: 0
   isBuildingMedium: 1
   isBuildingSmall: 0
+  isBuilding: 0
+  timeManager: {fileID: 0}
+  dateTime:
+    day: 0
+    hour: 0
+    minutes: 0
+    isDayNight: 0
+    sceneSystem: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  OriginalSprite: {fileID: 0}
+  Constructhreshold: {fileID: 0}
+  buildManager: {fileID: 0}
+  isfinsih: 0

@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 6365253814989702133}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.61, y: -3.37, z: 0}
-  m_LocalScale: {x: 0.77903, y: 0.77903, z: 0.77903}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -158,6 +158,7 @@ MonoBehaviour:
     isneedwater: 1
     isneedElecticities: 1
   currentLevel: 1
+  maxLevel: 0
   isBuilding: 0
   isFinished: 0
   upgradeUi: {fileID: 0}
