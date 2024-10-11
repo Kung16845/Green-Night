@@ -18,22 +18,28 @@ public class NpcManager : MonoBehaviour
     public List<NpcClass> listNpcWorkingWIthInOneDay = new List<NpcClass>();
     public List<NpcClass> listNpcWorkingMoreOneDay = new List<NpcClass>();
     public TMP_Dropdown dropdown;
+    public UIInventory uIInventory;
     public InventoryItemPresent inventoryItemPresent;
+    public Transform listPointSpawnerNpc;
+    public GameObject prefabNpc;
     [Header("TextMeshProUGUI")]
     public TextMeshProUGUI levelEnduranceText;
     public TextMeshProUGUI levelCombatText;
     public TextMeshProUGUI levelSpeedText; 
     public TextMeshProUGUI specialistNpcText; 
+    private void Awake() {
+        StartGameCreateGropNpx();
+    }
     private void Start()
     {   
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
 
-        dropdown = FindObjectOfType<TMP_Dropdown>();
-        dropdown.onValueChanged.AddListener(OnDropdownValueChanged);
+        // dropdown = FindObjectOfType<TMP_Dropdown>();
+        // dropdown.onValueChanged.AddListener(OnDropdownValueChanged);
         
-        StartGameCreateGropNpx();
-        SetOptionDropDown();
-        OnDropdownValueChanged(0);
+        
+        // SetOptionDropDown();
+        // OnDropdownValueChanged(0);
     }
     public void SetOptionDropDown()
     {   
@@ -45,7 +51,7 @@ public class NpcManager : MonoBehaviour
         {
             newOption.Add(npcData.nameNpc.ToString());
         }
-
+        
         dropdown.AddOptions(newOption); 
     }
     public void StartGameCreateGropNpx()
@@ -78,6 +84,15 @@ public class NpcManager : MonoBehaviour
         newNpc.idBody = Random.Range(0,listBodyCoutume.Count);
         newNpc.idFeed = Random.Range(0,listFeedCoutume.Count);
 
+        HeadCoutume headCoutume = listHeadCoutume.FirstOrDefault(coutume => coutume.idHead == newNpc.idHead);
+        BodyCoutume bodyCoutume = listBodyCoutume.FirstOrDefault(coutume => coutume.idBody == newNpc.idBody);
+        FeedCoutume feedCoutume = listFeedCoutume.FirstOrDefault(coutume => coutume.idFeed == newNpc.idFeed);
+
+        GameObject npcOBJ = Instantiate(prefabNpc,listPointSpawnerNpc);
+        NpcCoutume npcCoutume = npcOBJ.GetComponent<NpcCoutume>();
+
+        npcCoutume.SetCostume(headCoutume, bodyCoutume,feedCoutume);
+        
         listNpc.Add(newNpc);
     }
     public void NpcWorking(int idNpc,bool isWithinDay)
@@ -98,7 +113,7 @@ public class NpcManager : MonoBehaviour
         // Debug.Log("Dropdown index changed to: " + selectedValue);
         // Debug.Log("Dropdown Option changed to: " + dropdown.options[selectedValue].text);
         NpcClass npcClassSelest = listNpc.FirstOrDefault(npc => npc.idnpc == selectedValue);
-
+        uIInventory.npcSelecying = npcClassSelest;
         inventoryItemPresent.UnlockSlotInventory(npcClassSelest.countInventorySlot,npcClassSelest.roleNpc);
         SetText(npcClassSelest);
 
@@ -106,8 +121,8 @@ public class NpcManager : MonoBehaviour
     }
     public void SetText(NpcClass npcClass)
     {
-        levelCombatText.text = npcClass.combat.ToString(); 
         levelEnduranceText.text = npcClass.endurance.ToString();
+        levelCombatText.text = npcClass.combat.ToString(); 
         levelSpeedText.text = npcClass.speed.ToString();
         specialistNpcText.text = npcClass.roleNpc.ToString();
     }

@@ -68,8 +68,9 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
         }
         else
         {
-            List<ItemData> listItemData = inventoryItemPresent.listItemsDataBox;
-            ItemData itemData = listItemData.FirstOrDefault(item => item.idItem == itemClassMove.idItem);
+            List<ItemData> listItemDataBoxes = inventoryItemPresent.listItemsDataBox;
+            ItemData itemData = listItemDataBoxes.FirstOrDefault(item => item.idItem == itemClassMove.idItem);
+            
             Debug.Log("Last Conition");
             if (itemData != null)
             {

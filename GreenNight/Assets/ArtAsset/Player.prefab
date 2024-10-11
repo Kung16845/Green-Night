@@ -805,6 +805,7 @@ GameObject:
   m_Component:
   - component: {fileID: 876816314164205647}
   - component: {fileID: 2960631616456382538}
+  - component: {fileID: 6044014769792203143}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -830,7 +831,7 @@ Transform:
   - {fileID: 4931287141810929044}
   - {fileID: 5825298004605569557}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2960631616456382538
 Animator:
@@ -853,6 +854,28 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6044014769792203143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4958575212990922125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b03358222ca0a3d48968e9e8a685300d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coutumeHead: {fileID: 3689672030720183049}
+  coutumeBody: {fileID: 3478720731584427122}
+  coutumeLeftArm: {fileID: 3738716075289715013}
+  coutumeRightArm: {fileID: 7184727955651834995}
+  coutumeShoulderLeft: {fileID: 329299504076203762}
+  coutumeShoulderRight: {fileID: 7407748960094677914}
+  coutumeUpperLagLeft: {fileID: 3046661455376602252}
+  coutumeeUpperLagRight: {fileID: 818138426874298327}
+  coutumeLowerLagLeft: {fileID: 1081963272842291813}
+  coutumeLowerLagRight: {fileID: 3898488627849466279}
 --- !u!1 &5212866311164574474
 GameObject:
   m_ObjectHideFlags: 0
@@ -1264,7 +1287,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 13
-  m_Sprite: {fileID: 219520505, guid: 48abea61df02f8646bc024b5f36644b8, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1272,7 +1295,7 @@ SpriteRenderer:
   m_Size: {x: 0.48181817, y: 0.3318182}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &8723640168971539401

@@ -19,11 +19,12 @@ public class TimeManager : MonoBehaviour
         dateTime = new DateTime(0, 0, 0, false, sceneSystem1);
         dateTime.SetTimeStartDay();
         currentTickSeconedIncrease = tickSeconedIncrease;
-        
+
     }
+    
     public void AccelerateTime(int speed)
-    {   
-        speedGame = speed;  
+    {
+        speedGame = speed;
         currentTickSeconedIncrease = tickSeconedIncrease * speed;
     }
     public void SetDayNIght()
@@ -31,8 +32,11 @@ public class TimeManager : MonoBehaviour
         dateTime.isDayNight = true;
     }
     private void Start()
-    {
+    {   
+        Debug.Log("Start Scene");
         OnDateTimeChanged?.Invoke(dateTime);
+        // sceneSystem1 = FindObjectOfType<SceneSystem>();
+        // dateTime.sceneSystem = sceneSystem1;
     }
     private void Update()
     {
@@ -121,7 +125,7 @@ public class DateTime
             else
             {
                 SetTimeNightDay();
-                sceneSystem.SwitchScene("DefendSceneFare");
+                sceneSystem.SwitchScene("TestTransferData");
             }
         }
     }
