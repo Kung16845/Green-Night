@@ -5,7 +5,7 @@ public class StatAmplifier : MonoBehaviour
     public int endurance = 1; // Increases max stamina
     public int combat = 1;    // Increases stability, accuracy, and decreases reload speed
     public int speed = 1;     // Increases movement speed and stamina regen
-
+    public SpecialistRoleNpc specialistRole;
     // Method to calculate the percentage increase based on the level
     private float GetAmplifierMultiplier(int level)
     {

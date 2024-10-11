@@ -59,9 +59,11 @@ public class UIInventory : MonoBehaviour
         statAmplifier.endurance = npcSelecying.endurance;
         statAmplifier.combat = npcSelecying.combat;
         statAmplifier.speed = npcSelecying.speed;
-        
-        // npcManager.listNpc.Remove(npcSelecying);
 
+        // Assign the NPC's specialist role to the StatAmplifier
+        statAmplifier.specialistRole = npcSelecying.roleNpc;
+
+        // Now, in the Inspector, you can see the specialist role under StatAmplifier
     }
     private void OnDestroy()
     {
