@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (actionController.canwalk)
+        if (actionController != null && actionController.canwalk)
         {
             HandleMovement();
             HandleStamina();

@@ -52,7 +52,7 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
-        if(actionController.canuseweapond)
+        if (actionController != null && actionController.canuseweapon)
         {
             if (isReloading) return;
 

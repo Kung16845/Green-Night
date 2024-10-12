@@ -33,9 +33,8 @@ public class SlimeProjectile : MonoBehaviour
         ActionController player = other.GetComponent<ActionController>();
         if (player != null)
         {
-            // Stop the player's movement for one second
-            player.canwalk = false;
-            player.canuseweapond = false;
+            // Start the stuck state
+            player.StartStuck();
 
             // Destroy the projectile
             Destroy(gameObject);
