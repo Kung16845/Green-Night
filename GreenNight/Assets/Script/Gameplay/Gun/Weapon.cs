@@ -35,6 +35,7 @@ public class Weapon : MonoBehaviour
     public Transform firePoint; // Point from where bullets are fired
     public GameObject bulletPrefab; // Bullet prefab
     public Vector2 bulletDirection;
+    private ActionController actionController;
 
     void Start()
     {
@@ -43,6 +44,7 @@ public class Weapon : MonoBehaviour
         initialAccuracy = accuracy;
         playerMovement = GetComponentInParent<PlayerMovement>();
         statAmplifier = GetComponent<StatAmplifier>();
+        actionController = GetComponent<ActionController>();
 
         ApplyHandlingPenalty();
         ApplyStatAmplifier();
@@ -50,48 +52,51 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
-        if (isReloading) return;
-
-        isFiring = Input.GetMouseButton(0);
-
-        if (fullAuto)
+        if (actionController != null && actionController.canuseweapon)
         {
-            if (isFiring && Time.time >= nextFireTime)
+            if (isReloading) return;
+
+            isFiring = Input.GetMouseButton(0);
+
+            if (fullAuto)
             {
-                Shoot();
-                nextFireTime = Time.time + fireRate;
-                shotsFiredConsecutively++;
-                if (shotsFiredConsecutively >= stabilityThreshold)
+                if (isFiring && Time.time >= nextFireTime)
                 {
-                    ApplyStabilityPenalty();
+                    Shoot();
+                    nextFireTime = Time.time + fireRate;
+                    shotsFiredConsecutively++;
+                    if (shotsFiredConsecutively >= stabilityThreshold)
+                    {
+                        ApplyStabilityPenalty();
+                    }
+                }
+                else if (!isFiring)
+                {
+                    RecoverAccuracy();
                 }
             }
-            else if (!isFiring)
+            else
             {
-                RecoverAccuracy();
-            }
-        }
-        else
-        {
-            if (Input.GetMouseButtonDown(0) && Time.time >= nextFireTime)
-            {
-                Shoot();
-                nextFireTime = Time.time + fireRate;
-                shotsFiredConsecutively++;
-                if (shotsFiredConsecutively >= stabilityThreshold)
+                if (Input.GetMouseButtonDown(0) && Time.time >= nextFireTime)
                 {
-                    ApplyStabilityPenalty();
+                    Shoot();
+                    nextFireTime = Time.time + fireRate;
+                    shotsFiredConsecutively++;
+                    if (shotsFiredConsecutively >= stabilityThreshold)
+                    {
+                        ApplyStabilityPenalty();
+                    }
+                }
+                else if (!isFiring)
+                {
+                    RecoverAccuracy();
                 }
             }
-            else if (!isFiring)
-            {
-                RecoverAccuracy();
-            }
-        }
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            StartCoroutine(Reload());
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                StartCoroutine(Reload());
+            }
         }
     }
 
