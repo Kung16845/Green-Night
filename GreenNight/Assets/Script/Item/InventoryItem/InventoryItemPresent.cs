@@ -25,12 +25,12 @@ public class InventoryItemPresent : MonoBehaviour
         }
 
         canvas = FindAnyObjectByType<Canvas>();
-        var  uIInventory = Instantiate(uIInventoryPrefab, canvas.transform,true);
-        uIInventory.transform.localPosition = new Vector3(0, 0);
-        uIInventory.SetActive(true);
+        // var  uIInventory = Instantiate(uIInventoryPrefab, canvas.transform,true);
+        // uIInventory.transform.localPosition = new Vector3(0, 0);
+        // uIInventory.SetActive(true);
 
-        RefreshUIBox();
-        RefreshUIBox();
+        // RefreshUIBox();
+        // RefreshUIBox();
     }
     private void RefreshUIInventorySlot()
     {
