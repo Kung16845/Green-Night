@@ -12,27 +12,34 @@ public class InventoryItemPresent : MonoBehaviour
     public List<UIItemData> listUIItemPrefab;
     public List<InvenrotySlots> listInvenrotySlots = new List<InvenrotySlots>();
     public InvenrotySlots invenrotySlotSpecialMilitaryLock;
-    public InvenrotySlots invenrotySlotSpecialScavenger;
+    public InvenrotySlots invenrotySlotSpecialScavengerLock;
     public Transform transformsBoxes;
     public Canvas canvas;
     public GameObject uIInventoryPrefab;
     private void Start()
     {
-        RefreshUIBox();
-        RefreshUIBox();
-        
+        if (uIInventoryPrefab == null)
+        {
+            Debug.LogError("itemPrefab is not assigned in the Inspector.");
+            return;
+        }
+
         canvas = FindAnyObjectByType<Canvas>();
-        GameObject uIInventory = Instantiate(uIInventoryPrefab,canvas.transform,true);
-        uIInventory.SetActive(true);
+        // var  uIInventory = Instantiate(uIInventoryPrefab, canvas.transform,true);
+        // uIInventory.transform.localPosition = new Vector3(0, 0);
+        // uIInventory.SetActive(true);
+
+        // RefreshUIBox();
+        // RefreshUIBox();
     }
     private void RefreshUIInventorySlot()
     {
-        
+
     }
     public void RefreshUIBox()
     {
         ClearUIBoxes();
-        
+
         foreach (ItemData itemData in listItemsDataBox)
         {
             CreateUIBoxes(itemData);
@@ -40,24 +47,9 @@ public class InventoryItemPresent : MonoBehaviour
 
     }
 
-    public void RefreshUIBoxCategory(int numCategory)
-    {   
-        ClearUIBoxes();
-
-        Itemtype itemtypeCategory = (Itemtype)numCategory;
-
-        foreach (ItemData itemData in listItemsDataBox)
-        {
-            if (itemData.itemtype == itemtypeCategory)
-            {
-                CreateUIBoxes(itemData);
-                
-            }
-        }
-
-    }
+   
     public void CreateUIBoxes(ItemData itemData)
-    {   
+    {
 
         GameObject uiItem = listUIItemPrefab.FirstOrDefault(idItem => idItem.idItem == itemData.idItem).gameObject;
         GameObject uIItemOBJ = Instantiate(uiItem, transformsBoxes, false);
@@ -78,8 +70,8 @@ public class InventoryItemPresent : MonoBehaviour
             Destroy(child.gameObject);
         }
     }
-    public void UnlockSlotInventory(int numUnlock,SpecialistRoleNpc specialistRoleNpc)
-    {  
+    public void UnlockSlotInventory(int numUnlock, SpecialistRoleNpc specialistRoleNpc)
+    {
         foreach (InvenrotySlots slot in listInvenrotySlots)
         {
             slot.slotTypeInventory = SlotType.SlotLock;
@@ -87,29 +79,29 @@ public class InventoryItemPresent : MonoBehaviour
 
         for (int i = 1; i <= numUnlock; i++)
         {
-            InvenrotySlots slot = listInvenrotySlots.ElementAt(i-1);
+            InvenrotySlots slot = listInvenrotySlots.ElementAt(i - 1);
             slot.slotTypeInventory = SlotType.SlotBag;
         }
-        
-        if(specialistRoleNpc == SpecialistRoleNpc.Military_training)
+
+        if (specialistRoleNpc == SpecialistRoleNpc.Military_training)
         {
             invenrotySlotSpecialMilitaryLock.slotTypeInventory = SlotType.SlotWeapon;
         }
 
-        else if(specialistRoleNpc == SpecialistRoleNpc.Scavenger)
+        else if (specialistRoleNpc == SpecialistRoleNpc.Scavenger)
         {
-            invenrotySlotSpecialScavenger.slotTypeInventory = SlotType.SlotTool;
+            invenrotySlotSpecialScavengerLock.slotTypeInventory = SlotType.SlotTool;
         }
 
-        else 
+        else
         {
             invenrotySlotSpecialMilitaryLock.slotTypeInventory = SlotType.SlotLock;
-            invenrotySlotSpecialScavenger.slotTypeInventory = SlotType.SlotLock;
+            invenrotySlotSpecialScavengerLock.slotTypeInventory = SlotType.SlotLock;
         }
-    } 
+    }
     public void AddItem(ItemData itemDataAdd)
     {
-        
+
         ItemData itemDataInList = listItemsDataBox.FirstOrDefault(item => item.idItem == itemDataAdd.idItem && item.count != item.maxCount);
 
         if (itemDataInList != null)
