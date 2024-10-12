@@ -62,7 +62,6 @@ public class Zombie : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
     private Coroutine damageEffectCoroutine;
-    private bool armourDepleted = false;
 
      [Header("Mutation Settings")]
     public MutationType mutationType = MutationType.None;

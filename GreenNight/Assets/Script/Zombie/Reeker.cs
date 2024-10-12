@@ -23,7 +23,7 @@ public class Reeker : Zombie
     public float reekerAcidRadius = 1f;
     public float reekerAcidInterval = 1f;
 
-    private ReekerState currentState = ReekerState.Moving;
+    private ReekerState ReekercurrentState;
     private float spittingTimer = 0f;
     private float spittingCooldown = 0f;
 
@@ -38,7 +38,7 @@ public class Reeker : Zombie
         // Initialize necessary components
         rb2D = GetComponent<Rigidbody2D>();
         // Initialize variables
-        currentState = ReekerState.Moving;
+        ReekercurrentState = ReekerState.Moving;
         countTimer = attackTimer; // Initialize attack timer
         // Get all lanes from LaneManager
         allLanes = LaneManager.Instance.allLanes;
@@ -90,7 +90,7 @@ public class Reeker : Zombie
 
     private void Update()
     {
-        switch (currentState)
+        switch (ReekercurrentState)
         {
             case ReekerState.Moving:
                 HandleMovingState();
@@ -110,7 +110,7 @@ public class Reeker : Zombie
     {
         if (HasReachedEngagingPoint())
         {
-            currentState = ReekerState.Spitting;
+            ReekercurrentState = ReekerState.Spitting;
             spittingTimer = spittingDuration;
             spittingCooldown = 0f;
             rb2D.velocity = Vector2.zero; // Stop moving while spitting
@@ -135,7 +135,7 @@ public class Reeker : Zombie
 
         if (spittingTimer <= 0f)
         {
-            currentState = ReekerState.SwitchingLanes;
+            ReekercurrentState = ReekerState.SwitchingLanes;
         }
     }
 
@@ -202,12 +202,12 @@ public class Reeker : Zombie
             // Do not change the Reeker's position; it will start moving towards the new engaging point from its current position
 
             // Reset the state to moving
-            currentState = ReekerState.Moving;
+            ReekercurrentState= ReekerState.Moving;
         }
         else
         {
             // No other lanes to switch to
-            currentState = ReekerState.Moving;
+            ReekercurrentState = ReekerState.Moving;
         }
     }
 

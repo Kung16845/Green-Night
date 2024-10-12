@@ -16,8 +16,8 @@ public class Slimer : Zombie
     public GameObject slimeProjectilePrefab;     // Prefab of the slime projectile to spawn
     public float projectileSpeed = 5f;           // Speed of the projectile
 
-    private SlimerStates slimerState = SlimerStates.Moving;
-    private float attackTimer = 0f;
+    private SlimerStates slimerState;
+    private float SlimeattackTimer = 0f;
     private float attackCooldown = 0f;
 
     // Reference to the engaging area position
@@ -117,7 +117,7 @@ public class Slimer : Zombie
         if (HasReachedEngagingPoint())
         {
             slimerState = SlimerStates.Attacking;
-            attackTimer = attackingDuration;
+            SlimeattackTimer = attackingDuration;
             attackCooldown = 0f;
             rb2D.velocity = Vector2.zero; // Stop moving while attacking
         }
@@ -130,7 +130,7 @@ public class Slimer : Zombie
 
     private void HandleAttackingState()
     {
-        attackTimer -= Time.deltaTime;
+        SlimeattackTimer -= Time.deltaTime;
         attackCooldown -= Time.deltaTime;
 
         if (attackCooldown <= 0f)
@@ -139,7 +139,7 @@ public class Slimer : Zombie
             attackCooldown = attackInterval;
         }
 
-        if (attackTimer <= 0f)
+        if (SlimeattackTimer <= 0f)
         {
             slimerState = SlimerStates.SwitchingLanes;
         }

@@ -6560,6 +6560,7 @@ MonoBehaviour:
   endurance: 5
   combat: 5
   speed: 5
+  specialistRole: 0
 --- !u!1 &738602793
 GameObject:
   m_ObjectHideFlags: 0
@@ -11240,6 +11241,16 @@ MonoBehaviour:
     engagingArea: {fileID: 1716045786}
     attackPoint: {fileID: 1911803340}
   spawnDecks:
+  - deckName: Test Slimer
+    deckDuration: 900
+    spawnWaves:
+    - laneID: 2
+      zombiePrefabs:
+      - {fileID: 7550034601582792165, guid: d9eaa1c1ea812ac44b75b4b0965a8a61, type: 3}
+      zombiesToSpawn: 1
+      spawnInterval: 0.25
+      zombieTier: 1
+      timeUntilNextWave: 0
   - deckName: TestDeck
     deckDuration: 250
     spawnWaves:
@@ -11264,16 +11275,6 @@ MonoBehaviour:
       spawnInterval: 1.5
       zombieTier: 1
       timeUntilNextWave: 80
-  - deckName: Test reeker
-    deckDuration: 900
-    spawnWaves:
-    - laneID: 2
-      zombiePrefabs:
-      - {fileID: 7550034601582792165, guid: d9eaa1c1ea812ac44b75b4b0965a8a61, type: 3}
-      zombiesToSpawn: 1
-      spawnInterval: 0.25
-      zombieTier: 1
-      timeUntilNextWave: 0
 --- !u!1 &1188953942
 GameObject:
   m_ObjectHideFlags: 0
@@ -12753,6 +12754,7 @@ GameObject:
   - component: {fileID: 1268715204}
   - component: {fileID: 1268715207}
   - component: {fileID: 1268715206}
+  - component: {fileID: 1268715212}
   - component: {fileID: 1268715211}
   - component: {fileID: 1268715208}
   - component: {fileID: 1268715209}
@@ -12877,12 +12879,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8173d5c823a2d5e4583f065290486466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentSpeed: 2.5
-  sprintSpeed: 4.5
-  maxStamina: 100
+  baseSpeed: 5
+  baseSprintSpeed: 8
+  baseMaxStamina: 100
   currentStamina: 0
-  staminaRecoverSpeed: 20
-  staminaConsumeSpeed: 40
+  baseStaminaRecoverSpeed: 10
+  baseStaminaConsumeSpeed: 15
   minStaminaToSprint: 1
 --- !u!61 &1268715208
 BoxCollider2D:
@@ -13016,6 +13018,23 @@ MonoBehaviour:
   endurance: 4
   combat: 8
   speed: 3
+  specialistRole: 0
+--- !u!114 &1268715212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268715203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7da13b27526812341b2b3f37605bbc9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Actionspeed: 1
+  canwalk: 1
+  canuseweapond: 1
+  candoaction: 1
 --- !u!1 &1270024151
 GameObject:
   m_ObjectHideFlags: 0
@@ -13619,6 +13638,7 @@ MonoBehaviour:
   endurance: 5
   combat: 5
   speed: 5
+  specialistRole: 0
 --- !u!1 &1372038878
 GameObject:
   m_ObjectHideFlags: 0
