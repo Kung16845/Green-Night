@@ -11509,6 +11509,37 @@ MonoBehaviour:
     engagingArea: {fileID: 1716045786}
     attackPoint: {fileID: 1911803340}
   spawnDecks:
+  - deckName: TestDeck
+    deckDuration: 250
+    spawnWaves:
+    - laneID: 1
+      zombiePrefabs:
+      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
+      zombiesToSpawn: 10
+      spawnInterval: 1.5
+      zombieTier: 3
+      timeUntilNextWave: 0
+    - laneID: 2
+      zombiePrefabs:
+      - {fileID: 7550034601582792165, guid: 9c987c88f5d71a748891e5c227b488ff, type: 3}
+      zombiesToSpawn: 1
+      spawnInterval: 1
+      zombieTier: 3
+      timeUntilNextWave: 150
+    - laneID: 2
+      zombiePrefabs:
+      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
+      zombiesToSpawn: 10
+      spawnInterval: 1.5
+      zombieTier: 3
+      timeUntilNextWave: 0
+    - laneID: 3
+      zombiePrefabs:
+      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
+      zombiesToSpawn: 10
+      spawnInterval: 1.5
+      zombieTier: 3
+      timeUntilNextWave: 80
   - deckName: Test Slimer
     deckDuration: 900
     spawnWaves:
@@ -11519,30 +11550,6 @@ MonoBehaviour:
       spawnInterval: 0.25
       zombieTier: 1
       timeUntilNextWave: 0
-  - deckName: TestDeck
-    deckDuration: 250
-    spawnWaves:
-    - laneID: 2
-      zombiePrefabs:
-      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
-      zombiesToSpawn: 5
-      spawnInterval: 1.5
-      zombieTier: 1
-      timeUntilNextWave: 0
-    - laneID: 1
-      zombiePrefabs:
-      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
-      zombiesToSpawn: 5
-      spawnInterval: 1.5
-      zombieTier: 1
-      timeUntilNextWave: 0
-    - laneID: 3
-      zombiePrefabs:
-      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
-      zombiesToSpawn: 5
-      spawnInterval: 1.5
-      zombieTier: 1
-      timeUntilNextWave: 80
 --- !u!1 &1188953942
 GameObject:
   m_ObjectHideFlags: 0
@@ -13113,12 +13120,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e65d13d3058e4bc49a51c0df922a672f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rateOfFire: 750
-  handling: 50
-  accuracy: 65
-  capacity: 30
-  stability: 70
-  damage: 33
+  rateOfFire: 600
+  handling: 40
+  accuracy: 45
+  capacity: 25
+  stability: 50
+  damage: 42
   fullAuto: 1
   isShotgun: 0
   pellets: 0
@@ -13147,8 +13154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8173d5c823a2d5e4583f065290486466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 5
-  baseSprintSpeed: 8
+  baseSpeed: 2
+  baseSprintSpeed: 4
   baseMaxStamina: 100
   currentStamina: 0
   baseStaminaRecoverSpeed: 10
@@ -13283,10 +13290,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aea5c92fcf221d74986f4c29571ab365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endurance: 4
+  endurance: 6
   combat: 8
-  speed: 3
-  specialistRole: 4
+  speed: 6
+  specialistRole: 0
 --- !u!114 &1268715212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18288,7 +18295,7 @@ Camera:
   far clip plane: 1000.65
   field of view: 60
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 5.98
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
