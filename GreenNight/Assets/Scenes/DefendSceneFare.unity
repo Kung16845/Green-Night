@@ -4760,7 +4760,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 474343222}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.7300005, y: 3.35, z: 0}
+  m_LocalPosition: {x: 16, y: 2.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4791,7 +4791,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 490260718}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.9, y: 0.15, z: 0}
+  m_LocalPosition: {x: 16, y: 0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6638,7 +6638,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 731834172}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 29.4, y: -3.51, z: 0}
+  m_LocalPosition: {x: 29.57, y: -2.28, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7021,7 +7021,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 755528654}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.869999, y: 0.15, z: 0}
+  m_LocalPosition: {x: 9.409999, y: 0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11517,28 +11517,28 @@ MonoBehaviour:
       - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
       zombiesToSpawn: 10
       spawnInterval: 1.5
-      zombieTier: 3
+      zombieTier: 2
       timeUntilNextWave: 0
     - laneID: 2
       zombiePrefabs:
-      - {fileID: 7550034601582792165, guid: 9c987c88f5d71a748891e5c227b488ff, type: 3}
+      - {fileID: 7550034601582792165, guid: cd58d8a96af819a49bf49b5d8bbddc17, type: 3}
       zombiesToSpawn: 1
       spawnInterval: 1
-      zombieTier: 3
-      timeUntilNextWave: 150
+      zombieTier: 2
+      timeUntilNextWave: 0
     - laneID: 2
       zombiePrefabs:
       - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
       zombiesToSpawn: 10
       spawnInterval: 1.5
-      zombieTier: 3
+      zombieTier: 2
       timeUntilNextWave: 0
     - laneID: 3
       zombiePrefabs:
       - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
       zombiesToSpawn: 10
       spawnInterval: 1.5
-      zombieTier: 3
+      zombieTier: 2
       timeUntilNextWave: 80
   - deckName: Test Slimer
     deckDuration: 900
@@ -13120,17 +13120,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e65d13d3058e4bc49a51c0df922a672f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rateOfFire: 600
-  handling: 40
-  accuracy: 45
+  rateOfFire: 550
+  handling: 35
+  accuracy: 25
   capacity: 25
-  stability: 50
-  damage: 42
+  stability: 45
+  damage: 32
   fullAuto: 1
   isShotgun: 0
   pellets: 0
   spreadAngle: 0
-  stabilityThreshold: 5
+  stabilityThreshold: 7
   caliberType: 1
   currentAmmo: 0
   fireRate: 0
@@ -13290,9 +13290,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aea5c92fcf221d74986f4c29571ab365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endurance: 6
-  combat: 8
-  speed: 6
+  endurance: 4
+  combat: 3
+  speed: 3
   specialistRole: 0
 --- !u!114 &1268715212
 MonoBehaviour:
@@ -15411,7 +15411,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1486524292}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 29.36, y: 3.56, z: 0}
+  m_LocalPosition: {x: 29.53, y: 2.27, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17274,7 +17274,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1716045785}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.88, y: -3.38, z: 0}
+  m_LocalPosition: {x: 16, y: -2.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17641,7 +17641,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1800576229}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.7, y: 3.35, z: 0}
+  m_LocalPosition: {x: 9.41, y: 2.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18913,7 +18913,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1911803339}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.849999, y: -3.38, z: 0}
+  m_LocalPosition: {x: 9.5599985, y: -2.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

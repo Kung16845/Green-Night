@@ -50,19 +50,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1bc316fb69818745a9e1e9be762ed68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformbarrier: {fileID: 0}
   currentHp: 0
   maxHp: 90
   maxArmourHp: 0
   ArmourHp: 0
   currentSpeed: 0
-  maxSpeed: 2
+  maxSpeed: 1.5
   attackDamage: 10
   attackTimer: 1
-  countTImer: 0
-  direction: {x: 0, y: 0}
+  countTimer: 0
   rb2D: {fileID: 0}
   barrier: {fileID: 0}
+  movementSpeed: 1
+  currentLane:
+    laneID: 0
+    spawnPoint: {fileID: 0}
+    engagingArea: {fileID: 0}
+    attackPoint: {fileID: 0}
+  isInEngagingArea: 0
   slowdownAmount: 0.25
   damageEffectDuration: 0.1
   mutationType: 4
@@ -97,12 +102,13 @@ MonoBehaviour:
   - 2
   - 3
   - 4
+  currentState: 0
   speedBoostAreaPrefab: {fileID: 5270464586629645707, guid: 41109857229177f46850021d888d4c0c, type: 3}
-  areaRadius: 2
-  areaDuration: 3
-  speedIncreaseAmount: 1.5
+  areaRadius: 3
+  areaDuration: 7
+  speedIncreaseAmount: 2.5
   attackSpeedIncreaseAmount: 2
-  speedIncreaseDuration: 5
+  speedIncreaseDuration: 7
 --- !u!114 &8051091936370712935
 MonoBehaviour:
   m_ObjectHideFlags: 0

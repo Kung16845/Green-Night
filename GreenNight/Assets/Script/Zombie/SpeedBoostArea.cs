@@ -36,17 +36,17 @@ public class SpeedBoostArea : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        Zombie zombie = other.GetComponent<Zombie>();
-        if (zombie != null && affectedZombies.ContainsKey(zombie))
-        {
-            StopCoroutine(affectedZombies[zombie]);
-            zombie.ResetSpeed();
-            zombie.ResetAttackSpeed();
-            affectedZombies.Remove(zombie);
-        }
-    }
+    // private void OnTriggerExit2D(Collider2D other)
+    // {
+    //     Zombie zombie = other.GetComponent<Zombie>();
+    //     if (zombie != null && affectedZombies.ContainsKey(zombie))
+    //     {
+    //         StopCoroutine(affectedZombies[zombie]);
+    //         zombie.ResetSpeed();
+    //         zombie.ResetAttackSpeed();
+    //         affectedZombies.Remove(zombie);
+    //     }
+    // }
 
     private IEnumerator ApplySpeedBoost(Zombie zombie)
     {
