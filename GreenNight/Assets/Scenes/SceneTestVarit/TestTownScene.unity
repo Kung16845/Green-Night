@@ -8848,8 +8848,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   listItemsDataBox: []
-  listItemsDataInventorySlot: []
-  listUIItemPrefab: []
+  listItemsDataInventorySlot:
+  - nameItem: 
+    idItem: 1
+    count: 20
+    maxCount: 10
+    itemtype: 0
+  - nameItem: AK47
+    idItem: 1020202
+    count: 1
+    maxCount: 1
+    itemtype: 0
+  listUIItemPrefab:
+  - {fileID: 1291614654634707552, guid: d54c6f2497f160a47baaad622a133c96, type: 3}
+  - {fileID: 1291614654634707552, guid: 5e2ea0199930bac4eba91eac76d5f511, type: 3}
   listInvenrotySlots: []
   invenrotySlotSpecialMilitaryLock: {fileID: 0}
   invenrotySlotSpecialScavengerLock: {fileID: 0}
