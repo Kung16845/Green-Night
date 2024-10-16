@@ -28,6 +28,7 @@ public class BuildManager : MonoBehaviour
     public CustomCursor customCursor;
     public GameObject grid;
     public GameObject uIBuilding;
+    public GameObject buttonBuild;
     public Tile[] tiles;
     private void Awake()
     {
@@ -104,10 +105,12 @@ public class BuildManager : MonoBehaviour
                 Debug.Log(nearstTile.name);
                 buildingToPlace = null;
                 nearstTile.isOccupied = true;
+                uIBuilding.SetActive(false);
+                buttonBuild.SetActive(true);
                 UIUpdateAfterBuildOrCancelBuild();
             }
         }
-        else if (Input.GetMouseButtonDown(1))
+        else if (Input.GetMouseButtonDown(1) && buildingToPlace != null)
         {
 
             if (buildingToPlace != null)
@@ -120,7 +123,9 @@ public class BuildManager : MonoBehaviour
                 npc += buildingToPlace.npcCost;
                 buildingToPlace = null;
             }
+            uIBuilding.SetActive(true);
             UIUpdateAfterBuildOrCancelBuild();
+             
         }
     }
     
@@ -129,7 +134,8 @@ public class BuildManager : MonoBehaviour
         customCursor.gameObject.SetActive(false);
         Cursor.visible = true;
         grid.SetActive(false);
-        uIBuilding.SetActive(true);
+        
+       
     }
     public void BuyBuilding()
     {   

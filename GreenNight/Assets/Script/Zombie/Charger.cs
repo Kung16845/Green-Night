@@ -24,7 +24,7 @@ public class Charger : Zombie
     public float weaknessDamageMultiplier = 1.5f;  // Damage multiplier when in weakness state
 
     [Header("State Tracking (For Debugging)")]
-    [SerializeField] private ChargingZombieState currentState = ChargingZombieState.Charging;
+    [SerializeField] private ChargingZombieState ChargercurrentState;
     [SerializeField] private float chargeTimer = 0f;
     [SerializeField] private float stopTimer = 0f;
     [SerializeField] private float accumulatedDamage = 0f;
@@ -35,7 +35,7 @@ public class Charger : Zombie
     private void Start()
     {
         // Initialize the zombie's state
-        currentState = ChargingZombieState.Charging;
+        ChargercurrentState= ChargingZombieState.Charging;
         chargeTimer = chargeUpTime;
         attackDamage = normalDamage;  // Set initial attack damage
         currentSpeed = 0f;            // Start stationary
@@ -47,7 +47,7 @@ public class Charger : Zombie
 
     private void Update()
     {
-        switch (currentState)
+        switch (ChargercurrentState)
         {
             case ChargingZombieState.Stopped:
                 HandleStoppedState();
@@ -71,7 +71,7 @@ public class Charger : Zombie
         if (stopTimer <= 0f)
         {
             // Transition back to charging state
-            currentState = ChargingZombieState.Charging;
+            ChargercurrentState = ChargingZombieState.Charging;
             chargeTimer = chargeUpTime;
             accumulatedDamage = 0f;
             currentSpeed = 0f;
@@ -89,7 +89,7 @@ public class Charger : Zombie
         if (chargeTimer <= 0f)
         {
             // Transition to boosted phase
-            currentState = ChargingZombieState.Boosted;
+            ChargercurrentState = ChargingZombieState.Boosted;
             currentSpeed = boostedSpeed;
             attackDamage = boostedDamage;
         }
@@ -118,7 +118,7 @@ public class Charger : Zombie
     public override void ZombieTakeDamage(float damage, DamageType damageType, float extraMultiplier = 1f)
     {
         // Apply damage multiplier when in weakness state
-        if (currentState == ChargingZombieState.Stopped)
+        if (ChargercurrentState == ChargingZombieState.Stopped)
         {
             extraMultiplier *= weaknessDamageMultiplier;
             Debug.Log($"Weakness state: applying damage multiplier of {weaknessDamageMultiplier}");
@@ -127,7 +127,7 @@ public class Charger : Zombie
         // Call base class method with the extra multiplier
         base.ZombieTakeDamage(damage, damageType, extraMultiplier);
 
-        if (currentState == ChargingZombieState.Stopped)
+        if (ChargercurrentState == ChargingZombieState.Stopped)
         {
             // Already in weakness state, no need to accumulate damage
             return;
@@ -152,7 +152,7 @@ public class Charger : Zombie
     private void TriggerWeakness()
     {
         // Stop the zombie
-        currentState = ChargingZombieState.Stopped;
+        ChargercurrentState = ChargingZombieState.Stopped;
         stopTimer = stopDuration;
         currentSpeed = 0f;
         rb2D.velocity = Vector2.zero;

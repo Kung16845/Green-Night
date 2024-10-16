@@ -77,7 +77,12 @@ public class Bullet : MonoBehaviour
         if (penetrationCount > 0)
         {
             penetrationCount--; // Decrease penetration count on hit
-            Debug.Log("Bullet penetrated, remaining penetrations: " + penetrationCount);
+            switch (caliberType)
+            {
+                case CaliberType.Medium:
+                damage *= 0.5f;
+                break; 
+            }
         }
         else
         {

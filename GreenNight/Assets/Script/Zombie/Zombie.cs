@@ -47,6 +47,7 @@ public class Zombie : MonoBehaviour
     public float countTimer;
     public Rigidbody2D rb2D;
     public Barrier barrier;
+    private bool canmove;
 
     public float movementSpeed = 1.0f;       // Movement speed
 
@@ -62,7 +63,6 @@ public class Zombie : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
     private Coroutine damageEffectCoroutine;
-    private bool armourDepleted = false;
 
      [Header("Mutation Settings")]
     public MutationType mutationType = MutationType.None;
@@ -88,9 +88,11 @@ public class Zombie : MonoBehaviour
     private float previousDirectionX = 1f;
     private void Awake()
     {
+        ApplyMutationEffects();
         currentSpeed = maxSpeed;
         currentHp = maxHp;
         ArmourHp = maxArmourHp; // Initialize armor
+        canmove = true;
         rb2D = GetComponent<Rigidbody2D>();
         originalSpeed = maxSpeed;
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -99,7 +101,6 @@ public class Zombie : MonoBehaviour
             originalColor = spriteRenderer.color;
         }
         InitializeDamageMultipliers();
-        ApplyMutationEffects();
     }
     public ZombieState CurrentState
     {
@@ -112,21 +113,24 @@ public class Zombie : MonoBehaviour
     public void ZombieMoveFindBarrier()
     {
         // Move towards the attack point
-        if (currentLane != null && currentLane.attackPoint != null)
+        if(canmove)
         {
-            currentState = ZombieState.Moving;
-            Vector2 direction = (currentLane.attackPoint.position - transform.position).normalized;
-            rb2D.velocity = direction * currentSpeed;
+            if (currentLane != null && currentLane.attackPoint != null)
+            {
+                currentState = ZombieState.Moving;
+                Vector2 direction = (currentLane.attackPoint.position - transform.position).normalized;
+                rb2D.velocity = direction * currentSpeed;
 
-            previousDirectionX = direction.x;
-            // Flip the sprite based on movement direction along the x-axis
-            if (direction.x < 0)
-            {
-                transform.localScale = new Vector3(-0.7f, 0.7f, 1); // Flip left
-            }
-            else if (direction.x > 0)
-            {
-                transform.localScale = new Vector3(0.7f, 0.7f, 1); // Face right
+                previousDirectionX = direction.x;
+                // Flip the sprite based on movement direction along the x-axis
+                if (direction.x < 0)
+                {
+                    transform.localScale = new Vector3(-0.7f, 0.7f, 1); // Flip left
+                }
+                else if (direction.x > 0)
+                {
+                    transform.localScale = new Vector3(0.7f, 0.7f, 1); // Face right
+                }
             }
         }
     }
@@ -220,7 +224,7 @@ public class Zombie : MonoBehaviour
                 // Pulse damage removes all armor
                 ArmourHp = 0f;
             }
-            else
+            else 
             {
                 // Other damage types apply full damage to armor
                 ArmourHp -= adjustedDamage;
@@ -234,28 +238,37 @@ public class Zombie : MonoBehaviour
         }
 
         // Apply damage effects and check for death
-        ApplyDamageEffects();
+        ApplyDamageEffects(damageType);
         CheckForDeath();
     }
-
+    private IEnumerator ArmourBroken()
+    {
+        canmove = false;
+        yield return new WaitForSeconds(5f);
+        canmove = true;
+    }
     private void ApplyOverflowDamageToHealth()
     {
         if (ArmourHp < 0)
         {
             currentHp += ArmourHp; // ArmourHp is negative
             ArmourHp = 0f;
+            StartCoroutine(ArmourBroken());
         }
     }
 
-    private void ApplyDamageEffects()
+    private void ApplyDamageEffects(DamageType damageType)
     {
-        if (damageEffectCoroutine != null)
+        if(damageType != DamageType.Acid)
         {
-            StopCoroutine(damageEffectCoroutine);
-            speedMultiplier = 1.0f;
-            UpdateCurrentSpeed();
+            if (damageEffectCoroutine != null)
+            {
+                StopCoroutine(damageEffectCoroutine);
+                speedMultiplier = 1.0f;
+                UpdateCurrentSpeed();
+            }
+            damageEffectCoroutine = StartCoroutine(DamageEffect());
         }
-        damageEffectCoroutine = StartCoroutine(DamageEffect());
     }
 
     private void CheckForDeath()
@@ -317,6 +330,9 @@ public class Zombie : MonoBehaviour
             case MutationType.ArmourShell:
                 ApplyArmourShellMutation();
                 break;
+            case MutationType.Acid:
+                maxHp += 150;
+                break;    
             // Acid and Exploder mutations have effects on death
         }
     }

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7793501274145667475}
-  - component: {fileID: 8153986500931480031}
+  - component: {fileID: 3209530081610437561}
   - component: {fileID: 8051091936370712935}
   - component: {fileID: 633828766855133476}
   - component: {fileID: 3343816310919699681}
@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -4477498444932220001}
   - component: {fileID: 5536341593726160959}
   m_Layer: 0
-  m_Name: IED Unit
+  m_Name: EOD Unit
   m_TagString: Zombie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,7 +38,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8153986500931480031
+--- !u!114 &3209530081610437561
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47,26 +47,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 7550034601582792165}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a623b4c831e86f5418ba201ee6b4f102, type: 3}
+  m_Script: {fileID: 11500000, guid: 436cff0067cf26d4da39353d03a3140a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformbarrier: {fileID: 0}
   currentHp: 0
   maxHp: 550
   maxArmourHp: 0
   ArmourHp: 0
-  currentSpeed: 0
-  maxSpeed: 0.6
-  attackDamage: 100
+  currentSpeed: 0.6
+  maxSpeed: 1
+  attackDamage: 150
   attackTimer: 1
-  countTImer: 0
-  direction: {x: 0, y: 0}
+  countTimer: 0
   rb2D: {fileID: 0}
   barrier: {fileID: 0}
-  slowdownAmount: 0
-  damageEffectDuration: 0
-  mutationType: 4
-  mutationTier: 3
+  movementSpeed: 1
+  currentLane:
+    laneID: 0
+    spawnPoint: {fileID: 0}
+    engagingArea: {fileID: 0}
+    attackPoint: {fileID: 0}
+  isInEngagingArea: 0
+  slowdownAmount: 0.25
+  damageEffectDuration: 0.01
+  mutationType: 1
+  mutationTier: 1
   acidPoolPrefab: {fileID: 8974713031636886679, guid: 674bad897b4809b43a15a1123c5b506a, type: 3}
   acidBarrierDamage:
   - 5
@@ -97,6 +102,7 @@ MonoBehaviour:
   - 2
   - 3
   - 4
+  currentState: 0
 --- !u!114 &8051091936370712935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,7 +118,7 @@ MonoBehaviour:
   IsAttack: 0
   IsDead: 0
   IsWalk: 0
-  zombieGrunt: {fileID: 8153986500931480031}
+  zombieGrunt: {fileID: 0}
 --- !u!212 &633828766855133476
 SpriteRenderer:
   m_ObjectHideFlags: 0

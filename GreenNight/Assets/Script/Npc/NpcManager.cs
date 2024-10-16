@@ -105,7 +105,8 @@ public class NpcManager : MonoBehaviour
             listNpcWorkingMoreOneDay.Add(npcWorking);
             
         listNpc.Remove(npcWorking);
-
+        
+        listNpcWorkingWIthInOneDay.Add(npcWorking);
     }
 
     public void OnDropdownValueChanged(int selectedValue)

@@ -14,12 +14,14 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isMovementStopped = false;
     private bool isSprinting = false;
-
+    private ActionController actionController;
     private StatAmplifier statAmplifier;
 
     void Start()
     {
         statAmplifier = GetComponent<StatAmplifier>();
+        actionController = GetComponent<ActionController>();
+
         if (statAmplifier == null)
         {
             Debug.LogError("StatAmplifier component not found on the player.");
@@ -31,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (!isMovementStopped)
+        if (actionController != null && actionController.canwalk)
         {
             HandleMovement();
             HandleStamina();
