@@ -15,7 +15,7 @@ public class InventoryItemPresent : MonoBehaviour
     public InvenrotySlots invenrotySlotSpecialScavengerLock;
     public Transform transformsBoxes;
     public Canvas canvas;
-    public GameObject uIInventoryPrefab;
+    public  GameObject uIInventoryPrefab;
     private void Start()
     {
         if (uIInventoryPrefab == null)
@@ -25,12 +25,24 @@ public class InventoryItemPresent : MonoBehaviour
         }
 
         canvas = FindAnyObjectByType<Canvas>();
-        // var  uIInventory = Instantiate(uIInventoryPrefab, canvas.transform,true);
-        // uIInventory.transform.localPosition = new Vector3(0, 0);
-        // uIInventory.SetActive(true);
 
-        // RefreshUIBox();
-        // RefreshUIBox();
+        CreateInventorySetExpendition();
+
+        RefreshUIBox();
+        RefreshUIBox();
+    }
+    public void CreateInventorySetExpendition()
+    {
+      
+
+        GameObject uIInventory = Instantiate(uIInventoryPrefab,canvas.transform);
+    
+        // uIInventory.transform.localPosition = new Vector3(0, 0);
+        UIInventory uIInventoryEx = uIInventory.GetComponent<UIInventory>();
+        uIInventoryEx.inventoryItemPresent = this;
+        uIInventory.SetActive(true);
+
+        // uIInventoryEx.SetValuableUIInventory();
     }
     private void RefreshUIInventorySlot()
     {
@@ -47,7 +59,7 @@ public class InventoryItemPresent : MonoBehaviour
 
     }
 
-   
+
     public void CreateUIBoxes(ItemData itemData)
     {
 
