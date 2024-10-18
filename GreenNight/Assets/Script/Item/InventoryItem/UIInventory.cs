@@ -10,7 +10,6 @@ public class UIInventory : MonoBehaviour
     public TMP_Dropdown dropdown;
     public NpcManager npcManager;
     public NpcClass npcSelecying;
-    public List<Button> listbuttons;
     public List<InvenrotySlots> listInvenrotySlotsUI = new List<InvenrotySlots>();
     public Transform transformBoxes;
     public InventoryItemPresent inventoryItemPresent;
@@ -21,11 +20,13 @@ public class UIInventory : MonoBehaviour
     public TextMeshProUGUI specialistNpcText;
 
     private void Awake()
-    {
+    {   
+        Debug.Log("UIInventory");
         SetValuableUIInventory();
     }
     public void SetValuableUIInventory()
-    {
+    {   
+    
         npcManager = FindObjectOfType<NpcManager>();
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
 
@@ -36,12 +37,14 @@ public class UIInventory : MonoBehaviour
         npcManager.levelSpeedText = levelSpeedText;
         npcManager.specialistNpcText = specialistNpcText;
 
+        SetSlotToInventory();
+
         dropdown.onValueChanged.AddListener(npcManager.OnDropdownValueChanged);
 
         npcManager.SetOptionDropDown();
         npcManager.OnDropdownValueChanged(0);
 
-        SetSlotToInventory();
+        
     }
     public void SetSlotToInventory()
     {
