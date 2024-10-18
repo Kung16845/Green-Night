@@ -20,6 +20,7 @@ public class UpgradeUi : MonoBehaviour
     public TextMeshProUGUI textSteelCost;
     public TextMeshProUGUI textNpcCost;
     public TextMeshProUGUI textDayCost;
+    public UIBuilding  uIBuilding;
 
     void Awake()
     {
@@ -62,9 +63,12 @@ public class UpgradeUi : MonoBehaviour
 
     void OnDisable()
     {
-        currentBuildingScript = null;
+        if (currentBuildingScript != null)
+        {
+            currentBuildingScript = null;
+            uIBuilding.EnableColliders();
+        }
     }
-
     private bool AreUpgradeConditionsMet()
     {
         int nextLevelIndex = currentBuildingScript.currentLevel - 1;
@@ -87,7 +91,11 @@ public class UpgradeUi : MonoBehaviour
 
         return true;
     }
-
+    void OnEnable()
+    {
+        // Disable colliders when the UI is active
+        uIBuilding .DisableColliders();
+    }
     private bool AreResourcesSufficient()
     {
         int nextLevelIndex = currentBuildingScript.currentLevel - 1;

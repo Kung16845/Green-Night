@@ -11888,6 +11888,7 @@ MonoBehaviour:
   greenColor: {r: 0.097321354, g: 0.5377358, b: 0.033819806, a: 0.5019608}
   redColor: {r: 1, g: 0.2398411, b: 0, a: 0.5019608}
   rend: {fileID: 0}
+  buildingOnTile: {fileID: 0}
 --- !u!1 &644579391
 GameObject:
   m_ObjectHideFlags: 0
@@ -19413,6 +19414,7 @@ MonoBehaviour:
   greenColor: {r: 0.097321354, g: 0.5377358, b: 0.033819806, a: 0.5019608}
   redColor: {r: 1, g: 0.2398411, b: 0, a: 0.5019608}
   rend: {fileID: 0}
+  buildingOnTile: {fileID: 0}
 --- !u!1 &1108909460
 GameObject:
   m_ObjectHideFlags: 0
@@ -19745,6 +19747,7 @@ MonoBehaviour:
   greenColor: {r: 0.097321354, g: 0.5377358, b: 0.033819806, a: 0.5019608}
   redColor: {r: 1, g: 0.2398411, b: 0, a: 0.5019608}
   rend: {fileID: 0}
+  buildingOnTile: {fileID: 0}
 --- !u!1 &1126791620
 GameObject:
   m_ObjectHideFlags: 0
@@ -20828,6 +20831,7 @@ MonoBehaviour:
   greenColor: {r: 0.097321354, g: 0.5377358, b: 0.033819806, a: 0.5019608}
   redColor: {r: 1, g: 0.2398411, b: 0, a: 0.5019608}
   rend: {fileID: 0}
+  buildingOnTile: {fileID: 0}
 --- !u!212 &1156053431
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -21281,6 +21285,7 @@ MonoBehaviour:
   greenColor: {r: 0.097321354, g: 0.5377358, b: 0.033819806, a: 0.5019608}
   redColor: {r: 1, g: 0.2398411, b: 0, a: 0.5019608}
   rend: {fileID: 0}
+  buildingOnTile: {fileID: 0}
 --- !u!1 &1184645636
 GameObject:
   m_ObjectHideFlags: 0
@@ -21815,6 +21820,7 @@ MonoBehaviour:
   greenColor: {r: 0.097321354, g: 0.5377358, b: 0.033819806, a: 0.5019608}
   redColor: {r: 1, g: 0.2398411, b: 0, a: 0.5019608}
   rend: {fileID: 0}
+  buildingOnTile: {fileID: 0}
 --- !u!1 &1228342452
 GameObject:
   m_ObjectHideFlags: 0
@@ -23245,6 +23251,7 @@ MonoBehaviour:
   greenColor: {r: 0.097321354, g: 0.5377358, b: 0.033819806, a: 0.5019608}
   redColor: {r: 1, g: 0.2398411, b: 0, a: 0.5019608}
   rend: {fileID: 0}
+  buildingOnTile: {fileID: 0}
 --- !u!1 &1296089947
 GameObject:
   m_ObjectHideFlags: 0
@@ -25512,6 +25519,7 @@ MonoBehaviour:
   textSteelCost: {fileID: 1126791622}
   textNpcCost: {fileID: 548844566}
   textDayCost: {fileID: 8936130}
+  uIBuilding: {fileID: 280923792}
 --- !u!1 &1430998053
 GameObject:
   m_ObjectHideFlags: 0
@@ -27049,6 +27057,7 @@ MonoBehaviour:
   greenColor: {r: 0.097321354, g: 0.5377358, b: 0.033819806, a: 0.5019608}
   redColor: {r: 1, g: 0.2398411, b: 0, a: 0.5019608}
   rend: {fileID: 0}
+  buildingOnTile: {fileID: 0}
 --- !u!1 &1509720424
 GameObject:
   m_ObjectHideFlags: 0
@@ -30700,6 +30709,7 @@ MonoBehaviour:
   greenColor: {r: 0.097321354, g: 0.5377358, b: 0.033819806, a: 0.5019608}
   redColor: {r: 1, g: 0.2398411, b: 0, a: 0.5019608}
   rend: {fileID: 0}
+  buildingOnTile: {fileID: 0}
 --- !u!1 &1738717811
 GameObject:
   m_ObjectHideFlags: 0
@@ -33249,6 +33259,7 @@ MonoBehaviour:
   greenColor: {r: 0.097321354, g: 0.5377358, b: 0.033819806, a: 0.5019608}
   redColor: {r: 1, g: 0.2398411, b: 0, a: 0.5019608}
   rend: {fileID: 0}
+  buildingOnTile: {fileID: 0}
 --- !u!1 &1852678140
 GameObject:
   m_ObjectHideFlags: 0
@@ -34161,6 +34172,8 @@ MonoBehaviour:
   grid: {fileID: 1067764262}
   uIBuilding: {fileID: 1905626764}
   buttonBuild: {fileID: 620597051}
+  builtBuildings: []
+  collidersToManage: []
   tiles:
   - {fileID: 1156053430}
   - {fileID: 1180757119}
