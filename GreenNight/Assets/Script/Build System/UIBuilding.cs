@@ -37,17 +37,17 @@ public class UIBuilding : MonoBehaviour
         buildManager.building = building;
     }
 
-    void OnEnable()
-    {
-        // Disable colliders when the UI is active
-        DisableColliders();
-    }
+    // void OnEnable()
+    // {
+    //     // Disable colliders when the UI is active
+    //     DisableColliders();
+    // }
 
-    void OnDisable()
-    {
-        // Re-enable colliders when the UI is deactivated
-        EnableColliders();
-    }
+    // void OnDisable()
+    // {
+    //     // Re-enable colliders when the UI is deactivated
+    //     EnableColliders();
+    // }
 
     public void DisableColliders()
     {
