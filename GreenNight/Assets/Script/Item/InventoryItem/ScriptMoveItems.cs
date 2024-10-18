@@ -75,7 +75,7 @@ public class ScriptMoveItems : MonoBehaviour
         ItemData itemData = listItemDataBox.FirstOrDefault(item => item.idItem == itemClassMove.idItem);
         SlotType slotTypeItemMoveParantBefore = draggableItemMove.parentBeforeDray.GetComponent<InvenrotySlots>().slotTypeInventory;
         //Move Item within InventorySlot
-        List<ItemData> listItemDataInventory = inventoryItemPresent.listItemsDataInventorySlot;
+        List<ItemData> listItemDataBoxes = inventoryItemPresent.listItemsDataBox;
         
         if (slotTypeItemMoveParantBefore == SlotType.SlotBoxes && itemClassInChild == null)
         {

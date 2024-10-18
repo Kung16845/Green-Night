@@ -44,7 +44,7 @@ public class UIInventory : MonoBehaviour
         npcManager.SetOptionDropDown();
         npcManager.OnDropdownValueChanged(0);
 
-        
+        inventoryItemPresent.RefreshUIBox();
     }
     public void SetSlotToInventory()
     {
