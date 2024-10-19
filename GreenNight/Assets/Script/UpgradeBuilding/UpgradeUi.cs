@@ -60,11 +60,6 @@ public class UpgradeUi : MonoBehaviour
         ElectricityImage.SetActive(nextLevel.isneedElecticities);
     }
 
-    void OnDisable()
-    {
-        currentBuildingScript = null;
-    }
-
     private bool AreUpgradeConditionsMet()
     {
         int nextLevelIndex = currentBuildingScript.currentLevel - 1;
@@ -87,7 +82,6 @@ public class UpgradeUi : MonoBehaviour
 
         return true;
     }
-
     private bool AreResourcesSufficient()
     {
         int nextLevelIndex = currentBuildingScript.currentLevel - 1;

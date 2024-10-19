@@ -58,7 +58,7 @@ public class ActionController : MonoBehaviour
     {
         isStuck = true;
         canwalk = false;
-        // canuseweapon = false;
+        canuseweapon = false;
         stuckProgress = 0f;
         releasedvalue = 10f;
 

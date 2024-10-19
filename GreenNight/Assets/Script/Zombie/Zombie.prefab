@@ -56,7 +56,7 @@ MonoBehaviour:
   ArmourHp: 0
   currentSpeed: 0
   maxSpeed: 1
-  attackDamage: 100
+  attackDamage: 50
   attackTimer: 3
   countTimer: 0
   rb2D: {fileID: 0}
@@ -70,7 +70,7 @@ MonoBehaviour:
   isInEngagingArea: 0
   slowdownAmount: 0.25
   damageEffectDuration: 1
-  mutationType: 4
+  mutationType: 3
   mutationTier: 1
   acidPoolPrefab: {fileID: 8974713031636886679, guid: 674bad897b4809b43a15a1123c5b506a, type: 3}
   acidBarrierDamage:
@@ -83,25 +83,25 @@ MonoBehaviour:
   - 15
   acidDuration:
   - 5
-  - 10
-  - 15
+  - 7.5
+  - 9
   acidRadius:
+  - 0.3
+  - 0.7
   - 1
-  - 2
-  - 2.5
   explosionPrefab: {fileID: 5215708325425232465, guid: 03e6a4dee4f07524fa190297e43e61ad, type: 3}
   explosionBarrierDamage:
-  - 50
-  - 70
-  - 100
-  explosionZombieDamage:
-  - 55
-  - 100
   - 150
+  - 200
+  - 350
+  explosionZombieDamage:
+  - 33
+  - 55
+  - 70
   explosionRadius:
-  - 2
-  - 3
-  - 4
+  - 0.8
+  - 1
+  - 1.74
   currentState: 0
 --- !u!114 &8051091936370712935
 MonoBehaviour:

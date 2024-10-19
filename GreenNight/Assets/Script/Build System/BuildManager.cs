@@ -29,6 +29,9 @@ public class BuildManager : MonoBehaviour
     public GameObject grid;
     public GameObject uIBuilding;
     public GameObject buttonBuild;
+    [Header("Building Tracking")]
+    public List<BuiltBuildingInfo> builtBuildings = new List<BuiltBuildingInfo>();
+    public List<Collider2D> collidersToManage = new List<Collider2D>();
     public Tile[] tiles;
     private void Awake()
     {
@@ -40,6 +43,7 @@ public class BuildManager : MonoBehaviour
         {
             Instance = this;
         }
+        CollectColliders();
     }
 
     public void UpdateResoureDisplay()
@@ -99,12 +103,24 @@ public class BuildManager : MonoBehaviour
                 // Debug.Log("Check area buy");
 
             }
+            
             if (nearstTile.isOccupied == false && nearstTile.gameObject.activeSelf == true && buildingToPlace != null)
             {
-                Instantiate(buildingToPlace, nearstTile.transform.position, Quaternion.identity);
-                Debug.Log(nearstTile.name);
-                buildingToPlace = null;
+                // Instantiate the building and get a reference to it
+                GameObject newBuilding = Instantiate(buildingToPlace.gameObject, nearstTile.transform.position, Quaternion.identity);
+
+                // Update tile status
                 nearstTile.isOccupied = true;
+                nearstTile.buildingOnTile = newBuilding.GetComponent<Building>();
+
+                // Add the building to the builtBuildings list
+                int initialLevel = 1; // Buildings start at level 1
+                BuiltBuildingInfo builtBuildingInfo = new BuiltBuildingInfo(newBuilding, initialLevel, nearstTile);
+                builtBuildings.Add(builtBuildingInfo);
+                CollectColliders();
+
+                // UI updates
+                buildingToPlace = null;
                 uIBuilding.SetActive(false);
                 buttonBuild.SetActive(true);
                 UIUpdateAfterBuildOrCancelBuild();
@@ -159,5 +175,62 @@ public class BuildManager : MonoBehaviour
             grid.SetActive(true);
 
         }
+    }
+    public void DestroyBuilding(GameObject building)
+    {
+        // Find the built building info
+        BuiltBuildingInfo buildingInfo = builtBuildings.Find(b => b.buildingGameObject == building);
+
+        if (buildingInfo != null)
+        {
+            // Update tile status
+            buildingInfo.tile.isOccupied = false;
+            buildingInfo.tile.buildingOnTile = null;
+
+            // Remove from list
+            builtBuildings.Remove(buildingInfo);
+            CollectColliders();
+
+            // Destroy the building GameObject
+            Destroy(building);
+        }
+    }
+    public void CollectColliders()
+    {
+        collidersToManage.Clear();
+
+        // Collect colliders from tiles
+        foreach (Tile tile in tiles)
+        {
+            Collider2D tileCollider = tile.GetComponent<Collider2D>();
+            if (tileCollider != null)
+            {
+                collidersToManage.Add(tileCollider);
+            }
+        }
+
+        // Collect colliders from built buildings
+        foreach (BuiltBuildingInfo builtBuilding in builtBuildings)
+        {
+            Collider2D buildingCollider = builtBuilding.buildingGameObject.GetComponent<Collider2D>();
+            if (buildingCollider != null)
+            {
+                collidersToManage.Add(buildingCollider);
+            }
+        }
+    }
+}
+[System.Serializable]
+public class BuiltBuildingInfo
+{
+    public GameObject buildingGameObject;
+    public int level;
+    public Tile tile;
+
+    public BuiltBuildingInfo(GameObject buildingGameObject, int level, Tile tile)
+    {
+        this.buildingGameObject = buildingGameObject;
+        this.level = level;
+        this.tile = tile;
     }
 }
