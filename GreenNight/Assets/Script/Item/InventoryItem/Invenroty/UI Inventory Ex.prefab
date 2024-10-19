@@ -1943,7 +1943,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8855340115006072920}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIInventory, Assembly-CSharp
         m_MethodName: RefreshUIBoxCategory
         m_Mode: 3
@@ -2485,7 +2485,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8855340115006072920}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIInventory, Assembly-CSharp
         m_MethodName: RefreshUIBoxCategory
         m_Mode: 3
@@ -3831,7 +3831,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8855340115006072920}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIInventory, Assembly-CSharp
         m_MethodName: RefreshUIBoxCategory
         m_Mode: 3
@@ -4084,7 +4084,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8855340115006072920}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIInventory, Assembly-CSharp
         m_MethodName: RefreshUIBoxCategory
         m_Mode: 3
@@ -4563,7 +4563,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8855340115006072920}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIInventory, Assembly-CSharp
         m_MethodName: RefreshUIBoxCategory
         m_Mode: 3
@@ -5430,7 +5430,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8855340115006072920}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIInventory, Assembly-CSharp
         m_MethodName: RefreshUIBoxCategory
         m_Mode: 3
@@ -5931,7 +5931,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8855340115006072920}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIInventory, Assembly-CSharp
         m_MethodName: RefreshUIBoxCategory
         m_Mode: 3
@@ -7010,7 +7010,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8855340115006072920}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIInventory, Assembly-CSharp
         m_MethodName: RefreshUIBoxCategory
         m_Mode: 3
@@ -7031,8 +7031,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2683598561540330391}
-  - component: {fileID: 8855340115006072920}
   - component: {fileID: 2501381948509396356}
+  - component: {fileID: 4644820447481961528}
   m_Layer: 5
   m_Name: UI Inventory Ex
   m_TagString: Untagged
@@ -7063,7 +7063,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1600, y: 950}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8855340115006072920
+--- !u!114 &2501381948509396356
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7072,7 +7072,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 7368889051564873145}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0d89f2b80cef95438d0c90f1f2b2a74, type: 3}
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 1
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
+--- !u!114 &4644820447481961528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7368889051564873145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0121885bc9491ef4b9ceaa62ffb8e742, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dropdown: {fileID: 8689109440876542992}
@@ -7081,7 +7107,7 @@ MonoBehaviour:
     foodPerDay: 0
     bed: 0
     nameNpc: 
-    hp: 5.51
+    hp: 0
     morale: 0
     endurance: 0
     combat: 0
@@ -7120,33 +7146,7 @@ MonoBehaviour:
   levelEnduranceText: {fileID: 5544485937031398953}
   levelCombatText: {fileID: 1837986966137910312}
   levelSpeedText: {fileID: 1976597540639958137}
-  specialistNpcText: {fileID: 5855530688492446081}
---- !u!114 &2501381948509396356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7368889051564873145}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 1
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 0
-  m_ChildControlWidth: 1
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
+  specialistNpcText: {fileID: 8407003145937276801}
 --- !u!1 &7396751677406533194
 GameObject:
   m_ObjectHideFlags: 0

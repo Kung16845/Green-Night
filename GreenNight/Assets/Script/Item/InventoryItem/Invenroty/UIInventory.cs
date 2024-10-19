@@ -19,11 +19,6 @@ public class UIInventory : MonoBehaviour
     public TextMeshProUGUI levelSpeedText;
     public TextMeshProUGUI specialistNpcText;
 
-    private void Awake()
-    {   
-        Debug.Log("UIInventory");
-        SetValuableUIInventory();
-    }
     public void SetValuableUIInventory()
     {   
     

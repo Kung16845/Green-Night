@@ -2135,8 +2135,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 118866707}
-  - component: {fileID: 118866709}
   - component: {fileID: 118866708}
+  - component: {fileID: 118866709}
   m_Layer: 5
   m_Name: UI Inventory Npc Ex 1
   m_TagString: Untagged
@@ -2202,10 +2202,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 118866706}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0d89f2b80cef95438d0c90f1f2b2a74, type: 3}
+  m_Script: {fileID: 11500000, guid: 0121885bc9491ef4b9ceaa62ffb8e742, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropdown: {fileID: 1963018037}
+  dropdown: {fileID: 0}
   npcManager: {fileID: 0}
   npcSelecying:
     foodPerDay: 0
@@ -2228,10 +2228,10 @@ MonoBehaviour:
   listInvenrotySlotsUI: []
   transformBoxes: {fileID: 0}
   inventoryItemPresent: {fileID: 0}
-  levelEnduranceText: {fileID: 1679621006}
-  levelCombatText: {fileID: 1590909709}
-  levelSpeedText: {fileID: 1352969662}
-  specialistNpcText: {fileID: 1854185559}
+  levelEnduranceText: {fileID: 0}
+  levelCombatText: {fileID: 0}
+  levelSpeedText: {fileID: 0}
+  specialistNpcText: {fileID: 0}
 --- !u!1 &121923270
 GameObject:
   m_ObjectHideFlags: 0
@@ -8864,8 +8864,9 @@ MonoBehaviour:
   invenrotySlotSpecialMilitaryLock: {fileID: 0}
   invenrotySlotSpecialScavengerLock: {fileID: 0}
   transformsBoxes: {fileID: 0}
+  transformsUIEx: {fileID: 1708510681}
   canvas: {fileID: 0}
-  uIInventoryPrefab: {fileID: 7368889051564873145, guid: 8426eda3c80f38547ae9edd18718a552, type: 3}
+  uIInventoryExPrefab: {fileID: 7368889051564873145, guid: 8426eda3c80f38547ae9edd18718a552, type: 3}
 --- !u!4 &483800079
 Transform:
   m_ObjectHideFlags: 0
@@ -30875,7 +30876,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1708510681}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: Parant UI Ex
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
