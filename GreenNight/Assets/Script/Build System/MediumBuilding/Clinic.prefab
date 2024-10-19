@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.23064256, g: 0.6094526, b: 0.6698113, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 575d909b5791d0444935dec3ceedb01c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -121,8 +121,8 @@ MonoBehaviour:
     isDayNight: 0
     sceneSystem: {fileID: 0}
   spriteRenderer: {fileID: 0}
-  OriginalSprite: {fileID: 0}
-  Constructhreshold: {fileID: 0}
+  OriginalSprite: {fileID: 21300000, guid: 575d909b5791d0444935dec3ceedb01c, type: 3}
+  Constructhreshold: {fileID: 21300000, guid: 4bd3ef4be4d8b2b44b5a870ae317e3c9, type: 3}
   buildManager: {fileID: 0}
   isfinsih: 0
 --- !u!114 &-1521304799938720547
@@ -139,7 +139,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameBuild: 
   detailBuild: 
-  upgradeLevels: []
+  upgradeLevels:
+  - levelNumber: 2
+    steelCost: 5
+    plankCost: 15
+    npcCost: 3
+    dayCost: 2
+    levelSprite: {fileID: 21300000, guid: f568b4e2cca9a794c8de9d649f0a6f1e, type: 3}
+    isneedwater: 1
+    isneedElecticities: 0
+  - levelNumber: 3
+    steelCost: 25
+    plankCost: 8
+    npcCost: 3
+    dayCost: 2
+    levelSprite: {fileID: 21300000, guid: 1a186ea2122d9fd4e9f4b9e241157879, type: 3}
+    isneedwater: 1
+    isneedElecticities: 0
   currentLevel: 1
   maxLevel: 0
   isBuilding: 0
@@ -153,10 +169,14 @@ MonoBehaviour:
     isDayNight: 0
     sceneSystem: {fileID: 0}
   spriteRenderer: {fileID: 0}
-  ConstructSprite: {fileID: 0}
+  ConstructSprite: {fileID: 21300000, guid: 4bd3ef4be4d8b2b44b5a870ae317e3c9, type: 3}
   buildManager: {fileID: 0}
   building: {fileID: 0}
   uImanger: {fileID: 0}
+  builtBuildingInfo:
+    buildingGameObject: {fileID: 0}
+    level: 0
+    tile: {fileID: 0}
   finishDayBuildingTime: 0
 --- !u!61 &-4613306373825664465
 BoxCollider2D:
@@ -190,16 +210,16 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.09149361, y: -0.038368344}
   m_SpriteTilingProperty:
-    border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
+    border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
+    oldSize: {x: 2.4, y: 2.4}
     newSize: {x: 5, y: 5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 2.7159185, y: 2.6332796}
   m_EdgeRadius: 0
