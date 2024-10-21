@@ -8,7 +8,7 @@ public class Riotshield : Zombie
     {
         base.InitializeDamageMultipliers();
         damageMultipliers[DamageType.Fire] = 0.8f;
-        damageMultipliers[DamageType.LowcaliberBullet] = 0.5f;
+        damageMultipliers[DamageType.LowcaliberBullet] = 0.25f;
         damageMultipliers[DamageType.Acid] = 1.5f;
     }
     void Update()

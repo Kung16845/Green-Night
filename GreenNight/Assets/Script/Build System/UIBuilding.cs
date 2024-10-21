@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class UIBuilding : MonoBehaviour
 {
-   
     public Building building;
     public BuildManager buildManager;
     public Image image;
@@ -16,6 +15,15 @@ public class UIBuilding : MonoBehaviour
     public TextMeshProUGUI textSteelCost;
     public TextMeshProUGUI textNpcCost;
     public TextMeshProUGUI textDayCost;
+
+    void Awake()
+    {
+        // Initialize BuildManager
+        if (buildManager == null)
+        {
+            buildManager = BuildManager.Instance;
+        }
+    }
 
     public void SetDataBuild()
     {
@@ -27,7 +35,39 @@ public class UIBuilding : MonoBehaviour
         textDayCost.text = building.dayCost.ToString();
         image.sprite = building.GetComponent<SpriteRenderer>().sprite;
         buildManager.building = building;
-        
+    }
+
+    // void OnEnable()
+    // {
+    //     // Disable colliders when the UI is active
+    //     DisableColliders();
+    // }
+
+    // void OnDisable()
+    // {
+    //     // Re-enable colliders when the UI is deactivated
+    //     EnableColliders();
+    // }
+
+    public void DisableColliders()
+    {
+        foreach (Collider2D col in buildManager.collidersToManage)
+        {
+            if (col != null)
+            {
+                col.enabled = false;
+            }
+        }
+    }
+
+    public void EnableColliders()
+    {
+        foreach (Collider2D col in buildManager.collidersToManage)
+        {
+            if (col != null)
+            {
+                col.enabled = true;
+            }
+        }
     }
 }
-

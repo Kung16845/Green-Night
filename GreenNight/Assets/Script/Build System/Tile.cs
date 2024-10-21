@@ -11,6 +11,7 @@ public class Tile : MonoBehaviour
     public Color greenColor;
     public Color redColor;
     public SpriteRenderer rend;
+    public Building buildingOnTile;
     private void Start() 
     {
         rend = GetComponent<SpriteRenderer>();

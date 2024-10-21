@@ -6,42 +6,38 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class InventoryItemPresent : MonoBehaviour
-{
+{   
     public List<ItemData> listItemsDataBox = new List<ItemData>();
-    public List<ItemData> listItemsDataInventorySlot = new List<ItemData>();
     public List<UIItemData> listUIItemPrefab;
     public List<InvenrotySlots> listInvenrotySlots = new List<InvenrotySlots>();
     public InvenrotySlots invenrotySlotSpecialMilitaryLock;
     public InvenrotySlots invenrotySlotSpecialScavengerLock;
     public Transform transformsBoxes;
+    public Transform transformsUIEx;
     public Canvas canvas;
-    public  GameObject uIInventoryPrefab;
+    public GameObject uIInventoryExPrefab;
     private void Start()
     {
-        if (uIInventoryPrefab == null)
+        canvas = FindAnyObjectByType<Canvas>();
+        
+    }
+    public void CreateInventorySetExpendition()
+    {
+        if (uIInventoryExPrefab == null)
         {
             Debug.LogError("itemPrefab is not assigned in the Inspector.");
             return;
         }
 
-        canvas = FindAnyObjectByType<Canvas>();
+        GameObject uIEx = Instantiate(uIInventoryExPrefab, transformsUIEx);
 
-        CreateInventorySetExpendition();
-
-        RefreshUIBox();
-        RefreshUIBox();
-    }
-    public void CreateInventorySetExpendition()
-    {
-      
-
-        GameObject uIInventory = Instantiate(uIInventoryPrefab,canvas.transform);
-    
         // uIInventory.transform.localPosition = new Vector3(0, 0);
-        UIInventory uIInventoryEx = uIInventory.GetComponent<UIInventory>();
+        UIInventory uIInventoryEx = uIEx.GetComponent<UIInventory>();
         uIInventoryEx.inventoryItemPresent = this;
-        uIInventory.SetActive(true);
+        uIEx.SetActive(true);
 
+        // RefreshUIBox();
+        // RefreshUIBox();
         // uIInventoryEx.SetValuableUIInventory();
     }
     private void RefreshUIInventorySlot()
@@ -51,7 +47,8 @@ public class InventoryItemPresent : MonoBehaviour
     public void RefreshUIBox()
     {
         ClearUIBoxes();
-
+        
+        Debug.Log("RefreshUIBox");
         foreach (ItemData itemData in listItemsDataBox)
         {
             CreateUIBoxes(itemData);

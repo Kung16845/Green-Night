@@ -70,7 +70,7 @@ MonoBehaviour:
   isInEngagingArea: 0
   slowdownAmount: 0.25
   damageEffectDuration: 0.01
-  mutationType: 0
+  mutationType: 4
   mutationTier: 1
   acidPoolPrefab: {fileID: 8974713031636886679, guid: 674bad897b4809b43a15a1123c5b506a, type: 3}
   acidBarrierDamage:
@@ -103,14 +103,14 @@ MonoBehaviour:
   - 3
   - 4
   currentState: 0
-  spittingDuration: 6
-  spittingInterval: 6
+  spittingDuration: 4.5
+  spittingInterval: 4.5
   reekerAcidPoolPrefab: {fileID: 8974713031636886679, guid: 674bad897b4809b43a15a1123c5b506a, type: 3}
-  acidBarrierDamage: 5
-  acidZombieDamage: 5
-  acidDuration: 5
-  acidRadius: 1
-  acidInterval: 1
+  reekerAcidBarrierDamage: 50
+  reekerAcidZombieDamage: 50
+  reekerAcidDuration: 4.5
+  reekerAcidRadius: 1.5
+  reekerAcidInterval: 0.5
   engagingPoint: {fileID: 0}
 --- !u!114 &8051091936370712935
 MonoBehaviour:

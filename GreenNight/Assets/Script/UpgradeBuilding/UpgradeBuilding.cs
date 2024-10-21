@@ -24,6 +24,7 @@ public class UpgradeBuilding : MonoBehaviour
     public BuildManager buildManager;
     public Building building;
     public UImanger uImanger;
+    public BuiltBuildingInfo builtBuildingInfo;
 
     public int finishDayBuildingTime;
 
@@ -35,11 +36,22 @@ public class UpgradeBuilding : MonoBehaviour
         dateTime = timeManager.dateTime;
         building = GetComponent<Building>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        buildManager = FindObjectOfType<BuildManager>();
         isBuilding = false;
         isFinished = false;
         maxLevel = upgradeLevels.Count+1;
     }
-
+    void Start()
+    {
+        foreach (var builtBuilding in buildManager.builtBuildings)
+        {
+            if (builtBuilding.buildingGameObject == this.gameObject)
+            {
+                builtBuildingInfo = builtBuilding;
+                break;
+            }
+        }
+    }
     void LateUpdate()
     {
         if (isBuilding)
@@ -70,6 +82,12 @@ public class UpgradeBuilding : MonoBehaviour
             isBuilding = false;
             currentLevel++;
 
+            // Update the level in builtBuildingInfo
+            if (builtBuildingInfo != null)
+            {
+                builtBuildingInfo.level = currentLevel;
+            }
+
             if (currentLevel > maxLevel)
             {
                 currentLevel = maxLevel;
@@ -83,17 +101,34 @@ public class UpgradeBuilding : MonoBehaviour
             spriteRenderer.sprite = ConstructSprite;
         }
     }
+    // public void DisableCollider()
+    // {
+    //     Collider2D collider = GetComponent<Collider2D>();
+    //     if (collider != null)
+    //     {
+    //         collider.enabled = false;
+    //     }
+    // }
+
+    // public void EnableCollider()
+    // {
+    //     Collider2D collider = GetComponent<Collider2D>();
+    //     if (collider != null)
+    //     {
+    //         collider.enabled = true;
+    //     }
+    // }
 }
-[System.Serializable]
-public class UpgradeLevel
-{
-    public int levelNumber;
-    public int steelCost;
-    public int plankCost;
-    public int npcCost;
-    public int dayCost;
-    public Sprite levelSprite;
-    public bool isneedwater;
-    public bool isneedElecticities;
-    // Add any other properties specific to the upgrade level
-}
+    [System.Serializable]
+    public class UpgradeLevel
+    {
+        public int levelNumber;
+        public int steelCost;
+        public int plankCost;
+        public int npcCost;
+        public int dayCost;
+        public Sprite levelSprite;
+        public bool isneedwater;
+        public bool isneedElecticities;
+        // Add any other properties specific to the upgrade level
+    }
