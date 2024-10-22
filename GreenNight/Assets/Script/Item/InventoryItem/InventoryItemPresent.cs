@@ -40,10 +40,6 @@ public class InventoryItemPresent : MonoBehaviour
         // RefreshUIBox();
         // uIInventoryEx.SetValuableUIInventory();
     }
-    private void RefreshUIInventorySlot()
-    {
-
-    }
     public void RefreshUIBox()
     {
         ClearUIBoxes();
@@ -51,13 +47,13 @@ public class InventoryItemPresent : MonoBehaviour
         Debug.Log("RefreshUIBox");
         foreach (ItemData itemData in listItemsDataBox)
         {
-            CreateUIBoxes(itemData);
+            CreateUIItemInBoxes(itemData);
         }
 
     }
 
 
-    public void CreateUIBoxes(ItemData itemData)
+    public void CreateUIItemInBoxes(ItemData itemData)
     {
 
         GameObject uiItem = listUIItemPrefab.FirstOrDefault(idItem => idItem.idItem == itemData.idItem).gameObject;
@@ -172,7 +168,7 @@ public class InventoryItemPresent : MonoBehaviour
         newItemData.count = itemClass.quantityItem;
         newItemData.maxCount = itemClass.maxCountItem;
         newItemData.itemtype = itemClass.itemtype;
-
+        
         return newItemData;
     }
 }
