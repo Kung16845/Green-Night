@@ -149,6 +149,8 @@ MonoBehaviour:
     levelSprite: {fileID: 21300000, guid: ac87971a4d26cde4db00989fab00f3de, type: 3}
     isneedwater: 1
     isneedElecticities: 1
+    isNeedSpecialist: 1
+    requiredSpecialist: 6
   currentLevel: 1
   maxLevel: 1
   isBuilding: 0
@@ -166,6 +168,28 @@ MonoBehaviour:
   buildManager: {fileID: 0}
   building: {fileID: 0}
   uImanger: {fileID: 0}
+  assignedSpecialistNpc:
+    foodPerDay: 0
+    bed: 0
+    nameNpc: 
+    hp: 0
+    morale: 0
+    endurance: 0
+    combat: 0
+    speed: 0
+    recoverSpeed: 0
+    isActive: 0
+    countInventorySlot: 0
+    idnpc: 0
+    roleNpc: 0
+    leaderSkill: 
+    idHead: 0
+    idBody: 0
+    idFeed: 0
+  builtBuildingInfo:
+    buildingGameObject: {fileID: 0}
+    level: 0
+    tile: {fileID: 0}
   finishDayBuildingTime: 0
 --- !u!61 &1071970053287401713
 BoxCollider2D:

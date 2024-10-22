@@ -148,6 +148,8 @@ MonoBehaviour:
     levelSprite: {fileID: 21300000, guid: f568b4e2cca9a794c8de9d649f0a6f1e, type: 3}
     isneedwater: 1
     isneedElecticities: 0
+    isNeedSpecialist: 1
+    requiredSpecialist: 6
   - levelNumber: 3
     steelCost: 25
     plankCost: 8
@@ -156,6 +158,8 @@ MonoBehaviour:
     levelSprite: {fileID: 21300000, guid: 1a186ea2122d9fd4e9f4b9e241157879, type: 3}
     isneedwater: 1
     isneedElecticities: 0
+    isNeedSpecialist: 1
+    requiredSpecialist: 6
   currentLevel: 1
   maxLevel: 0
   isBuilding: 0
@@ -173,6 +177,24 @@ MonoBehaviour:
   buildManager: {fileID: 0}
   building: {fileID: 0}
   uImanger: {fileID: 0}
+  assignedSpecialistNpc:
+    foodPerDay: 0
+    bed: 0
+    nameNpc: 
+    hp: 0
+    morale: 0
+    endurance: 0
+    combat: 0
+    speed: 0
+    recoverSpeed: 0
+    isActive: 0
+    countInventorySlot: 0
+    idnpc: 0
+    roleNpc: 0
+    leaderSkill: 
+    idHead: 0
+    idBody: 0
+    idFeed: 0
   builtBuildingInfo:
     buildingGameObject: {fileID: 0}
     level: 0

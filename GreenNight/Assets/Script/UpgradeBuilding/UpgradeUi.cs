@@ -20,12 +20,15 @@ public class UpgradeUi : MonoBehaviour
     public TextMeshProUGUI textSteelCost;
     public TextMeshProUGUI textNpcCost;
     public TextMeshProUGUI textDayCost;
+    public TextMeshProUGUI requiredSpecialistText;
+    public NpcManager npcManager;
 
     void Awake()
     {
         buildManager = FindObjectOfType<BuildManager>();
         timeManager = FindObjectOfType<TimeManager>();
         uImanger = FindObjectOfType<UImanger>();
+        npcManager = FindObjectOfType<NpcManager>();
     }
 
     void Start()
@@ -39,7 +42,7 @@ public class UpgradeUi : MonoBehaviour
         SetDataUpgrade();
     }
 
-    public void SetDataUpgrade()
+   public void SetDataUpgrade()
     {
         int nextLevelIndex = currentBuildingScript.currentLevel - 1;
 
@@ -58,9 +61,20 @@ public class UpgradeUi : MonoBehaviour
         image.sprite = nextLevel.levelSprite;
         WaterImage.SetActive(nextLevel.isneedwater);
         ElectricityImage.SetActive(nextLevel.isneedElecticities);
+
+        // Update the UI for required specialist
+        if (nextLevel.isNeedSpecialist)
+        {
+            requiredSpecialistText.text = nextLevel.requiredSpecialist.ToString();
+            requiredSpecialistText.gameObject.SetActive(true);
+        }
+        else
+        {
+            requiredSpecialistText.gameObject.SetActive(false);
+        }
     }
 
-    private bool AreUpgradeConditionsMet()
+     private bool AreUpgradeConditionsMet()
     {
         int nextLevelIndex = currentBuildingScript.currentLevel - 1;
         UpgradeLevel nextLevel = currentBuildingScript.upgradeLevels[nextLevelIndex];
@@ -69,6 +83,8 @@ public class UpgradeUi : MonoBehaviour
         {
             (!nextLevel.isneedwater || buildManager.iswateractive, "Water is required but not active."),
             (!nextLevel.isneedElecticities || buildManager.iselecticitiesactive, "Electricity is required but not active."),
+            // Conditionally add the specialist requirement
+            (!nextLevel.isNeedSpecialist || HasRequiredSpecialist(nextLevel.requiredSpecialist), $"A {nextLevel.requiredSpecialist} specialist is required but not available."),
         };
 
         foreach (var (condition, failMessage) in conditions)
@@ -81,6 +97,26 @@ public class UpgradeUi : MonoBehaviour
         }
 
         return true;
+    }
+    private void AssignSpecialistToUpgrade(SpecialistRoleNpc requiredSpecialist)
+    {
+        // Find the NPC with the required specialist role
+        NpcClass specialistNpc = npcManager.listNpc.Find(npc => npc.roleNpc == requiredSpecialist);
+
+        if (specialistNpc != null)
+        {
+            // Remove the NPC from the available list and add to working list
+            npcManager.listNpc.Remove(specialistNpc);
+            npcManager.listNpcWorkingMoreOneDay.Add(specialistNpc);
+
+            // Store a reference to the NPC in the building
+            currentBuildingScript.assignedSpecialistNpc = specialistNpc;
+        }
+    }
+    private bool HasRequiredSpecialist(SpecialistRoleNpc requiredSpecialist)
+    {
+        // Check if there is at least one NPC with the required specialist role
+        return npcManager.listNpc.Exists(npc => npc.roleNpc == requiredSpecialist);
     }
     private bool AreResourcesSufficient()
     {
@@ -101,9 +137,16 @@ public class UpgradeUi : MonoBehaviour
                 int nextLevelIndex = currentBuildingScript.currentLevel - 1;
                 UpgradeLevel nextLevel = currentBuildingScript.upgradeLevels[nextLevelIndex];
 
+                // Subtract resources
                 buildManager.steel -= nextLevel.steelCost;
                 buildManager.plank -= nextLevel.plankCost;
                 buildManager.npc -= nextLevel.npcCost;
+
+                // Conditionally assign the specialist NPC to the upgrade task
+                if (nextLevel.isNeedSpecialist)
+                {
+                    AssignSpecialistToUpgrade(nextLevel.requiredSpecialist);
+                }
 
                 currentBuildingScript.isBuilding = true;
                 currentBuildingScript.finishDayBuildingTime = dateTime.day + nextLevel.dayCost;
@@ -116,4 +159,5 @@ public class UpgradeUi : MonoBehaviour
             }
         }
     }
+
 }

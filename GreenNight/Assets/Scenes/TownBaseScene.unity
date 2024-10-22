@@ -13550,6 +13550,7 @@ Transform:
   - {fileID: 483800079}
   - {fileID: 2063404513}
   - {fileID: 1123376618}
+  - {fileID: 1484128884}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -26744,6 +26745,73 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1484128883
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1484128884}
+  - component: {fileID: 1484128885}
+  m_Layer: 0
+  m_Name: Globalstat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1484128884
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1484128883}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 741425701}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1484128885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1484128883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62f0479f58b673c43b731da7739f6161, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommunitysupplyPoint: 0
+  Skillplaypoint: 0
+  itemponts: 0
+  ProgressDay: 0
+  succesfulDefense: 0
+  ActionSpeed: 1
+  Healingspeed: 1
+  Craftingspeed: 1
+  BuildingSpeed: 1
+  illResistance: 0
+  WeapondDamge: 0
+  Carendurance: 0
+  fuelefficiency: 0
+  Radiospeed: 0
+  Outpostspeed: 0
+  expiditionspeed: 0
+  expiditionrisk: 0
+  Damageincrease: 0
+  Npcchange: 0
+  activeBed: 0
+  activeCureBed: 0
+  Discontent: 0
+  Growingspeed: 0
 --- !u!1 &1488158369
 GameObject:
   m_ObjectHideFlags: 0

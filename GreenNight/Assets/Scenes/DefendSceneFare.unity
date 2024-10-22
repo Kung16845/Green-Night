@@ -1969,7 +1969,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 084bcfaa5c2c7d84999dc004d9ff0888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardEvent: 1
+  cardEvent: 0
   Fog: {fileID: 848272187}
 --- !u!1 &148656936
 GameObject:
@@ -2719,6 +2719,37 @@ Transform:
   m_Father: {fileID: 100358038}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!1 &197173720
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 197173721}
+  m_Layer: 0
+  m_Name: Deck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &197173721
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197173720}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 44
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &217756458
 GameObject:
   m_ObjectHideFlags: 0
@@ -11680,61 +11711,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73b40161e813e894386821e8ac1f678f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lanes:
-  - laneID: 1
-    spawnPoint: {fileID: 1486524293}
-    engagingArea: {fileID: 474343223}
-    attackPoint: {fileID: 1800576230}
-  - laneID: 2
-    spawnPoint: {fileID: 976193133}
-    engagingArea: {fileID: 490260719}
-    attackPoint: {fileID: 755528655}
-  - laneID: 3
-    spawnPoint: {fileID: 731834173}
-    engagingArea: {fileID: 1716045786}
-    attackPoint: {fileID: 1911803340}
-  spawnDecks:
-  - deckName: TestDeck
-    deckDuration: 250
-    spawnWaves:
-    - laneID: 1
-      zombiePrefabs:
-      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
-      zombiesToSpawn: 10
-      spawnInterval: 1.5
-      zombieTier: 2
-      timeUntilNextWave: 0
-    - laneID: 2
-      zombiePrefabs:
-      - {fileID: 7550034601582792165, guid: cd58d8a96af819a49bf49b5d8bbddc17, type: 3}
-      zombiesToSpawn: 1
-      spawnInterval: 1
-      zombieTier: 2
-      timeUntilNextWave: 0
-    - laneID: 2
-      zombiePrefabs:
-      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
-      zombiesToSpawn: 10
-      spawnInterval: 1.5
-      zombieTier: 2
-      timeUntilNextWave: 0
-    - laneID: 3
-      zombiePrefabs:
-      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
-      zombiesToSpawn: 10
-      spawnInterval: 1.5
-      zombieTier: 2
-      timeUntilNextWave: 80
-  - deckName: Test Slimer
-    deckDuration: 900
-    spawnWaves:
-    - laneID: 2
-      zombiePrefabs:
-      - {fileID: 7550034601582792165, guid: d9eaa1c1ea812ac44b75b4b0965a8a61, type: 3}
-      zombiesToSpawn: 1
-      spawnInterval: 0.25
-      zombieTier: 1
-      timeUntilNextWave: 0
+  decks:
+  - {fileID: 11400000, guid: 45f8113c0c9abf94294dbaa40a1d951b, type: 2}
 --- !u!1 &1188953942
 GameObject:
   m_ObjectHideFlags: 0
@@ -13305,18 +13283,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e65d13d3058e4bc49a51c0df922a672f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rateOfFire: 550
-  handling: 35
-  accuracy: 25
-  capacity: 25
-  stability: 45
-  damage: 32
+  rateOfFire: 350
+  handling: 25
+  accuracy: 35
+  capacity: 15
+  stability: 32
+  damage: 20
   fullAuto: 1
-  isShotgun: 0
-  pellets: 0
-  spreadAngle: 0
+  isShotgun: 1
+  pellets: 12
+  spreadAngle: 20
   stabilityThreshold: 7
-  caliberType: 1
+  caliberType: 3
   currentAmmo: 0
   fireRate: 0
   nextFireTime: 0
@@ -13478,7 +13456,7 @@ MonoBehaviour:
   endurance: 6
   combat: 8
   speed: 7
-  specialistRole: 0
+  specialistRole: 4
 --- !u!114 &1268715212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16517,7 +16495,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 44
+  m_RootOrder: 45
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1577935021
 GameObject:
