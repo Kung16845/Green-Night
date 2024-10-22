@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class MediumBed : MonoBehaviour
 {
-    public TimeManager timeManager;
+     public TimeManager timeManager;
     public DateTime dateTime;
     public BuildManager buildManager;
     public int currentDay;
     public Building building;
     public UpgradeBuilding upgradeBuilding;
     public Globalstat globalstat;
-    private int IncreaseBed;
-    private bool isapply;
+    
+    private int currentBedContribution = 0; // Track the bed contribution for this building
+    private bool isApplied = false;         // Ensure we apply once per stage
+
     void Start()
     {
         timeManager = FindObjectOfType<TimeManager>();
@@ -20,38 +22,54 @@ public class MediumBed : MonoBehaviour
         buildManager = FindObjectOfType<BuildManager>();
         building = FindObjectOfType<Building>();
         upgradeBuilding = GetComponent<UpgradeBuilding>();
+
         dateTime = timeManager.dateTime;
         currentDay = dateTime.day;
-        isapply = false;
+        isApplied = false;
     }
+
     void Update()
     {
-        applyabilities();
-        IsUpgraded();
-    }
-    void applyabilities()
-    {
-        if(!isapply && building.isfinsih)
+        if (!isApplied && building.isfinsih)
         {
-            globalstat.AddBedsFromBuilding(IncreaseBed);
-            isapply = true; 
+            ApplyBedContribution(); // Apply initial bed contribution
+        }
+
+        if (upgradeBuilding != null && upgradeBuilding.isFinished) 
+        {
+            UpgradeBedContribution(); // Handle upgrade contribution
         }
     }
-    void IsUpgraded()
+
+    void ApplyBedContribution()
     {
-       if (upgradeBuilding != null)
+        currentBedContribution = GetBedValueBasedOnLevel();
+        globalstat.AddBedsFromBuilding(currentBedContribution);
+        isApplied = true; // Ensure this runs only once after the building finishes
+    }
+
+    void UpgradeBedContribution()
+    {
+        int newBedContribution = GetBedValueBasedOnLevel();
+
+        // Replace the old contribution with the new one
+        globalstat.UpdateBuildingBedContribution(currentBedContribution, newBedContribution);
+
+        currentBedContribution = newBedContribution; // Store the new contribution
+    }
+
+    int GetBedValueBasedOnLevel()
+    {
+        if (upgradeBuilding != null)
         {
             switch (upgradeBuilding.currentLevel)
             {
-
                 case 2:
-                    IncreaseBed = 6; // Level 2
-                    isapply = false;
-                    break;
+                    return 7; // Level 2 contribution
                 default:
-                    IncreaseBed = 5; // Level 1
-                    break;
+                    return 4; // Level 1 contribution
             }
         }
+        return 0; // Default to 0 if no upgrade building is found
     }
 }

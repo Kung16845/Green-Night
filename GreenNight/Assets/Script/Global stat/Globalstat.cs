@@ -34,21 +34,34 @@ public class Globalstat : MonoBehaviour
     public float Growingspeed;
     public float OutpostLimit;
 
-    private int bedFactor = 1;
+    private int bedFactor = 0;
 
     public void AddBedsFromBuilding(int bedContribution)
     {
-        bedFactor += bedContribution;  
-        UpdateActiveBedCount();        
+        bedFactor += bedContribution;
+        UpdateActiveBedCount();
     }
+
+    public void UpdateBuildingBedContribution(int oldContribution, int newContribution)
+    {
+        // Subtract the old contribution and add the new one
+        bedFactor = bedFactor - oldContribution + newContribution;
+        UpdateActiveBedCount();
+    }
+
     private void UpdateActiveBedCount()
     {
-        activeBed = bedFactor;  // Set activeBed to the total contribution so far.
-        Debug.Log("Total Beds: " + activeBed);
+        activeBed = bedFactor;  // Set activeBed to the total contribution so far
     }
-    public void DecreaseDiscontent(float Discontentfactor)
+    
+    public void DecreaseDiscontent(float discontentContribution)
     {
-        Discontent = 0 - Discontentfactor;
+        Discontent -= discontentContribution;
+    }
+
+    public void UpdateDiscontentContribution(float oldContribution, float newContribution)
+    {
+        Discontent = Discontent + oldContribution - newContribution;
     }
     public void CalculateActionSpeed(float factornumber)
     {

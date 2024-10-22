@@ -88,9 +88,8 @@ public class UpgradeBuilding : MonoBehaviour
                 builtBuildingInfo.level = currentLevel;
             }
 
-            if (currentLevel > maxLevel)
+            if (currentLevel == maxLevel)
             {
-                currentLevel = maxLevel;
                 isFinished = true;
             }
 
