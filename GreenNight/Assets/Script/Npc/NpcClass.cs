@@ -14,7 +14,7 @@ public class NpcClass
     [Header("Stat Npc")]
     public string nameNpc;
     
-    [Range(1,10)]
+    [Range(1,100)]
     public float hp; 
     [Range(1, 100)]
     public float morale;

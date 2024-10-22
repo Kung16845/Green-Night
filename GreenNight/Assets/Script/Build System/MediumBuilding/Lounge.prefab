@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8357784383793407381}
   - component: {fileID: 4821248579557678675}
   - component: {fileID: -8499949870484592453}
+  - component: {fileID: -3234141789890036507}
   m_Layer: 0
   m_Name: Lounge
   m_TagString: Untagged
@@ -246,3 +247,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.4, y: 2.4}
   m_EdgeRadius: 0
+--- !u!114 &-3234141789890036507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6365253814989702133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d821c3bb7dd4a4c4b8202869cecda215, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeManager: {fileID: 0}
+  dateTime:
+    day: 0
+    hour: 0
+    minutes: 0
+    isDayNight: 0
+    sceneSystem: {fileID: 0}
+  buildManager: {fileID: 0}
+  currentDay: 0
+  building: {fileID: 0}
+  upgradeBuilding: {fileID: 0}
+  globalstat: {fileID: 0}
+  Discontent: 15
