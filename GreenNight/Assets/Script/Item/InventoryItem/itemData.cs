@@ -12,6 +12,8 @@ public class ItemData
     public int count;
     public int maxCount;
     public Itemtype itemtype;
+    public SlotType parantslotType;
+    
 }
 public enum Itemtype
 {   

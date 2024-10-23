@@ -65,13 +65,13 @@ public class UIInventory : MonoBehaviour
         {
             if (itemData.itemtype == itemtypeCategory)
             {
-                inventoryItemPresent.CreateUIBoxes(itemData);
+                inventoryItemPresent.CreateUIItemInBoxes(itemData);
 
             }
         }
 
     }
-    public void ClearItemDataInAllInventorySlot()
+    public void ClearItemDataInAllInventorySlotToListDataBoxes()
     {
         foreach (InvenrotySlots slotsItem in listInvenrotySlotsUI)
         {
@@ -102,7 +102,48 @@ public class UIInventory : MonoBehaviour
 
     private void OnDestroy()
     {
-        ClearItemDataInAllInventorySlot();
+        ClearItemDataInAllInventorySlotToListDataBoxes();
+    }
+
+    public void ClearAllChildInvenrotySlot()
+    {
+        foreach (InvenrotySlots slotsItem in listInvenrotySlotsUI)
+        {
+            ItemClass itemClass = slotsItem.GetComponentInChildren<ItemClass>();
+            if (itemClass != null)
+            {
+                Destroy(itemClass.gameObject);
+            }
+        }
+    }
+    public void ConventAllUIItemInListInventorySlotToListItemData(List<ItemData> listitemDatas)
+    {   
+        for (int i = 0; i < 12; i++)
+        {
+            ItemClass itemClass = listInvenrotySlotsUI.ElementAt(i).GetComponentInChildren<ItemClass>();
+            if(itemClass != null)
+            {   
+                ItemData itemData = inventoryItemPresent.ConventItemClassToItemData(itemClass);
+                listitemDatas.Add(itemData);
+            }
+        }
+    }
+    public GameObject CreateUIItem(ItemData itemData,InvenrotySlots invenrotySlots)
+    {   
+        // List<UIItemData> listUIItemPrefab = ;
+        GameObject itemUI = inventoryItemPresent.listUIItemPrefab.FirstOrDefault(idItem => idItem.idItem == itemData.idItem).gameObject;
+        Instantiate(itemUI,invenrotySlots.transform,true);
+
+        UIItemData uIItemData = itemUI.GetComponent<UIItemData>();
+        ItemClass itemClass = itemUI.GetComponent<ItemClass>();
+
+        itemClass.quantityItem = itemData.count;
+        itemClass.maxCountItem = itemData.maxCount;
+
+        uIItemData.slotTypeParent = invenrotySlots.slotTypeInventory;
+        uIItemData.UpdateDataUI(itemClass);
+
+        return itemUI;
     }
 }
 
