@@ -42,11 +42,11 @@ public enum SpecialistRoleNpc
     Handicraft,
     Maintainance,
     Network,
-    Scavenger,
-    Military_training,
     Chemical,
     Doctor,
-    Entertainer
+    Entertainer,   
+    Scavenger,
+    Military_training
 
 }
 [Serializable]

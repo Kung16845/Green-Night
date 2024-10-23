@@ -116,7 +116,7 @@ public class UIInventory : MonoBehaviour
             }
         }
     }
-    public void ConventAllUIItemInListInventorySlotToListItemData(List<ItemData> listitemDatas)
+    public void ConventAllUIItemInListInventorySlotToListItemData(List<ItemData> listSlotItemDatas)
     {   
         for (int i = 0; i < 12; i++)
         {
@@ -124,7 +124,19 @@ public class UIInventory : MonoBehaviour
             if(itemClass != null)
             {   
                 ItemData itemData = inventoryItemPresent.ConventItemClassToItemData(itemClass);
-                listitemDatas.Add(itemData);
+                listSlotItemDatas.Add(itemData);
+            }
+        }
+    }
+    public void ConventAllUIItemInListInventorySlotToListEqicmentItemData(List<ItemData> listEqicmentItemDatas)
+    {
+        for (int i = 12; i < 19; i++)
+        {
+            ItemClass itemClass = listInvenrotySlotsUI.ElementAt(i).GetComponentInChildren<ItemClass>();
+            if(itemClass != null)
+            {   
+                ItemData itemData = inventoryItemPresent.ConventItemClassToItemData(itemClass);
+                listEqicmentItemDatas.Add(itemData);
             }
         }
     }

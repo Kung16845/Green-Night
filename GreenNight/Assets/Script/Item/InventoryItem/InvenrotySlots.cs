@@ -116,6 +116,7 @@ public enum SlotType
     SlotVest,
     SlotTool,
     SlotBackpack,
+    SlotGrenade,
     SlotBag,
     SlotLock,
     SlotBoxes
