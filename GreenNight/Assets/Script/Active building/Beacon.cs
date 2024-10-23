@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Beacon : MonoBehaviour
 {
-     public TimeManager timeManager;
+    public TimeManager timeManager;
     public DateTime dateTime;
     public BuildManager buildManager;
     public int currentDay;

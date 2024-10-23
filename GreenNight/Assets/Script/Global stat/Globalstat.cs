@@ -51,6 +51,24 @@ public class Globalstat : MonoBehaviour
     {
         activeBed = bedFactor;  // Set activeBed to the total contribution so far
     }
+    //Healingspeed
+    public void IncreaseHealingSpeed(float HealdingSpeedContribution)
+    {
+        Healingspeed += HealdingSpeedContribution;
+    }
+    public void UpdateHealingSpeedContribution(float oldContribution, float newContribution)
+    {
+        Healingspeed = Healingspeed + newContribution - oldContribution;
+    }
+    //Active Curebed
+    public void IncreaseCurebed(int Curebedcontribution)
+    {
+        activeCureBed += Curebedcontribution;
+    }
+    public void UpdateCurebedContribution(int oldContribution, int newContribution)
+    {
+        activeCureBed = activeCureBed + newContribution - oldContribution;
+    }
     //Discontent
     public void DecreaseDiscontent(float discontentContribution)
     {

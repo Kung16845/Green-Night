@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8357784383793407381}
   - component: {fileID: -1521304799938720547}
   - component: {fileID: -4613306373825664465}
+  - component: {fileID: 2373037149717291407}
   m_Layer: 0
   m_Name: Clinic
   m_TagString: Untagged
@@ -245,3 +246,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.7159185, y: 2.6332796}
   m_EdgeRadius: 0
+--- !u!114 &2373037149717291407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6365253814989702133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8f9cd06faebe994497c1b0f96d4a464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeManager: {fileID: 0}
+  dateTime:
+    day: 0
+    hour: 0
+    minutes: 0
+    isDayNight: 0
+    sceneSystem: {fileID: 0}
+  buildManager: {fileID: 0}
+  building: {fileID: 0}
+  upgradeBuilding: {fileID: 0}
+  globalstat: {fileID: 0}
