@@ -13,8 +13,9 @@ public class InventoryItemPresent : MonoBehaviour
     public InvenrotySlots invenrotySlotSpecialMilitaryLock;
     public InvenrotySlots invenrotySlotSpecialScavengerLock;
     public Transform transformsBoxes;
+    public Transform transformsUIEx;
     public Canvas canvas;
-    public GameObject uIInventoryPrefab;
+    public GameObject uIInventoryExPrefab;
     private void Start()
     {
         canvas = FindAnyObjectByType<Canvas>();
@@ -22,18 +23,18 @@ public class InventoryItemPresent : MonoBehaviour
     }
     public void CreateInventorySetExpendition()
     {
-        if (uIInventoryPrefab == null)
+        if (uIInventoryExPrefab == null)
         {
             Debug.LogError("itemPrefab is not assigned in the Inspector.");
             return;
         }
 
-        GameObject uIInventory = Instantiate(uIInventoryPrefab, canvas.transform);
+        GameObject uIEx = Instantiate(uIInventoryExPrefab, transformsUIEx);
 
         // uIInventory.transform.localPosition = new Vector3(0, 0);
-        UIInventory uIInventoryEx = uIInventory.GetComponent<UIInventory>();
+        UIInventory uIInventoryEx = uIEx.GetComponent<UIInventory>();
         uIInventoryEx.inventoryItemPresent = this;
-        uIInventory.SetActive(true);
+        uIEx.SetActive(true);
 
         // RefreshUIBox();
         // RefreshUIBox();
