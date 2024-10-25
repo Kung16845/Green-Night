@@ -8,6 +8,7 @@ using System.Linq;
 public class UIInventory : MonoBehaviour
 {
     public TMP_Dropdown dropdown;
+    public Image spriteHeadNpc;
     public NpcManager npcManager;
     public NpcClass npcSelecying;
     public List<InvenrotySlots> listInvenrotySlotsUI = new List<InvenrotySlots>();
