@@ -1955,7 +1955,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 31
+  m_RootOrder: 33
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &141884731
 MonoBehaviour:
@@ -4873,7 +4873,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 32
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &518507997
 GameObject:
@@ -8359,7 +8359,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 33
+  m_RootOrder: 34
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &849198909
 GameObject:
@@ -11711,8 +11711,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73b40161e813e894386821e8ac1f678f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  decks:
-  - {fileID: 11400000, guid: 45f8113c0c9abf94294dbaa40a1d951b, type: 2}
+  lanes:
+  - laneID: 1
+    spawnPoint: {fileID: 1486524293}
+    engagingArea: {fileID: 474343223}
+    attackPoint: {fileID: 1800576230}
+  - laneID: 2
+    spawnPoint: {fileID: 976193133}
+    engagingArea: {fileID: 490260719}
+    attackPoint: {fileID: 755528655}
+  - laneID: 3
+    spawnPoint: {fileID: 731834173}
+    engagingArea: {fileID: 1716045786}
+    attackPoint: {fileID: 1911803340}
+  spawnDecks:
+  - deckName: 
+    deckDuration: 0
+    spawnWaves:
+    - laneID: 1
+      zombiePrefabs:
+      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
+      zombiesToSpawn: 50
+      spawnInterval: 1
+      zombieTier: 1
+      timeUntilNextWave: 0
+    - laneID: 2
+      zombiePrefabs:
+      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
+      zombiesToSpawn: 50
+      spawnInterval: 1
+      zombieTier: 1
+      timeUntilNextWave: 0
+    - laneID: 3
+      zombiePrefabs:
+      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
+      zombiesToSpawn: 50
+      spawnInterval: 1
+      zombieTier: 1
+      timeUntilNextWave: 180
 --- !u!1 &1188953942
 GameObject:
   m_ObjectHideFlags: 0
@@ -17442,7 +17478,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 34
+  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1721405697
 GameObject:
@@ -19081,7 +19117,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 30
+  m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &1911803339
 GameObject:
