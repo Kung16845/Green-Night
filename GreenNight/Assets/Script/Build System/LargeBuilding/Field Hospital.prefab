@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5302322754830735688}
   - component: {fileID: 2274461980007296479}
   - component: {fileID: 1071970053287401713}
+  - component: {fileID: -5109370254821173405}
   m_Layer: 0
   m_Name: Field Hospital
   m_TagString: Untagged
@@ -149,6 +150,8 @@ MonoBehaviour:
     levelSprite: {fileID: 21300000, guid: ac87971a4d26cde4db00989fab00f3de, type: 3}
     isneedwater: 1
     isneedElecticities: 1
+    isNeedSpecialist: 1
+    requiredSpecialist: 6
   currentLevel: 1
   maxLevel: 1
   isBuilding: 0
@@ -166,6 +169,28 @@ MonoBehaviour:
   buildManager: {fileID: 0}
   building: {fileID: 0}
   uImanger: {fileID: 0}
+  assignedSpecialistNpc:
+    foodPerDay: 0
+    bed: 0
+    nameNpc: 
+    hp: 0
+    morale: 0
+    endurance: 0
+    combat: 0
+    speed: 0
+    recoverSpeed: 0
+    isActive: 0
+    countInventorySlot: 0
+    idnpc: 0
+    roleNpc: 0
+    leaderSkill: 
+    idHead: 0
+    idBody: 0
+    idFeed: 0
+  builtBuildingInfo:
+    buildingGameObject: {fileID: 0}
+    level: 0
+    tile: {fileID: 0}
   finishDayBuildingTime: 0
 --- !u!61 &1071970053287401713
 BoxCollider2D:
@@ -212,3 +237,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4, y: 4}
   m_EdgeRadius: 0
+--- !u!114 &-5109370254821173405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4828145842393980435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6849b796b01230f4ebcb230390958041, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeManager: {fileID: 0}
+  dateTime:
+    day: 0
+    hour: 0
+    minutes: 0
+    isDayNight: 0
+    sceneSystem: {fileID: 0}
+  buildManager: {fileID: 0}
+  building: {fileID: 0}
+  upgradeBuilding: {fileID: 0}
+  globalstat: {fileID: 0}

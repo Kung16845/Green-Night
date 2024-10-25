@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class UpgradeBuilding : MonoBehaviour
 {
     public string nameBuild;
@@ -24,6 +23,7 @@ public class UpgradeBuilding : MonoBehaviour
     public BuildManager buildManager;
     public Building building;
     public UImanger uImanger;
+    public NpcClass assignedSpecialistNpc;
     public BuiltBuildingInfo builtBuildingInfo;
 
     public int finishDayBuildingTime;
@@ -65,9 +65,9 @@ public class UpgradeBuilding : MonoBehaviour
         if (building.isfinsih && !isBuilding && currentLevel < maxLevel)
         {
             Debug.Log("showupgradeUI");
-            uImanger.ActiveUpgradeUI();
-            upgradeUi = FindObjectOfType<UpgradeUi>();
-            upgradeUi.Initialize(this);
+            // uImanger.ActiveUpgradeUI();
+            // upgradeUi = FindObjectOfType<UpgradeUi>();
+            // upgradeUi.Initialize(this);
         }
     }
 
@@ -88,10 +88,18 @@ public class UpgradeBuilding : MonoBehaviour
                 builtBuildingInfo.level = currentLevel;
             }
 
-            if (currentLevel > maxLevel)
+            if (currentLevel == maxLevel)
             {
-                currentLevel = maxLevel;
                 isFinished = true;
+            }
+
+            // Return the assigned specialist NPC to the available list
+            if (assignedSpecialistNpc != null)
+            {
+                NpcManager npcManager = FindObjectOfType<NpcManager>();
+                npcManager.listNpcWorkingMoreOneDay.Remove(assignedSpecialistNpc);
+                npcManager.listNpc.Add(assignedSpecialistNpc);
+                assignedSpecialistNpc = null;
             }
 
             Debug.Log("Upgraded to Level " + currentLevel);
@@ -119,16 +127,19 @@ public class UpgradeBuilding : MonoBehaviour
     //     }
     // }
 }
-    [System.Serializable]
-    public class UpgradeLevel
-    {
-        public int levelNumber;
-        public int steelCost;
-        public int plankCost;
-        public int npcCost;
-        public int dayCost;
-        public Sprite levelSprite;
-        public bool isneedwater;
-        public bool isneedElecticities;
-        // Add any other properties specific to the upgrade level
-    }
+[System.Serializable]
+public class UpgradeLevel
+{
+    public int levelNumber;
+    public int steelCost;
+    public int plankCost;
+    public int npcCost;
+    public int dayCost;
+    public Sprite levelSprite;
+    public bool isneedwater;
+    public bool isneedElecticities;
+
+    // Add this line to include the required specialist role
+    public bool isNeedSpecialist;
+    public SpecialistRoleNpc requiredSpecialist;
+}

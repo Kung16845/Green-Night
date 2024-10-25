@@ -73,12 +73,16 @@ public class NpcManager : MonoBehaviour
         string randomLastName = lastNames[Random.Range(0, lastNames.Length)];
 
         newNpc.nameNpc = randomFirstName + " " + randomLastName;
-        newNpc.roleNpc = (SpecialistRoleNpc)Random.Range(0, 8);
+        newNpc.roleNpc = (SpecialistRoleNpc)Random.Range(0, 6);
 
         newNpc.endurance = Random.Range(1, 3);
         newNpc.combat = Random.Range(1, 3);
         newNpc.speed = Random.Range(1, 3);
-        newNpc.countInventorySlot = Random.Range(6, 13);
+        newNpc.countInventorySlot = 6;
+        newNpc.bed = 1;
+        newNpc.foodPerDay= 2;
+        newNpc.hp = 100f;
+        newNpc.morale = 50f;
 
         newNpc.idnpc = idNpc;
         newNpc.idHead = Random.Range(0, listHeadCoutume.Count);
