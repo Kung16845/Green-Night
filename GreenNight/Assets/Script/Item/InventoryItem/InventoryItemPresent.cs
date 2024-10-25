@@ -44,7 +44,7 @@ public class InventoryItemPresent : MonoBehaviour
     {
         ClearUIBoxes();
         
-        Debug.Log("RefreshUIBox");
+        
         foreach (ItemData itemData in listItemsDataBox)
         {
             CreateUIItemInBoxes(itemData);

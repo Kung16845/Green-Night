@@ -12,6 +12,8 @@ public class UIInventory : MonoBehaviour
     public NpcManager npcManager;
     public NpcClass npcSelecying;
     public List<InvenrotySlots> listInvenrotySlotsUI = new List<InvenrotySlots>();
+    public List<ItemData> listItemDataInventoryslot;
+    public List<ItemData> listItemDataInventoryEqicment;
     public Transform transformBoxes;
     public InventoryItemPresent inventoryItemPresent;
     [Header("TextMeshProUGUI")]
@@ -21,8 +23,8 @@ public class UIInventory : MonoBehaviour
     public TextMeshProUGUI specialistNpcText;
 
     public void SetValuableUIInventory()
-    {   
-    
+    {
+
         npcManager = FindObjectOfType<NpcManager>();
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
 
@@ -72,18 +74,37 @@ public class UIInventory : MonoBehaviour
         }
 
     }
-    public void ClearItemDataInAllInventorySlotToListDataBoxes()
+    public void RefreshUIInventory()
     {
-        foreach (InvenrotySlots slotsItem in listInvenrotySlotsUI)
+        ClearAllChildInvenrotySlot();
+
+    
+        for (int i = 0; i < listItemDataInventoryslot.Count; i++)
         {
-            ItemClass itemClass = slotsItem.GetComponentInChildren<ItemClass>();
-            if (itemClass != null)
-            {
-                ItemData itemData = inventoryItemPresent.ConventItemClassToItemData(itemClass);
-                inventoryItemPresent.AddItem(itemData);
-            }
+            InvenrotySlots inventortSlot = listInvenrotySlotsUI.ElementAt(i);
+            ItemData itemData = listItemDataInventoryslot.ElementAt(i);
+            GameObject uIItem = CreateUIItem(itemData, inventortSlot);
+
         }
+        for (int i = 0; i < listItemDataInventoryEqicment.Count; i++)
+        {
+            InvenrotySlots inventortEqicment = listInvenrotySlotsUI.ElementAt(i + 12);
+            ItemData itemData = listItemDataInventoryEqicment.ElementAt(i);
+            SlotType slotTypeSlot = inventortEqicment.slotTypeInventory;
+            Itemtype itemDatatype = itemData.itemtype;
+            if (slotTypeSlot == SlotType.SlotWeapon && itemDatatype == Itemtype.Weapon ||
+            slotTypeSlot == SlotType.SlotVest && itemDatatype == Itemtype.Vest ||
+            slotTypeSlot == SlotType.SlotBackpack && itemDatatype == Itemtype.Backpack ||
+            slotTypeSlot == SlotType.SlotTool && itemDatatype == Itemtype.Tool ||
+            slotTypeSlot == SlotType.SlotGrenade && itemDatatype == Itemtype.Grenade)
+            {
+                GameObject uIItemEqicment = CreateUIItem(itemData, inventortEqicment);
+            }
+
+        }
+
     }
+
     public void SelectNpcDefenseScene()
     {
         PlayerMovement player = FindObjectOfType<PlayerMovement>();
@@ -105,7 +126,18 @@ public class UIInventory : MonoBehaviour
     {
         ClearItemDataInAllInventorySlotToListDataBoxes();
     }
-
+    public void ClearItemDataInAllInventorySlotToListDataBoxes()
+    {
+        foreach (InvenrotySlots slotsItem in listInvenrotySlotsUI)
+        {
+            ItemClass itemClass = slotsItem.GetComponentInChildren<ItemClass>();
+            if (itemClass != null)
+            {
+                ItemData itemData = inventoryItemPresent.ConventItemClassToItemData(itemClass);
+                inventoryItemPresent.AddItem(itemData);
+            }
+        }
+    }
     public void ClearAllChildInvenrotySlot()
     {
         foreach (InvenrotySlots slotsItem in listInvenrotySlotsUI)
@@ -118,12 +150,12 @@ public class UIInventory : MonoBehaviour
         }
     }
     public void ConventAllUIItemInListInventorySlotToListItemData(List<ItemData> listSlotItemDatas)
-    {   
+    {
         for (int i = 0; i < 12; i++)
         {
             ItemClass itemClass = listInvenrotySlotsUI.ElementAt(i).GetComponentInChildren<ItemClass>();
-            if(itemClass != null)
-            {   
+            if (itemClass != null)
+            {
                 ItemData itemData = inventoryItemPresent.ConventItemClassToItemData(itemClass);
                 listSlotItemDatas.Add(itemData);
             }
@@ -134,18 +166,26 @@ public class UIInventory : MonoBehaviour
         for (int i = 12; i < 19; i++)
         {
             ItemClass itemClass = listInvenrotySlotsUI.ElementAt(i).GetComponentInChildren<ItemClass>();
-            if(itemClass != null)
-            {   
+            if (itemClass != null)
+            {
                 ItemData itemData = inventoryItemPresent.ConventItemClassToItemData(itemClass);
                 listEqicmentItemDatas.Add(itemData);
             }
         }
     }
-    public GameObject CreateUIItem(ItemData itemData,InvenrotySlots invenrotySlots)
-    {   
+    public void ConventDataUIToItemData()
+    {
+        listItemDataInventoryslot.Clear();
+        listItemDataInventoryEqicment.Clear();
+        ConventAllUIItemInListInventorySlotToListItemData(listItemDataInventoryslot);
+        ConventAllUIItemInListInventorySlotToListEqicmentItemData(listItemDataInventoryEqicment);
+    }
+    public GameObject CreateUIItem(ItemData itemData, InvenrotySlots invenrotySlots)
+
+    {
         // List<UIItemData> listUIItemPrefab = ;
         GameObject itemUI = inventoryItemPresent.listUIItemPrefab.FirstOrDefault(idItem => idItem.idItem == itemData.idItem).gameObject;
-        Instantiate(itemUI,invenrotySlots.transform,true);
+        Instantiate(itemUI, invenrotySlots.transform, true);
 
         UIItemData uIItemData = itemUI.GetComponent<UIItemData>();
         ItemClass itemClass = itemUI.GetComponent<ItemClass>();
@@ -158,5 +198,6 @@ public class UIInventory : MonoBehaviour
 
         return itemUI;
     }
+
 }
 
