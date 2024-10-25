@@ -65,9 +65,9 @@ public class UpgradeBuilding : MonoBehaviour
         if (building.isfinsih && !isBuilding && currentLevel < maxLevel)
         {
             Debug.Log("showupgradeUI");
-            uImanger.ActiveUpgradeUI();
-            upgradeUi = FindObjectOfType<UpgradeUi>();
-            upgradeUi.Initialize(this);
+            // uImanger.ActiveUpgradeUI();
+            // upgradeUi = FindObjectOfType<UpgradeUi>();
+            // upgradeUi.Initialize(this);
         }
     }
 
