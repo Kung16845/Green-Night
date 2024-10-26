@@ -27,7 +27,7 @@ public class CraftingItemUI : MonoBehaviour
             itemNameText.text = itemData.itemName;
 
         if (amountInInventoryText != null)
-            amountInInventoryText.text = "Amount: " + itemData.amountInInventory.ToString();
+            amountInInventoryText.text = itemData.amountInInventory.ToString();
 
         if (craftingTimeText != null)
             craftingTimeText.text = "Time: " + (itemData.craftingTime / 1000f).ToString("F1") + " hr";

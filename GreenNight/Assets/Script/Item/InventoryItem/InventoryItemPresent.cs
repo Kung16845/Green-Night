@@ -170,9 +170,8 @@ public class InventoryItemPresent : MonoBehaviour
     // Add the GetItemIconByID method
     public Sprite GetItemIconByID(int itemID)
     {
-        // UIItemData uiItemData = listUIItemPrefab.Find(uiItem => uiItem.idItem == itemID);
-        // return uiItemData != null ? uiItemData.itemIconSprite : null;
-        return null;
+        UIItemData uiItemData = listUIItemPrefab.Find(uiItem => uiItem.idItem == itemID);
+        return uiItemData != null && uiItemData.itemIconSprite != null ? uiItemData.itemIconSprite.sprite : null;
     }
 
     public ItemData ConventItemClassToItemData(ItemClass itemClass)

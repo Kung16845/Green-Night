@@ -79,7 +79,7 @@ public class WorkshopUI : MonoBehaviour
             selectedItemNameText.text = selectedItem.itemName;
 
         if (selectedItemCraftingTimeText != null)
-            selectedItemCraftingTimeText.text = $"Crafting Time: {(selectedItem.craftingTime / 1000f).ToString("F1")} hr";
+            selectedItemCraftingTimeText.text = $" {(selectedItem.craftingTime / 1000f).ToString("F1")} hr";
 
         // Clear existing recipe items
         foreach (Transform child in recipeItemsParent)
@@ -100,7 +100,6 @@ public class WorkshopUI : MonoBehaviour
             recipeItemUIScript.Initialize(recipeItem, amountHave, itemIcon);
         }
     }
-
     void Update()
     {
         if (Input.GetMouseButtonDown(1))
