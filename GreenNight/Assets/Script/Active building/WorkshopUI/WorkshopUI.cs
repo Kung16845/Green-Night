@@ -9,14 +9,34 @@ public class WorkshopUI : MonoBehaviour
     public Workshop workshop;
     public TextMeshProUGUI Craftingslot;
     public TextMeshProUGUI ActionSpeed;
+
+    // UI elements for selected item details
+    public Image selectedItemImage;
+    public TextMeshProUGUI selectedItemNameText;
+    public TextMeshProUGUI selectedItemCraftingTimeText;
+    public Transform recipeItemsParent;
+    public GameObject recipeItemUIPrefab;
+
+    public InventoryItemPresent inventoryItemPresent;
+
     public GameObject craftingItemUIPrefab; // Assign in Inspector
-    public Transform craftingItemsParent; // Assign in Inspector (UI parent object)
+    public Transform craftingItemsParent; // Assign in Inspector
+
     void Start()
     {
         workshop = FindObjectOfType<Workshop>();
-        Assignactionspeedandslot();
+        AssignActionSpeedAndSlot();
     }
-    public void DisplayCraftingItems()
+
+    void AssignActionSpeedAndSlot()
+    {
+        float actionSpeedIncreasePercent = workshop.Actionspeedincrease * 100f;
+        ActionSpeed.text = "Action Speed: +" + actionSpeedIncreasePercent.ToString("F0") + "%";
+        int Slotincrease = workshop.Craftingslot;
+        Craftingslot.text = "Crafting slot: +" + Slotincrease.ToString("F0");
+    }
+
+    void DisplayCraftingItems()
     {
         // Get the workshop's current level
         int workshopLevel = workshop.upgradeBuilding.currentLevel;
@@ -45,23 +65,47 @@ public class WorkshopUI : MonoBehaviour
             CraftingItemUI craftingItemUIScript = newCraftingItemUI.GetComponent<CraftingItemUI>();
             if (craftingItemUIScript != null)
             {
-                craftingItemUIScript.Initialize(craftingItem);
+                craftingItemUIScript.Initialize(craftingItem, this);
             }
         }
     }
 
-    void Assignactionspeedandslot()
+    public void DisplaySelectedItemDetails(CraftingItem selectedItem)
     {
-        float actionSpeedIncreasePercent = workshop.Actionspeedincrease * 100f;
-        ActionSpeed.text = "Action Speed: +" + actionSpeedIncreasePercent.ToString("F0") + "%";
-        int Slotincrease = workshop.Craftingslot;
-        Craftingslot.text = "Crafting slot: +" + Slotincrease.ToString("F0");
+        if (selectedItemImage != null)
+            selectedItemImage.sprite = selectedItem.itemIcon;
+
+        if (selectedItemNameText != null)
+            selectedItemNameText.text = selectedItem.itemName;
+
+        if (selectedItemCraftingTimeText != null)
+            selectedItemCraftingTimeText.text = $"Crafting Time: {(selectedItem.craftingTime / 1000f).ToString("F1")} hr";
+
+        // Clear existing recipe items
+        foreach (Transform child in recipeItemsParent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // Display recipe items
+        foreach (RecipeItem recipeItem in selectedItem.recipeItems)
+        {
+            GameObject recipeItemUIObject = Instantiate(recipeItemUIPrefab, recipeItemsParent);
+            RecipeItemUI recipeItemUIScript = recipeItemUIObject.GetComponent<RecipeItemUI>();
+
+            // Use methods from InventoryItemPresent
+            int amountHave = inventoryItemPresent.GetItemCountByID(recipeItem.itemID);
+            Sprite itemIcon = inventoryItemPresent.GetItemIconByID(recipeItem.itemID);
+
+            recipeItemUIScript.Initialize(recipeItem, amountHave, itemIcon);
+        }
     }
+
     void Update()
     {
-          if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1))
         {
-            this.gameObject.SetActive(false);  // Disable the GameObject this script is attached to
+            this.gameObject.SetActive(false);
         }
     }
 }
