@@ -6,18 +6,19 @@ public class UIItemData : MonoBehaviour
 {
     public TextMeshProUGUI count;
     public int idItem;
+    public string nameItem;
     public SlotType slotType;
     public SlotType slotTypeParent;
-    public Image itemIconSprite; // Keep this as Image because it's a UI element
+    public Image itemIconImage; // Keep this as Image because it's a UI element
 
     public void UpdateDataUI(ItemClass itemClass)
     {
         int countItem = itemClass.quantityItem;
 
-        if (itemIconSprite != null && itemClass.IconSprite != null)
+        if (itemIconImage != null && itemClass.IconSprite != null)
         {
             // Assign the sprite from itemClass.IconSprite to itemIconSprite
-            itemIconSprite.sprite = itemClass.IconSprite.sprite;
+            itemIconImage.sprite = itemClass.IconSprite.sprite;
         }
 
         if (slotTypeParent == SlotType.SlotBoxes)

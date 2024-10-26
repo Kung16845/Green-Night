@@ -161,17 +161,25 @@ public class InventoryItemPresent : MonoBehaviour
         RefreshUIBox();
     }
 
-    public int GetItemCountByID(int itemID)
+     public int GetItemCountByID(int itemID)
     {
         ItemData itemData = listItemsDataBox.Find(item => item.idItem == itemID);
         return itemData != null ? itemData.count : 0;
     }
 
-    // Add the GetItemIconByID method
+    // Method to get item icon by ID
     public Sprite GetItemIconByID(int itemID)
     {
         UIItemData uiItemData = listUIItemPrefab.Find(uiItem => uiItem.idItem == itemID);
-        return uiItemData != null && uiItemData.itemIconSprite != null ? uiItemData.itemIconSprite.sprite : null;
+        if (uiItemData != null && uiItemData.itemIconImage != null)
+        {
+            return uiItemData.itemIconImage.sprite;
+        }
+        else
+        {
+            Debug.LogWarning($"Item icon not found for itemID: {itemID}");
+            return null;
+        }
     }
 
     public ItemData ConventItemClassToItemData(ItemClass itemClass)

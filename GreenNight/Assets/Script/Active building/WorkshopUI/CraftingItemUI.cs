@@ -7,7 +7,6 @@ public class CraftingItemUI : MonoBehaviour
 {
     public Image itemIconImage;
     public TextMeshProUGUI itemNameText;
-    public TextMeshProUGUI amountInInventoryText;
     public TextMeshProUGUI craftingTimeText;
 
     private CraftingItem craftingItemData;
@@ -26,11 +25,8 @@ public class CraftingItemUI : MonoBehaviour
         if (itemNameText != null)
             itemNameText.text = itemData.itemName;
 
-        if (amountInInventoryText != null)
-            amountInInventoryText.text = itemData.amountInInventory.ToString();
-
         if (craftingTimeText != null)
-            craftingTimeText.text = "Time: " + (itemData.craftingTime / 1000f).ToString("F1") + " hr";
+            craftingTimeText.text =  (itemData.craftingTime / 1000f).ToString("F1") + " hr";
 
         // Add click listener
         if (buttonComponent != null)
@@ -41,7 +37,6 @@ public class CraftingItemUI : MonoBehaviour
 
     private void OnClick()
     {
-        // Notify the WorkshopUI that this item was clicked
         if (workshopUI != null)
         {
             workshopUI.DisplaySelectedItemDetails(craftingItemData);
@@ -50,10 +45,10 @@ public class CraftingItemUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        // Clean up listener to prevent memory leaks
         if (buttonComponent != null)
         {
             buttonComponent.onClick.RemoveListener(OnClick);
         }
     }
 }
+

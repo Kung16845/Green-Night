@@ -8,30 +8,16 @@ public class RecipeItemUI : MonoBehaviour
     public TextMeshProUGUI itemNameText;
     public TextMeshProUGUI amountText;
 
-    public void Initialize(RecipeItem recipeItemData, int amountHave, Sprite itemIcon)
+    public void Initialize(RecipeItem recipeItemData, int amountHave)
     {
         if (itemIconImage != null)
-        {
-            if (itemIcon != null)
-            {
-                itemIconImage.sprite = itemIcon;
-                Debug.Log($"Item icon set for {recipeItemData.itemName} with sprite {itemIcon.name}");
-            }
-            else
-            {
-                Debug.LogWarning($"Item icon is null for item: {recipeItemData.itemName}");
-            }
-        }
-        else
-        {
-            Debug.LogWarning("itemIconImage is null in RecipeItemUI");
-        }
+            itemIconImage.sprite = recipeItemData.itemIcon;
 
         if (itemNameText != null)
             itemNameText.text = recipeItemData.itemName;
 
         if (amountText != null)
-            amountText.text = $"{amountHave} / {recipeItemData.amountNeeded}";
+            amountText.text = $" {amountHave} / {recipeItemData.amountNeeded}";
     }
-
 }
+

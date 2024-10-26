@@ -6,17 +6,23 @@ using UnityEngine.UI;
 public class CraftingItem
 {
     public int itemID;
-    public string itemName;
-    public int amountInInventory;
     public float craftingTime; // 1000 = 1 hr
-    public int rarity;
-    public Sprite itemIcon;
     public List<RecipeItem> recipeItems; // Items needed to craft this item
+
+    // These properties will be auto-assigned
+    [HideInInspector] public string itemName;
+    [HideInInspector] public Sprite itemIcon;
+    [HideInInspector] public int rarity;
 }
+
 [System.Serializable]
 public class RecipeItem
 {
     public int itemID;
-    public string itemName;
     public int amountNeeded;
+
+    // These properties will be auto-assigned
+    [HideInInspector] public string itemName;
+    [HideInInspector] public Sprite itemIcon;
 }
+

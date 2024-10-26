@@ -26,6 +26,7 @@ public class WorkshopUI : MonoBehaviour
     {
         workshop = FindObjectOfType<Workshop>();
         AssignActionSpeedAndSlot();
+        AutoAssignCraftingItemData();
     }
 
     void AssignActionSpeedAndSlot()
@@ -35,8 +36,65 @@ public class WorkshopUI : MonoBehaviour
         int Slotincrease = workshop.Craftingslot;
         Craftingslot.text = "Crafting slot: +" + Slotincrease.ToString("F0");
     }
+    void AutoAssignCraftingItemData()
+    {
+        // For Level 1 Items
+        foreach (CraftingItem craftingItem in workshop.craftingItemsLevel1)
+        {
+            AutoAssignCraftingItemProperties(craftingItem);
+        }
 
-    void DisplayCraftingItems()
+        // For Level 2 Items
+        foreach (CraftingItem craftingItem in workshop.craftingItemsLevel2)
+        {
+            AutoAssignCraftingItemProperties(craftingItem);
+        }
+    }
+
+    void AutoAssignCraftingItemProperties(CraftingItem craftingItem)
+    {
+        // Assign properties from InventoryItemPresent or UIItemData
+        UIItemData uiItemData = inventoryItemPresent.listUIItemPrefab.Find(uiItem => uiItem.idItem == craftingItem.itemID);
+
+        if (uiItemData != null)
+        {
+            craftingItem.itemName = uiItemData.nameItem;
+            craftingItem.itemIcon = uiItemData.itemIconImage.sprite;
+
+            // If you need rarity or other properties
+            ItemClass itemClass = uiItemData.GetComponent<ItemClass>();
+            if (itemClass != null)
+            {
+                craftingItem.rarity = itemClass.rarityItem;
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"UIItemData not found for itemID: {craftingItem.itemID}");
+        }
+
+        // Auto-assign for each RecipeItem
+        foreach (RecipeItem recipeItem in craftingItem.recipeItems)
+        {
+            AutoAssignRecipeItemProperties(recipeItem);
+        }
+    }
+
+    void AutoAssignRecipeItemProperties(RecipeItem recipeItem)
+    {
+        UIItemData uiItemData = inventoryItemPresent.listUIItemPrefab.Find(uiItem => uiItem.idItem == recipeItem.itemID);
+
+        if (uiItemData != null)
+        {
+            recipeItem.itemName = uiItemData.nameItem;
+            recipeItem.itemIcon = uiItemData.itemIconImage.sprite;
+        }
+        else
+        {
+            Debug.LogWarning($"UIItemData not found for itemID: {recipeItem.itemID}");
+        }
+    }
+   void DisplayCraftingItems()
     {
         // Get the workshop's current level
         int workshopLevel = workshop.upgradeBuilding.currentLevel;
@@ -55,8 +113,8 @@ public class WorkshopUI : MonoBehaviour
 
         // Order the list by rarity and then by name
         var orderedCraftingItems = availableCraftingItems.OrderBy(item => item.rarity)
-                                                         .ThenBy(item => item.itemName)
-                                                         .ToList();
+                                                        .ThenBy(item => item.itemName)
+                                                        .ToList();
 
         // Instantiate the crafting item UI prefabs
         foreach (CraftingItem craftingItem in orderedCraftingItems)
@@ -70,6 +128,7 @@ public class WorkshopUI : MonoBehaviour
         }
     }
 
+
     public void DisplaySelectedItemDetails(CraftingItem selectedItem)
     {
         if (selectedItemImage != null)
@@ -79,7 +138,7 @@ public class WorkshopUI : MonoBehaviour
             selectedItemNameText.text = selectedItem.itemName;
 
         if (selectedItemCraftingTimeText != null)
-            selectedItemCraftingTimeText.text = $" {(selectedItem.craftingTime / 1000f).ToString("F1")} hr";
+            selectedItemCraftingTimeText.text = $"{(selectedItem.craftingTime / 1000f):F1} hr";
 
         // Clear existing recipe items
         foreach (Transform child in recipeItemsParent)
@@ -93,13 +152,12 @@ public class WorkshopUI : MonoBehaviour
             GameObject recipeItemUIObject = Instantiate(recipeItemUIPrefab, recipeItemsParent);
             RecipeItemUI recipeItemUIScript = recipeItemUIObject.GetComponent<RecipeItemUI>();
 
-            // Use methods from InventoryItemPresent
             int amountHave = inventoryItemPresent.GetItemCountByID(recipeItem.itemID);
-            Sprite itemIcon = inventoryItemPresent.GetItemIconByID(recipeItem.itemID);
 
-            recipeItemUIScript.Initialize(recipeItem, amountHave, itemIcon);
+            recipeItemUIScript.Initialize(recipeItem, amountHave);
         }
     }
+
     void Update()
     {
         if (Input.GetMouseButtonDown(1))
