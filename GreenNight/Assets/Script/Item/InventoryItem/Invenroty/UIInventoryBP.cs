@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class UIInventoryBP : UIInventory
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public void Start()
     {
-        
+        SetValuableUIInventory();
+        RefreshUIInventory();
+    }
+    private void OnEnable()
+    {
+        RefreshUIInventory();
+    }
+    private void OnDisable()
+    {
+        ConventDataUIToItemData();
     }
 }

@@ -41,11 +41,13 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
         // Script Move
         ScriptMoveItems scriptMoveItems = uIMoveItemsBoxesToInventory.GetComponent<ScriptMoveItems>();
         //ItemData In ListItemData
-
+       
+    
 
         if ((slotTypeInventory == SlotType.SlotBag || slotTypeInventory == draggableItem.uITypeItem)
         && transform.childCount == 0)
-        {
+        {   
+             Debug.Log("(slotTypeInventory == SlotType.SlotBag || slotTypeInventory == draggableItem.uITypeItem) && transform.childCount == 0");
             draggableItem.parentAfterDray = transform;
 
             scriptMoveItems.itemClassMove = itemClassMove;
@@ -94,7 +96,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
 
     public void OpenUIMoveITems(ScriptMoveItems scriptMoveItems)
     {
-
+        Debug.Log("OpenUIMoveITems");
         scriptMoveItems.countItemMove = 1;
         scriptMoveItems.countText.text = "1";
         uIMoveItemsBoxesToInventory.SetActive(true);
