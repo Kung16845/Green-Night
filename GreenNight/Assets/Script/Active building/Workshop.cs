@@ -17,7 +17,8 @@ public class Workshop : MonoBehaviour
     public Globalstat globalstat;
     public int Craftingslot;
     public bool Isapplyspeed;
-
+    public List<CraftingItem> craftingItemsLevel1;
+    public List<CraftingItem> craftingItemsLevel2;
 
     void Start()
     {
