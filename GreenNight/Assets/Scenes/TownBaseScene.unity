@@ -8032,6 +8032,8 @@ MonoBehaviour:
     itemID: 0
     craftingTime: 0
     recipeItems: []
+    amountProduced: 1
+    isAmmo: 0
     itemName: 
     itemIcon: {fileID: 0}
     rarity: 0
@@ -10350,6 +10352,14 @@ MonoBehaviour:
   - {fileID: 1291614654634707552, guid: fe5118b2bcb956d4eace6513353e2030, type: 3}
   - {fileID: 1291614654634707552, guid: e2f8687abe498744fa07fd24b4471a8b, type: 3}
   - {fileID: 1291614654634707552, guid: 739c1748a6c7f5747b422272880d3a9e, type: 3}
+  - {fileID: 1291614654634707552, guid: 1e8be105923dbe7479bfcb9d7d1a6e24, type: 3}
+  - {fileID: 1291614654634707552, guid: e2153e84bff10e549a13566d52ddd64b, type: 3}
+  - {fileID: 1291614654634707552, guid: 6f60dfc02efffa64eb0ab360743c872c, type: 3}
+  - {fileID: 1291614654634707552, guid: 987222e95c536f040863f6311aab0041, type: 3}
+  - {fileID: 1291614654634707552, guid: ba849ff7374ba5c4797f36e764a303fd, type: 3}
+  - {fileID: 1291614654634707552, guid: 5dbdd249db6745849a326dd710619b4d, type: 3}
+  - {fileID: 1291614654634707552, guid: 3fd28133657747f4fac2a0a4b9fa88d4, type: 3}
+  - {fileID: 1291614654634707552, guid: 3a6107fbfd7aa274cbc017952c38b2b8, type: 3}
   listInvenrotySlots: []
   invenrotySlotSpecialMilitaryLock: {fileID: 0}
   invenrotySlotSpecialScavengerLock: {fileID: 0}
@@ -37272,6 +37282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UpgradeUI: {fileID: 1429049396}
   WorkshopUI: {fileID: 366983574}
+  workshopUpgradeUI: {fileID: 1528801720}
 --- !u!4 &1817374009
 Transform:
   m_ObjectHideFlags: 0
@@ -44179,10 +44190,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: InventoryItemPresent, Assembly-CSharp
-        m_MethodName: RefreshUIBoxCategory
-        m_Mode: 3
+      - m_Target: {fileID: 366983578}
+        m_TargetAssemblyTypeName: WorkshopUI, Assembly-CSharp
+        m_MethodName: EnebleisAmmo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 366983578}
+        m_TargetAssemblyTypeName: WorkshopUI, Assembly-CSharp
+        m_MethodName: DisplayCraftingItems
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

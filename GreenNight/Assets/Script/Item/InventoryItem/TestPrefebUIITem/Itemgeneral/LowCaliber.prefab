@@ -201,7 +201,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2d23a801daad56b4095953e38a4f7a3a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fde40e814e1d09a4cbc5ac4e9935f7af, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -222,9 +222,9 @@ GameObject:
   - component: {fileID: 1507481911708729749}
   - component: {fileID: 2830492767405450512}
   - component: {fileID: 1291614654634707552}
-  - component: {fileID: 9201960125228747027}
+  - component: {fileID: -1681350862212605489}
   m_Layer: 5
-  m_Name: Crownbar
+  m_Name: LowCaliber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -264,7 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 192f82a508462e84f9d90a02a0565d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uITypeItem: 2
+  uITypeItem: 3
   parentAfterDray: {fileID: 0}
   parentBeforeDray: {fileID: 0}
   imageItem: {fileID: 5222524482886833746}
@@ -281,12 +281,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   count: {fileID: 7534671795205046289}
-  idItem: 1020502
-  nameItem: Crowbar
-  slotType: 2
-  slotTypeParent: 2
+  idItem: 1020124
+  nameItem: Low caliber ammo
+  slotType: 3
+  slotTypeParent: 3
   itemIconImage: {fileID: 5222524482886833746}
---- !u!114 &9201960125228747027
+--- !u!114 &-1681350862212605489
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -295,19 +295,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 9105195170046179818}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b060fd878584342449f8ff8d4d52bb48, type: 3}
+  m_Script: {fileID: 11500000, guid: ff9babe62b5d4f542981b99f2e15445a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameItem: Crowbar
+  nameItem: Low caliber ammo
   quantityItem: 0
-  maxCountItem: 1
-  itemtype: 3
-  rarityItem: 3
-  tradeValueItem: 50
+  maxCountItem: 210
+  itemtype: 7
+  rarityItem: 2
+  tradeValueItem: 10
   carftableItem: 1
-  disassembleItem: 20
-  idItem: 1020502
+  disassembleItem: 5
+  idItem: 1020124
   pointType: Items
-  point: 20
+  point: 3
   IconSprite: {fileID: 5222524482886833746}
-  role: Open locked lv2 Door

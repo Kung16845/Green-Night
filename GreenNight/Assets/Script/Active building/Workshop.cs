@@ -150,18 +150,52 @@ public class Workshop : MonoBehaviour
 
     void CompleteCraftingJob(CraftingJob job)
     {
-        // Add the crafted item to the inventory
-        ItemData craftedItemData = new ItemData
+        // Get the UIItemData for the crafted item
+        UIItemData uiItemData = inventoryItemPresent.listUIItemPrefab.Find(uiItem => uiItem.idItem == job.craftingItem.itemID);
+        if (uiItemData == null)
         {
-            idItem = job.craftingItem.itemID,
-            count = 1 // Adjust quantity as needed
-            // nameItem = job.craftingItem.itemName,
-            // maxCount,
-            // Itemtype itemtype,
-            // SlotType parantslotType
-        };
-        inventoryItemPresent.AddItem(craftedItemData);
+            Debug.LogError($"UIItemData not found for itemID: {job.craftingItem.itemID}");
+            return;
+        }
 
-        Debug.Log($"Crafting complete: {job.craftingItem.itemName}");
+        // Get the ItemClass component from UIItemData
+        ItemClass itemClass = uiItemData.GetComponent<ItemClass>();
+        if (itemClass == null)
+        {
+            Debug.LogError($"ItemClass component not found on UIItemData for itemID: {job.craftingItem.itemID}");
+            return;
+        }
+
+        // Calculate the total amount to add
+        int totalAmount = job.craftingItem.amountProduced;
+        int maxStack = itemClass.maxCountItem;
+
+        // Loop to handle multiple stacks if needed
+        while (totalAmount > 0)
+        {
+            // Determine how many items to add in this iteration
+            int amountToAdd = Mathf.Min(totalAmount, maxStack);
+
+            // Create ItemData with the determined amount
+            ItemData craftedItemData = new ItemData
+            {
+                idItem = job.craftingItem.itemID,
+                nameItem = itemClass.nameItem,
+                count = amountToAdd,
+                maxCount = itemClass.maxCountItem,
+                itemtype = itemClass.itemtype,
+                parantslotType = uiItemData.slotTypeParent,
+                // Include any other fields as needed
+            };
+
+            // Add the crafted item to the inventory
+            inventoryItemPresent.AddItem(craftedItemData);
+
+            // Debug log for each addition
+            Debug.Log($"Crafting complete: {job.craftingItem.itemName}, Amount Added: {amountToAdd}");
+
+            // Decrease the total amount by the amount added in this iteration
+            totalAmount -= amountToAdd;
+        }
     }
 }
