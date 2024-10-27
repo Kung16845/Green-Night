@@ -14,6 +14,10 @@ public class CountdownTimeDay : MonoBehaviour
     public TimeManager timeManager;
     
     private void Awake()
+    {   
+        SetStartExpendition();
+    }
+    public void SetStartExpendition()
     {
         timeManager = FindObjectOfType<TimeManager>();
         ratio = timeScale / 1000f;
@@ -35,7 +39,6 @@ public class CountdownTimeDay : MonoBehaviour
         Debug.Log("Day : " + finishDayCraftingTime + " Hour : " + finishHourCraftingTime
         + " Minutes : " + finishMinutesCraftingTime);
     }
-
     // Update is called once per frame
     void Update()
     {

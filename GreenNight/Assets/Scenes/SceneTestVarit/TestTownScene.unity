@@ -2235,6 +2235,7 @@ MonoBehaviour:
   levelCombatText: {fileID: 0}
   levelSpeedText: {fileID: 0}
   specialistNpcText: {fileID: 0}
+  timeScale: 0
 --- !u!1 &121923270
 GameObject:
   m_ObjectHideFlags: 0
@@ -17506,7 +17507,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 970539896}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 483800078}
+        m_TargetAssemblyTypeName: InventoryItemPresent, Assembly-CSharp
+        m_MethodName: CreateInventorySetExpendition
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 800
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &970539896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26301,7 +26314,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1430998056}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 483800078}
+        m_TargetAssemblyTypeName: InventoryItemPresent, Assembly-CSharp
+        m_MethodName: CreateInventorySetExpendition
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 1000
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1430998056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32496,7 +32521,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Give them half our supplies
+  m_text: Car
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -37137,7 +37162,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: No, I won't
+  m_text: Walk
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
