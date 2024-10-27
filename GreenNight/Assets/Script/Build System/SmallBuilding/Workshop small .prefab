@@ -149,8 +149,63 @@ MonoBehaviour:
   buildManager: {fileID: 0}
   currentDay: 0
   building: {fileID: 0}
+  upgradeUi: {fileID: 0}
   upgradeBuilding: {fileID: 0}
+  uImanger: {fileID: 0}
   globalstat: {fileID: 0}
+  Craftingslot: 0
+  Isapplyspeed: 0
+  craftingItemsLevel1:
+  - itemID: 1020501
+    itemName: Crownbar
+    amountInInventory: 0
+    craftingTime: 2500
+    rarity: 1
+    itemIcon: {fileID: 21300000, guid: 2d23a801daad56b4095953e38a4f7a3a, type: 3}
+    recipeItems:
+    - itemID: 1020101
+      itemName: Scrap
+      amountNeeded: 25
+  - itemID: 1020211
+    itemName: ImproviseDMR
+    amountInInventory: 0
+    craftingTime: 6000
+    rarity: 1
+    itemIcon: {fileID: -1496721674, guid: decba56edf9964d4182c9e01b4809164, type: 3}
+    recipeItems:
+    - itemID: 1020114
+      itemName: BrokenDMR
+      amountNeeded: 1
+    - itemID: 1020101
+      itemName: Scrap
+      amountNeeded: 25
+  - itemID: 1020102
+    itemName: Circuit
+    amountInInventory: 0
+    craftingTime: 500
+    rarity: 2
+    itemIcon: {fileID: 21300000, guid: 8bb4babf1a9c6e647bcca9b4d04d4c5b, type: 3}
+    recipeItems:
+    - itemID: 1020101
+      itemName: Scrap
+      amountNeeded: 10
+    - itemID: 1020103
+      itemName: Wire
+      amountNeeded: 3
+  craftingItemsLevel2:
+  - itemID: 1020502
+    itemName: Chainsaw
+    amountInInventory: 0
+    craftingTime: 3500
+    rarity: 3
+    itemIcon: {fileID: 21300000, guid: 86de18d64ecddb940b59f1224df6a387, type: 3}
+    recipeItems:
+    - itemID: 1020101
+      itemName: Scrap
+      amountNeeded: 30
+    - itemID: 1020102
+      itemName: Circuit
+      amountNeeded: 5
 --- !u!114 &4470621483185769465
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -194,14 +194,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.79853714, g: 0.8113208, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 9ca640c0e85cd274087b20a924a41940, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -264,7 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 192f82a508462e84f9d90a02a0565d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uITypeItem: 4
+  uITypeItem: 3
   parentAfterDray: {fileID: 0}
   parentBeforeDray: {fileID: 0}
   imageItem: {fileID: 5222524482886833746}
@@ -282,8 +282,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   count: {fileID: 7534671795205046289}
   idItem: 1020120
+  nameItem: BrokenArmour
   slotType: 3
   slotTypeParent: 3
+  itemIconImage: {fileID: 5222524482886833746}
 --- !u!114 &-1681350862212605489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,10 +298,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff9babe62b5d4f542981b99f2e15445a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameItem: YellowChemical
+  nameItem: BrokenArmour
   quantityItem: 0
   maxCountItem: 1
-  itemtype: 0
+  itemtype: 7
   rarityItem: 2
   tradeValueItem: 15
   carftableItem: 0
@@ -307,3 +309,4 @@ MonoBehaviour:
   idItem: 1020120
   pointType: 
   point: 0
+  IconSprite: {fileID: 5222524482886833746}

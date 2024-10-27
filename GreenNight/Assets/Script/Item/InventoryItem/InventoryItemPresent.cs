@@ -16,6 +16,7 @@ public class InventoryItemPresent : MonoBehaviour
     public Transform transformsUIEx;
     public Canvas canvas;
     public GameObject uIInventoryExPrefab;
+    
     private void Start()
     {
         canvas = FindAnyObjectByType<Canvas>();
@@ -159,6 +160,28 @@ public class InventoryItemPresent : MonoBehaviour
         }
         RefreshUIBox();
     }
+
+     public int GetItemCountByID(int itemID)
+    {
+        ItemData itemData = listItemsDataBox.Find(item => item.idItem == itemID);
+        return itemData != null ? itemData.count : 0;
+    }
+
+    // Method to get item icon by ID
+    public Sprite GetItemIconByID(int itemID)
+    {
+        UIItemData uiItemData = listUIItemPrefab.Find(uiItem => uiItem.idItem == itemID);
+        if (uiItemData != null && uiItemData.itemIconImage != null)
+        {
+            return uiItemData.itemIconImage.sprite;
+        }
+        else
+        {
+            Debug.LogWarning($"Item icon not found for itemID: {itemID}");
+            return null;
+        }
+    }
+
     public ItemData ConventItemClassToItemData(ItemClass itemClass)
     {
         ItemData newItemData = new ItemData();
