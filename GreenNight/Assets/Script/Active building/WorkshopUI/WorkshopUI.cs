@@ -22,6 +22,10 @@ public class WorkshopUI : MonoBehaviour
     public GameObject craftingItemUIPrefab; // Assign in Inspector
     public Transform craftingItemsParent; // Assign in Inspector
 
+    public CraftingItem selectedCraftingItem;
+    public Transform craftingJobsParent; // Parent object to hold crafting job UI elements
+    public GameObject craftingJobUIPrefab;
+
     void Start()
     {
         workshop = FindObjectOfType<Workshop>();
@@ -96,6 +100,12 @@ public class WorkshopUI : MonoBehaviour
     }
    void DisplayCraftingItems()
     {
+        // Clear existing crafting item UI elements
+        foreach (Transform child in craftingItemsParent)
+        {
+            Destroy(child.gameObject);
+        }
+
         // Get the workshop's current level
         int workshopLevel = workshop.upgradeBuilding.currentLevel;
 
@@ -127,10 +137,9 @@ public class WorkshopUI : MonoBehaviour
             }
         }
     }
-
-
     public void DisplaySelectedItemDetails(CraftingItem selectedItem)
     {
+        selectedCraftingItem = selectedItem;
         if (selectedItemImage != null)
             selectedItemImage.sprite = selectedItem.itemIcon;
 
@@ -157,7 +166,25 @@ public class WorkshopUI : MonoBehaviour
             recipeItemUIScript.Initialize(recipeItem, amountHave);
         }
     }
+    public void DisplayActiveCraftingJobs()
+    {
+        // Clear existing crafting job UI elements
+        foreach (Transform child in craftingJobsParent)
+        {
+            Destroy(child.gameObject);
+        }
 
+        // Display current crafting jobs
+        foreach (CraftingJob job in workshop.activeCraftingJobs)
+        {
+            GameObject jobUIObject = Instantiate(craftingJobUIPrefab, craftingJobsParent);
+            CraftingJobUI jobUIScript = jobUIObject.GetComponent<CraftingJobUI>();
+            if (jobUIScript != null)
+            {
+                jobUIScript.Initialize(job);
+            }
+        }
+    }
     void Update()
     {
         if (Input.GetMouseButtonDown(1))

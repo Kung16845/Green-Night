@@ -43,17 +43,13 @@ public class InventoryItemPresent : MonoBehaviour
     }
     public void RefreshUIBox()
     {
-        ClearUIBoxes();
-        
-        
+        // ClearUIBoxes();
         foreach (ItemData itemData in listItemsDataBox)
         {
             CreateUIItemInBoxes(itemData);
         }
 
     }
-
-
     public void CreateUIItemInBoxes(ItemData itemData)
     {
 
@@ -139,7 +135,7 @@ public class InventoryItemPresent : MonoBehaviour
             listItemsDataBox.Add(itemDataAdd);
         }
 
-        RefreshUIBox();
+        // RefreshUIBox();
     }
     public void RemoveItem(ItemData itemDataRemove)
     {
@@ -158,7 +154,7 @@ public class InventoryItemPresent : MonoBehaviour
         {
             //ถ้าไปเท็มในกล่องไม่พอให้ทำอะไร
         }
-        RefreshUIBox();
+        // RefreshUIBox();
     }
 
      public int GetItemCountByID(int itemID)

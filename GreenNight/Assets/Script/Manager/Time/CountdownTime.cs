@@ -8,14 +8,17 @@ public class CountdownTime : MonoBehaviour
     public float ratio;
     public float timeInSeconds;
     public float timeCount;
+    private bool isCountdownComplete = false;  // Track the completion state
+
     // Start is called before the first frame update
     private void Awake() 
     {   
-        ratio = timeScale /1000f;
+        ratio = timeScale / 1000f;
         timeInSeconds = ratio * 60;
         timeCount = timeInSeconds;
         StartCoroutine(Countdown());
     } 
+
     public IEnumerator Countdown()
     {
         Debug.Log(timeInSeconds);
@@ -27,7 +30,13 @@ public class CountdownTime : MonoBehaviour
         }
 
         Debug.Log("Success");
-        Destroy(gameObject);
+        isCountdownComplete = true;  // Mark countdown as complete
+        Destroy(gameObject);  // Optional: If you want to destroy the object after completion
     }
-    
+
+    // Method to check if the countdown is complete
+    public bool IsCountdownComplete()
+    {
+        return isCountdownComplete;
+    }
 }
