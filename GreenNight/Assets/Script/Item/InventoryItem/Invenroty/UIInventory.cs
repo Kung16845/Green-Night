@@ -189,10 +189,10 @@ public class UIInventory : MonoBehaviour
     {
         // List<UIItemData> listUIItemPrefab = ;
         GameObject itemUI = inventoryItemPresent.listUIItemPrefab.FirstOrDefault(idItem => idItem.idItem == itemData.idItem).gameObject;
-        Instantiate(itemUI, invenrotySlots.transform, true);
+        GameObject itemUICreate = Instantiate(itemUI, invenrotySlots.transform, true);
 
-        UIItemData uIItemData = itemUI.GetComponent<UIItemData>();
-        ItemClass itemClass = itemUI.GetComponent<ItemClass>();
+        UIItemData uIItemData = itemUICreate.GetComponent<UIItemData>();
+        ItemClass itemClass = itemUICreate.GetComponent<ItemClass>();
 
         itemClass.quantityItem = itemData.count;
         itemClass.maxCountItem = itemData.maxCount;

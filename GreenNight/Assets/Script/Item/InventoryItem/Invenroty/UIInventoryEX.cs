@@ -20,6 +20,18 @@ public class UIInventoryEX : UIInventory
         CountdownTimeDay countdownTimeDay = this.gameObject.AddComponent<CountdownTimeDay>();
         countdownTimeDay.timeScale = timeScale;
         countdownTimeDay.SetStartExpendition();
+
+        npcManager.listNpc.Remove(npcSelecying);
+        DateTime dateTime = countdownTimeDay.timeManager.dateTime;
+        Debug.Log("Day : "+dateTime.day);
+        if(dateTime.day <= countdownTimeDay.finishDayCraftingTime )
+        {
+            npcManager.listNpcWorkingWIthInOneDay.Add(npcSelecying);
+        }
+        else 
+        {
+            npcManager.listNpcWorkingMoreOneDay.Add(npcSelecying);
+        }
         
     }
     private void OnEnable()
