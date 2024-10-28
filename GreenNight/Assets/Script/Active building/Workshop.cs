@@ -54,9 +54,13 @@ public class Workshop : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (building.isfinsih && !upgradeBuilding.isBuilding && upgradeBuilding.currentLevel < upgradeBuilding.maxLevel)
+        if (building.isfinsih && !upgradeBuilding.isBuilding)
         {
             uImanger.ActiveWorkshopUI();
+            if(upgradeBuilding.currentLevel == upgradeBuilding.maxLevel)
+            {
+                uImanger.DisableUpgradeworkshopButton();
+            }
             AssignUpgradeData();
         }
     }
