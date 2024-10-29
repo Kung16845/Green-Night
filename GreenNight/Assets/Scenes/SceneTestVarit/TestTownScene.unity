@@ -2206,6 +2206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropdown: {fileID: 0}
+  spriteHeadNpc: {fileID: 0}
   npcManager: {fileID: 0}
   npcSelecying:
     foodPerDay: 0
@@ -2226,14 +2227,14 @@ MonoBehaviour:
     idBody: 0
     idFeed: 0
   listInvenrotySlotsUI: []
+  listItemDataInventoryslot: []
+  listItemDataInventoryEqicment: []
   transformBoxes: {fileID: 0}
   inventoryItemPresent: {fileID: 0}
   levelEnduranceText: {fileID: 0}
   levelCombatText: {fileID: 0}
   levelSpeedText: {fileID: 0}
   specialistNpcText: {fileID: 0}
-  listItemDataInventoryslot: []
-  listItemDataInventoryEqicment: []
 --- !u!1 &121923270
 GameObject:
   m_ObjectHideFlags: 0
@@ -5301,6 +5302,74 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &305948155
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 305948156}
+  - component: {fileID: 305948157}
+  m_Layer: 0
+  m_Name: Globalstat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &305948156
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 305948155}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 741425701}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &305948157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 305948155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 836fc36f7056ff64a8bc6aceb00ea2f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommunitysupplyPoint: 0
+  Skillplaypoint: 0
+  itemponts: 0
+  ProgressDay: 0
+  succesfulDefense: 0
+  ActionSpeed: 1
+  Healingspeed: 1
+  Craftingspeed: 1
+  BuildingSpeed: 1
+  WeapondDamge: 1
+  Damageincrease: 1
+  Carendurance: 1
+  fuelefficiency: 1
+  RadioCooldownspeed: 0
+  Outpostrewardspeed: 0
+  expiditionspeed: 1
+  expiditionrisk: 0
+  OutpostLimit: 0
+  illResistance: 1
+  Npcchange: 10
+  activeBed: 0
+  activeCureBed: 0
+  Discontent: 0
+  Growingspeed: 1
 --- !u!1 &307103755
 GameObject:
   m_ObjectHideFlags: 0
@@ -9452,6 +9521,77 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 497326704}
   m_CullTransparentMesh: 1
+--- !u!1 &499749734
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 499749735}
+  - component: {fileID: 499749736}
+  m_Layer: 0
+  m_Name: ActiveEvent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &499749735
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 499749734}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6.0308084, y: 2.7273645, z: -0.005138389}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 741425701}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &499749736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 499749734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e456bc3a30294945a1a0a63f9099930, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DurationLeft: 0
+  cardEvent: 3
+  eventDurations:
+  - cardEvent: 1
+    minDuration: 5
+    maxDuration: 8
+  - cardEvent: 2
+    minDuration: 1
+    maxDuration: 3
+  - cardEvent: 3
+    minDuration: 4
+    maxDuration: 7
+  - cardEvent: 4
+    minDuration: 1
+    maxDuration: 3
+  - cardEvent: 5
+    minDuration: 1
+    maxDuration: 3
+  - cardEvent: 6
+    minDuration: 1
+    maxDuration: 1
+  - cardEvent: 7
+    minDuration: 7
+    maxDuration: 15
+  - cardEvent: 8
+    minDuration: 1
+    maxDuration: 7
 --- !u!1 &503188851
 GameObject:
   m_ObjectHideFlags: 0
@@ -13837,6 +13977,8 @@ Transform:
   - {fileID: 949315568}
   - {fileID: 483800079}
   - {fileID: 2063404513}
+  - {fileID: 305948156}
+  - {fileID: 499749735}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -26074,6 +26216,8 @@ MonoBehaviour:
   textSteelCost: {fileID: 1126791622}
   textNpcCost: {fileID: 548844566}
   textDayCost: {fileID: 8936130}
+  requiredSpecialistText: {fileID: 0}
+  npcManager: {fileID: 0}
 --- !u!1 &1430998053
 GameObject:
   m_ObjectHideFlags: 0
@@ -32657,6 +32801,7 @@ GameObject:
   - component: {fileID: 1799568114}
   - component: {fileID: 1799568116}
   - component: {fileID: 1799568115}
+  - component: {fileID: 1799568117}
   m_Layer: 5
   m_Name: UI Expedition
   m_TagString: Untagged
@@ -32727,6 +32872,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1799568113}
   m_CullTransparentMesh: 1
+--- !u!114 &1799568117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799568113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 920adbb8c04b3934eb3ad033b60ebd3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  largeuIBuilding: {fileID: 0}
 --- !u!1 &1801565258
 GameObject:
   m_ObjectHideFlags: 0

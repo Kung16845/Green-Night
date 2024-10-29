@@ -14,15 +14,15 @@ public class SceneSystem : MonoBehaviour
         timeManager.dateTime.sceneSystem = this;
         Debug.Log("sceneSystem"); 
     }
-    public void SwitchScene(string sceneName)
+    public void SwitchScene(int sceneIndex)
     {
-        StartCoroutine(LoadScene(sceneName));
+        StartCoroutine(LoadScene(sceneIndex));
     }
-    IEnumerator LoadScene(string sceneName)
+    IEnumerator LoadScene(int sceneIndex)
     {
         transitionAnim.SetTrigger("EndScene");
         yield return new WaitForSeconds(1.5f);
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene(sceneIndex);
     }
     // private void Update() {
     //     if(dateTime.hour == 18 && dateTime.isDayNight)

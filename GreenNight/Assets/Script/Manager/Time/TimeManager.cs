@@ -120,12 +120,12 @@ public class DateTime
                 this.isDayNight = false;
                 this.day++;
                 SetTimeStartDay();
-                sceneSystem.SwitchScene("TownBaseScene");
+                sceneSystem.SwitchScene(0);
             }
             else
             {
                 SetTimeNightDay();
-                sceneSystem.SwitchScene("TestTransferData");
+                sceneSystem.SwitchScene(1);
             }
         }
     }

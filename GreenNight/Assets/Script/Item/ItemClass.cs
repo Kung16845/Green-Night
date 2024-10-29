@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class ItemClass : MonoBehaviour
@@ -19,6 +20,7 @@ public class ItemClass : MonoBehaviour
     [Header("DDA Stat")]
     public string pointType;
     public int point;
-
+    [Header("Icon")]
+    public Image IconSprite;
     
 }

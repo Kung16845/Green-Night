@@ -46,14 +46,20 @@ public class NpcManager : MonoBehaviour
     {
         dropdown.ClearOptions();
 
-        List<string> newOption = new List<string>();
+        List<TMP_Dropdown.OptionData> newOptions = new List<TMP_Dropdown.OptionData>();
 
         foreach (NpcClass npcData in listNpc)
-        {
-            newOption.Add(npcData.nameNpc.ToString());
+        {   
+            TMP_Dropdown.OptionData option = new TMP_Dropdown.OptionData();
+            option.text = npcData.nameNpc.ToString(); 
+            
+            Sprite newSpriteHeadNpc = listHeadCoutume.FirstOrDefault(coutumeHead => coutumeHead.idHead == npcData.idHead).spriteHead;
+            option.image = newSpriteHeadNpc;
+
+            newOptions.Add(option);
         }
 
-        dropdown.AddOptions(newOption);
+        dropdown.AddOptions(newOptions);
     }
     public void StartGameCreateGropNpx()
     {
@@ -119,9 +125,15 @@ public class NpcManager : MonoBehaviour
         // Debug.Log("Dropdown index changed to: " + selectedValue);
         // Debug.Log("Dropdown Option changed to: " + dropdown.options[selectedValue].text);
      
-        NpcClass npcClassSelest = listNpc.FirstOrDefault(npc => npc.idnpc == selectedValue);
+        // NpcClass npcClassSelest = listNpc.FirstOrDefault(npc => npc.idnpc == selectedValue);
+        NpcClass npcClassSelest = listNpc.ElementAt(selectedValue);
         uIInventory.npcSelecying = npcClassSelest;
+
+        Sprite newSpriteHeadNpc = listHeadCoutume.FirstOrDefault(coutumeHead => coutumeHead.idHead == npcClassSelest.idHead).spriteHead;      
+        uIInventory.spriteHeadNpc.sprite = newSpriteHeadNpc;
+
         inventoryItemPresent.UnlockSlotInventory(npcClassSelest.countInventorySlot, npcClassSelest.roleNpc);
+
         SetText(npcClassSelest);
 
         HandleSpecialistNpcChange(selectedValue);

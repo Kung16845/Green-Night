@@ -36,7 +36,6 @@ public class UpgradeBuilding : MonoBehaviour
         dateTime = timeManager.dateTime;
         building = GetComponent<Building>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        buildManager = FindObjectOfType<BuildManager>();
         isBuilding = false;
         isFinished = false;
         maxLevel = upgradeLevels.Count+1;

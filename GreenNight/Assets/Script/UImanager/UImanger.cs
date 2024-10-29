@@ -6,6 +6,7 @@ public class UImanger : MonoBehaviour
 {
     public GameObject UpgradeUI;
     public GameObject WorkshopUI;
+    public GameObject workshopUpgradeUI;
     public void ActiveUpgradeUI()
     {
         UpgradeUI.SetActive(true);
@@ -21,5 +22,9 @@ public class UImanger : MonoBehaviour
     public void DisableWorkshopUI()
     {
         WorkshopUI.SetActive(false);
+    }
+    public void DisableUpgradeworkshopButton()
+    {
+        workshopUpgradeUI.SetActive(false);
     }
 }
