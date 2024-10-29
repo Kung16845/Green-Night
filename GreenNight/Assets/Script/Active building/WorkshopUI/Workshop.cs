@@ -115,6 +115,45 @@ public class Workshop : MonoBehaviour
             }
         }
 
+        // Check if BuildManager has enough resources
+        if (buildManager != null)
+        {
+            // Check Ammo
+            if (craftingItem.Ammoneeded > 0 && buildManager.ammo < craftingItem.Ammoneeded)
+            {
+                Debug.LogWarning($"Not enough Ammo. Required: {craftingItem.Ammoneeded}, Have: {buildManager.ammo}");
+                return CraftingResult.NotEnoughItems;
+            }
+
+            // Check Fuel
+            if (craftingItem.Fuelneeded > 0 && buildManager.fuel < craftingItem.Fuelneeded)
+            {
+                Debug.LogWarning($"Not enough Fuel. Required: {craftingItem.Fuelneeded}, Have: {buildManager.fuel}");
+                return CraftingResult.NotEnoughItems;
+            }
+
+            // Check Steel
+            if (craftingItem.Steelneeded > 0 && buildManager.steel < craftingItem.Steelneeded)
+            {
+                Debug.LogWarning($"Not enough Steel. Required: {craftingItem.Steelneeded}, Have: {buildManager.steel}");
+                return CraftingResult.NotEnoughItems;
+            }
+
+            // Check Plank
+            if (craftingItem.Plankneeded > 0 && buildManager.plank < craftingItem.Plankneeded)
+            {
+                Debug.LogWarning($"Not enough Plank. Required: {craftingItem.Plankneeded}, Have: {buildManager.plank}");
+                return CraftingResult.NotEnoughItems;
+            }
+
+            // Check Food
+            if (craftingItem.Foodneeded > 0 && buildManager.food < craftingItem.Foodneeded)
+            {
+                Debug.LogWarning($"Not enough Food. Required: {craftingItem.Foodneeded}, Have: {buildManager.food}");
+                return CraftingResult.NotEnoughItems;
+            }
+        }
+
         // Remove required items from inventory
         foreach (RecipeItem recipeItem in craftingItem.recipeItems)
         {
@@ -126,11 +165,28 @@ public class Workshop : MonoBehaviour
             inventoryItemPresent.RemoveItem(itemDataToRemove);
         }
 
+        // Remove resources from BuildManager
+        if (craftingItem.Ammoneeded > 0)
+            buildManager.ammo -= craftingItem.Ammoneeded;
+
+        if (craftingItem.Fuelneeded > 0)
+            buildManager.fuel -= craftingItem.Fuelneeded;
+
+        if (craftingItem.Steelneeded > 0)
+            buildManager.steel -= craftingItem.Steelneeded;
+
+        if (craftingItem.Plankneeded > 0)
+            buildManager.plank -= craftingItem.Plankneeded;
+
+        if (craftingItem.Foodneeded > 0)
+            buildManager.food -= craftingItem.Foodneeded;
+
         // Add the crafting job
         CraftingJob newJob = new CraftingJob(craftingItem);
         activeCraftingJobs.Add(newJob);
         return CraftingResult.Success;
     }
+
 
     void UpdateCraftingJobs()
     {

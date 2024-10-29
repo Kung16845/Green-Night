@@ -194,14 +194,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.79853714, g: 0.8113208, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 044218dac60a0fc4999e2dfc685350fc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -282,8 +282,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   count: {fileID: 7534671795205046289}
   idItem: 1020309
-  slotType: 3
-  slotTypeParent: 3
+  nameItem: Slime Grenade
+  slotType: 4
+  slotTypeParent: 4
+  itemIconImage: {fileID: 5222524482886833746}
 --- !u!114 &8096311375643354424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,7 +301,7 @@ MonoBehaviour:
   nameItem: Slime Grenade
   quantityItem: 0
   maxCountItem: 3
-  itemtype: 7
+  itemtype: 4
   rarityItem: 2
   tradeValueItem: 5
   carftableItem: 1
@@ -307,6 +309,7 @@ MonoBehaviour:
   idItem: 1020309
   pointType: items
   point: 5
+  IconSprite: {fileID: 5222524482886833746}
   damage: 0
   isAOE: 1
   AoeRange: 2
