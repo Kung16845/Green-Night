@@ -47,6 +47,7 @@ public class CountdownTimeDay : MonoBehaviour
         timeManager.dateTime.minutes >= finishMinutesCraftingTime)
         {
            Debug.Log("Success"); 
+           Destroy(this.gameObject);
         }
     }
     
