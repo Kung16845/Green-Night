@@ -4302,6 +4302,7 @@ MonoBehaviour:
     count: 4
     maxCount: 10
     itemtype: 0
+    parantslotType: 0
   inventoryItemPresent: {fileID: 483800078}
 --- !u!4 &481042668
 Transform:
@@ -4347,33 +4348,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 342b0473d1067fc498463c2ea7411052, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listItemsData:
-  - nameItem: q
-    idItem: 1
-    count: 1
-    maxCount: 10
-    itemtype: 0
-  - nameItem: w
-    idItem: 2
-    count: 4
-    maxCount: 10
-    itemtype: 0
-  - nameItem: r
-    idItem: 3
-    count: 2
-    maxCount: 10
-    itemtype: 0
-  - nameItem: s
-    idItem: 4
-    count: 3
-    maxCount: 10
-    itemtype: 0
-  listUIItem:
-  - {fileID: -6463305674994640862, guid: 56ee07d625f5a484b9848e4c1acf17ad, type: 3}
-  - {fileID: -870161847801633993, guid: c553d2b9b6f15b1418b7c35696e0be4d, type: 3}
-  - {fileID: -5815100836927516651, guid: 0706ec48460c6c742869fe5f9b6f734c, type: 3}
-  - {fileID: 6272520814405773340, guid: 779354e27267e374bb26e0ff60366e9e, type: 3}
-  inventoryUI: {fileID: 590724336}
+  listItemsDataBox: []
+  listUIItemPrefab: []
+  listInvenrotySlots: []
+  invenrotySlotSpecialMilitaryLock: {fileID: 0}
+  invenrotySlotSpecialScavengerLock: {fileID: 0}
+  transformsBoxes: {fileID: 0}
+  transformsUIEx: {fileID: 0}
+  canvas: {fileID: 0}
+  uIInventoryExPrefab: {fileID: 0}
 --- !u!4 &483800079
 Transform:
   m_ObjectHideFlags: 0
@@ -5988,6 +5971,7 @@ MonoBehaviour:
   greenColor: {r: 0.097321354, g: 0.5377358, b: 0.033819806, a: 0.5019608}
   redColor: {r: 1, g: 0.2398411, b: 0, a: 0.5019608}
   rend: {fileID: 0}
+  buildingOnTile: {fileID: 0}
 --- !u!1 &644900190
 GameObject:
   m_ObjectHideFlags: 0
@@ -6727,6 +6711,8 @@ MonoBehaviour:
     isDayNight: 0
     sceneSystem: {fileID: 0}
   tickSeconedIncrease: 1
+  speedGame: 0
+  currentTickSeconedIncrease: 0
   timeBetweenTicks: 1
   currentTimeBetweenTricks: 0
 --- !u!1 &730714292
@@ -8351,6 +8337,7 @@ MonoBehaviour:
       count: 1
       maxCount: 1
       itemtype: 0
+      parantslotType: 0
     dropChance: 50.9
   - item:
       nameItem: tool
@@ -8358,6 +8345,7 @@ MonoBehaviour:
       count: 1
       maxCount: 1
       itemtype: 2
+      parantslotType: 0
     dropChance: 50.1
 --- !u!4 &975689928
 Transform:
@@ -9421,6 +9409,7 @@ MonoBehaviour:
   greenColor: {r: 0.097321354, g: 0.5377358, b: 0.033819806, a: 0.5019608}
   redColor: {r: 1, g: 0.2398411, b: 0, a: 0.5019608}
   rend: {fileID: 0}
+  buildingOnTile: {fileID: 0}
 --- !u!1 &1117519276
 GameObject:
   m_ObjectHideFlags: 0
@@ -9525,6 +9514,7 @@ MonoBehaviour:
   greenColor: {r: 0.097321354, g: 0.5377358, b: 0.033819806, a: 0.5019608}
   redColor: {r: 1, g: 0.2398411, b: 0, a: 0.5019608}
   rend: {fileID: 0}
+  buildingOnTile: {fileID: 0}
 --- !u!1 &1126791620
 GameObject:
   m_ObjectHideFlags: 0
@@ -10070,6 +10060,7 @@ MonoBehaviour:
   greenColor: {r: 0.097321354, g: 0.5377358, b: 0.033819806, a: 0.5019608}
   redColor: {r: 1, g: 0.2398411, b: 0, a: 0.5019608}
   rend: {fileID: 0}
+  buildingOnTile: {fileID: 0}
 --- !u!212 &1156053431
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10310,6 +10301,7 @@ MonoBehaviour:
   greenColor: {r: 0.097321354, g: 0.5377358, b: 0.033819806, a: 0.5019608}
   redColor: {r: 1, g: 0.2398411, b: 0, a: 0.5019608}
   rend: {fileID: 0}
+  buildingOnTile: {fileID: 0}
 --- !u!1 &1184645636
 GameObject:
   m_ObjectHideFlags: 0
@@ -10549,6 +10541,7 @@ MonoBehaviour:
   greenColor: {r: 0.097321354, g: 0.5377358, b: 0.033819806, a: 0.5019608}
   redColor: {r: 1, g: 0.2398411, b: 0, a: 0.5019608}
   rend: {fileID: 0}
+  buildingOnTile: {fileID: 0}
 --- !u!1 &1228342452
 GameObject:
   m_ObjectHideFlags: 0
@@ -10734,6 +10727,7 @@ MonoBehaviour:
     count: 2
     maxCount: 10
     itemtype: 0
+    parantslotType: 0
   inventoryItemPresent: {fileID: 483800078}
 --- !u!1 &1235676604
 GameObject:
@@ -11109,6 +11103,7 @@ MonoBehaviour:
   greenColor: {r: 0.097321354, g: 0.5377358, b: 0.033819806, a: 0.5019608}
   redColor: {r: 1, g: 0.2398411, b: 0, a: 0.5019608}
   rend: {fileID: 0}
+  buildingOnTile: {fileID: 0}
 --- !u!1 &1306529202
 GameObject:
   m_ObjectHideFlags: 0
@@ -11320,8 +11315,53 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8325463594202737800, guid: 42de8cc51884b3345819c1da6028c549, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1326636290}
+    - targetCorrespondingSourceObject: {fileID: 8325463594202737800, guid: 42de8cc51884b3345819c1da6028c549, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1326636291}
   m_SourcePrefab: {fileID: 100100000, guid: 42de8cc51884b3345819c1da6028c549, type: 3}
+--- !u!1 &1326636289 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8325463594202737800, guid: 42de8cc51884b3345819c1da6028c549, type: 3}
+  m_PrefabInstance: {fileID: 1326636288}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1326636290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326636289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aea5c92fcf221d74986f4c29571ab365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  endurance: 1
+  combat: 1
+  speed: 1
+  specialistRole: 0
+--- !u!114 &1326636291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326636289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7da13b27526812341b2b3f37605bbc9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionSpeed: 1
+  canwalk: 1
+  canuseweapon: 1
+  canDoAction: 1
+  stuckSlider: {fileID: 0}
+  maxStuckValue: 50
 --- !u!1 &1331009299
 GameObject:
   m_ObjectHideFlags: 0
@@ -12095,15 +12135,16 @@ MonoBehaviour:
   timeManager: {fileID: 0}
   uImanger: {fileID: 0}
   image: {fileID: 1850241514}
-  Waterimage: {fileID: 465339940}
-  Electiciteisimage: {fileID: 194640205}
-  SpecialistImage: {fileID: 0}
+  WaterImage: {fileID: 0}
+  ElectricityImage: {fileID: 0}
   textNameBuild: {fileID: 0}
-  textDescriveBuild: {fileID: 70022617}
+  textDescribeBuild: {fileID: 0}
   textPlankCost: {fileID: 480747523}
   textSteelCost: {fileID: 1126791622}
   textNpcCost: {fileID: 548844566}
   textDayCost: {fileID: 8936130}
+  requiredSpecialistText: {fileID: 0}
+  npcManager: {fileID: 0}
 --- !u!1 &1445487198
 GameObject:
   m_ObjectHideFlags: 0
@@ -12925,6 +12966,7 @@ MonoBehaviour:
   greenColor: {r: 0.097321354, g: 0.5377358, b: 0.033819806, a: 0.5019608}
   redColor: {r: 1, g: 0.2398411, b: 0, a: 0.5019608}
   rend: {fileID: 0}
+  buildingOnTile: {fileID: 0}
 --- !u!1 &1509720424
 GameObject:
   m_ObjectHideFlags: 0
@@ -14066,6 +14108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6f32048774ad3542a2a608a8a6371bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transitionAnim: {fileID: 0}
+  timeManager: {fileID: 0}
 --- !u!1 &1655350424
 GameObject:
   m_ObjectHideFlags: 0
@@ -15062,6 +15106,7 @@ MonoBehaviour:
   greenColor: {r: 0.097321354, g: 0.5377358, b: 0.033819806, a: 0.5019608}
   redColor: {r: 1, g: 0.2398411, b: 0, a: 0.5019608}
   rend: {fileID: 0}
+  buildingOnTile: {fileID: 0}
 --- !u!1 &1738717811
 GameObject:
   m_ObjectHideFlags: 0
@@ -16355,6 +16400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UpgradeUI: {fileID: 1429049396}
+  WorkshopUI: {fileID: 0}
 --- !u!4 &1817374009
 Transform:
   m_ObjectHideFlags: 0
@@ -16801,6 +16847,7 @@ MonoBehaviour:
   greenColor: {r: 0.097321354, g: 0.5377358, b: 0.033819806, a: 0.5019608}
   redColor: {r: 1, g: 0.2398411, b: 0, a: 0.5019608}
   rend: {fileID: 0}
+  buildingOnTile: {fileID: 0}
 --- !u!1 &1852678140
 GameObject:
   m_ObjectHideFlags: 0
@@ -17351,6 +17398,9 @@ MonoBehaviour:
   customCursor: {fileID: 1852678143}
   grid: {fileID: 1067764262}
   uIBuilding: {fileID: 1905626764}
+  buttonBuild: {fileID: 0}
+  builtBuildings: []
+  collidersToManage: []
   tiles:
   - {fileID: 1156053430}
   - {fileID: 1180757119}

@@ -22,7 +22,10 @@ public class UpgradeUi : MonoBehaviour
     public TextMeshProUGUI textDayCost;
     public TextMeshProUGUI requiredSpecialistText;
     public NpcManager npcManager;
+    public List<SpecialistIcon> specialistIcons = new List<SpecialistIcon>();
 
+    // Add an Image component to display the specialist icon
+    public Image requiredSpecialistIcon;
     void Awake()
     {
         buildManager = FindObjectOfType<BuildManager>();
@@ -67,10 +70,24 @@ public class UpgradeUi : MonoBehaviour
         {
             requiredSpecialistText.text = nextLevel.requiredSpecialist.ToString();
             requiredSpecialistText.gameObject.SetActive(true);
+
+            // Set the specialist icon
+            Sprite specialistSprite = GetSpecialistIcon(nextLevel.requiredSpecialist);
+            if (specialistSprite != null)
+            {
+                requiredSpecialistIcon.sprite = specialistSprite;
+                requiredSpecialistIcon.gameObject.SetActive(true);
+            }
+            else
+            {
+                requiredSpecialistIcon.gameObject.SetActive(false);
+                Debug.LogWarning($"No icon found for specialist: {nextLevel.requiredSpecialist}");
+            }
         }
         else
         {
             requiredSpecialistText.gameObject.SetActive(false);
+            requiredSpecialistIcon.gameObject.SetActive(false);
         }
     }
 
@@ -97,6 +114,15 @@ public class UpgradeUi : MonoBehaviour
         }
 
         return true;
+    }
+    private Sprite GetSpecialistIcon(SpecialistRoleNpc role)
+    {
+        SpecialistIcon specialistIcon = specialistIcons.Find(icon => icon.role == role);
+        if (specialistIcon != null)
+        {
+            return specialistIcon.icon;
+        }
+        return null;
     }
     private void AssignSpecialistToUpgrade(SpecialistRoleNpc requiredSpecialist)
     {
@@ -160,4 +186,10 @@ public class UpgradeUi : MonoBehaviour
         }
     }
 
+}
+[System.Serializable]
+public class SpecialistIcon
+{
+    public SpecialistRoleNpc role;
+    public Sprite icon;
 }

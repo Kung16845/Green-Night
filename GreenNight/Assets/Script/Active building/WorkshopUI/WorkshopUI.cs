@@ -14,13 +14,25 @@ public class WorkshopUI : MonoBehaviour
     public Image selectedItemImage;
     public TextMeshProUGUI selectedItemNameText;
     public TextMeshProUGUI selectedItemCraftingTimeText;
+
+    public TextMeshProUGUI selectedItemammoneeded;
+    public TextMeshProUGUI selectedItemPlankneeded;
+    public TextMeshProUGUI selectedItemSteelneeded;
+    public TextMeshProUGUI selectedItemFuelneeded;
+    public TextMeshProUGUI selectedItemFoodneeded;
     public Transform recipeItemsParent;
     public GameObject recipeItemUIPrefab;
-
+    public BuildManager buildManager;
     public InventoryItemPresent inventoryItemPresent;
 
     public GameObject craftingItemUIPrefab; // Assign in Inspector
     public Transform craftingItemsParent; // Assign in Inspector
+
+    public CraftingItem selectedCraftingItem;
+    public Transform craftingJobsParent; // Parent object to hold crafting job UI elements
+    public GameObject craftingJobUIPrefab;
+
+    
 
     void Start()
     {
@@ -96,6 +108,12 @@ public class WorkshopUI : MonoBehaviour
     }
    void DisplayCraftingItems()
     {
+        // Clear existing crafting item UI elements
+        foreach (Transform child in craftingItemsParent)
+        {
+            Destroy(child.gameObject);
+        }
+
         // Get the workshop's current level
         int workshopLevel = workshop.upgradeBuilding.currentLevel;
 
@@ -127,18 +145,103 @@ public class WorkshopUI : MonoBehaviour
             }
         }
     }
-
-
-    public void DisplaySelectedItemDetails(CraftingItem selectedItem)
+        public void DisplaySelectedItemDetails(CraftingItem selectedItem)
     {
-        if (selectedItemImage != null)
-            selectedItemImage.sprite = selectedItem.itemIcon;
+        selectedCraftingItem = selectedItem;
 
-        if (selectedItemNameText != null)
-            selectedItemNameText.text = selectedItem.itemName;
+        if (selectedItem != null)
+        {
+            if (selectedItemImage != null)
+                selectedItemImage.sprite = selectedItem.itemIcon;
 
-        if (selectedItemCraftingTimeText != null)
-            selectedItemCraftingTimeText.text = $"{(selectedItem.craftingTime / 1000f):F1} hr";
+            if (selectedItemNameText != null)
+                selectedItemNameText.text = selectedItem.itemName;
+
+            if (selectedItemCraftingTimeText != null)
+                selectedItemCraftingTimeText.text = $"{(selectedItem.craftingTime / 1000f):F1} hr";
+
+            // Ammo Needed
+            if (selectedItemammoneeded != null)
+            {
+                if (selectedItem.Ammoneeded >= 0)
+                {
+                    selectedItemammoneeded.text = $"{selectedItem.Ammoneeded}/{buildManager.ammo}";
+                }
+            }
+
+            // Plank Needed
+            if (selectedItemPlankneeded != null)
+            {
+                if (selectedItem.Plankneeded >= 0)
+                {
+                    selectedItemPlankneeded.text = $"{selectedItem.Plankneeded}/{buildManager.plank}";
+                }
+            }
+
+            // Steel Needed
+            if (selectedItemSteelneeded != null)
+            {
+                if (selectedItem.Steelneeded >= 0)
+                {
+                    selectedItemSteelneeded.text = $"{selectedItem.Steelneeded}/{buildManager.steel}";
+                }
+            }
+
+            // Fuel Needed
+            if (selectedItemFuelneeded != null)
+            {
+                if (selectedItem.Fuelneeded >= 0)
+                {
+                    selectedItemFuelneeded.text = $"{selectedItem.Fuelneeded}/{buildManager.fuel}";
+                }
+            }
+
+            // Food Needed
+            if (selectedItemFoodneeded != null)
+            {
+                if (selectedItem.Foodneeded >= 0)
+                {
+                    selectedItemFoodneeded.text = $"{selectedItem.Foodneeded}/{buildManager.food} ";
+                }
+            }
+        }
+        else
+        {
+            // Clear UI elements when no item is selected
+            if (selectedItemImage != null)
+                selectedItemImage.sprite = null;
+
+            if (selectedItemNameText != null)
+                selectedItemNameText.text = "";
+
+            if (selectedItemCraftingTimeText != null)
+                selectedItemCraftingTimeText.text = "";
+
+            if (selectedItemammoneeded != null)
+            {
+                selectedItemammoneeded.text = "0";
+            }
+
+            if (selectedItemPlankneeded != null)
+            {
+                selectedItemPlankneeded.text = "0";
+            }
+
+            if (selectedItemSteelneeded != null)
+            {
+                selectedItemSteelneeded.text = "0";
+            }
+
+            if (selectedItemFuelneeded != null)
+            {
+                selectedItemFuelneeded.text = "0";
+            }
+
+            if (selectedItemFoodneeded != null)
+            {
+                selectedItemFoodneeded.text = "0";
+            }
+        }
 
         // Clear existing recipe items
         foreach (Transform child in recipeItemsParent)
@@ -146,18 +249,39 @@ public class WorkshopUI : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        // Display recipe items
-        foreach (RecipeItem recipeItem in selectedItem.recipeItems)
+        if (selectedItem != null)
         {
-            GameObject recipeItemUIObject = Instantiate(recipeItemUIPrefab, recipeItemsParent);
-            RecipeItemUI recipeItemUIScript = recipeItemUIObject.GetComponent<RecipeItemUI>();
+            // Display recipe items
+            foreach (RecipeItem recipeItem in selectedItem.recipeItems)
+            {
+                GameObject recipeItemUIObject = Instantiate(recipeItemUIPrefab, recipeItemsParent);
+                RecipeItemUI recipeItemUIScript = recipeItemUIObject.GetComponent<RecipeItemUI>();
 
-            int amountHave = inventoryItemPresent.GetItemCountByID(recipeItem.itemID);
+                int amountHave = inventoryItemPresent.GetItemCountByID(recipeItem.itemID);
 
-            recipeItemUIScript.Initialize(recipeItem, amountHave);
+                recipeItemUIScript.Initialize(recipeItem, amountHave);
+            }
         }
     }
+    public void DisplayActiveCraftingJobs()
+    {
+        // Clear existing crafting job UI elements
+        foreach (Transform child in craftingJobsParent)
+        {
+            Destroy(child.gameObject);
+        }
 
+        // Display current crafting jobs
+        foreach (CraftingJob job in workshop.activeCraftingJobs)
+        {
+            GameObject jobUIObject = Instantiate(craftingJobUIPrefab, craftingJobsParent);
+            CraftingJobUI jobUIScript = jobUIObject.GetComponent<CraftingJobUI>();
+            if (jobUIScript != null)
+            {
+                jobUIScript.Initialize(job);
+            }
+        }
+    }
     void Update()
     {
         if (Input.GetMouseButtonDown(1))

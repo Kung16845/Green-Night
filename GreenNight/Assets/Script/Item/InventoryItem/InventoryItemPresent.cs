@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class InventoryItemPresent : MonoBehaviour
-{
+{   
     public List<ItemData> listItemsDataBox = new List<ItemData>();
     public List<UIItemData> listUIItemPrefab;
     public List<InvenrotySlots> listInvenrotySlots = new List<InvenrotySlots>();
@@ -20,9 +20,9 @@ public class InventoryItemPresent : MonoBehaviour
     private void Start()
     {
         canvas = FindAnyObjectByType<Canvas>();
-
+        
     }
-    public void CreateInventorySetExpendition(float timeScaleSend)
+    public void CreateInventorySetExpendition()
     {
         if (uIInventoryExPrefab == null)
         {
@@ -33,9 +33,8 @@ public class InventoryItemPresent : MonoBehaviour
         GameObject uIEx = Instantiate(uIInventoryExPrefab, transformsUIEx);
 
         // uIInventory.transform.localPosition = new Vector3(0, 0);
-        UIInventoryEX uIInventoryEx = uIEx.GetComponent<UIInventoryEX>();
+        UIInventory uIInventoryEx = uIEx.GetComponent<UIInventory>();
         uIInventoryEx.inventoryItemPresent = this;
-        uIInventoryEx.timeScale = timeScaleSend;
         uIEx.SetActive(true);
 
         // RefreshUIBox();
@@ -44,17 +43,13 @@ public class InventoryItemPresent : MonoBehaviour
     }
     public void RefreshUIBox()
     {
-        ClearUIBoxes();
-
-
+        // ClearUIBoxes();
         foreach (ItemData itemData in listItemsDataBox)
         {
             CreateUIItemInBoxes(itemData);
         }
 
     }
-
-
     public void CreateUIItemInBoxes(ItemData itemData)
     {
 
@@ -114,32 +109,33 @@ public class InventoryItemPresent : MonoBehaviour
         if (itemDataInList != null)
         {
             int itemCount = itemDataInList.count + itemDataAdd.count;
-            // if (itemCount <= itemDataInList.maxCount)
-            // {
-            itemDataInList.count += itemDataAdd.count;
-            // }
-            // else if (itemCount >= itemDataInList.maxCount)
-            // {
-            //     Debug.Log("ITem new create count : " + itemDataAdd.count);
+            if (itemCount <= itemDataInList.maxCount)
+            {
+                itemDataInList.count += itemDataAdd.count;
+            }
+            else if (itemCount >= itemDataInList.maxCount)
+            {
+                Debug.Log("ITem new create count : " + itemDataAdd.count);
 
-            //     ItemData newItemData = new ItemData();
-            //     newItemData.nameItem = itemDataInList.nameItem;
-            //     newItemData.idItem = itemDataInList.idItem;
-            //     newItemData.count = itemCount - itemDataInList.maxCount;
-            //     newItemData.maxCount = itemDataInList.maxCount;
-            //     newItemData.itemtype = itemDataInList.itemtype;
+                ItemData newItemData = new ItemData();
+                newItemData.nameItem = itemDataInList.nameItem;
+                newItemData.idItem = itemDataInList.idItem;
+                newItemData.count = itemCount - itemDataInList.maxCount;
+                newItemData.maxCount = itemDataInList.maxCount;
+                newItemData.itemtype = itemDataInList.itemtype;
 
-            //     listItemsDataBox.Add(newItemData);
+                listItemsDataBox.Add(newItemData);
 
-            //     itemDataInList.count = itemDataInList.maxCount;
-            // }
+                itemDataInList.count = itemDataInList.maxCount;
+
+            }
         }
         else
         {
             listItemsDataBox.Add(itemDataAdd);
         }
 
-        RefreshUIBox();
+        // RefreshUIBox();
     }
     public void RemoveItem(ItemData itemDataRemove)
     {
@@ -158,7 +154,7 @@ public class InventoryItemPresent : MonoBehaviour
         {
             //ถ้าไปเท็มในกล่องไม่พอให้ทำอะไร
         }
-        RefreshUIBox();
+        // RefreshUIBox();
     }
 
      public int GetItemCountByID(int itemID)
@@ -185,13 +181,13 @@ public class InventoryItemPresent : MonoBehaviour
     public ItemData ConventItemClassToItemData(ItemClass itemClass)
     {
         ItemData newItemData = new ItemData();
-        // Debug.Log(itemClass.quantityItem);
+
         newItemData.nameItem = itemClass.nameItem;
         newItemData.idItem = itemClass.idItem;
         newItemData.count = itemClass.quantityItem;
         newItemData.maxCount = itemClass.maxCountItem;
         newItemData.itemtype = itemClass.itemtype;
-
+        
         return newItemData;
     }
 }
