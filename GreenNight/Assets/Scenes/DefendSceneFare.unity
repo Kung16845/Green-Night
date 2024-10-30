@@ -1969,7 +1969,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 084bcfaa5c2c7d84999dc004d9ff0888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardEvent: 0
+  cardEvent: 6
+  mainSpawner: {fileID: 0}
   Fog: {fileID: 848272187}
 --- !u!1 &148656936
 GameObject:
@@ -11724,31 +11725,82 @@ MonoBehaviour:
     spawnPoint: {fileID: 731834173}
     engagingArea: {fileID: 1716045786}
     attackPoint: {fileID: 1911803340}
-  spawnDecks:
-  - deckName: 
-    deckDuration: 0
+  ActiveSpawnDecks: []
+  StorageDecks:
+  - deckName: SwarmDeck
+    deckDuration: 300
+    deckTier: 4
+    deckID: 10124
     spawnWaves:
     - laneID: 1
       zombiePrefabs:
       - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
-      zombiesToSpawn: 50
-      spawnInterval: 1
+      zombiesToSpawn: 25
+      spawnInterval: 1.75
+      zombieTier: 3
+      timeUntilNextWave: 0
+    - laneID: 2
+      zombiePrefabs:
+      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
+      zombiesToSpawn: 25
+      spawnInterval: 1.75
+      zombieTier: 3
+      timeUntilNextWave: 0
+    - laneID: 3
+      zombiePrefabs:
+      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
+      zombiesToSpawn: 25
+      spawnInterval: 1.75
+      zombieTier: 3
+      timeUntilNextWave: 150
+    - laneID: 1
+      zombiePrefabs:
+      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
+      zombiesToSpawn: 25
+      spawnInterval: 1.75
+      zombieTier: 3
+      timeUntilNextWave: 0
+    - laneID: 2
+      zombiePrefabs:
+      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
+      zombiesToSpawn: 25
+      spawnInterval: 1.75
+      zombieTier: 3
+      timeUntilNextWave: 0
+    - laneID: 3
+      zombiePrefabs:
+      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
+      zombiesToSpawn: 25
+      spawnInterval: 1.75
+      zombieTier: 3
+      timeUntilNextWave: 150
+  - deckName: BasicAttackDeck
+    deckDuration: 500
+    deckTier: 1
+    deckID: 10121
+    spawnWaves:
+    - laneID: 1
+      zombiePrefabs:
+      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
+      zombiesToSpawn: 5
+      spawnInterval: 1.75
       zombieTier: 1
       timeUntilNextWave: 0
     - laneID: 2
       zombiePrefabs:
       - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
-      zombiesToSpawn: 50
+      zombiesToSpawn: 5
       spawnInterval: 1
       zombieTier: 1
       timeUntilNextWave: 0
     - laneID: 3
       zombiePrefabs:
       - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
-      zombiesToSpawn: 50
+      zombiesToSpawn: 5
       spawnInterval: 1
       zombieTier: 1
-      timeUntilNextWave: 180
+      timeUntilNextWave: 150
+  desiredDeckTier: 1
 --- !u!1 &1188953942
 GameObject:
   m_ObjectHideFlags: 0
@@ -13319,18 +13371,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e65d13d3058e4bc49a51c0df922a672f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rateOfFire: 350
-  handling: 25
-  accuracy: 35
-  capacity: 15
-  stability: 32
-  damage: 20
+  rateOfFire: 550
+  handling: 35
+  accuracy: 25
+  capacity: 25
+  stability: 45
+  damage: 32
   fullAuto: 1
-  isShotgun: 1
-  pellets: 12
-  spreadAngle: 20
-  stabilityThreshold: 7
-  caliberType: 3
+  isShotgun: 0
+  pellets: 0
+  spreadAngle: 0
+  stabilityThreshold: 5
+  caliberType: 1
   currentAmmo: 0
   fireRate: 0
   nextFireTime: 0

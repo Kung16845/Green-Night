@@ -6,10 +6,12 @@ public class EventEffect : MonoBehaviour
 {
     [Header("CurrentEvent")]
     public CardEvent cardEvent = CardEvent.None;
+    public MainSpawner mainSpawner;
     public GameObject Fog;
 
     void Start()
     {
+        mainSpawner = FindObjectOfType<MainSpawner>();
         ActivaEvent();
     }
     private void ActivaEvent()
@@ -23,6 +25,7 @@ public class EventEffect : MonoBehaviour
 
             case CardEvent.Swarm:
                 // Implement the effect for Swarm here
+                mainSpawner.AddActiveDeck(10124);
                 Debug.Log("Swarm event activated.");
                 break;
 
