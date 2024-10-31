@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 951353}
   - component: {fileID: 951352}
   - component: {fileID: 951351}
+  - component: {fileID: 951354}
   m_Layer: 5
   m_Name: Button Mall
   m_TagString: Untagged
@@ -206,7 +207,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 951352}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1047666945}
+        m_TargetAssemblyTypeName: UIExSelectPlace, Assembly-CSharp
+        m_MethodName: SetInfoPlaceSelect
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 951354}
+          m_ObjectArgumentAssemblyTypeName: DataExpendition, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &951352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,6 +258,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 951349}
   m_CullTransparentMesh: 1
+--- !u!114 &951354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8767989cc98e93442842a8fbfe4987f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  namePlace: Mall
+  infoDescriptPlace: Malles
+  infoETA: 98764
+  spriteImagePlace: {fileID: -1877761395, guid: 5e3d630e8d4342a46b7ab1514906fbf9, type: 3}
 --- !u!1 &4607833
 GameObject:
   m_ObjectHideFlags: 0
@@ -2237,6 +2266,7 @@ MonoBehaviour:
   specialistNpcText: {fileID: 0}
   timeScale: 0
   expenditionManager: {fileID: 0}
+  indexExpendition: 0
 --- !u!1 &121923270
 GameObject:
   m_ObjectHideFlags: 0
@@ -2371,6 +2401,7 @@ GameObject:
   - component: {fileID: 129230574}
   - component: {fileID: 129230573}
   - component: {fileID: 129230572}
+  - component: {fileID: 129230575}
   m_Layer: 5
   m_Name: 'Button Steel Factory '
   m_TagString: Untagged
@@ -2442,7 +2473,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 129230573}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1047666945}
+        m_TargetAssemblyTypeName: UIExSelectPlace, Assembly-CSharp
+        m_MethodName: SetInfoPlaceSelect
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 129230575}
+          m_ObjectArgumentAssemblyTypeName: DataExpendition, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &129230573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2481,6 +2524,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 129230570}
   m_CullTransparentMesh: 1
+--- !u!114 &129230575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 129230570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8767989cc98e93442842a8fbfe4987f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  namePlace: Steel Factor
+  infoDescriptPlace: 'Steel '
+  infoETA: 123
+  spriteImagePlace: {fileID: 829052252, guid: 5e3d630e8d4342a46b7ab1514906fbf9, type: 3}
 --- !u!1 &132707172
 GameObject:
   m_ObjectHideFlags: 0
@@ -5091,6 +5150,7 @@ GameObject:
   - component: {fileID: 296692461}
   - component: {fileID: 296692460}
   - component: {fileID: 296692459}
+  - component: {fileID: 296692462}
   m_Layer: 5
   m_Name: 'Button Military Camp '
   m_TagString: Untagged
@@ -5162,7 +5222,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 296692460}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1047666945}
+        m_TargetAssemblyTypeName: UIExSelectPlace, Assembly-CSharp
+        m_MethodName: SetInfoPlaceSelect
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 296692462}
+          m_ObjectArgumentAssemblyTypeName: DataExpendition, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &296692460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5201,6 +5273,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 296692457}
   m_CullTransparentMesh: 1
+--- !u!114 &296692462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296692457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8767989cc98e93442842a8fbfe4987f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  namePlace: ' Military Camp '
+  infoDescriptPlace: ' Military'
+  infoETA: 12345
+  spriteImagePlace: {fileID: 1642292816, guid: 5e3d630e8d4342a46b7ab1514906fbf9, type: 3}
 --- !u!1 &302547814
 GameObject:
   m_ObjectHideFlags: 0
@@ -9633,6 +9721,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DurationLeft: 0
+  globalstat: {fileID: 0}
   cardEvent: 3
   eventDurations:
   - cardEvent: 1
@@ -10398,6 +10487,7 @@ GameObject:
   - component: {fileID: 541871141}
   - component: {fileID: 541871140}
   - component: {fileID: 541871139}
+  - component: {fileID: 541871142}
   m_Layer: 5
   m_Name: 'Button Gas Station '
   m_TagString: Untagged
@@ -10469,7 +10559,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 541871140}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1047666945}
+        m_TargetAssemblyTypeName: UIExSelectPlace, Assembly-CSharp
+        m_MethodName: SetInfoPlaceSelect
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 541871142}
+          m_ObjectArgumentAssemblyTypeName: DataExpendition, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &541871140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10508,6 +10610,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 541871137}
   m_CullTransparentMesh: 1
+--- !u!114 &541871142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541871137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8767989cc98e93442842a8fbfe4987f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  namePlace: Gas Station
+  infoDescriptPlace: Gas
+  infoETA: 556644
+  spriteImagePlace: {fileID: 2047854437, guid: 5e3d630e8d4342a46b7ab1514906fbf9, type: 3}
 --- !u!1 &548844564
 GameObject:
   m_ObjectHideFlags: 0
@@ -11354,6 +11472,141 @@ MonoBehaviour:
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
+--- !u!1 &610766380
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 610766381}
+  - component: {fileID: 610766383}
+  - component: {fileID: 610766382}
+  m_Layer: 5
+  m_Name: Text Name
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &610766381
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 610766380}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1047666942}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 72}
+  m_SizeDelta: {x: 600, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &610766382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 610766380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: New Text
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 36
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &610766383
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 610766380}
+  m_CullTransparentMesh: 1
 --- !u!1 &612445054
 GameObject:
   m_ObjectHideFlags: 0
@@ -13817,7 +14070,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &731673626
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18803,6 +19056,7 @@ GameObject:
   - component: {fileID: 1047666942}
   - component: {fileID: 1047666944}
   - component: {fileID: 1047666943}
+  - component: {fileID: 1047666945}
   m_Layer: 5
   m_Name: UI Selece Place
   m_TagString: Untagged
@@ -18824,6 +19078,7 @@ RectTransform:
   m_Children:
   - {fileID: 1651454847}
   - {fileID: 223817452}
+  - {fileID: 610766381}
   - {fileID: 1670819004}
   - {fileID: 165683321}
   - {fileID: 1696862904}
@@ -18873,6 +19128,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1047666941}
   m_CullTransparentMesh: 1
+--- !u!114 &1047666945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047666941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 470527745abcea34e8f46525b9aa1dfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textNamePlace: {fileID: 610766382}
+  textDescriptPlace: {fileID: 1670819005}
+  textETA: {fileID: 165683322}
+  imagePlace: {fileID: 1651454848}
 --- !u!1 &1048952862
 GameObject:
   m_ObjectHideFlags: 0
@@ -26613,6 +26884,8 @@ MonoBehaviour:
   textDayCost: {fileID: 8936130}
   requiredSpecialistText: {fileID: 0}
   npcManager: {fileID: 0}
+  specialistIcons: []
+  requiredSpecialistIcon: {fileID: 0}
 --- !u!1 &1430998053
 GameObject:
   m_ObjectHideFlags: 0
@@ -30394,7 +30667,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 250}
+  m_AnchoredPosition: {x: 0, y: 269}
   m_SizeDelta: {x: 450, y: 320}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1651454848
@@ -34060,6 +34333,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UpgradeUI: {fileID: 1429049396}
   WorkshopUI: {fileID: 0}
+  workshopUpgradeUI: {fileID: 0}
 --- !u!4 &1817374009
 Transform:
   m_ObjectHideFlags: 0
@@ -34420,6 +34694,7 @@ GameObject:
   - component: {fileID: 1829112366}
   - component: {fileID: 1829112365}
   - component: {fileID: 1829112364}
+  - component: {fileID: 1829112367}
   m_Layer: 5
   m_Name: Button Wood Factory
   m_TagString: Untagged
@@ -34491,7 +34766,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1829112365}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1047666945}
+        m_TargetAssemblyTypeName: UIExSelectPlace, Assembly-CSharp
+        m_MethodName: SetInfoPlaceSelect
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1829112367}
+          m_ObjectArgumentAssemblyTypeName: DataExpendition, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1829112365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34530,6 +34817,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1829112362}
   m_CullTransparentMesh: 1
+--- !u!114 &1829112367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829112362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8767989cc98e93442842a8fbfe4987f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  namePlace: Wood Factory
+  infoDescriptPlace: Wood
+  infoETA: 1234
+  spriteImagePlace: {fileID: 1027192139, guid: 5e3d630e8d4342a46b7ab1514906fbf9, type: 3}
 --- !u!1 &1830564510
 GameObject:
   m_ObjectHideFlags: 0
@@ -38398,7 +38701,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1968919647}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1047666945}
+        m_TargetAssemblyTypeName: UIExSelectPlace, Assembly-CSharp
+        m_MethodName: SetInfoPlaceSelect
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: DataExpendition, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1968919647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40461,6 +40776,7 @@ GameObject:
   - component: {fileID: 2127891071}
   - component: {fileID: 2127891070}
   - component: {fileID: 2127891069}
+  - component: {fileID: 2127891072}
   m_Layer: 5
   m_Name: Button Trade center
   m_TagString: Untagged
@@ -40532,7 +40848,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2127891070}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1047666945}
+        m_TargetAssemblyTypeName: UIExSelectPlace, Assembly-CSharp
+        m_MethodName: SetInfoPlaceSelect
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2127891072}
+          m_ObjectArgumentAssemblyTypeName: DataExpendition, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2127891070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40571,6 +40899,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2127891067}
   m_CullTransparentMesh: 1
+--- !u!114 &2127891072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127891067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8767989cc98e93442842a8fbfe4987f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  namePlace: Trade Center
+  infoDescriptPlace: Trade is Trade
+  infoETA: 649731
+  spriteImagePlace: {fileID: -1826735496, guid: 5e3d630e8d4342a46b7ab1514906fbf9, type: 3}
 --- !u!1 &2134736046
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,12 +8,34 @@ using UnityEngine.UI;
 public class UIInventoryEX : UIInventory
 {
     public float timeScale;
-    public ExpenditionManager expenditionManager;
     public int indexExpendition;
+    public bool isArrive;
+    public ExpenditionManager expenditionManager;
+    public SceneSystem sceneSystem;
     private void Awake()
     {
         SetValuableUIInventory();
-        expenditionManager = FindObjectOfType<ExpenditionManager>();    
+        expenditionManager = FindObjectOfType<ExpenditionManager>();
+        sceneSystem = FindObjectOfType<SceneSystem>();
+    }
+    public void Start()
+    {
+        expenditionManager = FindObjectOfType<ExpenditionManager>();
+        if (indexExpendition == 1)
+        {
+            expenditionManager.uIExOne = this.gameObject;
+        }
+        else if (indexExpendition == 2)
+        {
+            expenditionManager.uIExTwo = this.gameObject;
+        }
+    }
+    public void Update()
+    {
+        if (isArrive)
+        {
+            // Destroy(this.gameObject);
+        }
     }
     public void SendNpcExpendition()
     {
@@ -38,7 +60,7 @@ public class UIInventoryEX : UIInventory
             expenditionManager.uIExOne = this.gameObject;
             indexExpendition = 1;
         }
-        else 
+        else
         {
             expenditionManager.uIExTwo = this.gameObject;
             indexExpendition = 2;
@@ -54,9 +76,9 @@ public class UIInventoryEX : UIInventory
     {
         ConventDataUIToItemData();
     }
-    private void OnDestroy() 
+    private void OnDestroy()
     {
-        if(indexExpendition == 1)
+        if (indexExpendition == 1)
         {
             expenditionManager.uIExOne = null;
         }
@@ -64,6 +86,14 @@ public class UIInventoryEX : UIInventory
         {
             expenditionManager.uIExTwo = null;
         }
+        
+        SetDataForEventExpendition();
+    }
+    public void SetDataForEventExpendition()
+    {   
+        expenditionManager.npcSelecying = this.npcSelecying;
+        expenditionManager.listItemDataInventoryEqicment = this.listItemDataInventoryEqicment;
+        expenditionManager.listItemDataInventoryslot = this.listItemDataInventoryslot;
     }
     public void AddITemlistInvenrotySlots(ItemClass itemClass)
     {
@@ -84,18 +114,18 @@ public class UIInventoryEX : UIInventory
                     itemData.count = itemData.maxCount;
                 }
             }
-            else 
+            else
             {
                 listItemDataInventoryslot.Add(itemData);
             }
         }
         else
         {
-            if(itemData != null)
+            if (itemData != null)
             {
                 itemData.count = itemClass.maxCountItem;
             }
-            else 
+            else
                 return;
         }
     }

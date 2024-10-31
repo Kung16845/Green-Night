@@ -12,13 +12,14 @@ public class CountdownTimeDay : MonoBehaviour
     public int finishHourCraftingTime;
     public int finishMinutesCraftingTime;
     public TimeManager timeManager;
-    
+    public UIInventoryEX uIInventoryEX;
     private void Awake()
-    {   
+    {
         SetStartExpendition();
     }
     public void SetStartExpendition()
     {
+       
         timeManager = FindObjectOfType<TimeManager>();
         ratio = timeScale / 1000f;
         timeInSeconds = ratio * 60;
@@ -46,9 +47,10 @@ public class CountdownTimeDay : MonoBehaviour
         timeManager.dateTime.hour >= finishHourCraftingTime &&
         timeManager.dateTime.minutes >= finishMinutesCraftingTime)
         {
-           Debug.Log("Success"); 
-           Destroy(this.gameObject);
+            Debug.Log("Success");
+            uIInventoryEX.isArrive = true;
+            
         }
     }
-    
+
 }
