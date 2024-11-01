@@ -44,6 +44,8 @@ public class UIInventoryEX : UIInventory
         countdownTimeDay.SetStartExpendition();
 
         npcManager.listNpc.Remove(npcSelecying);
+
+        Sprite spriteHeadNpc = npcManager.listHeadCoutume.FirstOrDefault(head => head.idHead == npcSelecying.idHead).spriteHead;
         DateTime dateTime = countdownTimeDay.timeManager.dateTime;
 
         if (dateTime.day <= countdownTimeDay.finishDayCraftingTime)
@@ -65,6 +67,19 @@ public class UIInventoryEX : UIInventory
             expenditionManager.uIExTwo = this.gameObject;
             indexExpendition = 2;
         }
+        if(spriteHeadNpc == null )
+        {
+            Debug.LogError("spriteHeadNpc == null ");
+        }
+        if(countdownTimeDay.finishDayCraftingTime.ToString() == null || countdownTimeDay.finishHourCraftingTime.ToString() ==null 
+        || countdownTimeDay.finishMinutesCraftingTime.ToString() == null)
+        {
+             Debug.LogError("D H M have NUll");
+        }
+        string textdayFinish = "Day : " + countdownTimeDay.finishDayCraftingTime.ToString() + "\n" 
+        + countdownTimeDay.finishHourCraftingTime.ToString() + "."+ countdownTimeDay.finishMinutesCraftingTime.ToString();
+
+        expenditionManager.SetUIExButton(indexExpendition,spriteHeadNpc,textdayFinish);
 
         this.gameObject.SetActive(false);
     }
@@ -86,7 +101,8 @@ public class UIInventoryEX : UIInventory
         {
             expenditionManager.uIExTwo = null;
         }
-        
+
+        expenditionManager.SetUIExButton(0,null, null);
         SetDataForEventExpendition();
     }
     public void SetDataForEventExpendition()

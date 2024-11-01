@@ -14,7 +14,7 @@ public class UIItemData : MonoBehaviour
     public void UpdateDataUI(ItemClass itemClass)
     {
         int countItem = itemClass.quantityItem;
-        Debug.Log("count : " + countItem);
+        // Debug.Log("count : " + countItem);
         if (itemIconImage != null && itemClass.IconSprite != null)
         {
             // Assign the sprite from itemClass.IconSprite to itemIconSprite

@@ -2265,8 +2265,10 @@ MonoBehaviour:
   levelSpeedText: {fileID: 0}
   specialistNpcText: {fileID: 0}
   timeScale: 0
-  expenditionManager: {fileID: 0}
   indexExpendition: 0
+  isArrive: 0
+  expenditionManager: {fileID: 0}
+  sceneSystem: {fileID: 0}
 --- !u!1 &121923270
 GameObject:
   m_ObjectHideFlags: 0
@@ -3258,7 +3260,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 0
+  m_Spacing: 100
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -6207,7 +6209,7 @@ RectTransform:
   m_Children:
   - {fileID: 1048952863}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -10278,7 +10280,7 @@ Transform:
   - {fileID: 264651160}
   - {fileID: 1640599807}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &535229107
 GameObject:
@@ -14299,6 +14301,7 @@ Transform:
   - {fileID: 2063404513}
   - {fileID: 305948156}
   - {fileID: 499749735}
+  - {fileID: 1012038034}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14396,7 +14399,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &751085203
 GameObject:
@@ -14535,7 +14538,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -98.6}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &761262459
@@ -14558,7 +14561,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: 'Day :  1
+
+    8:35'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -14567,8 +14572,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -14592,7 +14597,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -16595,7 +16600,7 @@ Transform:
   m_Children:
   - {fileID: 939414063}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &894433922
 GameObject:
@@ -17965,11 +17970,11 @@ MonoBehaviour:
       - m_Target: {fileID: 483800078}
         m_TargetAssemblyTypeName: InventoryItemPresent, Assembly-CSharp
         m_MethodName: CreateInventorySetExpendition
-        m_Mode: 4
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 3000
           m_FloatArgument: 800
           m_StringArgument: 
           m_BoolArgument: 0
@@ -18537,13 +18542,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1012038033}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 465.2369, y: 506.87827, z: -17.016455}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_Father: {fileID: 741425701}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1012038035
 MonoBehaviour:
@@ -18557,8 +18562,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64fb88a773dee6542bb20e60ddabf16d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  npcSelecying:
+    foodPerDay: 0
+    bed: 0
+    nameNpc: 
+    hp: 0
+    morale: 0
+    endurance: 0
+    combat: 0
+    speed: 0
+    recoverSpeed: 0
+    isActive: 0
+    countInventorySlot: 0
+    idnpc: 0
+    roleNpc: 0
+    leaderSkill: 
+    idHead: 0
+    idBody: 0
+    idFeed: 0
+  listItemDataInventoryslot: []
+  listItemDataInventoryEqicment: []
   uIExOne: {fileID: 0}
   uIExTwo: {fileID: 0}
+  uIButtonEXOne: {fileID: 2121583284}
+  uIButtonEXTwo: {fileID: 1595178332}
+  inventoryItemPresent: {fileID: 483800078}
 --- !u!1 &1013083727
 GameObject:
   m_ObjectHideFlags: 0
@@ -26973,11 +27001,11 @@ MonoBehaviour:
       - m_Target: {fileID: 483800078}
         m_TargetAssemblyTypeName: InventoryItemPresent, Assembly-CSharp
         m_MethodName: CreateInventorySetExpendition
-        m_Mode: 4
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 8000
           m_FloatArgument: 1000
           m_StringArgument: 
           m_BoolArgument: 0
@@ -28670,7 +28698,7 @@ RectTransform:
   m_Children:
   - {fileID: 1936524654}
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -29842,6 +29870,7 @@ GameObject:
   - component: {fileID: 1595178331}
   - component: {fileID: 1595178330}
   - component: {fileID: 1595178329}
+  - component: {fileID: 1595178332}
   m_Layer: 5
   m_Name: Button (2)
   m_TagString: Untagged
@@ -29964,6 +29993,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1595178327}
   m_CullTransparentMesh: 1
+--- !u!114 &1595178332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1595178327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c7535eb106641f4e94adfaee0457e0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textDayHourFinish: {fileID: 1220690663}
+  imageHead: {fileID: 1595178330}
 --- !u!1 &1609778554
 GameObject:
   m_ObjectHideFlags: 0
@@ -31349,7 +31392,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1679621004
 GameObject:
@@ -34347,7 +34390,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1817541168
 GameObject:
@@ -36159,7 +36202,7 @@ Transform:
   m_Children:
   - {fileID: 1914504257}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1897358564
 GameObject:
@@ -40345,8 +40388,9 @@ GameObject:
   - component: {fileID: 2121583283}
   - component: {fileID: 2121583282}
   - component: {fileID: 2121583281}
+  - component: {fileID: 2121583284}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: UI Button Ex One
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40467,6 +40511,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2121583279}
   m_CullTransparentMesh: 1
+--- !u!114 &2121583284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2121583279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c7535eb106641f4e94adfaee0457e0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textDayHourFinish: {fileID: 761262459}
+  imageHead: {fileID: 2121583282}
 --- !u!1 &2122900263
 GameObject:
   m_ObjectHideFlags: 0
