@@ -9,7 +9,7 @@ public class UIInventoryEX : UIInventory
 {
     public float timeScale;
     public int indexExpendition;
-    public bool isArrive;
+    public bool isArrive;   
     public ExpenditionManager expenditionManager;
     public SceneSystem sceneSystem;
     private void Awake()
@@ -33,14 +33,16 @@ public class UIInventoryEX : UIInventory
     public void Update()
     {
         if (isArrive)
-        {
+        {   
             // Destroy(this.gameObject);
+            sceneSystem.SwitchScene(2);
         }
     }
     public void SendNpcExpendition()
     {
-        CountdownTimeDay countdownTimeDay = this.gameObject.AddComponent<CountdownTimeDay>();
+        CountdownTimeDay countdownTimeDay = expenditionManager.AddComponent<CountdownTimeDay>();
         countdownTimeDay.timeScale = timeScale;
+        countdownTimeDay.uIInventoryEX = this;
         countdownTimeDay.SetStartExpendition();
 
         npcManager.listNpc.Remove(npcSelecying);
@@ -67,15 +69,7 @@ public class UIInventoryEX : UIInventory
             expenditionManager.uIExTwo = this.gameObject;
             indexExpendition = 2;
         }
-        if(spriteHeadNpc == null )
-        {
-            Debug.LogError("spriteHeadNpc == null ");
-        }
-        if(countdownTimeDay.finishDayCraftingTime.ToString() == null || countdownTimeDay.finishHourCraftingTime.ToString() ==null 
-        || countdownTimeDay.finishMinutesCraftingTime.ToString() == null)
-        {
-             Debug.LogError("D H M have NUll");
-        }
+
         string textdayFinish = "Day : " + countdownTimeDay.finishDayCraftingTime.ToString() + "\n" 
         + countdownTimeDay.finishHourCraftingTime.ToString() + "."+ countdownTimeDay.finishMinutesCraftingTime.ToString();
 
