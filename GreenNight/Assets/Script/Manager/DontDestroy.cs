@@ -1,12 +1,22 @@
 using UnityEngine;
 
 public class DontDestroy : MonoBehaviour
-{   
-    private void Start() {
-        DontDestroyOnLoad(this);
+{
+    private static bool instanceExists = false;
+    private void Start()
+    {
+        DontDestroyOnLoad(this.gameObject);
     }
     void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        if (instanceExists)
+        {
+            Destroy(this.gameObject); // Destroy duplicates upon reloading the scene
+        }
+        else
+        {
+            DontDestroyOnLoad(this.gameObject);
+            instanceExists = true; // Set flag to indicate an instance exists
+        }
     }
 }

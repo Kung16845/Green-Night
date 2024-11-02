@@ -45,7 +45,7 @@ public class InventoryItemPresent : MonoBehaviour
     }
     public void RefreshUIBox()
     {
-        // ClearUIBoxes();
+        ClearUIBoxes();
         foreach (ItemData itemData in listItemsDataBox)
         {
             CreateUIItemInBoxes(itemData);
@@ -111,26 +111,26 @@ public class InventoryItemPresent : MonoBehaviour
         if (itemDataInList != null)
         {
             int itemCount = itemDataInList.count + itemDataAdd.count;
-            if (itemCount <= itemDataInList.maxCount)
-            {
-                itemDataInList.count += itemDataAdd.count;
-            }
-            else if (itemCount >= itemDataInList.maxCount)
-            {
-                Debug.Log("ITem new create count : " + itemDataAdd.count);
+            // if (itemCount <= itemDataInList.maxCount)
+            // {
+            //     itemDataInList.count += itemDataAdd.count;
+            // }
+            // else if (itemCount >= itemDataInList.maxCount)
+            // {
+            //     Debug.Log("ITem new create count : " + itemDataAdd.count);
 
-                ItemData newItemData = new ItemData();
-                newItemData.nameItem = itemDataInList.nameItem;
-                newItemData.idItem = itemDataInList.idItem;
-                newItemData.count = itemCount - itemDataInList.maxCount;
-                newItemData.maxCount = itemDataInList.maxCount;
-                newItemData.itemtype = itemDataInList.itemtype;
+            //     ItemData newItemData = new ItemData();
+            //     newItemData.nameItem = itemDataInList.nameItem;
+            //     newItemData.idItem = itemDataInList.idItem;
+            //     newItemData.count = itemCount - itemDataInList.maxCount;
+            //     newItemData.maxCount = itemDataInList.maxCount;
+            //     newItemData.itemtype = itemDataInList.itemtype;
 
-                listItemsDataBox.Add(newItemData);
+            //     listItemsDataBox.Add(newItemData);
 
-                itemDataInList.count = itemDataInList.maxCount;
+            //     itemDataInList.count = itemDataInList.maxCount;
 
-            }
+            // }
         }
         else
         {

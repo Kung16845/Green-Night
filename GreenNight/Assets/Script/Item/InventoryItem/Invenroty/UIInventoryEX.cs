@@ -4,14 +4,16 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIInventoryEX : UIInventory
 {
     public float timeScale;
     public int indexExpendition;
-    public bool isArrive;   
+    public bool isArrive;
     public ExpenditionManager expenditionManager;
     public SceneSystem sceneSystem;
+    public Button button1;
     private void Awake()
     {
         SetValuableUIInventory();
@@ -21,6 +23,23 @@ public class UIInventoryEX : UIInventory
     public void Start()
     {
         expenditionManager = FindObjectOfType<ExpenditionManager>();
+
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        if (currentSceneIndex == 2)
+        {
+            Debug.Log("Enter Scene Expendition");
+
+            // SetDataForEventExpendition();
+            expenditionManager.playerObject = FindObjectOfType<PlayerMovement>().gameObject;
+            GameObject npcPlayer = expenditionManager.playerObject;
+            SetInventoryItemDataEx(expenditionManager.listItemDataInventoryslot,expenditionManager.listItemDataInventoryEqicment);
+            SetCostumeNpcExpentdition(npcSelecying, npcPlayer);
+            // expenditionManager.listItemDataInventoryslot.Clear();
+            // expenditionManager.listItemDataInventoryEqicment.Clear();
+            
+        }
+
         if (indexExpendition == 1)
         {
             expenditionManager.uIExOne = this.gameObject;
@@ -32,11 +51,22 @@ public class UIInventoryEX : UIInventory
     }
     public void Update()
     {
-        if (isArrive)
-        {   
-            // Destroy(this.gameObject);
-            sceneSystem.SwitchScene(2);
-        }
+
+    }
+    public void SetDataMoveSceneForEventExpendition()
+    {   
+       
+        expenditionManager.npcSelecying = this.npcSelecying;
+        expenditionManager.listItemDataInventoryEqicment = this.listItemDataInventoryEqicment;
+        expenditionManager.listItemDataInventoryslot = this.listItemDataInventoryslot;
+    }
+    public void SetInventoryItemDataEx(List<ItemData> listDataInventoryslot,List<ItemData> listDataInventoryEqicment)
+    {   
+        listItemDataInventoryslot.Clear();
+        listItemDataInventoryEqicment.Clear();
+        listItemDataInventoryslot = listDataInventoryslot;
+        listItemDataInventoryEqicment =listDataInventoryEqicment;
+        RefreshUIInventory();
     }
     public void SendNpcExpendition()
     {
@@ -70,16 +100,23 @@ public class UIInventoryEX : UIInventory
             indexExpendition = 2;
         }
 
-        string textdayFinish = "Day : " + countdownTimeDay.finishDayCraftingTime.ToString() + "\n" 
-        + countdownTimeDay.finishHourCraftingTime.ToString() + "."+ countdownTimeDay.finishMinutesCraftingTime.ToString();
+        string textdayFinish = "Day : " + countdownTimeDay.finishDayCraftingTime.ToString() + "\n"
+        + countdownTimeDay.finishHourCraftingTime.ToString() + "." + countdownTimeDay.finishMinutesCraftingTime.ToString();
 
-        expenditionManager.SetUIExButton(indexExpendition,spriteHeadNpc,textdayFinish);
+        expenditionManager.SetUIExButton(indexExpendition, spriteHeadNpc, textdayFinish);
 
         this.gameObject.SetActive(false);
     }
     private void OnEnable()
     {
         RefreshUIInventory();
+        
+        if (isArrive)
+        {   
+            SetDataMoveSceneForEventExpendition();
+            Destroy(this.gameObject,2f);
+            sceneSystem.SwitchScene(2);    
+        }
     }
     private void OnDisable()
     {
@@ -96,47 +133,16 @@ public class UIInventoryEX : UIInventory
             expenditionManager.uIExTwo = null;
         }
 
-        expenditionManager.SetUIExButton(0,null, null);
-        SetDataForEventExpendition();
+        expenditionManager.SetUIExButton(0, null, null);
+        
     }
-    public void SetDataForEventExpendition()
+    public void EndSceneExpendition()
     {   
-        expenditionManager.npcSelecying = this.npcSelecying;
-        expenditionManager.listItemDataInventoryEqicment = this.listItemDataInventoryEqicment;
-        expenditionManager.listItemDataInventoryslot = this.listItemDataInventoryslot;
+        ClearItemDataInAllInventorySlotToListDataBoxes();
+        SetDataMoveSceneForEventExpendition();
+        listItemDataInventoryEqicment.Clear();
+        listItemDataInventoryslot.Clear();
+        sceneSystem.SwitchScene(0);
     }
-    public void AddITemlistInvenrotySlots(ItemClass itemClass)
-    {
-        ItemData itemData = listItemDataInventoryslot.FirstOrDefault(item => item.idItem == itemClass.idItem);
-        if (listItemDataInventoryslot.Count < npcSelecying.countInventorySlot)
-        {
-            if (itemData != null)
-            {
-                if (itemData.count + itemClass.quantityItem <= itemData.maxCount)
-                {
-                    itemData.count += itemClass.quantityItem;
-                }
-                else
-                {
-                    ItemData newitemData = itemData;
-                    newitemData.count = itemClass.quantityItem - (itemData.maxCount - itemData.count);
-                    listItemDataInventoryslot.Add(newitemData);
-                    itemData.count = itemData.maxCount;
-                }
-            }
-            else
-            {
-                listItemDataInventoryslot.Add(itemData);
-            }
-        }
-        else
-        {
-            if (itemData != null)
-            {
-                itemData.count = itemClass.maxCountItem;
-            }
-            else
-                return;
-        }
-    }
+
 }

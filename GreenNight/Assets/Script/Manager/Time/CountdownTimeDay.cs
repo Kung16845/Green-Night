@@ -47,9 +47,9 @@ public class CountdownTimeDay : MonoBehaviour
         timeManager.dateTime.hour >= finishHourCraftingTime &&
         timeManager.dateTime.minutes >= finishMinutesCraftingTime)
         {
-            Debug.Log("Success");
+            // Debug.Log("Success");
             uIInventoryEX.isArrive = true;
-            
+            Destroy(this);
         }
     }
 

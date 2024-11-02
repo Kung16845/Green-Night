@@ -21,7 +21,50 @@ public class UIInventory : MonoBehaviour
     public TextMeshProUGUI levelCombatText;
     public TextMeshProUGUI levelSpeedText;
     public TextMeshProUGUI specialistNpcText;
+    public void AddITemlistInvenrotySlots(ItemClass itemClass)
+    {
+        ItemData itemData = listItemDataInventoryslot.FirstOrDefault(item => item.idItem == itemClass.idItem);
+        if (listItemDataInventoryslot.Count < npcSelecying.countInventorySlot)
+        {
+            if (itemData != null)
+            {
+                if (itemData.count + itemClass.quantityItem <= itemData.maxCount)
+                {
+                    itemData.count += itemClass.quantityItem;
+                }
+                else
+                {
+                    ItemData newitemData = itemData;
+                    newitemData.count = itemClass.quantityItem - (itemData.maxCount - itemData.count);
+                    listItemDataInventoryslot.Add(newitemData);
+                    itemData.count = itemData.maxCount;
+                }
+            }
+            else
+            {
+                listItemDataInventoryslot.Add(itemData);
+            }
+        }
+        else
+        {
+            if (itemData != null)
+            {
+                itemData.count = itemClass.maxCountItem;
+            }
+            else
+                return;
+        }
+    }
+    public void SetCostumeNpcExpentdition(NpcClass npcClass,GameObject npcOBJ)
+    {
+        HeadCoutume headCoutume = npcManager.listHeadCoutume.FirstOrDefault(coutume => coutume.idHead == npcClass.idHead);
+        BodyCoutume bodyCoutume = npcManager.listBodyCoutume.FirstOrDefault(coutume => coutume.idBody == npcClass.idBody);
+        FeedCoutume feedCoutume = npcManager.listFeedCoutume.FirstOrDefault(coutume => coutume.idFeed == npcClass.idFeed);
 
+        NpcCoutume npcCoutume = npcOBJ.GetComponent<NpcCoutume>();
+
+        npcCoutume.SetCostume(headCoutume, bodyCoutume, feedCoutume);
+    }
     public void SetValuableUIInventory()
     {
 
@@ -84,9 +127,9 @@ public class UIInventory : MonoBehaviour
             InvenrotySlots inventortSlot = listInvenrotySlotsUI.ElementAt(i);
             ItemData itemData = listItemDataInventoryslot.ElementAt(i);
             GameObject uIItem = CreateUIItem(itemData, inventortSlot);
-            
+
         }
-        
+
         for (int i = 0; i < listItemDataInventoryEqicment.Count; i++)
         {
             InvenrotySlots inventortEqicment = listInvenrotySlotsUI.ElementAt(i + 12);
@@ -145,7 +188,7 @@ public class UIInventory : MonoBehaviour
         {
             ItemClass itemClass = slotsItem.GetComponentInChildren<ItemClass>();
             if (itemClass != null)
-            {   
+            {
                 Destroy(itemClass.gameObject);
             }
         }
@@ -156,10 +199,10 @@ public class UIInventory : MonoBehaviour
         {
             ItemClass itemClass = listInvenrotySlotsUI.ElementAt(i).GetComponentInChildren<ItemClass>();
             if (itemClass != null)
-            {   
-                 Debug.Log("Item Class quantityItem : " + itemClass.quantityItem);
+            {
+                //  Debug.Log("Item Class quantityItem : " + itemClass.quantityItem);
                 ItemData itemData = inventoryItemPresent.ConventItemClassToItemData(itemClass);
-                
+
                 // Debug.Log(itemData.count);
                 listSlotItemDatas.Add(itemData);
             }

@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.Mathematics;
 using UnityEngine;
+using System.Linq;
+
 using UnityEngine.UI;
 
 public class ExpenditionManager : MonoBehaviour
@@ -12,12 +13,15 @@ public class ExpenditionManager : MonoBehaviour
     public List<ItemData> listItemDataInventoryEqicment;
     public GameObject uIExOne;
     public GameObject uIExTwo;
+    public GameObject playerObject;
     public UIButtonEX uIButtonEXOne;
     public UIButtonEX uIButtonEXTwo;
+    public Globalstat globalstat;
     public InventoryItemPresent inventoryItemPresent;
     private void Start()
     {
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
+        globalstat = FindObjectOfType<Globalstat>();
     }
     public void SetUIExButton(int indexEXUI, Sprite spriteHeadNpc, string textdayFinish)
     {
@@ -33,6 +37,7 @@ public class ExpenditionManager : MonoBehaviour
 
 
     }
+
     public void OpenUIExpenditionInventoryOne()
     {
         if (uIExOne != null)
@@ -46,6 +51,11 @@ public class ExpenditionManager : MonoBehaviour
         {
             uIExTwo.SetActive(true);
         }
+    }
+    public bool IsActiveEvent()
+    {
+        float randomValue = Random.Range(0f, 100f);
+        return randomValue <= globalstat.expiditionrisk;
     }
 }
 
