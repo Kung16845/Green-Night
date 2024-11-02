@@ -25,8 +25,8 @@ public class ScriptMoveItems : MonoBehaviour
         SlotType slotTypeItemMove = itemClassMove.gameObject.GetComponentInParent<InvenrotySlots>().slotTypeInventory;
         if (itemClassInChild == null)
         {
-            Debug.Log("itemClassMove.quantityItem : " + itemClassMove.quantityItem);
-            Debug.Log("itemClassInChild == null");
+            // Debug.Log("itemClassMove.quantityItem : " + itemClassMove.quantityItem);
+            // Debug.Log("itemClassInChild == null");
             if (countItemMove > itemClassMove.maxCountItem)
             {
                 countItemMove = itemClassMove.maxCountItem;
