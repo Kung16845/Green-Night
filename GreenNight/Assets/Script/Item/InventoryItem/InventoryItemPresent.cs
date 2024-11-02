@@ -22,7 +22,7 @@ public class InventoryItemPresent : MonoBehaviour
         canvas = FindAnyObjectByType<Canvas>();
         
     }
-    public void CreateInventorySetExpendition()
+    public void CreateInventorySetExpendition(int timeScale)
     {
         if (uIInventoryExPrefab == null)
         {
@@ -33,10 +33,12 @@ public class InventoryItemPresent : MonoBehaviour
         GameObject uIEx = Instantiate(uIInventoryExPrefab, transformsUIEx);
 
         // uIInventory.transform.localPosition = new Vector3(0, 0);
-        UIInventory uIInventoryEx = uIEx.GetComponent<UIInventory>();
+        UIInventoryEX uIInventoryEx = uIEx.GetComponent<UIInventoryEX>();
         uIInventoryEx.inventoryItemPresent = this;
+        uIInventoryEx.timeScale = timeScale;
         uIEx.SetActive(true);
 
+        
         // RefreshUIBox();
         // RefreshUIBox();
         // uIInventoryEx.SetValuableUIInventory();

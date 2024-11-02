@@ -18,4 +18,7 @@ public class PickUpItem : MonoBehaviour
         inventoryItemPresent.AddItem(itemData);   
         inventoryItemPresent.RefreshUIBox(); 
     }
+    private void OnTriggerEnter2D(Collider2D other) {
+        TestFuctionAddItem();
+    }
 }

@@ -12,9 +12,14 @@ public class CountdownTimeDay : MonoBehaviour
     public int finishHourCraftingTime;
     public int finishMinutesCraftingTime;
     public TimeManager timeManager;
-    
+    public UIInventoryEX uIInventoryEX;
     private void Awake()
     {
+        SetStartExpendition();
+    }
+    public void SetStartExpendition()
+    {
+       
         timeManager = FindObjectOfType<TimeManager>();
         ratio = timeScale / 1000f;
         timeInSeconds = ratio * 60;
@@ -35,7 +40,6 @@ public class CountdownTimeDay : MonoBehaviour
         Debug.Log("Day : " + finishDayCraftingTime + " Hour : " + finishHourCraftingTime
         + " Minutes : " + finishMinutesCraftingTime);
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -43,8 +47,10 @@ public class CountdownTimeDay : MonoBehaviour
         timeManager.dateTime.hour >= finishHourCraftingTime &&
         timeManager.dateTime.minutes >= finishMinutesCraftingTime)
         {
-           Debug.Log("Success"); 
+            Debug.Log("Success");
+            uIInventoryEX.isArrive = true;
+            
         }
     }
-    
+
 }

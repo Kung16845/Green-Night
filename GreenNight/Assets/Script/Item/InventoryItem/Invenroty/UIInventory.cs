@@ -78,14 +78,15 @@ public class UIInventory : MonoBehaviour
     {
         ClearAllChildInvenrotySlot();
 
-    
+
         for (int i = 0; i < listItemDataInventoryslot.Count; i++)
         {
             InvenrotySlots inventortSlot = listInvenrotySlotsUI.ElementAt(i);
             ItemData itemData = listItemDataInventoryslot.ElementAt(i);
             GameObject uIItem = CreateUIItem(itemData, inventortSlot);
-
+            
         }
+        
         for (int i = 0; i < listItemDataInventoryEqicment.Count; i++)
         {
             InvenrotySlots inventortEqicment = listInvenrotySlotsUI.ElementAt(i + 12);
@@ -104,7 +105,6 @@ public class UIInventory : MonoBehaviour
         }
 
     }
-
     public void SelectNpcDefenseScene()
     {
         PlayerMovement player = FindObjectOfType<PlayerMovement>();
@@ -121,7 +121,6 @@ public class UIInventory : MonoBehaviour
         // Update player and weapon stats if necessary
         player.currentStamina = player.GetMaxStamina();
     }
-
     private void OnDestroy()
     {
         ClearItemDataInAllInventorySlotToListDataBoxes();
@@ -135,6 +134,8 @@ public class UIInventory : MonoBehaviour
             {
                 ItemData itemData = inventoryItemPresent.ConventItemClassToItemData(itemClass);
                 inventoryItemPresent.AddItem(itemData);
+
+                Destroy(itemClass.gameObject);
             }
         }
     }
@@ -144,7 +145,7 @@ public class UIInventory : MonoBehaviour
         {
             ItemClass itemClass = slotsItem.GetComponentInChildren<ItemClass>();
             if (itemClass != null)
-            {
+            {   
                 Destroy(itemClass.gameObject);
             }
         }
@@ -155,8 +156,11 @@ public class UIInventory : MonoBehaviour
         {
             ItemClass itemClass = listInvenrotySlotsUI.ElementAt(i).GetComponentInChildren<ItemClass>();
             if (itemClass != null)
-            {
+            {   
+                 Debug.Log("Item Class quantityItem : " + itemClass.quantityItem);
                 ItemData itemData = inventoryItemPresent.ConventItemClassToItemData(itemClass);
+                
+                // Debug.Log(itemData.count);
                 listSlotItemDatas.Add(itemData);
             }
         }
@@ -185,10 +189,10 @@ public class UIInventory : MonoBehaviour
     {
         // List<UIItemData> listUIItemPrefab = ;
         GameObject itemUI = inventoryItemPresent.listUIItemPrefab.FirstOrDefault(idItem => idItem.idItem == itemData.idItem).gameObject;
-        Instantiate(itemUI, invenrotySlots.transform, true);
+        GameObject itemUICreate = Instantiate(itemUI, invenrotySlots.transform, true);
 
-        UIItemData uIItemData = itemUI.GetComponent<UIItemData>();
-        ItemClass itemClass = itemUI.GetComponent<ItemClass>();
+        UIItemData uIItemData = itemUICreate.GetComponent<UIItemData>();
+        ItemClass itemClass = itemUICreate.GetComponent<ItemClass>();
 
         itemClass.quantityItem = itemData.count;
         itemClass.maxCountItem = itemData.maxCount;

@@ -21,7 +21,7 @@ public class TimeManager : MonoBehaviour
         currentTickSeconedIncrease = tickSeconedIncrease;
 
     }
-    
+
     public void AccelerateTime(int speed)
     {
         speedGame = speed;
@@ -32,7 +32,7 @@ public class TimeManager : MonoBehaviour
         dateTime.isDayNight = true;
     }
     private void Start()
-    {   
+    {
         Debug.Log("Start Scene");
         OnDateTimeChanged?.Invoke(dateTime);
         // sceneSystem1 = FindObjectOfType<SceneSystem>();
@@ -54,6 +54,14 @@ public class TimeManager : MonoBehaviour
     public void AdvanceTime()
     {
         dateTime.AdvanceMinutes(currentTickSeconedIncrease);
+    }
+    public void TimeStop()
+    {
+        currentTickSeconedIncrease = 0;
+    }
+    public void TimeContinue()
+    {
+        currentTickSeconedIncrease = tickSeconedIncrease;
     }
 }
 [System.Serializable]
