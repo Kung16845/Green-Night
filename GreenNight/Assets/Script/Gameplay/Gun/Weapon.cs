@@ -130,39 +130,57 @@ public class Weapon : MonoBehaviour
 
         // Set the caliber type and initial penetration count at the time of bullet instantiation
         bulletScript.caliberType = caliberType;
-        bulletScript.InitializePenetration();  // Call the function to initialize penetration
+        bulletScript.InitializePenetration();  // Initialize penetration
 
         bulletScript.damage = damage;
 
-        // Adjust bullet direction based on accuracy
-        if (!isNpc)
-        {
-            bulletDirection = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - firePoint.position).normalized;
-        }
+        // Get the world position of the mouse
+        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        // Ensure the z-axis is the same since we are working in 2D
+        mouseWorldPosition.z = 0;
 
+        // Calculate the direction from the fire point to the mouse, and normalize it
+        Vector2 bulletDirection = ((Vector2)mouseWorldPosition - (Vector2)firePoint.position).normalized;
+
+        // Apply some accuracy adjustments
         float accuracyFactor = GetAccuracyFactor();
         float accuracySpread = (1 - accuracyFactor) / 10f;
         bulletDirection += new Vector2(Random.Range(-accuracySpread, accuracySpread), Random.Range(-accuracySpread, accuracySpread));
-        rb.velocity = bulletDirection * 100f;
+
+        // Set bullet velocity in the direction of the mouse
+        rb.velocity = bulletDirection * 70f;
     }
 
-    private void FirePellet()
+
+   private void FirePellet()
     {
-        Vector2 aimDirection = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - firePoint.position).normalized;
+        // Get the world position of the mouse
+        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        // Ensure the z-axis is the same since we are working in 2D
+        mouseWorldPosition.z = 0;
+
+        // Calculate the direction from the fire point to the mouse, and normalize it
+        Vector2 aimDirection = ((Vector2)mouseWorldPosition - (Vector2)firePoint.position).normalized;
+
+        // Apply random spread angle to the aim direction
         float angle = Random.Range(-spreadAngle / 2, spreadAngle / 2);
         Vector2 directionWithSpread = Quaternion.Euler(0, 0, angle) * aimDirection;
 
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         Bullet bulletScript = bullet.GetComponent<Bullet>();
-        bulletScript.damage = damage; 
-        bulletScript.caliberType = caliberType; // Assign shotgun caliber
+        bulletScript.damage = damage;
+        bulletScript.caliberType = caliberType;
 
+        // Apply some accuracy adjustments
         float accuracyFactor = GetAccuracyFactor();
         float accuracySpread = (1 - accuracyFactor) / 10f;
         directionWithSpread += new Vector2(Random.Range(-accuracySpread, accuracySpread), Random.Range(-accuracySpread, accuracySpread));
-        rb.velocity = directionWithSpread * 100f;
+
+        // Set bullet velocity in the calculated direction
+        rb.velocity = directionWithSpread * 70f;
     }
+
     private float GetAccuracyFactor()
     {
         // Determine accuracy factor based on the accuracy value
