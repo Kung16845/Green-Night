@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class DontDestroy : MonoBehaviour
 {
+    public static DontDestroy Instance { get; private set; }
     private static bool instanceExists = false;
     private void Start()
     {
@@ -9,14 +10,14 @@ public class DontDestroy : MonoBehaviour
     }
     void Awake()
     {
-        if (instanceExists)
+        if (Instance == null)
         {
-            Destroy(this.gameObject); // Destroy duplicates upon reloading the scene
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            DontDestroyOnLoad(this.gameObject);
-            instanceExists = true; // Set flag to indicate an instance exists
+            Destroy(gameObject);
         }
     }
 }

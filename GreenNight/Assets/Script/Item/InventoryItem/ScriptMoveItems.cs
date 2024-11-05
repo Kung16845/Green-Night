@@ -13,11 +13,17 @@ public class ScriptMoveItems : MonoBehaviour
     public DraggableItem draggableItemMove;
     public InventoryItemPresent inventoryItemPresent;
     // Start is called before the first frame update
+    private void OnEnable()
+    {
+        inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
+        Debug.Log("Open UI ScriptMoveItens");
+    }
     void Start()
     {
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
         countItemMove = 1;
         countText.text = countItemMove.ToString();
+
     }
     public void IncreateCountItem(int count)
     {
@@ -41,7 +47,7 @@ public class ScriptMoveItems : MonoBehaviour
         else if (itemClassInChild != null)
         {
             Debug.Log("item classInChild is not null ");
-            
+
             if (countItemMove > itemClassMove.quantityItem)
             {
                 countItemMove = itemClassMove.quantityItem;
@@ -54,7 +60,7 @@ public class ScriptMoveItems : MonoBehaviour
             {
                 countItemMove = itemClassMove.maxCountItem - itemClassInChild.quantityItem;
             }
-            
+
         }
 
         countText.text = countItemMove.ToString();
@@ -76,7 +82,7 @@ public class ScriptMoveItems : MonoBehaviour
         SlotType slotTypeItemMoveParantBefore = draggableItemMove.parentBeforeDray.GetComponent<InvenrotySlots>().slotTypeInventory;
         //Move Item within InventorySlot
         List<ItemData> listItemDataBoxes = inventoryItemPresent.listItemsDataBox;
-        
+
         if (slotTypeItemMoveParantBefore == SlotType.SlotBoxes && itemClassInChild == null)
         {
             itemData.count -= countItemMove;
@@ -86,7 +92,7 @@ public class ScriptMoveItems : MonoBehaviour
         }
         else if (itemClassInChild != null)
         {
-            
+
             itemClassMove.quantityItem -= countItemMove;
             itemClassInChild.quantityItem += countItemMove;
 
@@ -145,7 +151,7 @@ public class ScriptMoveItems : MonoBehaviour
         DraggableItem draggableItemMove = itemClassMove.gameObject.GetComponent<DraggableItem>();
         draggableItemMove.transform.SetParent(draggableItemMove.parentBeforeDray);
         draggableItemMove.parentAfterDray = draggableItemMove.parentBeforeDray;
-
+        Destroy(draggableItemMove.gameObject);
         gameObject.SetActive(false);
     }
 }

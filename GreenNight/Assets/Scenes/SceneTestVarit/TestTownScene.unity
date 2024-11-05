@@ -9230,9 +9230,8 @@ MonoBehaviour:
   invenrotySlotSpecialMilitaryLock: {fileID: 0}
   invenrotySlotSpecialScavengerLock: {fileID: 0}
   transformsBoxes: {fileID: 0}
-  transformsUIEx: {fileID: 1708510681}
   canvas: {fileID: 0}
-  uIInventoryExPrefab: {fileID: 7368889051564873145, guid: 8426eda3c80f38547ae9edd18718a552, type: 3}
+  targetObject: {fileID: 0}
 --- !u!4 &483800079
 Transform:
   m_ObjectHideFlags: 0
@@ -18103,14 +18102,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 483800078}
-        m_TargetAssemblyTypeName: InventoryItemPresent, Assembly-CSharp
+      - m_Target: {fileID: 1012038035}
+        m_TargetAssemblyTypeName: ExpenditionManager, Assembly-CSharp
         m_MethodName: CreateInventorySetExpendition
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3000
+          m_IntArgument: 4000
           m_FloatArgument: 800
           m_StringArgument: 
           m_BoolArgument: 0
@@ -18721,6 +18720,8 @@ MonoBehaviour:
   uIExOne: {fileID: 0}
   uIExTwo: {fileID: 0}
   playerObject: {fileID: 0}
+  uIInventoryExPrefab: {fileID: 7368889051564873145, guid: 8426eda3c80f38547ae9edd18718a552, type: 3}
+  transformsUIEx: {fileID: 1708510681}
   uIButtonEXOne: {fileID: 0}
   uIButtonEXTwo: {fileID: 0}
   globalstat: {fileID: 0}
@@ -27137,8 +27138,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 483800078}
-        m_TargetAssemblyTypeName: InventoryItemPresent, Assembly-CSharp
+      - m_Target: {fileID: 1012038035}
+        m_TargetAssemblyTypeName: ExpenditionManager, Assembly-CSharp
         m_MethodName: CreateInventorySetExpendition
         m_Mode: 3
         m_Arguments:
@@ -30146,6 +30147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textDayHourFinish: {fileID: 1220690663}
   imageHead: {fileID: 1595178330}
+  buttonOpen: {fileID: 1595178329}
   indexEXUI: 2
   expenditionManager: {fileID: 0}
 --- !u!1 &1609778554
@@ -40666,6 +40668,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textDayHourFinish: {fileID: 761262459}
   imageHead: {fileID: 2121583282}
+  buttonOpen: {fileID: 2121583281}
   indexEXUI: 1
   expenditionManager: {fileID: 0}
 --- !u!1 &2122900263

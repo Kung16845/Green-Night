@@ -10,6 +10,10 @@ public class UIInventoryBP : UIInventory
         SetValuableUIInventory();
         RefreshUIInventory();
     }
+    public void RemoveItem(ItemClass itemClass)
+    {
+        
+    }
     private void OnEnable()
     {
         RefreshUIInventory();

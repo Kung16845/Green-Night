@@ -66,11 +66,12 @@ public class UIInventory : MonoBehaviour
         npcCoutume.SetCostume(headCoutume, bodyCoutume, feedCoutume);
     }
     public void SetValuableUIInventory()
-    {
+    {   
 
-        npcManager = FindObjectOfType<NpcManager>();
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
-
+        inventoryItemPresent.targetObject = this.gameObject;
+        
+        npcManager = FindObjectOfType<NpcManager>();
         npcManager.dropdown = this.dropdown;
         npcManager.uIInventory = this;
         npcManager.levelCombatText = levelEnduranceText;
@@ -81,10 +82,10 @@ public class UIInventory : MonoBehaviour
         SetSlotToInventory();
 
         dropdown.onValueChanged.AddListener(npcManager.OnDropdownValueChanged);
-
+        
         npcManager.SetOptionDropDown();
         npcManager.OnDropdownValueChanged(0);
-
+        
         inventoryItemPresent.RefreshUIBox();
     }
     public void SetSlotToInventory()
