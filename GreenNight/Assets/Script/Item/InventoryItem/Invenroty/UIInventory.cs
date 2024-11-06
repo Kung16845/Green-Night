@@ -12,8 +12,8 @@ public class UIInventory : MonoBehaviour
     public NpcManager npcManager;
     public NpcClass npcSelecying;
     public List<InvenrotySlots> listInvenrotySlotsUI = new List<InvenrotySlots>();
-    public List<ItemData> listItemDataInventoryslot;
     public List<ItemData> listItemDataInventoryEqicment;
+    public List<ItemData> listItemDataInventoryslot;
     public Transform transformBoxes;
     public InventoryItemPresent inventoryItemPresent;
     [Header("TextMeshProUGUI")]
@@ -22,23 +22,42 @@ public class UIInventory : MonoBehaviour
     public TextMeshProUGUI levelSpeedText;
     public TextMeshProUGUI specialistNpcText;
     public void RemoveItemData(ItemClass itemClass)
-    {   
-        ItemData itemData = new ItemData();  
-        if(itemClass.itemtype == Itemtype.Ammo || itemClass.itemtype == Itemtype.General)
-            itemData= listItemDataInventoryslot.FirstOrDefault(itemnpc => itemnpc.idItem == itemClass.idItem);
-        else 
-            itemData= listItemDataInventoryEqicment.FirstOrDefault(itemnpc => itemnpc.idItem == itemClass.idItem);
-        
+    {
+        ItemData itemData = new ItemData();
+
+        if (itemClass.itemtype == Itemtype.Ammo || itemClass.itemtype == Itemtype.General)
+        {
+            itemData = listItemDataInventoryslot.FirstOrDefault(itemnpc => itemnpc.idItem == itemClass.idItem);
+        }
+        else
+        {
+            itemData = listItemDataInventoryEqicment.FirstOrDefault(itemnpc => itemnpc.idItem == itemClass.idItem);
+
+        }
+
         if (itemData != null)
         {
             itemData.count--;
+            if (itemData.count == 0)
+            {
+                if (itemClass.itemtype == Itemtype.Ammo || itemClass.itemtype == Itemtype.General)
+                {
+                    listItemDataInventoryslot.Remove(itemData);
+                }
+
+                else
+                {
+                    listItemDataInventoryEqicment.Remove(itemData);
+                }
+
+            }
         }
-        else 
+        else
         {
             return;
         }
     }
-    
+
     public void AddITemlistInvenrotySlots(ItemClass itemClass)
     {
         ItemData itemData = listItemDataInventoryslot.FirstOrDefault(item => item.idItem == itemClass.idItem);
@@ -167,15 +186,17 @@ public class UIInventory : MonoBehaviour
         }
 
     }
+    public StatAmplifier statAmplifier;
     public void SelectNpcDefenseScene()
     {
         PlayerMovement player = FindObjectOfType<PlayerMovement>();
-        StatAmplifier statAmplifier = FindObjectOfType<StatAmplifier>();
+        statAmplifier = FindObjectOfType<StatAmplifier>();
 
         statAmplifier.endurance = npcSelecying.endurance;
         statAmplifier.combat = npcSelecying.combat;
         statAmplifier.speed = npcSelecying.speed;
-
+        Debug.Log("Npc endurance : " + statAmplifier.endurance);
+        Debug.Log("Npc endurance  Select : " + npcSelecying.endurance);
         // Assign the NPC's specialist role to the StatAmplifier
         statAmplifier.specialistRole = npcSelecying.roleNpc;
         statAmplifier.ApplyRoleModifiers();
