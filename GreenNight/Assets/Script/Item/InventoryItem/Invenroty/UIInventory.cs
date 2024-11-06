@@ -27,7 +27,7 @@ public class UIInventory : MonoBehaviour
         if(itemClass.itemtype == Itemtype.Ammo || itemClass.itemtype == Itemtype.General)
             itemData= listItemDataInventoryslot.FirstOrDefault(itemnpc => itemnpc.idItem == itemClass.idItem);
         else 
-            itemData= listItemDataInventoryEqicment.FirstOrDefault(itemnpc => itemnpc.idItem == itemClass.idItem)
+            itemData= listItemDataInventoryEqicment.FirstOrDefault(itemnpc => itemnpc.idItem == itemClass.idItem);
         
         if (itemData != null)
         {
