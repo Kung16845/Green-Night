@@ -15,8 +15,14 @@ public class Bullet : MonoBehaviour
     public float damage;
     public CaliberType caliberType;
     private int penetrationCount = 0; // Tracks how many penetrations the bullet can do
+    public int bulletID;
+    private static int bulletIDCounter = 0;
 
     // This method will initialize penetration count based on the caliber
+    private void Start()
+    {
+        bulletID = bulletIDCounter++;
+    }
     public void InitializePenetration()
     {
         switch (caliberType)
@@ -37,7 +43,7 @@ public class Bullet : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other)
-    {   
+    {
         Zombie zombie = other.GetComponent<Zombie>();
         if (zombie != null)
         {
@@ -46,29 +52,33 @@ public class Bullet : MonoBehaviour
             {
                 case CaliberType.Low:
                     zombie.ZombieTakeDamage(damage, DamageType.LowcaliberBullet);
-                    Destroy(this.gameObject); // Low caliber bullets are destroyed on first impact
+                    DDAdataCollector.Instance.OnBulletHit(bulletID); // Notify hit
+                    Destroy(this.gameObject);
                     break;
 
                 case CaliberType.Medium:
                     zombie.ZombieTakeDamage(damage, DamageType.MediumcaliberBullet);
+                    DDAdataCollector.Instance.OnBulletHit(bulletID); // Notify hit
                     HandlePenetration();
                     break;
 
                 case CaliberType.High:
                     zombie.ZombieTakeDamage(damage, DamageType.HighcalliberBullet);
+                    DDAdataCollector.Instance.OnBulletHit(bulletID); // Notify hit
                     HandlePenetration();
                     break;
 
                 case CaliberType.Shotgun:
                     zombie.ZombieTakeDamage(damage, DamageType.ShotgunPellet);
-                    Destroy(this.gameObject); // Shotgun pellets are destroyed on first impact
+                    DDAdataCollector.Instance.OnBulletHit(bulletID); // Notify hit
+                    Destroy(this.gameObject);
                     break;
             }
         }
 
         if (other.CompareTag("Wall"))
         {
-            Destroy(this.gameObject); // Destroy the bullet if it hits a wall
+            Destroy(this.gameObject);
         }
     }
 
