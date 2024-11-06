@@ -21,6 +21,24 @@ public class UIInventory : MonoBehaviour
     public TextMeshProUGUI levelCombatText;
     public TextMeshProUGUI levelSpeedText;
     public TextMeshProUGUI specialistNpcText;
+    public void RemoveItemData(ItemClass itemClass)
+    {   
+        ItemData itemData = new ItemData();  
+        if(itemClass.itemtype == Itemtype.Ammo || itemClass.itemtype == Itemtype.General)
+            itemData= listItemDataInventoryslot.FirstOrDefault(itemnpc => itemnpc.idItem == itemClass.idItem);
+        else 
+            itemData= listItemDataInventoryEqicment.FirstOrDefault(itemnpc => itemnpc.idItem == itemClass.idItem)
+        
+        if (itemData != null)
+        {
+            itemData.count--;
+        }
+        else 
+        {
+            return;
+        }
+    }
+    
     public void AddITemlistInvenrotySlots(ItemClass itemClass)
     {
         ItemData itemData = listItemDataInventoryslot.FirstOrDefault(item => item.idItem == itemClass.idItem);
@@ -55,7 +73,7 @@ public class UIInventory : MonoBehaviour
                 return;
         }
     }
-    public void SetCostumeNpcExpentdition(NpcClass npcClass,GameObject npcOBJ)
+    public void SetCostumeNpcExpentdition(NpcClass npcClass, GameObject npcOBJ)
     {
         HeadCoutume headCoutume = npcManager.listHeadCoutume.FirstOrDefault(coutume => coutume.idHead == npcClass.idHead);
         BodyCoutume bodyCoutume = npcManager.listBodyCoutume.FirstOrDefault(coutume => coutume.idBody == npcClass.idBody);
@@ -66,11 +84,11 @@ public class UIInventory : MonoBehaviour
         npcCoutume.SetCostume(headCoutume, bodyCoutume, feedCoutume);
     }
     public void SetValuableUIInventory()
-    {   
+    {
 
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
         inventoryItemPresent.targetObject = this.gameObject;
-        
+
         npcManager = FindObjectOfType<NpcManager>();
         npcManager.dropdown = this.dropdown;
         npcManager.uIInventory = this;
@@ -82,10 +100,10 @@ public class UIInventory : MonoBehaviour
         SetSlotToInventory();
 
         dropdown.onValueChanged.AddListener(npcManager.OnDropdownValueChanged);
-        
+
         npcManager.SetOptionDropDown();
         npcManager.OnDropdownValueChanged(0);
-        
+
         inventoryItemPresent.RefreshUIBox();
     }
     public void SetSlotToInventory()
