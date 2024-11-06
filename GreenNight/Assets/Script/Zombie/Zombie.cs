@@ -86,6 +86,8 @@ public class Zombie : MonoBehaviour
     public ZombieState currentState;
     private float damageEffectDurationRemaining;
     private float previousDirectionX = 1f;
+    [Header("DataTracker")]
+    public DDAdataCollector ddadataCollector;
     private void Awake()
     {
         ApplyMutationEffects();
@@ -276,9 +278,11 @@ public class Zombie : MonoBehaviour
         if (currentHp <= 0)
         {
             OnDeath();
+            DDAdataCollector.Instance.OnZombieKilled(); // Notify the data collector
             Destroy(this.gameObject);
         }
     }
+
     private IEnumerator DamageEffect()
     {
         // Slow down the zombie

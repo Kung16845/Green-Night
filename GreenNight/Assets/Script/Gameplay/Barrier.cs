@@ -13,9 +13,14 @@ public class Barrier : MonoBehaviour
     public void BarrierTakeDamage(float damage)
     {
         currentHp -= damage;
-        if (currentHp < 0)
+        DDAdataCollector.Instance.OnBarrierDamage(damage); // Notify damage
+
+        if (currentHp <= 0)
+        {
             Time.timeScale = 0;
+        }
     }
+
     public void BarrierHealDamage(float heal)
     {
         currentHp += heal;
