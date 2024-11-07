@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-
+using System.Linq;
 public class Weapon : MonoBehaviour
 {
     
@@ -36,18 +36,132 @@ public class Weapon : MonoBehaviour
     public GameObject bulletPrefab; // Bullet prefab
     public Vector2 bulletDirection;
     private ActionController actionController;
+    private UIInventory uiInventory;
+    private InventoryItemPresent inventoryItemPresent;
 
     void Start()
     {
-        currentAmmo = capacity;
-        fireRate = 60f / rateOfFire;
-        initialAccuracy = accuracy;
         playerMovement = GetComponentInParent<PlayerMovement>();
         statAmplifier = GetComponent<StatAmplifier>();
         actionController = GetComponent<ActionController>();
 
-        ApplyHandlingPenalty();
-        ApplyStatAmplifier();
+        uiInventory = FindObjectOfType<UIInventory>();
+        inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
+        DisableWeapon();
+        if (uiInventory != null)
+        {
+            // Subscribe to the OnWeaponChanged event
+            uiInventory.OnWeaponChanged += UpdateWeaponStats;
+        }
+        else
+        {
+            Debug.LogWarning("UIInventory not found.");
+        }
+
+    }
+    private void UpdateWeaponStats(ItemWeapon itemWeapon)
+    {
+        if (itemWeapon != null)
+        {
+            // Apply stats from ItemWeapon to Weapon class
+            rateOfFire = itemWeapon.rateOfFire;
+            handling = itemWeapon.handling;
+            accuracy = itemWeapon.accuracy;
+            capacity = itemWeapon.capacity;
+            stability = itemWeapon.stability;
+            damage = itemWeapon.damage;
+            fullAuto = itemWeapon.fullAuto;
+            isShotgun = itemWeapon.isShotgun;
+            pellets = itemWeapon.Pellets;
+            spreadAngle = itemWeapon.Spreadangle;
+            caliberType = ConvertAmmoTypeToCaliberType(itemWeapon.ammoType);
+
+            // Update derived values
+            currentAmmo = capacity;
+            fireRate = 60f / rateOfFire;
+            initialAccuracy = accuracy;
+
+            // Recalculate stat amplifiers
+            if (statAmplifier != null)
+            {
+                statAmplifier.InitializeAmplifiers(); // Recalculate multipliers
+                statAmplifier.ApplyRoleModifiers();   // Apply role modifiers
+            }
+
+            // Apply handling penalty and stat amplifiers
+            ApplyHandlingPenalty();
+            ApplyStatAmplifier();
+
+            Debug.Log("Weapon stats updated.");
+        }
+        else
+        {
+            // No weapon equipped, reset stats or disable weapon functionality
+            Debug.Log("No weapon equipped. Weapon functionality disabled.");
+            DisableWeapon();
+        }
+    }
+
+    private void DisableWeapon()
+    {
+        // Reset stats
+        rateOfFire = 0;
+        handling = 0;
+        accuracy = 0;
+        capacity = 0;
+        stability = 0;
+        damage = 0;
+        fullAuto = false;
+        isShotgun = false;
+        pellets = 0;
+        spreadAngle = 0;
+        caliberType = CaliberType.Low; // Add a 'None' type if needed
+
+        // Additional logic to disable shooting
+        currentAmmo = 0;
+        isReloading = false;
+        shotsFiredConsecutively = 0;
+    }
+    private void InitializeWeaponStats()
+    {
+        // Use the existing OnWeaponChanged logic
+        ItemData weaponItemData = uiInventory.listItemDataInventoryEqicment
+            .FirstOrDefault(item => item.itemtype == Itemtype.Weapon);
+
+        if (weaponItemData != null)
+        {
+            UIItemData uiItemData = inventoryItemPresent.listUIItemPrefab
+                .FirstOrDefault(uiItem => uiItem.idItem == weaponItemData.idItem);
+
+            if (uiItemData != null)
+            {
+                ItemWeapon itemWeapon = uiItemData.GetComponent<ItemWeapon>();
+                if (itemWeapon != null)
+                {
+                    UpdateWeaponStats(itemWeapon);
+                }
+            }
+        }
+        else
+        {
+            DisableWeapon();
+        }
+    }
+    private CaliberType ConvertAmmoTypeToCaliberType(Ammotype ammoType)
+    {
+        switch (ammoType)
+        {
+            case Ammotype.HighCaliber:
+                return CaliberType.High;
+            case Ammotype.MediumCaliber:
+                return CaliberType.Medium;
+            case Ammotype.LowCaliber:
+                return CaliberType.Low;
+            case Ammotype.Shotgun:
+                return CaliberType.Shotgun;
+            default:
+                return CaliberType.Low;
+        }
     }
 
     void Update()
@@ -246,12 +360,15 @@ public class Weapon : MonoBehaviour
 
     private void ApplyHandlingPenalty()
     {
-        if (playerMovement != null)
+        if (playerMovement != null && statAmplifier != null)
         {
-            playerMovement.baseSpeed = playerMovement.baseSpeed  * (1f - (0.5f * (100f - handling) / 100f)); 
-            playerMovement.baseSprintSpeed  = playerMovement.baseSprintSpeed  * (1f - (0.3f * (100f - handling) / 100f)); 
+            float handlingMultiplier = statAmplifier.GetHandlingMultiplier();
+
+            playerMovement.baseSpeed = playerMovement.baseSpeed * (1f - (0.5f * (100f - handling) / 100f)) * handlingMultiplier;
+            playerMovement.baseSprintSpeed = playerMovement.baseSprintSpeed * (1f - (0.3f * (100f - handling) / 100f)) * handlingMultiplier;
         }
     }
+
 
     public IEnumerator Reload()
     {
@@ -264,20 +381,25 @@ public class Weapon : MonoBehaviour
         shotsFiredConsecutively = 0; 
         Debug.Log("Reloaded!");
     }
-    
     private void ApplyStatAmplifier()
     {
-        stability *= statAmplifier.GetCombatMultiplier();
-        accuracy *= statAmplifier.GetCombatMultiplier();
-        float damageMultiplier = statAmplifier.GetDamageMultiplier();
+        if (statAmplifier != null)
+        {
+            float combatMultiplier = statAmplifier.GetCombatMultiplier();
+            float accuracyMultiplier = statAmplifier.GetAccuracyMultiplier();
+            float handlingMultiplier = statAmplifier.GetHandlingMultiplier();
+            float stabilityMultiplier = statAmplifier.GetStabilityMultiplier();
+            float damageMultiplier = statAmplifier.GetDamageMultiplier();
 
-        accuracy *= statAmplifier.GetAccuracyMultiplier();
-        handling *= statAmplifier.GetHandlingMultiplier();
-        stability *= statAmplifier.GetStabilityMultiplier();
-        damage *= damageMultiplier;
+            accuracy *= accuracyMultiplier;
+            handling *= handlingMultiplier;
+            stability *= stabilityMultiplier;
+            damage *= damageMultiplier;
 
-        accuracy = Mathf.Clamp(accuracy, 0, 100);
-        handling = Mathf.Clamp(handling, 0, 100);
-        stability = Mathf.Clamp(stability, 0, 100);
+            // Clamp values if necessary
+            accuracy = Mathf.Clamp(accuracy, 0, 100);
+            handling = Mathf.Clamp(handling, 0, 100);
+            stability = Mathf.Clamp(stability, 0, 100);
+        }
     }
 }
