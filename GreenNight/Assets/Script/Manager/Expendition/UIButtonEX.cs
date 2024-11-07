@@ -9,7 +9,30 @@ public class UIButtonEX : MonoBehaviour
 {
     public TextMeshProUGUI textDayHourFinish;
     public Image imageHead;
-    public void SetUIButtonEX(Sprite spriteHead,string finishDayHour)
+    public Button buttonOpen;
+    public int indexEXUI;
+    public ExpenditionManager expenditionManager;
+    private void Start()
+    {
+        expenditionManager = FindObjectOfType<ExpenditionManager>();
+
+        if (indexEXUI == 1)
+        {   
+            expenditionManager.uIButtonEXOne = this;
+            Debug.Log("Reset Button One");
+            buttonOpen.onClick.RemoveAllListeners();
+            buttonOpen.onClick.AddListener(ExpenditionManager.Instance.OpenUIExpenditionInventoryOne);
+        }
+        else
+        {
+            expenditionManager.uIButtonEXTwo = this;
+            Debug.Log("Reset Button Two");
+            buttonOpen.onClick.RemoveAllListeners();
+            buttonOpen.onClick.AddListener(ExpenditionManager.Instance.OpenUIExpenditionInventoryTwo);
+        }
+    }
+
+    public void SetUIButtonEX(Sprite spriteHead, string finishDayHour)
     {
         textDayHourFinish.text = finishDayHour;
         imageHead.sprite = spriteHead;

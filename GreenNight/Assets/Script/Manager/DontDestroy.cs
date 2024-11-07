@@ -1,12 +1,23 @@
 using UnityEngine;
 
 public class DontDestroy : MonoBehaviour
-{   
-    private void Start() {
-        DontDestroyOnLoad(this);
+{
+    public static DontDestroy Instance { get; private set; }
+    private static bool instanceExists = false;
+    private void Start()
+    {
+        DontDestroyOnLoad(this.gameObject);
     }
     void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

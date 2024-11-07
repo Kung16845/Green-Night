@@ -119,7 +119,7 @@ public class NpcManager : MonoBehaviour
 
         listNpcWorkingWIthInOneDay.Add(npcWorking);
     }
-
+    
     public void OnDropdownValueChanged(int selectedValue)
     {
         // Debug.Log("Dropdown index changed to: " + selectedValue);

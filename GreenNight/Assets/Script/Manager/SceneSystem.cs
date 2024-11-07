@@ -1,28 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneSystem : MonoBehaviour
 {
+
     public Animator transitionAnim;
     public TimeManager timeManager;
-    private void Start() 
+    private bool isSceneLoading = false;
+    private void Start()
     {
         timeManager = FindObjectOfType<TimeManager>();
         timeManager.sceneSystem1 = this;
         timeManager.dateTime.sceneSystem = this;
-        Debug.Log("sceneSystem"); 
+        Debug.Log("sceneSystem");
     }
     public void SwitchScene(int sceneIndex)
-    {
-        StartCoroutine(LoadScene(sceneIndex));
+    {   
+         SceneManager.LoadScene(sceneIndex);
+        // StartCoroutine(LoadScene(sceneIndex));
     }
     IEnumerator LoadScene(int sceneIndex)
     {
         transitionAnim.SetTrigger("EndScene");
-        yield return new WaitForSeconds(1.5f);
-        SceneManager.LoadScene(sceneIndex);
+        yield return new WaitForSeconds(3.0f);    
+       
+
+
     }
     // private void Update() {
     //     if(dateTime.hour == 18 && dateTime.isDayNight)

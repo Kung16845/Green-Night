@@ -6,46 +6,39 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class InventoryItemPresent : MonoBehaviour
-{   
+{
     public List<ItemData> listItemsDataBox = new List<ItemData>();
     public List<UIItemData> listUIItemPrefab;
     public List<InvenrotySlots> listInvenrotySlots = new List<InvenrotySlots>();
     public InvenrotySlots invenrotySlotSpecialMilitaryLock;
     public InvenrotySlots invenrotySlotSpecialScavengerLock;
     public Transform transformsBoxes;
-    public Transform transformsUIEx;
+
     public Canvas canvas;
-    public GameObject uIInventoryExPrefab;
-    
+    public GameObject targetObject; // Drag and drop the GameObject to toggle
+    private float toggleCooldown = 0.5f; // Set cooldown interval
+    private float nextToggleTime = 0f;
     private void Start()
     {
         canvas = FindAnyObjectByType<Canvas>();
-        
+
     }
-    public void CreateInventorySetExpendition(int timeScale)
+    private void Update()
     {
-        if (uIInventoryExPrefab == null)
+        // ตรวจสอบว่าปุ่ม I ถูกกดและว่า cooldown หมดลงแล้ว
+        if (Input.GetKeyDown(KeyCode.I) && Time.time >= nextToggleTime)
         {
-            Debug.LogError("itemPrefab is not assigned in the Inspector.");
-            return;
+            // Toggle เปิด-ปิด GameObject
+            targetObject.SetActive(!targetObject.activeSelf);
+
+            // ตั้งเวลา cooldown สำหรับการกดครั้งถัดไป
+            nextToggleTime = Time.time + toggleCooldown;
         }
-
-        GameObject uIEx = Instantiate(uIInventoryExPrefab, transformsUIEx);
-
-        // uIInventory.transform.localPosition = new Vector3(0, 0);
-        UIInventoryEX uIInventoryEx = uIEx.GetComponent<UIInventoryEX>();
-        uIInventoryEx.inventoryItemPresent = this;
-        uIInventoryEx.timeScale = timeScale;
-        uIEx.SetActive(true);
-
-        
-        // RefreshUIBox();
-        // RefreshUIBox();
-        // uIInventoryEx.SetValuableUIInventory();
     }
+
     public void RefreshUIBox()
     {
-        // ClearUIBoxes();
+        ClearUIBoxes();
         foreach (ItemData itemData in listItemsDataBox)
         {
             CreateUIItemInBoxes(itemData);
@@ -111,26 +104,26 @@ public class InventoryItemPresent : MonoBehaviour
         if (itemDataInList != null)
         {
             int itemCount = itemDataInList.count + itemDataAdd.count;
-            if (itemCount <= itemDataInList.maxCount)
-            {
-                itemDataInList.count += itemDataAdd.count;
-            }
-            else if (itemCount >= itemDataInList.maxCount)
-            {
-                Debug.Log("ITem new create count : " + itemDataAdd.count);
+            // if (itemCount <= itemDataInList.maxCount)
+            // {
+            //     itemDataInList.count += itemDataAdd.count;
+            // }
+            // else if (itemCount >= itemDataInList.maxCount)
+            // {
+            //     Debug.Log("ITem new create count : " + itemDataAdd.count);
 
-                ItemData newItemData = new ItemData();
-                newItemData.nameItem = itemDataInList.nameItem;
-                newItemData.idItem = itemDataInList.idItem;
-                newItemData.count = itemCount - itemDataInList.maxCount;
-                newItemData.maxCount = itemDataInList.maxCount;
-                newItemData.itemtype = itemDataInList.itemtype;
+            //     ItemData newItemData = new ItemData();
+            //     newItemData.nameItem = itemDataInList.nameItem;
+            //     newItemData.idItem = itemDataInList.idItem;
+            //     newItemData.count = itemCount - itemDataInList.maxCount;
+            //     newItemData.maxCount = itemDataInList.maxCount;
+            //     newItemData.itemtype = itemDataInList.itemtype;
 
-                listItemsDataBox.Add(newItemData);
+            //     listItemsDataBox.Add(newItemData);
 
-                itemDataInList.count = itemDataInList.maxCount;
+            //     itemDataInList.count = itemDataInList.maxCount;
 
-            }
+            // }
         }
         else
         {
@@ -159,7 +152,7 @@ public class InventoryItemPresent : MonoBehaviour
         // RefreshUIBox();
     }
 
-     public int GetItemCountByID(int itemID)
+    public int GetItemCountByID(int itemID)
     {
         ItemData itemData = listItemsDataBox.Find(item => item.idItem == itemID);
         return itemData != null ? itemData.count : 0;
@@ -189,7 +182,7 @@ public class InventoryItemPresent : MonoBehaviour
         newItemData.count = itemClass.quantityItem;
         newItemData.maxCount = itemClass.maxCountItem;
         newItemData.itemtype = itemClass.itemtype;
-        
+
         return newItemData;
     }
 }
