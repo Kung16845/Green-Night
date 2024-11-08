@@ -47,7 +47,7 @@ public class Weapon : MonoBehaviour
 
         uiInventory = FindObjectOfType<UIInventory>();
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
-        DisableWeapon();
+        // DisableWeapon();
         if (uiInventory != null)
         {
             // Subscribe to the OnWeaponChanged event

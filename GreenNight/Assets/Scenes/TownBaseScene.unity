@@ -3434,14 +3434,15 @@ MonoBehaviour:
     idBody: 0
     idFeed: 0
   listInvenrotySlotsUI: []
-  listItemDataInventoryslot: []
   listItemDataInventoryEqicment: []
+  listItemDataInventoryslot: []
   transformBoxes: {fileID: 0}
   inventoryItemPresent: {fileID: 0}
   levelEnduranceText: {fileID: 1679621006}
   levelCombatText: {fileID: 1590909709}
   levelSpeedText: {fileID: 1352969662}
   specialistNpcText: {fileID: 1854185559}
+  statAmplifier: {fileID: 0}
 --- !u!1 &118997697
 GameObject:
   m_ObjectHideFlags: 0
@@ -14626,6 +14627,12 @@ MonoBehaviour:
     maxCount: 1
     itemtype: 7
     parantslotType: 3
+  - nameItem: M4
+    idItem: 1020203
+    count: 1
+    maxCount: 1
+    itemtype: 0
+    parantslotType: 0
   listUIItemPrefab:
   - {fileID: 1291614654634707552, guid: db11bae3d5fad0d48b59cbceb79084a2, type: 3}
   - {fileID: 1291614654634707552, guid: cd562875a0cb310419d3713bc1d310b2, type: 3}
@@ -14698,9 +14705,8 @@ MonoBehaviour:
   invenrotySlotSpecialMilitaryLock: {fileID: 0}
   invenrotySlotSpecialScavengerLock: {fileID: 0}
   transformsBoxes: {fileID: 0}
-  transformsUIEx: {fileID: 0}
   canvas: {fileID: 1018277091}
-  uIInventoryExPrefab: {fileID: 0}
+  targetObject: {fileID: 0}
 --- !u!4 &483800079
 Transform:
   m_ObjectHideFlags: 0
