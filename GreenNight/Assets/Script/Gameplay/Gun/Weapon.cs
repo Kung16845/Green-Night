@@ -17,7 +17,7 @@ public class Weapon : MonoBehaviour
     public float spreadAngle; // Spread angle for shotgun
     public int stabilityThreshold = 5; // Number of shots before stability penalty starts
     public CaliberType caliberType;
-
+    private AnimationController animationController;
     // Internal variables
     [SerializeField] public int currentAmmo;
     [SerializeField] public float fireRate;
@@ -43,6 +43,7 @@ public class Weapon : MonoBehaviour
     {
         playerMovement = GetComponentInParent<PlayerMovement>();
         statAmplifier = GetComponent<StatAmplifier>();
+        animationController = GetComponent<AnimationController>();
         actionController = GetComponent<ActionController>();
 
         uiInventory = FindObjectOfType<UIInventory>();
@@ -80,7 +81,7 @@ public class Weapon : MonoBehaviour
             currentAmmo = capacity;
             fireRate = 60f / rateOfFire;
             initialAccuracy = accuracy;
-
+            animationController.isgunequip = true;
             // Recalculate stat amplifiers
             if (statAmplifier != null)
             {
@@ -121,6 +122,7 @@ public class Weapon : MonoBehaviour
         currentAmmo = 0;
         isReloading = false;
         shotsFiredConsecutively = 0;
+        animationController.isgunequip = false;
     }
     private void InitializeWeaponStats()
     {

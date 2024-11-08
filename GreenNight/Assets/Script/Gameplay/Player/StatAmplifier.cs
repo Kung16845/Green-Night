@@ -24,12 +24,6 @@ public class StatAmplifier : MonoBehaviour
     private float baseCombatMultiplier;
     private float baseSpeedMultiplier;
 
-    // Remove the Awake() method or leave it empty
-    void Awake()
-    {
-        // Initialization can be deferred
-    }
-
     // New method to initialize and apply amplifiers
     public void InitializeAmplifiers()
     {
