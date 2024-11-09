@@ -41,13 +41,13 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
         // Script Move
         ScriptMoveItems scriptMoveItems = uIMoveItemsBoxesToInventory.GetComponent<ScriptMoveItems>();
         //ItemData In ListItemData
-        Debug.Log("Ondeop");
+        // Debug.Log("Ondeop");
 
 
         if ((slotTypeInventory == SlotType.SlotBag || slotTypeInventory == draggableItem.uITypeItem)
         && transform.childCount == 0)
         {   
-             Debug.Log("(slotTypeInventory == SlotType.SlotBag || slotTypeInventory == draggableItem.uITypeItem) && transform.childCount == 0");
+            //  Debug.Log("(slotTypeInventory == SlotType.SlotBag || slotTypeInventory == draggableItem.uITypeItem) && transform.childCount == 0");
             draggableItem.parentAfterDray = transform;
 
             scriptMoveItems.itemClassMove = itemClassMove;
@@ -62,7 +62,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
         else if (itemClassInChild != null &&uIItemDataDrag.idItem == uIItemDataInChild.idItem && slotTypeInventory != SlotType.SlotBoxes
         && itemClassInChild.quantityItem < itemClassInChild.maxCountItem)
         {
-            Debug.Log("UIItemdata In chind Have && slotTypeInventory != SlotType.SlotBoxes && itemClassInChild.quantityItem < itemClassInChild.maxCountItem");
+            // Debug.Log("UIItemdata In chind Have && slotTypeInventory != SlotType.SlotBoxes && itemClassInChild.quantityItem < itemClassInChild.maxCountItem");
             scriptMoveItems.itemClassMove = itemClassMove;
             scriptMoveItems.itemClassInChild = itemClassInChild;
 
@@ -73,7 +73,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
             List<ItemData> listItemDataBoxes = inventoryItemPresent.listItemsDataBox;
             ItemData itemData = listItemDataBoxes.FirstOrDefault(item => item.idItem == itemClassMove.idItem);
             
-            Debug.Log("Last Conition");
+            // Debug.Log("Last Conition");
             if (itemData != null)
             {
                 itemData.count += itemClassMove.quantityItem;

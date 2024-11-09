@@ -7,6 +7,19 @@ using UnityEngine;
 
 public class InventoryItemPresent : MonoBehaviour
 {
+    public static InventoryItemPresent Instance = new InventoryItemPresent();
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     public List<ItemData> listItemsDataBox = new List<ItemData>();
     public List<UIItemData> listUIItemPrefab;
     public List<InvenrotySlots> listInvenrotySlots = new List<InvenrotySlots>();
@@ -98,12 +111,13 @@ public class InventoryItemPresent : MonoBehaviour
     }
     public void AddItem(ItemData itemDataAdd)
     {
-
-        ItemData itemDataInList = listItemsDataBox.FirstOrDefault(item => item.idItem == itemDataAdd.idItem && item.count != item.maxCount);
+        ItemData itemDataInList = this.listItemsDataBox.FirstOrDefault(item => item.idItem == itemDataAdd.idItem && item.count != item.maxCount);
 
         if (itemDataInList != null)
-        {
-            int itemCount = itemDataInList.count + itemDataAdd.count;
+        {   
+            Debug.Log("ItenDataInlist Not null");
+            Debug.Log("itemDataAdd count : " + itemDataAdd.count);
+            itemDataInList.count = itemDataInList.count + itemDataAdd.count;
             // if (itemCount <= itemDataInList.maxCount)
             // {
             //     itemDataInList.count += itemDataAdd.count;
