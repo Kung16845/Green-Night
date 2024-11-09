@@ -10,6 +10,7 @@ public class UIButtonEX : MonoBehaviour
     public TextMeshProUGUI textDayHourFinish;
     public Image imageHead;
     public Button buttonOpen;
+
     public int indexEXUI;
     public ExpenditionManager expenditionManager;
     private void Start()

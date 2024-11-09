@@ -4,28 +4,30 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ButtonChoiceEx : MonoBehaviour
-{   
+{
     public Button buttonCreateExpendition;
     public ExpenditionManager expenditionManager;
+    public Transform transformParent;
     public int indexEXButton;
-    
+
     void Start()
     {
         expenditionManager = FindObjectOfType<ExpenditionManager>();
-         if (indexEXButton == 1)
-        {   
+        expenditionManager.transformsUIEx = transformParent;
+        if (indexEXButton == 1)
+        {
             Debug.Log("Reset Button One");
             buttonCreateExpendition.onClick.RemoveAllListeners();
             buttonCreateExpendition.onClick.AddListener(() => ExpenditionManager.Instance.CreateInventorySetExpendition(8000));
         }
         else if (indexEXButton == 2)
         {
-            
+
             Debug.Log("Reset Button Two");
             buttonCreateExpendition.onClick.RemoveAllListeners();
             buttonCreateExpendition.onClick.AddListener(() => ExpenditionManager.Instance.CreateInventorySetExpendition(10000));
         }
-        else if(indexEXButton == 3)
+        else if (indexEXButton == 3)
         {
 
         }
@@ -34,6 +36,6 @@ public class ButtonChoiceEx : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
