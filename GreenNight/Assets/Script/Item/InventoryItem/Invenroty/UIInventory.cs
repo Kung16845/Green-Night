@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 using System.Linq;
@@ -12,6 +13,7 @@ public class UIInventory : MonoBehaviour
     public NpcManager npcManager;
     public NpcClass npcSelecying;
     public List<InvenrotySlots> listInvenrotySlotsUI = new List<InvenrotySlots>();
+    public event Action<ItemWeapon> OnWeaponChanged;
     public List<ItemData> listItemDataInventoryEqicment;
     public List<ItemData> listItemDataInventoryslot;
     public Transform transformBoxes;
@@ -191,7 +193,6 @@ public class UIInventory : MonoBehaviour
     {
         PlayerMovement player = FindObjectOfType<PlayerMovement>();
         statAmplifier = FindObjectOfType<StatAmplifier>();
-
         statAmplifier.endurance = npcSelecying.endurance;
         statAmplifier.combat = npcSelecying.combat;
         statAmplifier.speed = npcSelecying.speed;
@@ -203,6 +204,7 @@ public class UIInventory : MonoBehaviour
 
         // Update player and weapon stats if necessary
         player.currentStamina = player.GetMaxStamina();
+         SetCostumeNpcExpentdition(npcSelecying, player.gameObject);
     }
     private void OnDestroy()
     {
@@ -266,6 +268,41 @@ public class UIInventory : MonoBehaviour
         listItemDataInventoryEqicment.Clear();
         ConventAllUIItemInListInventorySlotToListItemData(listItemDataInventoryslot);
         ConventAllUIItemInListInventorySlotToListEqicmentItemData(listItemDataInventoryEqicment);
+        ItemData weaponItemData = listItemDataInventoryEqicment.FirstOrDefault(item => item.itemtype == Itemtype.Weapon);
+
+        if (weaponItemData != null)
+        {
+            // Get the corresponding UIItemData using idItem
+            UIItemData uiItemData = inventoryItemPresent.listUIItemPrefab
+                .FirstOrDefault(uiItem => uiItem.idItem == weaponItemData.idItem);
+
+            if (uiItemData != null)
+            {
+                // Get the ItemWeapon component
+                ItemWeapon itemWeapon = uiItemData.GetComponent<ItemWeapon>();
+
+                if (itemWeapon != null)
+                {
+                    // Invoke the event with the new weapon
+                    OnWeaponChanged?.Invoke(itemWeapon);
+                }
+                else
+                {
+                    Debug.LogWarning("ItemWeapon component not found on UIItemData.");
+                    OnWeaponChanged?.Invoke(null); // No weapon
+                }
+            }
+            else
+            {
+                Debug.LogWarning("UIItemData not found for idItem: " + weaponItemData.idItem);
+                OnWeaponChanged?.Invoke(null); // No weapon
+            }
+        }
+        else
+        {
+            // No weapon equipped
+            OnWeaponChanged?.Invoke(null);
+        }
     }
     public GameObject CreateUIItem(ItemData itemData, InvenrotySlots invenrotySlots)
 
@@ -284,6 +321,31 @@ public class UIInventory : MonoBehaviour
         uIItemData.UpdateDataUI(itemClass);
 
         return itemUI;
+    }
+    private void InstallNpcCostumeOnPlayer(GameObject playerObject, NpcClass npcClass)
+    {
+        // Get the NpcCoutume component from the player
+        NpcCoutume playerCoutume = playerObject.GetComponent<NpcCoutume>();
+        if (playerCoutume != null)
+        {
+            // Get the NpcManager instance
+            if (npcManager == null)
+            {
+                npcManager = FindObjectOfType<NpcManager>();
+            }
+
+            // Retrieve the costume data based on the selected NPC
+            HeadCoutume headCoutume = npcManager.listHeadCoutume.FirstOrDefault(coutume => coutume.idHead == npcClass.idHead);
+            BodyCoutume bodyCoutume = npcManager.listBodyCoutume.FirstOrDefault(coutume => coutume.idBody == npcClass.idBody);
+            FeedCoutume feedCoutume = npcManager.listFeedCoutume.FirstOrDefault(coutume => coutume.idFeed == npcClass.idFeed);
+
+            // Apply the costume to the player's NpcCoutume
+            playerCoutume.SetCostume(headCoutume, bodyCoutume, feedCoutume);
+        }
+        else
+        {
+            Debug.LogWarning("Player does not have a NpcCoutume component.");
+        }
     }
 
 }

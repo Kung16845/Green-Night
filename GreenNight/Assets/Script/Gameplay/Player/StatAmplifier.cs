@@ -19,22 +19,19 @@ public class StatAmplifier : MonoBehaviour
     private float roleReloadSpeedModifier = 0f;
     private float roleDamageModifier = 0f;
 
-    // Method to calculate the percentage increase based on the level
-    private float GetAmplifierMultiplier(int level)
-    {
-        if (level >= 2 && level <= 3) return 0.05f * (level - 1);    // 5% per level
-        if (level >= 4 && level <= 6) return 0.10f + 0.07f * (level - 3); // 7% per level
-        if (level >= 7 && level <= 9) return 0.31f + 0.04f * (level - 6); // 4% per level
-        if (level == 10) return 0.46f + 0.10f;                       // 10% for level 10
-        return 0f;
-    }
-
     // Base multipliers from stats
     private float baseEnduranceMultiplier;
     private float baseCombatMultiplier;
     private float baseSpeedMultiplier;
 
+    // Remove the Awake() method or leave it empty
     void Awake()
+    {
+        // Initialization can be deferred
+    }
+
+    // New method to initialize and apply amplifiers
+    public void InitializeAmplifiers()
     {
         // Calculate base multipliers
         baseEnduranceMultiplier = 1 + GetAmplifierMultiplier(endurance);
@@ -43,6 +40,18 @@ public class StatAmplifier : MonoBehaviour
 
         // Apply role-based modifiers
         ApplyRoleModifiers();
+    }
+
+    // Rest of the class remains the same...
+
+    // Method to calculate the percentage increase based on the level
+    private float GetAmplifierMultiplier(int level)
+    {
+        if (level >= 2 && level <= 3) return 0.05f * (level - 1);    // 5% per level
+        if (level >= 4 && level <= 6) return 0.10f + 0.07f * (level - 3); // 7% per level
+        if (level >= 7 && level <= 9) return 0.31f + 0.04f * (level - 6); // 4% per level
+        if (level == 10) return 0.46f + 0.10f;                       // 10% for level 10
+        return 0f;
     }
 
     // Apply role-based stat modifiers
@@ -142,6 +151,7 @@ public class StatAmplifier : MonoBehaviour
     {
         return 1 + roleDamageModifier; // Damage increases by role modifier
     }
+
     public float GetEnduranceMultiplier() => 1 + GetAmplifierMultiplier(endurance);
     public float GetCombatMultiplier() => 1 + GetAmplifierMultiplier(combat);
 }
