@@ -15,18 +15,18 @@ public class SceneSystem : MonoBehaviour
         timeManager = FindObjectOfType<TimeManager>();
         timeManager.sceneSystem1 = this;
         timeManager.dateTime.sceneSystem = this;
-        Debug.Log("sceneSystem");
+        // Debug.Log("sceneSystem");
     }
     public void SwitchScene(int sceneIndex)
-    {   
-         SceneManager.LoadScene(sceneIndex);
-        // StartCoroutine(LoadScene(sceneIndex));
+    {
+
+        StartCoroutine(LoadScene(sceneIndex));
     }
     IEnumerator LoadScene(int sceneIndex)
     {
         transitionAnim.SetTrigger("EndScene");
-        yield return new WaitForSeconds(3.0f);    
-       
+        yield return new WaitForSeconds(3.0f);
+        SceneManager.LoadScene(sceneIndex);
 
 
     }

@@ -18,11 +18,13 @@ public class UIInventoryEX : UIInventory
     {
         SetValuableUIInventory();
         expenditionManager = FindObjectOfType<ExpenditionManager>();
-        sceneSystem = FindObjectOfType<SceneSystem>();
+
     }
     public void Start()
     {
         expenditionManager = FindObjectOfType<ExpenditionManager>();
+        sceneSystem = FindObjectOfType<SceneSystem>();
+        inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
 
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         if (currentSceneIndex == 2)
@@ -63,8 +65,8 @@ public class UIInventoryEX : UIInventory
 
     }
     public void SetDataMoveSceneForEventExpendition()
-    {
-
+    {        
+        Debug.Log("SetDataMoveSceneForEventExpendition");
         expenditionManager.npcSelecying = this.npcSelecying;
         expenditionManager.listItemDataInventoryEqicment = this.listItemDataInventoryEqicment;
         expenditionManager.listItemDataInventoryslot = this.listItemDataInventoryslot;
@@ -123,8 +125,9 @@ public class UIInventoryEX : UIInventory
         if (isArrive)
         {
             SetDataMoveSceneForEventExpendition();
-            Destroy(this.gameObject, 2f);
             sceneSystem.SwitchScene(2);
+            Destroy(this.gameObject, 2f);
+
         }
     }
     private void OnDisable()
@@ -147,10 +150,15 @@ public class UIInventoryEX : UIInventory
     }
     public void EndSceneExpendition()
     {
+
+        Debug.Log(" EndSceneExpendition");
         ClearItemDataInAllInventorySlotToListDataBoxes();
-        SetDataMoveSceneForEventExpendition();
+        // SetDataMoveSceneForEventExpendition();
+        expenditionManager.listItemDataInventoryEqicment.Clear();
+        expenditionManager.listItemDataInventoryslot.Clear();
         listItemDataInventoryEqicment.Clear();
         listItemDataInventoryslot.Clear();
+        // this.gameObject.SetActive(false);
         sceneSystem.SwitchScene(0);
     }
 

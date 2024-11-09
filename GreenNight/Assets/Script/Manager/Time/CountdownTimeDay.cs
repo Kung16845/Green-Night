@@ -37,15 +37,15 @@ public class CountdownTimeDay : MonoBehaviour
             finishHourCraftingTime = timeManager.dateTime.hour + (int)(timeInSeconds / 60);
             finishMinutesCraftingTime = (int)timeInSeconds % 60;
         }
-        Debug.Log("Day : " + finishDayCraftingTime + " Hour : " + finishHourCraftingTime
-        + " Minutes : " + finishMinutesCraftingTime);
+        // Debug.Log("Day : " + finishDayCraftingTime + " Hour : " + finishHourCraftingTime
+        // + " Minutes : " + finishMinutesCraftingTime);
     }
     // Update is called once per frame
     void Update()
     {
-        if (timeManager.dateTime.day >= finishDayCraftingTime &&
+        if (timeManager.dateTime.day >= finishDayCraftingTime || (
         timeManager.dateTime.hour >= finishHourCraftingTime &&
-        timeManager.dateTime.minutes >= finishMinutesCraftingTime)
+        timeManager.dateTime.minutes >= finishMinutesCraftingTime))
         {
             // Debug.Log("Success");
             uIInventoryEX.isArrive = true;

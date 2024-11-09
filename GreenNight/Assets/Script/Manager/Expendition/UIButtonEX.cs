@@ -32,7 +32,7 @@ public class UIButtonEX : MonoBehaviour
             buttonOpen.onClick.AddListener(ExpenditionManager.Instance.OpenUIExpenditionInventoryTwo);
         }
     }
-
+    
     public void SetUIButtonEX(Sprite spriteHead, string finishDayHour)
     {
         textDayHourFinish.text = finishDayHour;
