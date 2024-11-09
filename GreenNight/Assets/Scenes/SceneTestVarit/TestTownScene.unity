@@ -2256,14 +2256,15 @@ MonoBehaviour:
     idBody: 0
     idFeed: 0
   listInvenrotySlotsUI: []
-  listItemDataInventoryslot: []
   listItemDataInventoryEqicment: []
+  listItemDataInventoryslot: []
   transformBoxes: {fileID: 0}
   inventoryItemPresent: {fileID: 0}
   levelEnduranceText: {fileID: 0}
   levelCombatText: {fileID: 0}
   levelSpeedText: {fileID: 0}
   specialistNpcText: {fileID: 0}
+  statAmplifier: {fileID: 0}
   timeScale: 0
   indexExpendition: 0
   isArrive: 0
@@ -18030,6 +18031,7 @@ GameObject:
   - component: {fileID: 970539897}
   - component: {fileID: 970539896}
   - component: {fileID: 970539895}
+  - component: {fileID: 970539898}
   m_Layer: 5
   m_Name: 'Button Choice One '
   m_TagString: Untagged
@@ -18101,19 +18103,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 970539896}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1012038035}
-        m_TargetAssemblyTypeName: ExpenditionManager, Assembly-CSharp
-        m_MethodName: CreateInventorySetExpendition
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 4000
-          m_FloatArgument: 800
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &970539896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18152,6 +18142,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 970539893}
   m_CullTransparentMesh: 1
+--- !u!114 &970539898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970539893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 753e2961542e39a4bba874403376d15c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonCreateExpendition: {fileID: 970539895}
+  expenditionManager: {fileID: 0}
+  indexEXButton: 1
 --- !u!1 &980524238
 GameObject:
   m_ObjectHideFlags: 0
@@ -27066,6 +27071,7 @@ GameObject:
   - component: {fileID: 1430998057}
   - component: {fileID: 1430998056}
   - component: {fileID: 1430998055}
+  - component: {fileID: 1430998058}
   m_Layer: 5
   m_Name: Button Choice Two
   m_TagString: Untagged
@@ -27137,19 +27143,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1430998056}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1012038035}
-        m_TargetAssemblyTypeName: ExpenditionManager, Assembly-CSharp
-        m_MethodName: CreateInventorySetExpendition
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 8000
-          m_FloatArgument: 1000
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1430998056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27188,6 +27182,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1430998053}
   m_CullTransparentMesh: 1
+--- !u!114 &1430998058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430998053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 753e2961542e39a4bba874403376d15c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonCreateExpendition: {fileID: 1430998055}
+  expenditionManager: {fileID: 0}
+  indexEXButton: 2
 --- !u!1 &1439626615
 GameObject:
   m_ObjectHideFlags: 0
@@ -30082,19 +30091,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1595178330}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1012038035}
-        m_TargetAssemblyTypeName: ExpenditionManager, Assembly-CSharp
-        m_MethodName: OpenUIExpenditionInventoryTwo
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1595178330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40603,19 +40600,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2121583282}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1012038035}
-        m_TargetAssemblyTypeName: ExpenditionManager, Assembly-CSharp
-        m_MethodName: OpenUIExpenditionInventoryOne
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2121583282
 MonoBehaviour:
   m_ObjectHideFlags: 0

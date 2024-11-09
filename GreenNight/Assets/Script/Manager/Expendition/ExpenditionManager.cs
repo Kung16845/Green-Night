@@ -27,7 +27,6 @@ public class ExpenditionManager : MonoBehaviour
     public GameObject uIExOne;
     public GameObject uIExTwo;
     public GameObject playerObject;
-
     public GameObject uIInventoryExPrefab;
     public Transform transformsUIEx;
     public UIButtonEX uIButtonEXOne;
@@ -55,6 +54,7 @@ public class ExpenditionManager : MonoBehaviour
         uIInventoryEx.timeScale = timeScale;
         uIEx.SetActive(true);
     }
+
     public void SetUIExButton(int indexEXUI, Sprite spriteHeadNpc, string textdayFinish)
     {
         if (indexEXUI == 1)

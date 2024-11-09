@@ -23,7 +23,7 @@ public class UIButtonEX : MonoBehaviour
             buttonOpen.onClick.RemoveAllListeners();
             buttonOpen.onClick.AddListener(ExpenditionManager.Instance.OpenUIExpenditionInventoryOne);
         }
-        else
+        else if(indexEXUI == 2)
         {
             expenditionManager.uIButtonEXTwo = this;
             Debug.Log("Reset Button Two");
