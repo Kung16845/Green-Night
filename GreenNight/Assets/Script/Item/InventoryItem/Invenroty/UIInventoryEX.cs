@@ -33,9 +33,17 @@ public class UIInventoryEX : UIInventory
 
             // SetDataForEventExpendition();
             expenditionManager.playerObject = FindObjectOfType<PlayerMovement>().gameObject;
+            statAmplifier = FindObjectOfType<StatAmplifier>();
             GameObject npcPlayer = expenditionManager.playerObject;
+
             SetInventoryItemDataEx(expenditionManager.listItemDataInventoryslot, expenditionManager.listItemDataInventoryEqicment);
             SetCostumeNpcExpentdition(npcSelecying, npcPlayer);
+            // Recalculate stat amplifiers
+            if (statAmplifier != null)
+            {
+                statAmplifier.InitializeAmplifiers(); // Recalculate multipliers
+                statAmplifier.ApplyRoleModifiers();   // Apply role modifiers
+            }
             // expenditionManager.listItemDataInventoryslot.Clear();
             // expenditionManager.listItemDataInventoryEqicment.Clear();
         }
@@ -65,7 +73,7 @@ public class UIInventoryEX : UIInventory
 
     }
     public void SetDataMoveSceneForEventExpendition()
-    {        
+    {
         Debug.Log("SetDataMoveSceneForEventExpendition");
         expenditionManager.npcSelecying = this.npcSelecying;
         expenditionManager.listItemDataInventoryEqicment = this.listItemDataInventoryEqicment;

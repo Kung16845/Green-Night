@@ -29,7 +29,7 @@ public class StatAmplifier : MonoBehaviour
     {
         // Initialization can be deferred
     }
-
+    
     // New method to initialize and apply amplifiers
     public void InitializeAmplifiers()
     {
