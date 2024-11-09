@@ -25,7 +25,6 @@ public class UIInventoryEX : UIInventory
         expenditionManager = FindObjectOfType<ExpenditionManager>();
 
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        button1.onClick.AddListener(CallFuntionAddListenerButton);
         if (currentSceneIndex == 2)
         {
             Debug.Log("Enter Scene Expendition");
@@ -37,7 +36,6 @@ public class UIInventoryEX : UIInventory
             SetCostumeNpcExpentdition(npcSelecying, npcPlayer);
             // expenditionManager.listItemDataInventoryslot.Clear();
             // expenditionManager.listItemDataInventoryEqicment.Clear();
-
         }
 
         if (indexExpendition == 1)
