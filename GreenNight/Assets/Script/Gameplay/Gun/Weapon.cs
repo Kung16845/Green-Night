@@ -17,7 +17,7 @@ public class Weapon : MonoBehaviour
     public float spreadAngle; // Spread angle for shotgun
     public int stabilityThreshold = 5; // Number of shots before stability penalty starts
     public CaliberType caliberType;
-
+    private AnimationController animationController;
     // Internal variables
     [SerializeField] public int currentAmmo;
     [SerializeField] public float fireRate;
@@ -43,6 +43,7 @@ public class Weapon : MonoBehaviour
     {
         playerMovement = GetComponentInParent<PlayerMovement>();
         statAmplifier = GetComponent<StatAmplifier>();
+        animationController = GetComponent<AnimationController>();
         actionController = GetComponent<ActionController>();
 
         uiInventory = FindObjectOfType<UIInventory>();
@@ -80,7 +81,7 @@ public class Weapon : MonoBehaviour
             currentAmmo = capacity;
             fireRate = 60f / rateOfFire;
             initialAccuracy = accuracy;
-
+            animationController.isgunequip = true;
             // Recalculate stat amplifiers
             if (statAmplifier != null)
             {
@@ -121,6 +122,7 @@ public class Weapon : MonoBehaviour
         currentAmmo = 0;
         isReloading = false;
         shotsFiredConsecutively = 0;
+        animationController.isgunequip = false;
     }
     private void InitializeWeaponStats()
     {
@@ -181,11 +183,13 @@ public class Weapon : MonoBehaviour
                     shotsFiredConsecutively++;
                     if (shotsFiredConsecutively >= stabilityThreshold)
                     {
+                        
                         ApplyStabilityPenalty();
                     }
                 }
                 else if (!isFiring)
                 {
+                    animationController.isfire = false;
                     RecoverAccuracy();
                 }
             }
@@ -203,6 +207,7 @@ public class Weapon : MonoBehaviour
                 }
                 else if (!isFiring)
                 {
+                    animationController.isfire = false;
                     RecoverAccuracy();
                 }
             }
@@ -232,6 +237,7 @@ public class Weapon : MonoBehaviour
         }
         else
         {
+            animationController.isfire = true;
             FireBullet();
         }
     }
@@ -373,14 +379,31 @@ public class Weapon : MonoBehaviour
     public IEnumerator Reload()
     {
         isReloading = true;
-        Debug.Log((6.5f * (1-(statAmplifier.GetCombatMultiplier()-1)))  * (100f - handling) / 100f);
-        float reloadTime = ((6.5f * (1-(statAmplifier.GetCombatMultiplier()-1)))  * (100f - handling) / 100f) * statAmplifier.GetReloadSpeedMultiplier();;
+        animationController.isreload = true;
+
+        float reloadTime = (6.5f * (1 - (statAmplifier.GetCombatMultiplier() - 1))) * (100f - handling) / 100f * statAmplifier.GetReloadSpeedMultiplier();
+
+        // Calculate the playback speed required for the animation to match reloadTime
+        Animator animator = animationController.GetComponent<Animator>();
+        AnimationClip reloadAnimationClip = animator.runtimeAnimatorController.animationClips.FirstOrDefault(clip => clip.name == "ReloadGenericRifle");
+        
+        if (reloadAnimationClip != null)
+        {
+            float animationDuration = reloadAnimationClip.length;
+            animator.speed = animationDuration / reloadTime; // Adjust playback speed to match reloadTime
+        }
+
         yield return new WaitForSeconds(reloadTime);
+
+        // Reset the animation state and speed after reloading is complete
+        animator.speed = 1f; // Reset animator speed to default
+        animationController.isreload = false;
         currentAmmo = capacity;
         isReloading = false;
         shotsFiredConsecutively = 0; 
         Debug.Log("Reloaded!");
     }
+
     private void ApplyStatAmplifier()
     {
         if (statAmplifier != null)

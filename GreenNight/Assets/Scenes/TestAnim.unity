@@ -6684,11 +6684,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!212 &405174400 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 4132368582949445596, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
-  m_PrefabInstance: {fileID: 1907961773}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &405605254
 GameObject:
   m_ObjectHideFlags: 0
@@ -29790,34 +29785,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2668224093323722925, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
+      propertyPath: firePoint
+      value: 
+      objectReference: {fileID: 1907961774}
     - target: {fileID: 3294522616467958221, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
       propertyPath: stuckSlider
       value: 
       objectReference: {fileID: 4445692}
-    - target: {fileID: 4132368582949445596, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
-      propertyPath: m_Size.x
-      value: 1.4318181
-      objectReference: {fileID: 0}
-    - target: {fileID: 4132368582949445596, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
-      propertyPath: m_Size.y
-      value: 0.45
-      objectReference: {fileID: 0}
-    - target: {fileID: 4132368582949445596, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -1534162197, guid: 48abea61df02f8646bc024b5f36644b8, type: 3}
-    - target: {fileID: 4132368582949445596, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4958575212990922125, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 5560521083911677140, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
-      propertyPath: spriteRenderer
-      value: 
-      objectReference: {fileID: 405174400}
+    - target: {fileID: 4958575212990922125, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

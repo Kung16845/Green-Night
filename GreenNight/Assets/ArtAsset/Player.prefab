@@ -813,9 +813,10 @@ GameObject:
   - component: {fileID: 3780009304576836461}
   - component: {fileID: 689822333862038372}
   - component: {fileID: 7044263987609638328}
+  - component: {fileID: 5560521083911677140}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -838,7 +839,7 @@ Transform:
   - {fileID: 4931287141810929044}
   - {fileID: 5825298004605569557}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2960631616456382538
 Animator:
@@ -898,10 +899,10 @@ MonoBehaviour:
   baseSpeed: 2
   baseSprintSpeed: 4
   baseMaxStamina: 100
-  currentStamina: 0
+  currentStamina: 100
   baseStaminaRecoverSpeed: 10
   baseStaminaConsumeSpeed: 15
-  minStaminaToSprint: 1
+  minStaminaToSprint: 30
 --- !u!114 &2668224093323722925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -933,7 +934,7 @@ MonoBehaviour:
   isNpc: 0
   accuracyPenalty: 0
   shotsFiredConsecutively: 0
-  firePoint: {fileID: 0}
+  firePoint: {fileID: 876816314164205647}
   bulletPrefab: {fileID: 1617540189290291661, guid: 24767a2c5fdcaf449bcb669d907ddf44, type: 3}
   bulletDirection: {x: 0, y: 0}
 --- !u!114 &3294522616467958221
@@ -1087,6 +1088,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &5560521083911677140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4958575212990922125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6911be7d5f30afe46a3c64e232f3db56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
+  isgunequip: 0
+  iswalk: 0
+  isrun: 0
+  isfire: 0
+  isreload: 0
+  Guntype: 0
 --- !u!1 &5212866311164574474
 GameObject:
   m_ObjectHideFlags: 0
