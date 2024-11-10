@@ -9,6 +9,7 @@ public class UIButtonEX : MonoBehaviour
 {
     public TextMeshProUGUI textDayHourFinish;
     public Image imageHead;
+    public GameObject iconComplete;
     public Button buttonOpen;
 
     public int indexEXUI;

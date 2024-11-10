@@ -13,7 +13,6 @@ public class UIInventoryEX : UIInventory
     public bool isArrive;
     public ExpenditionManager expenditionManager;
     public SceneSystem sceneSystem;
-    public Button button1;
     private void Awake()
     {
         SetValuableUIInventory();
@@ -91,7 +90,7 @@ public class UIInventoryEX : UIInventory
     {
         CountdownTimeDay countdownTimeDay = expenditionManager.AddComponent<CountdownTimeDay>();
         countdownTimeDay.timeScale = timeScale;
-        countdownTimeDay.uIInventoryEX = this;
+        countdownTimeDay.uIInventoryEX = this; 
         countdownTimeDay.SetStartExpendition();
 
         npcManager.listNpc.Remove(npcSelecying);
@@ -111,11 +110,13 @@ public class UIInventoryEX : UIInventory
         if (expenditionManager.uIExOne == null)
         {
             expenditionManager.uIExOne = this.gameObject;
+            countdownTimeDay.iconCompleteSend = expenditionManager.uIButtonEXOne.iconComplete;
             indexExpendition = 1;
         }
         else
         {
             expenditionManager.uIExTwo = this.gameObject;
+            countdownTimeDay.iconCompleteSend = expenditionManager.uIButtonEXTwo.iconComplete;
             indexExpendition = 2;
         }
 
@@ -124,6 +125,7 @@ public class UIInventoryEX : UIInventory
 
         expenditionManager.SetUIExButton(indexExpendition, spriteHeadNpc, textdayFinish);
 
+       
         this.gameObject.SetActive(false);
     }
     private void OnEnable()
