@@ -211,12 +211,14 @@ public class UIInventory : MonoBehaviour
         ClearItemDataInAllInventorySlotToListDataBoxes();
     }
     public void ClearItemDataInAllInventorySlotToListDataBoxes()
-    {
+    {   
+        Debug.Log("ClearItemDataInAllInventorySlotToListDataBoxes");
         foreach (InvenrotySlots slotsItem in listInvenrotySlotsUI)
         {
             ItemClass itemClass = slotsItem.GetComponentInChildren<ItemClass>();
             if (itemClass != null)
-            {
+            {   
+                Debug.Log("item count : "+itemClass.quantityItem);
                 ItemData itemData = inventoryItemPresent.ConventItemClassToItemData(itemClass);
                 inventoryItemPresent.AddItem(itemData);
 

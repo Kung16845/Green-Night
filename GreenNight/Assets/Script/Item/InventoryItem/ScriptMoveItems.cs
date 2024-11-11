@@ -16,7 +16,7 @@ public class ScriptMoveItems : MonoBehaviour
     private void OnEnable()
     {
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
-        Debug.Log("Open UI ScriptMoveItens");
+        // Debug.Log("Open UI ScriptMoveItens");
     }
     void Start()
     {
@@ -46,7 +46,7 @@ public class ScriptMoveItems : MonoBehaviour
         }
         else if (itemClassInChild != null)
         {
-            Debug.Log("item classInChild is not null ");
+            // Debug.Log("item classInChild is not null ");
 
             if (countItemMove > itemClassMove.quantityItem)
             {

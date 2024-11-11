@@ -13,16 +13,17 @@ public class UIInventoryEX : UIInventory
     public bool isArrive;
     public ExpenditionManager expenditionManager;
     public SceneSystem sceneSystem;
-    public Button button1;
     private void Awake()
     {
         SetValuableUIInventory();
         expenditionManager = FindObjectOfType<ExpenditionManager>();
-        sceneSystem = FindObjectOfType<SceneSystem>();
+
     }
     public void Start()
     {
         expenditionManager = FindObjectOfType<ExpenditionManager>();
+        sceneSystem = FindObjectOfType<SceneSystem>();
+        inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
 
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         if (currentSceneIndex == 2)
@@ -31,9 +32,17 @@ public class UIInventoryEX : UIInventory
 
             // SetDataForEventExpendition();
             expenditionManager.playerObject = FindObjectOfType<PlayerMovement>().gameObject;
+            statAmplifier = FindObjectOfType<StatAmplifier>();
             GameObject npcPlayer = expenditionManager.playerObject;
+
             SetInventoryItemDataEx(expenditionManager.listItemDataInventoryslot, expenditionManager.listItemDataInventoryEqicment);
             SetCostumeNpcExpentdition(npcSelecying, npcPlayer);
+            // Recalculate stat amplifiers
+            if (statAmplifier != null)
+            {
+                statAmplifier.InitializeAmplifiers(); // Recalculate multipliers
+                statAmplifier.ApplyRoleModifiers();   // Apply role modifiers
+            }
             // expenditionManager.listItemDataInventoryslot.Clear();
             // expenditionManager.listItemDataInventoryEqicment.Clear();
         }
@@ -64,7 +73,7 @@ public class UIInventoryEX : UIInventory
     }
     public void SetDataMoveSceneForEventExpendition()
     {
-
+        Debug.Log("SetDataMoveSceneForEventExpendition");
         expenditionManager.npcSelecying = this.npcSelecying;
         expenditionManager.listItemDataInventoryEqicment = this.listItemDataInventoryEqicment;
         expenditionManager.listItemDataInventoryslot = this.listItemDataInventoryslot;
@@ -81,7 +90,7 @@ public class UIInventoryEX : UIInventory
     {
         CountdownTimeDay countdownTimeDay = expenditionManager.AddComponent<CountdownTimeDay>();
         countdownTimeDay.timeScale = timeScale;
-        countdownTimeDay.uIInventoryEX = this;
+        countdownTimeDay.uIInventoryEX = this; 
         countdownTimeDay.SetStartExpendition();
 
         npcManager.listNpc.Remove(npcSelecying);
@@ -101,11 +110,13 @@ public class UIInventoryEX : UIInventory
         if (expenditionManager.uIExOne == null)
         {
             expenditionManager.uIExOne = this.gameObject;
+            countdownTimeDay.iconCompleteSend = expenditionManager.uIButtonEXOne.iconComplete;
             indexExpendition = 1;
         }
         else
         {
             expenditionManager.uIExTwo = this.gameObject;
+            countdownTimeDay.iconCompleteSend = expenditionManager.uIButtonEXTwo.iconComplete;
             indexExpendition = 2;
         }
 
@@ -114,6 +125,7 @@ public class UIInventoryEX : UIInventory
 
         expenditionManager.SetUIExButton(indexExpendition, spriteHeadNpc, textdayFinish);
 
+       
         this.gameObject.SetActive(false);
     }
     private void OnEnable()
@@ -123,8 +135,9 @@ public class UIInventoryEX : UIInventory
         if (isArrive)
         {
             SetDataMoveSceneForEventExpendition();
-            Destroy(this.gameObject, 2f);
             sceneSystem.SwitchScene(2);
+            Destroy(this.gameObject, 2f);
+
         }
     }
     private void OnDisable()
@@ -147,10 +160,15 @@ public class UIInventoryEX : UIInventory
     }
     public void EndSceneExpendition()
     {
+
+        Debug.Log(" EndSceneExpendition");
         ClearItemDataInAllInventorySlotToListDataBoxes();
-        SetDataMoveSceneForEventExpendition();
+        // SetDataMoveSceneForEventExpendition();
+        expenditionManager.listItemDataInventoryEqicment.Clear();
+        expenditionManager.listItemDataInventoryslot.Clear();
         listItemDataInventoryEqicment.Clear();
         listItemDataInventoryslot.Clear();
+        // this.gameObject.SetActive(false);
         sceneSystem.SwitchScene(0);
     }
 

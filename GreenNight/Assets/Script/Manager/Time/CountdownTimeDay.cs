@@ -11,11 +11,13 @@ public class CountdownTimeDay : MonoBehaviour
     public int finishDayCraftingTime;
     public int finishHourCraftingTime;
     public int finishMinutesCraftingTime;
+
+    public GameObject iconCompleteSend;
     public TimeManager timeManager;
     public UIInventoryEX uIInventoryEX;
     private void Awake()
     {
-        SetStartExpendition();
+        
     }
     public void SetStartExpendition()
     {
@@ -39,16 +41,21 @@ public class CountdownTimeDay : MonoBehaviour
         }
         Debug.Log("Day : " + finishDayCraftingTime + " Hour : " + finishHourCraftingTime
         + " Minutes : " + finishMinutesCraftingTime);
+
     }
     // Update is called once per frame
     void Update()
-    {
-        if (timeManager.dateTime.day >= finishDayCraftingTime &&
+    {   
+
+
+        if (timeManager.dateTime.day > finishDayCraftingTime  || 
+        (timeManager.dateTime.day == finishDayCraftingTime &&
         timeManager.dateTime.hour >= finishHourCraftingTime &&
-        timeManager.dateTime.minutes >= finishMinutesCraftingTime)
-        {
-            // Debug.Log("Success");
+        timeManager.dateTime.minutes >= finishMinutesCraftingTime) )
+        {   
+
             uIInventoryEX.isArrive = true;
+            iconCompleteSend.gameObject.SetActive(true);
             Destroy(this);
         }
     }
