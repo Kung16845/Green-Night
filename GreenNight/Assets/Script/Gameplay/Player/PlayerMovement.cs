@@ -10,18 +10,20 @@ public class PlayerMovement : MonoBehaviour
     public float currentStamina;
     public float baseStaminaRecoverSpeed = 10f;
     public float baseStaminaConsumeSpeed = 15f;
-    public float minStaminaToSprint = 10f;
+    public float minStaminaToSprint = 30f;
 
     private bool isMovementStopped = false;
     private bool isSprinting = false;
+    private bool canSprint = true; // Track if player can start sprinting again
     private ActionController actionController;
+    private AnimationController animationController;
     private StatAmplifier statAmplifier;
 
     void Start()
     {
         statAmplifier = GetComponent<StatAmplifier>();
         actionController = GetComponent<ActionController>();
-
+        animationController = GetComponent<AnimationController>();
         if (statAmplifier == null)
         {
             Debug.LogError("StatAmplifier component not found on the player.");
@@ -50,16 +52,28 @@ public class PlayerMovement : MonoBehaviour
         float movementSpeed = baseSpeed * speedMultiplier;
         float sprintMovementSpeed = baseSprintSpeed * speedMultiplier;
 
-        // Check if the player is pressing the sprint key (Shift) and has enough stamina
-        if (Input.GetKey(KeyCode.LeftShift) && currentStamina > minStaminaToSprint)
+        if (direction.magnitude > 0) // Check if player is moving
         {
-            isSprinting = true;
-            transform.Translate(direction * sprintMovementSpeed * Time.deltaTime);
+            // Check if the player is sprinting
+            if (Input.GetKey(KeyCode.LeftShift) && currentStamina > 0 && canSprint)
+            {
+                animationController.isrun = true;
+                animationController.iswalk = false;
+                isSprinting = true;
+                transform.Translate(direction * sprintMovementSpeed * Time.deltaTime);
+            }
+            else
+            {
+                animationController.iswalk = true;
+                animationController.isrun = false;
+                isSprinting = false;
+                transform.Translate(direction * movementSpeed * Time.deltaTime);
+            }
         }
         else
         {
-            isSprinting = false;
-            transform.Translate(direction * movementSpeed * Time.deltaTime);
+            animationController.iswalk = false;
+            animationController.isrun = false;
         }
     }
 
@@ -72,9 +86,11 @@ public class PlayerMovement : MonoBehaviour
         {
             // Consume stamina while sprinting
             currentStamina -= baseStaminaConsumeSpeed * staminaConsumeMultiplier * Time.deltaTime;
-            if (currentStamina < 0f)
+            if (currentStamina <= 0f)
             {
                 currentStamina = 0f;
+                canSprint = false; // Disable sprinting until stamina recovers
+                isSprinting = false; // Stop sprinting when stamina is depleted
             }
         }
         else
@@ -84,6 +100,12 @@ public class PlayerMovement : MonoBehaviour
             if (currentStamina > GetMaxStamina())
             {
                 currentStamina = GetMaxStamina();
+            }
+
+            // Allow sprinting again if stamina reaches the minimum required level
+            if (currentStamina >= minStaminaToSprint)
+            {
+                canSprint = true;
             }
         }
     }
