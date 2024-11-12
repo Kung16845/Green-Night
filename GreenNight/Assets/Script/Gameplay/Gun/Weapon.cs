@@ -82,12 +82,6 @@ public class Weapon : MonoBehaviour
             fireRate = 60f / rateOfFire;
             initialAccuracy = accuracy;
             animationController.isgunequip = true;
-            // Recalculate stat amplifiers
-            if (statAmplifier != null)
-            {
-                statAmplifier.InitializeAmplifiers(); // Recalculate multipliers
-                statAmplifier.ApplyRoleModifiers();   // Apply role modifiers
-            }
 
             // Apply handling penalty and stat amplifiers
             ApplyHandlingPenalty();
@@ -385,7 +379,7 @@ public class Weapon : MonoBehaviour
 
         // Calculate the playback speed required for the animation to match reloadTime
         Animator animator = animationController.GetComponent<Animator>();
-        AnimationClip reloadAnimationClip = animator.runtimeAnimatorController.animationClips.FirstOrDefault(clip => clip.name == "ReloadGenericRifle");
+        AnimationClip reloadAnimationClip = animator.runtimeAnimatorController.animationClips.FirstOrDefault(clip => clip.name == "ReloadPistol");
         
         if (reloadAnimationClip != null)
         {

@@ -22,7 +22,7 @@ public class AnimationController : MonoBehaviour
         isrun = false;
         isfire = false;
         isreload = false;
-        Guntype = 1;
+        Guntype = 0;
     }
 
     void Update()
