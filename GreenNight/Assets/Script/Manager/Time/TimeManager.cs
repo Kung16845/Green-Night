@@ -3,6 +3,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 public class TimeManager : MonoBehaviour
 {
     public static TimeManager Instance { get; private set; }
@@ -133,7 +134,7 @@ public class DateTime
                 SetTimeStartDay();
                 sceneSystem.SwitchScene(0);
             }
-            else
+            else if (SceneManager.GetActiveScene().buildIndex == 0 && this.hour <= 18 && this.minutes == 0)
             {
                 SetTimeNightDay();
                 sceneSystem.SwitchScene(1);
