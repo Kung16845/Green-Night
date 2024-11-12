@@ -48,6 +48,11 @@ public class Weapon : MonoBehaviour
 
         uiInventory = FindObjectOfType<UIInventory>();
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
+        if (statAmplifier != null)
+            {
+                statAmplifier.InitializeAmplifiers(); // Recalculate multipliers
+                statAmplifier.ApplyRoleModifiers();   // Apply role modifiers
+            }
         // DisableWeapon();
         if (uiInventory != null)
         {
@@ -83,7 +88,11 @@ public class Weapon : MonoBehaviour
             initialAccuracy = accuracy;
             animationController.isgunequip = true;
 
-            // Apply handling penalty and stat amplifiers
+            if (statAmplifier != null)
+            {
+                statAmplifier.InitializeAmplifiers(); // Recalculate multipliers
+                statAmplifier.ApplyRoleModifiers();   // Apply role modifiers
+            }
             ApplyHandlingPenalty();
             ApplyStatAmplifier();
 
@@ -379,7 +388,7 @@ public class Weapon : MonoBehaviour
 
         // Calculate the playback speed required for the animation to match reloadTime
         Animator animator = animationController.GetComponent<Animator>();
-        AnimationClip reloadAnimationClip = animator.runtimeAnimatorController.animationClips.FirstOrDefault(clip => clip.name == "ReloadPistol");
+        AnimationClip reloadAnimationClip = animator.runtimeAnimatorController.animationClips.FirstOrDefault(clip => clip.name == "ReloadGenericRifle");
         
         if (reloadAnimationClip != null)
         {
