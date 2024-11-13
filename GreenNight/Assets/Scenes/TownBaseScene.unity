@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 951353}
   - component: {fileID: 951352}
   - component: {fileID: 951351}
+  - component: {fileID: 951354}
   m_Layer: 5
   m_Name: Button Mall
   m_TagString: Untagged
@@ -206,7 +207,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 951352}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1047666945}
+        m_TargetAssemblyTypeName: UIExSelectPlace, Assembly-CSharp
+        m_MethodName: SetInfoPlaceSelect
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 951354}
+          m_ObjectArgumentAssemblyTypeName: DataExpendition, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &951352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,6 +258,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 951349}
   m_CullTransparentMesh: 1
+--- !u!114 &951354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8767989cc98e93442842a8fbfe4987f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  namePlace: Mall
+  infoDescriptPlace: 
+  infoETA: 
+  timescaleWalk: 8000
+  timescaleCar: 3000
+  riskEvent: 20
+  spriteImagePlace: {fileID: 1772179358, guid: 1ac6251f402a4744387c12b79671514b, type: 3}
 --- !u!1 &8389596
 GameObject:
   m_ObjectHideFlags: 0
@@ -3398,6 +3430,7 @@ GameObject:
   - component: {fileID: 129230574}
   - component: {fileID: 129230573}
   - component: {fileID: 129230572}
+  - component: {fileID: 129230575}
   m_Layer: 5
   m_Name: 'Button Steel Factory '
   m_TagString: Untagged
@@ -3469,7 +3502,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 129230573}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1047666945}
+        m_TargetAssemblyTypeName: UIExSelectPlace, Assembly-CSharp
+        m_MethodName: SetInfoPlaceSelect
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 129230575}
+          m_ObjectArgumentAssemblyTypeName: DataExpendition, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &129230573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3508,6 +3553,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 129230570}
   m_CullTransparentMesh: 1
+--- !u!114 &129230575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 129230570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8767989cc98e93442842a8fbfe4987f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  namePlace: Steel Factory
+  infoDescriptPlace: 
+  infoETA: 
+  timescaleWalk: 12000
+  timescaleCar: 8000
+  riskEvent: 20
+  spriteImagePlace: {fileID: 829052252, guid: 5e3d630e8d4342a46b7ab1514906fbf9, type: 3}
 --- !u!1 &132707172
 GameObject:
   m_ObjectHideFlags: 0
@@ -7991,6 +8055,7 @@ GameObject:
   - component: {fileID: 296692461}
   - component: {fileID: 296692460}
   - component: {fileID: 296692459}
+  - component: {fileID: 296692462}
   m_Layer: 5
   m_Name: 'Button Military Camp '
   m_TagString: Untagged
@@ -8062,7 +8127,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 296692460}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1047666945}
+        m_TargetAssemblyTypeName: UIExSelectPlace, Assembly-CSharp
+        m_MethodName: SetInfoPlaceSelect
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 296692462}
+          m_ObjectArgumentAssemblyTypeName: DataExpendition, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &296692460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8101,6 +8178,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 296692457}
   m_CullTransparentMesh: 1
+--- !u!114 &296692462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296692457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8767989cc98e93442842a8fbfe4987f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  namePlace: 'Military Camp '
+  infoDescriptPlace: 
+  infoETA: 
+  timescaleWalk: 36000
+  timescaleCar: 18000
+  riskEvent: 60
+  spriteImagePlace: {fileID: 37209598, guid: 1ac6251f402a4744387c12b79671514b, type: 3}
 --- !u!1 &297630828
 GameObject:
   m_ObjectHideFlags: 0
@@ -14218,6 +14314,7 @@ GameObject:
   - component: {fileID: 541871141}
   - component: {fileID: 541871140}
   - component: {fileID: 541871139}
+  - component: {fileID: 541871142}
   m_Layer: 5
   m_Name: 'Button Gas Station '
   m_TagString: Untagged
@@ -14289,7 +14386,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 541871140}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1047666945}
+        m_TargetAssemblyTypeName: UIExSelectPlace, Assembly-CSharp
+        m_MethodName: SetInfoPlaceSelect
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 541871142}
+          m_ObjectArgumentAssemblyTypeName: DataExpendition, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &541871140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14328,6 +14437,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 541871137}
   m_CullTransparentMesh: 1
+--- !u!114 &541871142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 541871137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8767989cc98e93442842a8fbfe4987f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  namePlace: 'Gas Station '
+  infoDescriptPlace: 
+  infoETA: 
+  timescaleWalk: 8000
+  timescaleCar: 3000
+  riskEvent: 35
+  spriteImagePlace: {fileID: 2047854437, guid: 5e3d630e8d4342a46b7ab1514906fbf9, type: 3}
 --- !u!1 &542176692
 GameObject:
   m_ObjectHideFlags: 0
@@ -25111,9 +25239,8 @@ GameObject:
   - component: {fileID: 970539897}
   - component: {fileID: 970539896}
   - component: {fileID: 970539895}
-  - component: {fileID: 970539898}
   m_Layer: 5
-  m_Name: 'Button Choice One '
+  m_Name: 'Button Choice Walk '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25222,22 +25349,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 970539893}
   m_CullTransparentMesh: 1
---- !u!114 &970539898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 970539893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 753e2961542e39a4bba874403376d15c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonCreateExpendition: {fileID: 970539895}
-  expenditionManager: {fileID: 0}
-  transformParent: {fileID: 1443833851}
-  indexEXButton: 1
 --- !u!1 &979116864
 GameObject:
   m_ObjectHideFlags: 0
@@ -27091,6 +27202,9 @@ MonoBehaviour:
   textDescriptPlace: {fileID: 1670819005}
   textETA: {fileID: 165683322}
   imagePlace: {fileID: 1651454848}
+  riskValue: 0
+  buttonWalk: {fileID: 970539895}
+  buttonCar: {fileID: 1430998055}
 --- !u!1 &1048952862
 GameObject:
   m_ObjectHideFlags: 0
@@ -35001,9 +35115,8 @@ GameObject:
   - component: {fileID: 1430998057}
   - component: {fileID: 1430998056}
   - component: {fileID: 1430998055}
-  - component: {fileID: 1430998058}
   m_Layer: 5
-  m_Name: Button Choice Two
+  m_Name: Button Choice Car
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35112,22 +35225,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1430998053}
   m_CullTransparentMesh: 1
---- !u!114 &1430998058
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1430998053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 753e2961542e39a4bba874403376d15c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonCreateExpendition: {fileID: 1430998055}
-  expenditionManager: {fileID: 0}
-  transformParent: {fileID: 1443833851}
-  indexEXButton: 2
 --- !u!1 &1440340579
 GameObject:
   m_ObjectHideFlags: 0
@@ -46745,6 +46842,7 @@ GameObject:
   - component: {fileID: 1829112366}
   - component: {fileID: 1829112365}
   - component: {fileID: 1829112364}
+  - component: {fileID: 1829112367}
   m_Layer: 5
   m_Name: Button Wood Factory
   m_TagString: Untagged
@@ -46816,7 +46914,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1829112365}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1047666945}
+        m_TargetAssemblyTypeName: UIExSelectPlace, Assembly-CSharp
+        m_MethodName: SetInfoPlaceSelect
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1829112367}
+          m_ObjectArgumentAssemblyTypeName: DataExpendition, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1829112365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46855,6 +46965,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1829112362}
   m_CullTransparentMesh: 1
+--- !u!114 &1829112367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829112362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8767989cc98e93442842a8fbfe4987f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  namePlace: Wood Industry
+  infoDescriptPlace: 
+  infoETA: 
+  timescaleWalk: 8000
+  timescaleCar: 4000
+  riskEvent: 20
+  spriteImagePlace: {fileID: -1946814335, guid: 1ac6251f402a4744387c12b79671514b, type: 3}
 --- !u!1 &1830564510
 GameObject:
   m_ObjectHideFlags: 0
@@ -50807,7 +50936,7 @@ MonoBehaviour:
   uIExTwo: {fileID: 0}
   playerObject: {fileID: 0}
   uIInventoryExPrefab: {fileID: 2071801543400052025, guid: 381b86c8a627db54da96fe414c296b11, type: 3}
-  transformsUIEx: {fileID: 0}
+  transformsUIEx: {fileID: 1443833851}
   uIButtonEXOne: {fileID: 0}
   uIButtonEXTwo: {fileID: 0}
   globalstat: {fileID: 0}
@@ -55905,6 +56034,7 @@ GameObject:
   - component: {fileID: 2127891071}
   - component: {fileID: 2127891070}
   - component: {fileID: 2127891069}
+  - component: {fileID: 2127891072}
   m_Layer: 5
   m_Name: Button Trade center
   m_TagString: Untagged
@@ -55976,7 +56106,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2127891070}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1047666945}
+        m_TargetAssemblyTypeName: UIExSelectPlace, Assembly-CSharp
+        m_MethodName: SetInfoPlaceSelect
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2127891072}
+          m_ObjectArgumentAssemblyTypeName: DataExpendition, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2127891070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56015,6 +56157,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2127891067}
   m_CullTransparentMesh: 1
+--- !u!114 &2127891072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127891067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8767989cc98e93442842a8fbfe4987f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  namePlace: Trade center
+  infoDescriptPlace: 
+  infoETA: 
+  timescaleWalk: 4
+  timescaleCar: 2
+  riskEvent: 45
+  spriteImagePlace: {fileID: 0}
 --- !u!1 &2129929927
 GameObject:
   m_ObjectHideFlags: 0

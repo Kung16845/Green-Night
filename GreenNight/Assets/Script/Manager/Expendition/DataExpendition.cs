@@ -7,5 +7,8 @@ public class DataExpendition : MonoBehaviour
     public string namePlace;
     public string infoDescriptPlace;
     public string infoETA;
+    public int timescaleWalk;
+    public int timescaleCar;
+    public float riskEvent;
     public Sprite spriteImagePlace;
 }

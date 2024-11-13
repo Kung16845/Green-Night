@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class UIInventoryEX : UIInventory
 {
     public float timeScale;
+    public float riskValue;
     public int indexExpendition;
     public bool isArrive;
     public ExpenditionManager expenditionManager;
@@ -90,7 +91,7 @@ public class UIInventoryEX : UIInventory
     {
         CountdownTimeDay countdownTimeDay = expenditionManager.AddComponent<CountdownTimeDay>();
         countdownTimeDay.timeScale = timeScale;
-        countdownTimeDay.uIInventoryEX = this; 
+        countdownTimeDay.uIInventoryEX = this;
         countdownTimeDay.SetStartExpendition();
 
         npcManager.listNpc.Remove(npcSelecying);
@@ -125,7 +126,7 @@ public class UIInventoryEX : UIInventory
 
         expenditionManager.SetUIExButton(indexExpendition, spriteHeadNpc, textdayFinish);
 
-       
+
         this.gameObject.SetActive(false);
     }
     private void OnEnable()
@@ -136,7 +137,7 @@ public class UIInventoryEX : UIInventory
         {
             SetDataMoveSceneForEventExpendition();
             sceneSystem.SwitchScene(2);
-            Destroy(this.gameObject, 2f);
+            // Destroy(this.gameObject, 2f);
 
         }
     }
