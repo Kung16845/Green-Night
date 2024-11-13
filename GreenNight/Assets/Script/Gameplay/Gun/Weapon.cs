@@ -48,6 +48,11 @@ public class Weapon : MonoBehaviour
 
         uiInventory = FindObjectOfType<UIInventory>();
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
+        if (statAmplifier != null)
+            {
+                statAmplifier.InitializeAmplifiers(); // Recalculate multipliers
+                statAmplifier.ApplyRoleModifiers();   // Apply role modifiers
+            }
         // DisableWeapon();
         if (uiInventory != null)
         {
@@ -82,14 +87,12 @@ public class Weapon : MonoBehaviour
             fireRate = 60f / rateOfFire;
             initialAccuracy = accuracy;
             animationController.isgunequip = true;
-            // Recalculate stat amplifiers
+
             if (statAmplifier != null)
             {
                 statAmplifier.InitializeAmplifiers(); // Recalculate multipliers
                 statAmplifier.ApplyRoleModifiers();   // Apply role modifiers
             }
-
-            // Apply handling penalty and stat amplifiers
             ApplyHandlingPenalty();
             ApplyStatAmplifier();
 

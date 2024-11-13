@@ -452,6 +452,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1656372175 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2960631616456382538, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
+  m_PrefabInstance: {fileID: 1769237200}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1769237200
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -520,6 +525,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5560521083911677140, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
+      propertyPath: UpperBodyanimator
+      value: 
+      objectReference: {fileID: 1656372175}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

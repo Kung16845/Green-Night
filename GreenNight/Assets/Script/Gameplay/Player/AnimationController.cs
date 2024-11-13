@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AnimationController : MonoBehaviour
 {
-    private Animator animator;
+    public Animator UpperBodyanimator;
     public SpriteRenderer spriteRenderer;
     public bool isgunequip;
     public bool iswalk;
@@ -16,25 +16,25 @@ public class AnimationController : MonoBehaviour
 
     void Start()
     {
-        animator = GetComponent<Animator>();
+        UpperBodyanimator= GetComponent<Animator>();
         isgunequip = false;
         iswalk = false;
         isrun = false;
         isfire = false;
         isreload = false;
-        Guntype = 1;
+        Guntype = 0;
     }
 
     void Update()
     {
 
         // Update gun equip animation state
-        animator.SetBool("Isfire", isfire);
-        animator.SetBool("Gunequip", isgunequip);
-        animator.SetBool("Isreload", isreload);
-        animator.SetInteger("GunType",Guntype);
+        UpperBodyanimator.SetBool("Isfire", isfire);
+        UpperBodyanimator.SetBool("Gunequip", isgunequip);
+        UpperBodyanimator.SetBool("Isreload", isreload);
+        UpperBodyanimator.SetInteger("GunType",Guntype);
         // Update movement animation states
-        animator.SetBool("Iswalk", iswalk);
-        animator.SetBool("Isrun", isrun);
+        UpperBodyanimator.SetBool("Iswalk", iswalk);
+        UpperBodyanimator.SetBool("Isrun", isrun);
     }
 }

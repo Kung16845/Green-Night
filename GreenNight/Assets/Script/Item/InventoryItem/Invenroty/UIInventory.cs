@@ -200,11 +200,12 @@ public class UIInventory : MonoBehaviour
         Debug.Log("Npc endurance  Select : " + npcSelecying.endurance);
         // Assign the NPC's specialist role to the StatAmplifier
         statAmplifier.specialistRole = npcSelecying.roleNpc;
-        statAmplifier.ApplyRoleModifiers();
+        statAmplifier.InitializeAmplifiers(); // Recalculate multipliers
+        statAmplifier.ApplyRoleModifiers();   // Apply role modifiers
 
         // Update player and weapon stats if necessary
         player.currentStamina = player.GetMaxStamina();
-         SetCostumeNpcExpentdition(npcSelecying, player.gameObject);
+        SetCostumeNpcExpentdition(npcSelecying, player.gameObject);
     }
     private void OnDestroy()
     {
