@@ -121,12 +121,6 @@ AnimatorStateTransition:
     m_ConditionEvent: Gunequip
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: Iswalk
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: Isrun
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
     m_ConditionEvent: Isfire
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
@@ -423,7 +417,7 @@ AnimatorStateMachine:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Base Layer
+  m_Name: Body
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1365803841523854748}
@@ -667,12 +661,6 @@ AnimatorStateTransition:
     m_ConditionEvent: Gunequip
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: Iswalk
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: Isrun
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
     m_ConditionEvent: Isfire
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
@@ -726,12 +714,6 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: Gunequip
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: Iswalk
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: Isrun
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: Isfire
@@ -830,24 +812,24 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Lowerbody
     m_StateMachine: {fileID: 7243036858071917812}
-    m_Mask: {fileID: 0}
+    m_Mask: {fileID: 31900000, guid: 8979f34a1b878eb46abcfa7a49b9767c, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
     m_SyncedLayerIndex: -1
-    m_DefaultWeight: 0
+    m_DefaultWeight: 1
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
-    m_Name: Base Layer
+    m_Name: Body
     m_StateMachine: {fileID: -3813939262747732318}
-    m_Mask: {fileID: 0}
+    m_Mask: {fileID: 31900000, guid: 6e04d8e496b72b34087ffb980caa855f, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
     m_SyncedLayerIndex: -1
-    m_DefaultWeight: 0
+    m_DefaultWeight: 1
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
@@ -950,12 +932,6 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: Isfire
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: Iswalk
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: Isrun
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8935738131027286583}
