@@ -96,7 +96,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
 
     public void OpenUIMoveITems(ScriptMoveItems scriptMoveItems)
     {
-        Debug.Log("OpenUIMoveITems");
+        // Debug.Log("OpenUIMoveITems");
         scriptMoveItems.countItemMove = 1;
         scriptMoveItems.countText.text = "1";
         uIMoveItemsBoxesToInventory.SetActive(true);

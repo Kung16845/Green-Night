@@ -64,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                animationController.iswalk = true;
+                        animationController.iswalk = true;
                 animationController.isrun = false;
                 isSprinting = false;
                 transform.Translate(direction * movementSpeed * Time.deltaTime);
