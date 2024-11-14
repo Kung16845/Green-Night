@@ -10457,7 +10457,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &705412716
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15139,10 +15139,10 @@ RectTransform:
   m_Father: {fileID: 705412716}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 950}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 400, y: -475}
+  m_SizeDelta: {x: 800, y: 950}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &980197857
 MonoBehaviour:
@@ -18021,157 +18021,11 @@ Transform:
   m_Father: {fileID: 689144979}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1179423594
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1179423596}
-  - component: {fileID: 1179423595}
-  - component: {fileID: 1179423597}
-  m_Layer: 0
-  m_Name: ZombieSpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1179423595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1179423594}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc32149bebf944c42bd60ad54c8d44a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duration: 2
-  treatValue: 50
-  prefabMonster:
-  - {fileID: 7550034601582792165, guid: f9bbcd7819596a2449588808e50db343, type: 3}
-  transformBarrier: {fileID: 0}
---- !u!4 &1179423596
+--- !u!4 &1179423596 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 9148464826644538732, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+  m_PrefabInstance: {fileID: 2604635675550093513}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1179423594}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 24, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2136572948}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1179423597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1179423594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73b40161e813e894386821e8ac1f678f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lanes:
-  - laneID: 1
-    spawnPoint: {fileID: 1486524293}
-    engagingArea: {fileID: 474343223}
-    attackPoint: {fileID: 1800576230}
-  - laneID: 2
-    spawnPoint: {fileID: 976193133}
-    engagingArea: {fileID: 490260719}
-    attackPoint: {fileID: 755528655}
-  - laneID: 3
-    spawnPoint: {fileID: 731834173}
-    engagingArea: {fileID: 1716045786}
-    attackPoint: {fileID: 1911803340}
-  ActiveSpawnDecks: []
-  StorageDecks:
-  - deckName: SwarmDeck
-    deckDuration: 300
-    deckTier: 4
-    deckID: 10124
-    spawnWaves:
-    - laneID: 1
-      zombiePrefabs:
-      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
-      zombiesToSpawn: 25
-      spawnInterval: 1.75
-      zombieTier: 3
-      timeUntilNextWave: 0
-    - laneID: 2
-      zombiePrefabs:
-      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
-      zombiesToSpawn: 25
-      spawnInterval: 1.75
-      zombieTier: 3
-      timeUntilNextWave: 0
-    - laneID: 3
-      zombiePrefabs:
-      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
-      zombiesToSpawn: 25
-      spawnInterval: 1.75
-      zombieTier: 3
-      timeUntilNextWave: 150
-    - laneID: 1
-      zombiePrefabs:
-      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
-      zombiesToSpawn: 25
-      spawnInterval: 1.75
-      zombieTier: 3
-      timeUntilNextWave: 0
-    - laneID: 2
-      zombiePrefabs:
-      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
-      zombiesToSpawn: 25
-      spawnInterval: 1.75
-      zombieTier: 3
-      timeUntilNextWave: 0
-    - laneID: 3
-      zombiePrefabs:
-      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
-      zombiesToSpawn: 25
-      spawnInterval: 1.75
-      zombieTier: 3
-      timeUntilNextWave: 150
-  - deckName: BasicAttackDeck
-    deckDuration: 500
-    deckTier: 1
-    deckID: 10121
-    spawnWaves:
-    - laneID: 1
-      zombiePrefabs:
-      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
-      zombiesToSpawn: 5
-      spawnInterval: 1.75
-      zombieTier: 1
-      timeUntilNextWave: 0
-    - laneID: 2
-      zombiePrefabs:
-      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
-      zombiesToSpawn: 5
-      spawnInterval: 1
-      zombieTier: 1
-      timeUntilNextWave: 0
-    - laneID: 3
-      zombiePrefabs:
-      - {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
-      zombiesToSpawn: 5
-      spawnInterval: 1
-      zombieTier: 1
-      timeUntilNextWave: 150
-  desiredDeckTier: 1
 --- !u!1 &1181584803
 GameObject:
   m_ObjectHideFlags: 0
@@ -19360,8 +19214,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2015610025
-  m_SortingLayer: 2
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: e30432f8bc430ae4b9ac9a345647e004, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -19796,8 +19650,8 @@ RectTransform:
   m_Father: {fileID: 1640817000}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -20886,7 +20740,7 @@ RectTransform:
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0.81333333}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -23407,9 +23261,9 @@ RectTransform:
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -17, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1446242846
 MonoBehaviour:
@@ -25765,10 +25619,10 @@ RectTransform:
   m_Father: {fileID: 705412716}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 950}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1200, y: -475}
+  m_SizeDelta: {x: 800, y: 950}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1607597107
 MonoBehaviour:
@@ -27388,9 +27242,9 @@ RectTransform:
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -17, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1772942147
 MonoBehaviour:
@@ -31120,8 +30974,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2015610025
-  m_SortingLayer: 2
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: e30432f8bc430ae4b9ac9a345647e004, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -31204,8 +31058,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2015610025
-  m_SortingLayer: 2
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: e30432f8bc430ae4b9ac9a345647e004, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -32910,8 +32764,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2015610025
-  m_SortingLayer: 2
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: e30432f8bc430ae4b9ac9a345647e004, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -33372,3 +33226,152 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2139799169}
   m_CullTransparentMesh: 1
+--- !u!1001 &2604635675550093513
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2136572948}
+    m_Modifications:
+    - target: {fileID: 165580668273915266, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: m_Name
+      value: ZombieSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511517036842616463, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: lanes.Array.data[0].spawnPoint
+      value: 
+      objectReference: {fileID: 1486524293}
+    - target: {fileID: 1511517036842616463, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: lanes.Array.data[1].spawnPoint
+      value: 
+      objectReference: {fileID: 976193133}
+    - target: {fileID: 1511517036842616463, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: lanes.Array.data[2].spawnPoint
+      value: 
+      objectReference: {fileID: 731834173}
+    - target: {fileID: 1511517036842616463, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: lanes.Array.data[0].attackPoint
+      value: 
+      objectReference: {fileID: 1800576230}
+    - target: {fileID: 1511517036842616463, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: lanes.Array.data[1].attackPoint
+      value: 
+      objectReference: {fileID: 755528655}
+    - target: {fileID: 1511517036842616463, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: lanes.Array.data[2].attackPoint
+      value: 
+      objectReference: {fileID: 1911803340}
+    - target: {fileID: 1511517036842616463, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: lanes.Array.data[0].engagingArea
+      value: 
+      objectReference: {fileID: 474343223}
+    - target: {fileID: 1511517036842616463, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: lanes.Array.data[1].engagingArea
+      value: 
+      objectReference: {fileID: 490260719}
+    - target: {fileID: 1511517036842616463, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: lanes.Array.data[2].engagingArea
+      value: 
+      objectReference: {fileID: 1716045786}
+    - target: {fileID: 1511517036842616463, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: StorageDecks.Array.data[2].spawnWaves.Array.data[0].timeUntilNextWave
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511517036842616463, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: StorageDecks.Array.data[2].spawnWaves.Array.data[0].laneSpawnConfigs.Array.data[0].zombieSpawnQueue.Array.data[1].quantity
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511517036842616463, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: StorageDecks.Array.data[2].spawnWaves.Array.data[0].laneSpawnConfigs.Array.data[0].zombieSpawnQueue.Array.data[2].quantity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511517036842616463, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: StorageDecks.Array.data[2].spawnWaves.Array.data[0].laneSpawnConfigs.Array.data[1].zombieSpawnQueue.Array.data[2].quantity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511517036842616463, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: StorageDecks.Array.data[2].spawnWaves.Array.data[0].laneSpawnConfigs.Array.data[2].zombieSpawnQueue.Array.data[1].quantity
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511517036842616463, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: StorageDecks.Array.data[2].spawnWaves.Array.data[0].laneSpawnConfigs.Array.data[2].zombieSpawnQueue.Array.data[2].quantity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511517036842616463, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: StorageDecks.Array.data[2].spawnWaves.Array.data[0].laneSpawnConfigs.Array.data[0].zombieSpawnQueue.Array.data[0].spawnInterval
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511517036842616463, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: StorageDecks.Array.data[2].spawnWaves.Array.data[0].laneSpawnConfigs.Array.data[0].zombieSpawnQueue.Array.data[1].spawnInterval
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511517036842616463, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: StorageDecks.Array.data[2].spawnWaves.Array.data[0].laneSpawnConfigs.Array.data[0].zombieSpawnQueue.Array.data[2].spawnInterval
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511517036842616463, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: StorageDecks.Array.data[2].spawnWaves.Array.data[0].laneSpawnConfigs.Array.data[1].zombieSpawnQueue.Array.data[1].spawnInterval
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511517036842616463, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: StorageDecks.Array.data[2].spawnWaves.Array.data[0].laneSpawnConfigs.Array.data[1].zombieSpawnQueue.Array.data[2].spawnInterval
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511517036842616463, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: StorageDecks.Array.data[2].spawnWaves.Array.data[0].laneSpawnConfigs.Array.data[2].zombieSpawnQueue.Array.data[0].spawnInterval
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511517036842616463, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: StorageDecks.Array.data[2].spawnWaves.Array.data[0].laneSpawnConfigs.Array.data[2].zombieSpawnQueue.Array.data[1].spawnInterval
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148464826644538732, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148464826644538732, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148464826644538732, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148464826644538732, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148464826644538732, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148464826644538732, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148464826644538732, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148464826644538732, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148464826644538732, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148464826644538732, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148464826644538732, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}

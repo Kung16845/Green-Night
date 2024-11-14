@@ -1,0 +1,157 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &165580668273915266
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9148464826644538732}
+  - component: {fileID: 4939771929222222978}
+  - component: {fileID: 1511517036842616463}
+  m_Layer: 0
+  m_Name: ZombieSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9148464826644538732
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165580668273915266}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 24, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4939771929222222978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165580668273915266}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc32149bebf944c42bd60ad54c8d44a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 2
+  treatValue: 50
+  prefabMonster:
+  - {fileID: 7550034601582792165, guid: f9bbcd7819596a2449588808e50db343, type: 3}
+  transformBarrier: {fileID: 0}
+--- !u!114 &1511517036842616463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165580668273915266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73b40161e813e894386821e8ac1f678f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lanes:
+  - laneID: 1
+    spawnPoint: {fileID: 0}
+    engagingArea: {fileID: 0}
+    attackPoint: {fileID: 0}
+  - laneID: 2
+    spawnPoint: {fileID: 0}
+    engagingArea: {fileID: 0}
+    attackPoint: {fileID: 0}
+  - laneID: 3
+    spawnPoint: {fileID: 0}
+    engagingArea: {fileID: 0}
+    attackPoint: {fileID: 0}
+  ActiveSpawnDecks: []
+  StorageDecks:
+  - deckName: SwarmDeck
+    deckDuration: 300
+    deckTier: 4
+    deckID: 10124
+    spawnWaves:
+    - laneSpawnConfigs: []
+      timeUntilNextWave: 0
+    - laneSpawnConfigs: []
+      timeUntilNextWave: 0
+    - laneSpawnConfigs: []
+      timeUntilNextWave: 150
+    - laneSpawnConfigs: []
+      timeUntilNextWave: 0
+    - laneSpawnConfigs: []
+      timeUntilNextWave: 0
+    - laneSpawnConfigs: []
+      timeUntilNextWave: 150
+  - deckName: BasicAttackDeck
+    deckDuration: 500
+    deckTier: 1
+    deckID: 10121
+    spawnWaves:
+    - laneSpawnConfigs: []
+      timeUntilNextWave: 0
+    - laneSpawnConfigs: []
+      timeUntilNextWave: 0
+    - laneSpawnConfigs: []
+      timeUntilNextWave: 150
+  - deckName: Arrow
+    deckDuration: 500
+    deckTier: 1
+    deckID: 10122
+    spawnWaves:
+    - laneSpawnConfigs:
+      - laneID: 1
+        zombieSpawnQueue:
+        - zombiePrefab: {fileID: 7550034601582792165, guid: f9bbcd7819596a2449588808e50db343, type: 3}
+          quantity: 4
+          spawnInterval: 1
+          zombieTier: 1
+        - zombiePrefab: {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
+          quantity: 8
+          spawnInterval: 1
+          zombieTier: 1
+        - zombiePrefab: {fileID: 7550034601582792165, guid: da0a95545ee2bf04da0db56bfde98dd2, type: 3}
+          quantity: 3
+          spawnInterval: 1
+          zombieTier: 1
+      - laneID: 2
+        zombieSpawnQueue:
+        - zombiePrefab: {fileID: 7550034601582792165, guid: d9eaa1c1ea812ac44b75b4b0965a8a61, type: 3}
+          quantity: 1
+          spawnInterval: 1
+          zombieTier: 1
+        - zombiePrefab: {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
+          quantity: 6
+          spawnInterval: 1
+          zombieTier: 1
+        - zombiePrefab: {fileID: 7550034601582792165, guid: da0a95545ee2bf04da0db56bfde98dd2, type: 3}
+          quantity: 5
+          spawnInterval: 1
+          zombieTier: 1
+      - laneID: 3
+        zombieSpawnQueue:
+        - zombiePrefab: {fileID: 7550034601582792165, guid: f9bbcd7819596a2449588808e50db343, type: 3}
+          quantity: 4
+          spawnInterval: 1
+          zombieTier: 1
+        - zombiePrefab: {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
+          quantity: 8
+          spawnInterval: 1
+          zombieTier: 1
+        - zombiePrefab: {fileID: 7550034601582792165, guid: da0a95545ee2bf04da0db56bfde98dd2, type: 3}
+          quantity: 3
+          spawnInterval: 1
+          zombieTier: 1
+      timeUntilNextWave: 100
+  desiredDeckTier: 1

@@ -103,6 +103,7 @@ MonoBehaviour:
   - 3
   - 4
   currentState: 0
+  ddadataCollector: {fileID: 0}
   speedBoostAreaPrefab: {fileID: 5270464586629645707, guid: 41109857229177f46850021d888d4c0c, type: 3}
   areaRadius: 3
   areaDuration: 7
@@ -211,7 +212,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7550034601582792165}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -267,7 +268,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7550034601582792165}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:

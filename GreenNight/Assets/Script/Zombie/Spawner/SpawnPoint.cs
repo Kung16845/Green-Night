@@ -7,13 +7,6 @@ public class SpawnPoint : MonoBehaviour
     [HideInInspector]
     public Lane lane;
 
-    [Header("Spawn Configuration")]
-    public List<GameObject> zombiePrefabs;
-    public float spawnInterval = 5f;
-    public int zombieTier = 1;
-    public int zombiesToSpawn = 10;
-
-    private int spawnedZombies = 0;
     private Coroutine spawnCoroutine;
 
     public void Initialize(Lane lane)
@@ -21,12 +14,12 @@ public class SpawnPoint : MonoBehaviour
         this.lane = lane;
     }
 
-    public void StartSpawning()
+    // Starts spawning based on the queue
+    public void StartSpawningQueue(List<ZombieSpawnQueue> spawnQueue)
     {
         if (spawnCoroutine == null)
         {
-            spawnedZombies = 0; // Reset count for new spawning sessions
-            spawnCoroutine = StartCoroutine(SpawnZombies());
+            spawnCoroutine = StartCoroutine(SpawnZombieQueueCoroutine(spawnQueue));
         }
     }
 
@@ -39,28 +32,41 @@ public class SpawnPoint : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnZombies()
+    private IEnumerator SpawnZombieQueueCoroutine(List<ZombieSpawnQueue> spawnQueue)
     {
-        while (spawnedZombies < zombiesToSpawn)
+        foreach (ZombieSpawnQueue spawnConfig in spawnQueue)
         {
-            SpawnZombie();
-            spawnedZombies++;
-            yield return new WaitForSeconds(spawnInterval);
+            int spawnedZombies = 0;
+            while (spawnedZombies < spawnConfig.quantity)
+            {
+                SpawnZombie(spawnConfig);
+                spawnedZombies++;
+                yield return new WaitForSeconds(spawnConfig.spawnInterval);
+            }
+
+            // Optional: Wait before starting next spawn config
+            // yield return new WaitForSeconds(optionalDelayBetweenConfigs);
         }
+
+        spawnCoroutine = null; // Reset coroutine so it can be started again if needed
     }
 
-    private void SpawnZombie()
+    private void SpawnZombie(ZombieSpawnQueue spawnConfig)
     {
-        int index = Random.Range(0, zombiePrefabs.Count);
-        GameObject zombiePrefab = zombiePrefabs[index];
-
-        GameObject zombieObject = Instantiate(zombiePrefab, lane.spawnPoint.position, Quaternion.identity);
-
-        Zombie zombie = zombieObject.GetComponent<Zombie>();
-        if (zombie != null)
+        if (spawnConfig.zombiePrefab != null)
         {
-            zombie.SetLane(lane);
-            zombie.SetTier(zombieTier);
+            GameObject zombieObject = Instantiate(spawnConfig.zombiePrefab, lane.spawnPoint.position, Quaternion.identity);
+
+            Zombie zombie = zombieObject.GetComponent<Zombie>();
+            if (zombie != null)
+            {
+                zombie.SetLane(lane);
+                zombie.SetTier(spawnConfig.zombieTier);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("SpawnPoint: zombiePrefab is null in spawnConfig.");
         }
     }
 }

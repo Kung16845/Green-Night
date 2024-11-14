@@ -54,6 +54,14 @@ public class PlayerMovement : MonoBehaviour
 
         if (direction.magnitude > 0) // Check if player is moving
         {
+            // Flip character's direction based on horizontal input
+            if (horizontal != 0)
+            {
+                Vector3 scale = transform.localScale;
+                scale.x = horizontal > 0 ? Mathf.Abs(scale.x) : -Mathf.Abs(scale.x);
+                transform.localScale = scale;
+            }
+
             // Check if the player is sprinting
             if (Input.GetKey(KeyCode.LeftShift) && currentStamina > 0 && canSprint)
             {
@@ -64,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                        animationController.iswalk = true;
+                animationController.iswalk = true;
                 animationController.isrun = false;
                 isSprinting = false;
                 transform.Translate(direction * movementSpeed * Time.deltaTime);
@@ -76,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
             animationController.isrun = false;
         }
     }
+
 
     private void HandleStamina()
     {
