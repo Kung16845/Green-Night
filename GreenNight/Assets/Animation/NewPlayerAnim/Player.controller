@@ -121,12 +121,6 @@ AnimatorStateTransition:
     m_ConditionEvent: Gunequip
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: Iswalk
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: Isrun
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
     m_ConditionEvent: Isfire
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
@@ -423,14 +417,14 @@ AnimatorStateMachine:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Base Layer
+  m_Name: Body
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1365803841523854748}
     m_Position: {x: -170, y: 350, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4534971166419263083}
-    m_Position: {x: -130, y: -390, z: 0}
+    m_Position: {x: -130, y: -250, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3604905716651248216}
     m_Position: {x: 880, y: 90, z: 0}
@@ -667,12 +661,6 @@ AnimatorStateTransition:
     m_ConditionEvent: Gunequip
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: Iswalk
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: Isrun
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
     m_ConditionEvent: Isfire
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
@@ -684,7 +672,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.024806857
   m_TransitionOffset: 0.11259657
   m_ExitTime: 0.9255795
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -726,12 +714,6 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: Gunequip
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: Iswalk
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: Isrun
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: Isfire
@@ -830,24 +812,24 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Lowerbody
     m_StateMachine: {fileID: 7243036858071917812}
-    m_Mask: {fileID: 0}
+    m_Mask: {fileID: 31900000, guid: 8979f34a1b878eb46abcfa7a49b9767c, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
     m_SyncedLayerIndex: -1
-    m_DefaultWeight: 0
+    m_DefaultWeight: 1
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
-    m_Name: Base Layer
+    m_Name: Body
     m_StateMachine: {fileID: -3813939262747732318}
-    m_Mask: {fileID: 0}
+    m_Mask: {fileID: 31900000, guid: 6e04d8e496b72b34087ffb980caa855f, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
     m_SyncedLayerIndex: -1
-    m_DefaultWeight: 0
+    m_DefaultWeight: 1
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
@@ -951,12 +933,6 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: Isfire
     m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: Iswalk
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: Isrun
-    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8935738131027286583}
   m_Solo: 0
@@ -1026,7 +1002,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 0dff83c8a3927f7438c1ff880ba42fd5, type: 2}
+  m_Motion: {fileID: 7400000, guid: 00a8bc4e5678e884abefe8427da920ee, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1132,7 +1108,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 0dff83c8a3927f7438c1ff880ba42fd5, type: 2}
+  m_Motion: {fileID: 7400000, guid: a6e5c720535ca484b84a86c199183730, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

@@ -26,7 +26,6 @@ public class AnimationControllerGrunt : MonoBehaviour
     {
         if (zombieGrunt == null)
         {
-            Debug.LogWarning("zombieGrunt component not found!");
             return;
         }
 

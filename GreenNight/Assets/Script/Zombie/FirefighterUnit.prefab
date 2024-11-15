@@ -50,7 +50,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c8d2fdc1d9b4af49825bd5cbbec1daf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformbarrier: {fileID: 0}
   currentHp: 0
   maxHp: 120
   maxArmourHp: 0
@@ -59,10 +58,16 @@ MonoBehaviour:
   maxSpeed: 3
   attackDamage: 350
   attackTimer: 0.75
-  countTImer: 0
-  direction: {x: 0, y: 0}
+  countTimer: 0
   rb2D: {fileID: 0}
   barrier: {fileID: 0}
+  movementSpeed: 1
+  currentLane:
+    laneID: 0
+    spawnPoint: {fileID: 0}
+    engagingArea: {fileID: 0}
+    attackPoint: {fileID: 0}
+  isInEngagingArea: 0
   slowdownAmount: 0.25
   damageEffectDuration: 0.1
   mutationType: 0
@@ -97,6 +102,8 @@ MonoBehaviour:
   - 2
   - 3
   - 4
+  currentState: 0
+  ddadataCollector: {fileID: 0}
 --- !u!114 &8051091936370712935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,7 +206,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7550034601582792165}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -255,7 +262,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7550034601582792165}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:

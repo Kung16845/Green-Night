@@ -17,12 +17,17 @@ public class MainSpawner : MonoBehaviour
     // Variable to determine which decks to use
     public int desiredDeckTier = 1; // Set this in the Inspector or via code
 
-    private void Start()
+     private void Start()
     {
         LaneManager.Instance.RegisterLanes(lanes);
         InitializeSpawnPoints();
+
+        // You might want to calculate decks here if needed
+        // CalculateDecksToUse(desiredDeckTier);
+
         StartNextDeck();
     }
+
 
     private void InitializeSpawnPoints()
     {
@@ -80,7 +85,7 @@ public class MainSpawner : MonoBehaviour
         if (currentDeckIndex < ActiveSpawnDecks.Count)
         {
             SpawnDeck currentDeck = ActiveSpawnDecks[currentDeckIndex];
-            deckCoroutine = StartCoroutine(ProcessDeck(currentDeck));
+            StartCoroutine(ProcessDeck(currentDeck));
         }
         else
         {
@@ -88,31 +93,33 @@ public class MainSpawner : MonoBehaviour
         }
     }
 
+
     private IEnumerator ProcessDeck(SpawnDeck deck)
     {
         foreach (SpawnWave wave in deck.spawnWaves)
         {
-            SpawnPoint spawnPoint = GetSpawnPointByLaneID(wave.laneID);
 
-            if (spawnPoint != null)
+            // Start spawning in all lanes simultaneously
+            foreach (LaneSpawnConfig laneConfig in wave.laneSpawnConfigs)
             {
-                // Set spawn parameters
-                spawnPoint.zombiePrefabs = wave.zombiePrefabs;
-                spawnPoint.spawnInterval = wave.spawnInterval;
-                spawnPoint.zombiesToSpawn = wave.zombiesToSpawn;
-                spawnPoint.zombieTier = wave.zombieTier;
+                SpawnPoint spawnPoint = GetSpawnPointByLaneID(laneConfig.laneID);
 
-                spawnPoint.StartSpawning();
-            }
-            else
-            {
-                Debug.LogWarning($"No spawn point found for lane ID {wave.laneID}");
+                if (spawnPoint != null)
+                {
+                    // Set spawn queue for the spawn point
+                    spawnPoint.StartSpawningQueue(laneConfig.zombieSpawnQueue);
+                }
+                else
+                {
+                    Debug.LogWarning($"No spawn point found for lane ID {laneConfig.laneID}");
+                }
             }
 
+            // Wait for the wave duration or until all spawning is complete
             yield return new WaitForSeconds(wave.timeUntilNextWave);
         }
 
-        // Wait for the deck's total duration
+        // Wait for the deck's total duration if necessary
         yield return new WaitForSeconds(deck.deckDuration);
 
         // Move to the next deck
@@ -120,7 +127,7 @@ public class MainSpawner : MonoBehaviour
         StartNextDeck();
     }
 
-    private SpawnPoint GetSpawnPointByLaneID(int laneID)
+     private SpawnPoint GetSpawnPointByLaneID(int laneID)
     {
         Lane lane = lanes.Find(l => l.laneID == laneID);
         if (lane != null)
