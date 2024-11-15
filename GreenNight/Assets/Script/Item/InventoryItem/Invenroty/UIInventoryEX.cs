@@ -213,7 +213,7 @@ public class UIInventoryEX : UIInventory
             }
             else
             {
-                ResetSlotUIEx();
+                // ResetSlotUIEx();
                 Destroy(this.gameObject);
             }
         }
