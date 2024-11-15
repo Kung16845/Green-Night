@@ -53,8 +53,12 @@ public class CountdownTimeDay : MonoBehaviour
         timeManager.dateTime.hour >= finishHourCraftingTime &&
         timeManager.dateTime.minutes >= finishMinutesCraftingTime) )
         {   
-
-            uIInventoryEX.isArrive = true;
+            if(!uIInventoryEX.isArriveEx && !uIInventoryEX.isArriveHome)
+                uIInventoryEX.isArriveEx = true;
+            else 
+            {   
+                uIInventoryEX.isArriveHome = true;
+            }
             iconCompleteSend.gameObject.SetActive(true);
             Destroy(this);
         }
