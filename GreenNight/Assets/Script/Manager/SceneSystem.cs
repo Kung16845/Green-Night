@@ -57,7 +57,7 @@ public class SceneSystem : MonoBehaviour
             Debug.LogWarning("Main scene is already loaded. Use ReturnToMainScene instead.");
             yield break;
         }
-
+        
         // Hide all root GameObjects in the main scene (Scene index 0)
         Scene mainScene = SceneManager.GetSceneByBuildIndex(mainSceneIndex);
         if (mainScene.IsValid() && mainScene.isLoaded)
@@ -70,6 +70,7 @@ public class SceneSystem : MonoBehaviour
 
         // Load the new scene additively
         SceneManager.LoadScene(sceneIndex, LoadSceneMode.Additive);
+        
         currentSceneIndex = sceneIndex;
     }
 

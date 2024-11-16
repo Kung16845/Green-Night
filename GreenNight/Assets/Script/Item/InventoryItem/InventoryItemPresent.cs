@@ -115,8 +115,8 @@ public class InventoryItemPresent : MonoBehaviour
 
         if (itemDataInList != null)
         {   
-            Debug.Log("ItenDataInlist Not null");
-            Debug.Log("itemDataAdd count : " + itemDataAdd.count);
+            // Debug.Log("ItenDataInlist Not null");
+            // Debug.Log("itemDataAdd count : " + itemDataAdd.count);
             itemDataInList.count = itemDataInList.count + itemDataAdd.count;
             // if (itemCount <= itemDataInList.maxCount)
             // {

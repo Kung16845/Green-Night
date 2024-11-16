@@ -220,7 +220,7 @@ public class UIInventory : MonoBehaviour
             ItemClass itemClass = slotsItem.GetComponentInChildren<ItemClass>();
             if (itemClass != null)
             {   
-                Debug.Log("item count : "+itemClass.quantityItem);
+                // Debug.Log("item count : "+itemClass.quantityItem);
                 ItemData itemData = inventoryItemPresent.ConventItemClassToItemData(itemClass);
                 inventoryItemPresent.AddItem(itemData);
 

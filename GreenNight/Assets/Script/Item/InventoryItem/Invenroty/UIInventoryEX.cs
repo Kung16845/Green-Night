@@ -13,6 +13,7 @@ public class UIInventoryEX : UIInventory
     public int indexExpendition;
     public bool isArriveEx;
     public bool isArriveHome;
+    public bool isExpenditon;
     public ExpenditionManager expenditionManager;
     public SceneSystem sceneSystem;
     public GameObject uINpcSending;
@@ -27,15 +28,27 @@ public class UIInventoryEX : UIInventory
     }
     public void Start()
     {
-        expenditionManager = FindObjectOfType<ExpenditionManager>();
         sceneSystem = FindObjectOfType<SceneSystem>();
-        inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
+        SetPlayerExpendition();
+        if (indexExpendition == 1)
+        {
+            expenditionManager.uIExOne = this.gameObject;
+        }
+        else if (indexExpendition == 2)
+        {
+            expenditionManager.uIExTwo = this.gameObject;
+        }
+    }
+    public void SetPlayerExpendition()
+    {
 
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        if (currentSceneIndex == 2)
+        // int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        if (isExpenditon)
         {
             Debug.Log("Enter Scene Expendition");
+            expenditionManager = FindObjectOfType<ExpenditionManager>();
 
+            inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
             // SetDataForEventExpendition();
             expenditionManager.playerObject = FindObjectOfType<PlayerMovement>().gameObject;
             statAmplifier = FindObjectOfType<StatAmplifier>();
@@ -49,17 +62,9 @@ public class UIInventoryEX : UIInventory
                 statAmplifier.InitializeAmplifiers(); // Recalculate multipliers
                 statAmplifier.ApplyRoleModifiers();   // Apply role modifiers
             }
+            RefreshUIInventory();
             // expenditionManager.listItemDataInventoryslot.Clear();
             // expenditionManager.listItemDataInventoryEqicment.Clear();
-        }
-
-        if (indexExpendition == 1)
-        {
-            expenditionManager.uIExOne = this.gameObject;
-        }
-        else if (indexExpendition == 2)
-        {
-            expenditionManager.uIExTwo = this.gameObject;
         }
     }
     public void CallFuntionAddListenerButton()
@@ -175,7 +180,7 @@ public class UIInventoryEX : UIInventory
         GameObject uIIconComplete = null;
 
         if (indexExpendition == 1)
-        {   
+        {
             uIIconComplete = expenditionManager.uIButtonEXOne.iconComplete;
         }
         else if (indexExpendition == 2)
@@ -199,6 +204,10 @@ public class UIInventoryEX : UIInventory
             SetDataMoveSceneForEventExpendition();
             uINpcSending.SetActive(false);
             uINpcArriveEx.SetActive(true);
+            if(uINpcGoBack.activeSelf)
+            {
+                uINpcArriveEx.SetActive(false);
+            }
             // sceneSystem.SwitchScene(2);
             // Destroy(this.gameObject, 2f);
         }
@@ -234,8 +243,10 @@ public class UIInventoryEX : UIInventory
             expenditionManager.uIExTwo = null;
         }
 
-        expenditionManager.SetUIExButton(0, null, null);
+        expenditionManager.SetUIExButton(indexExpendition, null, null);
         ClearItemDataInAllInventorySlotToListDataBoxes();
+        expenditionManager.listItemDataInventoryEqicment.Clear();
+        expenditionManager.listItemDataInventoryslot.Clear();
     }
     public void EndSceneExpendition()
     {
