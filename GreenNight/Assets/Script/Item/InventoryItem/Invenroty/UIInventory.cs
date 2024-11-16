@@ -6,6 +6,7 @@ using System;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 using System.Linq;
+using UnityEngine.SceneManagement;
 public class UIInventory : MonoBehaviour
 {
     public TMP_Dropdown dropdown;
@@ -210,16 +211,18 @@ public class UIInventory : MonoBehaviour
 
     private void OnDestroy()
     {
-        ClearItemDataInAllInventorySlotToListDataBoxes();
+        // ClearItemDataInAllInventorySlotToListDataBoxes();
     }
     public void ClearItemDataInAllInventorySlotToListDataBoxes()
-    {   
+    {
+
+      
         Debug.Log("ClearItemDataInAllInventorySlotToListDataBoxes");
         foreach (InvenrotySlots slotsItem in listInvenrotySlotsUI)
         {
             ItemClass itemClass = slotsItem.GetComponentInChildren<ItemClass>();
             if (itemClass != null)
-            {   
+            {
                 // Debug.Log("item count : "+itemClass.quantityItem);
                 ItemData itemData = inventoryItemPresent.ConventItemClassToItemData(itemClass);
                 inventoryItemPresent.AddItem(itemData);

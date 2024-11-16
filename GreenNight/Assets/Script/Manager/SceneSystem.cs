@@ -28,30 +28,6 @@ public class SceneSystem : MonoBehaviour
     {
         transitionAnim.SetTrigger("EndScene");
         yield return new WaitForSeconds(3.0f);
-        // SceneManager.LoadScene(sceneIndex);
-        // int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        // if (currentSceneIndex == 0)
-        // {
-        //     // SceneManager.LoadScene(sceneIndex, LoadSceneMode.Additive);
-
-        //     // Hide all root GameObjects in the main scene (Scene index 0)
-        //     Scene mainScene = SceneManager.GetSceneByBuildIndex(mainSceneIndex);
-        //     if (mainScene.IsValid() && mainScene.isLoaded)
-        //     {
-        //         foreach (GameObject go in mainScene.GetRootGameObjects())
-        //         {
-        //             go.SetActive(false); // Temporarily hide main scene objects
-        //         }
-        //     }
-
-        //     // Load the new scene additively
-        //     SceneManager.LoadScene(sceneIndex, LoadSceneMode.Additive);
-        // }
-        // else
-        // {
-        //     ReturnToMainScene();
-        //     // SceneManager.UnloadSceneAsync(currentSceneIndex);
-        // }
         if (sceneIndex == mainSceneIndex)
         {
             Debug.LogWarning("Main scene is already loaded. Use ReturnToMainScene instead.");

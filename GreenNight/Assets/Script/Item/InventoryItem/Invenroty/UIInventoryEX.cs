@@ -233,7 +233,13 @@ public class UIInventoryEX : UIInventory
         ConventDataUIToItemData();
     }
     private void OnDestroy()
-    {
+    {   
+        int gameobjectsceneIndex = gameObject.scene.buildIndex;
+        Debug.Log("Scene index Game object : " + gameobjectsceneIndex);
+        if(gameobjectsceneIndex != 0 )
+        {
+            return;
+        }
         if (indexExpendition == 1)
         {
             expenditionManager.uIExOne = null;
