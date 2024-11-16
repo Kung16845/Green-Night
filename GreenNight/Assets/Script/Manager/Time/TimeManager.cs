@@ -132,7 +132,8 @@ public class DateTime
                 this.isDayNight = false;
                 this.day++;
                 SetTimeStartDay();
-                sceneSystem.SwitchScene(0);
+                // sceneSystem.SwitchScene(0);
+                sceneSystem.ReturnToMainScene();
             }
             else if (SceneManager.GetActiveScene().buildIndex == 0 && this.hour <= 18 && this.minutes == 0)
             {

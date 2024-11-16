@@ -319,8 +319,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 2101093270}
         m_TargetAssemblyTypeName: SceneSystem, Assembly-CSharp
-        m_MethodName: SwitchScene
-        m_Mode: 3
+        m_MethodName: ReturnToMainScene
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1148,6 +1148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6f32048774ad3542a2a608a8a6371bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentSceneIndex: 0
   transitionAnim: {fileID: 102135395}
   timeManager: {fileID: 0}
 --- !u!4 &2101093271
@@ -4397,10 +4398,12 @@ MonoBehaviour:
   indexExpendition: 0
   isArriveEx: 0
   isArriveHome: 0
+  isExpenditon: 1
   expenditionManager: {fileID: 0}
   sceneSystem: {fileID: 0}
   uINpcSending: {fileID: 0}
   uINpcArriveEx: {fileID: 0}
+  uINpcGoBack: {fileID: 0}
   listEvnet: []
 --- !u!114 &2326972808645236276
 MonoBehaviour:

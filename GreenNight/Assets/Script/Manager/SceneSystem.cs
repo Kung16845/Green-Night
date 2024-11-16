@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneSystem : MonoBehaviour
 {
-     private int mainSceneIndex = 0;
+    private int mainSceneIndex = 0;
+    public int currentSceneIndex;
     public Animator transitionAnim;
     public TimeManager timeManager;
     private bool isSceneLoading = false;
@@ -15,6 +16,7 @@ public class SceneSystem : MonoBehaviour
         timeManager = FindObjectOfType<TimeManager>();
         timeManager.sceneSystem1 = this;
         timeManager.dateTime.sceneSystem = this;
+       
         // Debug.Log("sceneSystem");
     }
     public void SwitchScene(int sceneIndex)
@@ -26,27 +28,51 @@ public class SceneSystem : MonoBehaviour
     {
         transitionAnim.SetTrigger("EndScene");
         yield return new WaitForSeconds(3.0f);
-        // SceneManager.LoadScene(sceneIndex);
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        if(currentSceneIndex == 0)
+        if (sceneIndex == mainSceneIndex)
         {
-            SceneManager.LoadScene(sceneIndex, LoadSceneMode.Additive);
+            Debug.LogWarning("Main scene is already loaded. Use ReturnToMainScene instead.");
+            yield break;
         }
-        else 
+        
+        // Hide all root GameObjects in the main scene (Scene index 0)
+        Scene mainScene = SceneManager.GetSceneByBuildIndex(mainSceneIndex);
+        if (mainScene.IsValid() && mainScene.isLoaded)
         {
-            SceneManager.UnloadSceneAsync(currentSceneIndex);
+            foreach (GameObject go in mainScene.GetRootGameObjects())
+            {
+                go.SetActive(false); // Temporarily hide main scene objects
+            }
         }
+
+        // Load the new scene additively
+        SceneManager.LoadScene(sceneIndex, LoadSceneMode.Additive);
+        
+        currentSceneIndex = sceneIndex;
+    }
+
+
+    public void ReturnToMainScene()
+    {
+        // Unload all additive scenes
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+            if (scene.buildIndex != mainSceneIndex && scene.isLoaded)
+            {
+                SceneManager.UnloadSceneAsync(scene);
+            }
+        }
+
+        // Show all root GameObjects in the main scene
+        Scene mainScene = SceneManager.GetSceneByBuildIndex(mainSceneIndex);
+        if (mainScene.IsValid() && mainScene.isLoaded)
+        {
+            foreach (GameObject go in mainScene.GetRootGameObjects())
+            {
+                go.SetActive(true); // Restore main scene objects
+            }
+        }
+
 
     }
-    // private void Update() {
-    //     if(dateTime.hour == 18 && dateTime.isDayNight)
-    //     {
-    //         SwitchScene("DefendSceneFare");
-
-    //     }
-    //     else if(dateTime.hour == 6 )
-    //     {
-    //         SwitchScene("TownBaseScene");
-    //     }
-    // }
 }
