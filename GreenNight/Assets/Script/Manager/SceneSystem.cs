@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneSystem : MonoBehaviour
 {
-
+     private int mainSceneIndex = 0;
     public Animator transitionAnim;
     public TimeManager timeManager;
     private bool isSceneLoading = false;
@@ -26,8 +26,16 @@ public class SceneSystem : MonoBehaviour
     {
         transitionAnim.SetTrigger("EndScene");
         yield return new WaitForSeconds(3.0f);
-        SceneManager.LoadScene(sceneIndex);
-
+        // SceneManager.LoadScene(sceneIndex);
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        if(currentSceneIndex == 0)
+        {
+            SceneManager.LoadScene(sceneIndex, LoadSceneMode.Additive);
+        }
+        else 
+        {
+            SceneManager.UnloadSceneAsync(currentSceneIndex);
+        }
 
     }
     // private void Update() {

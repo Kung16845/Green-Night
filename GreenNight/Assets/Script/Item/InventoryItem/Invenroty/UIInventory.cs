@@ -207,6 +207,7 @@ public class UIInventory : MonoBehaviour
         player.currentStamina = player.GetMaxStamina();
         SetCostumeNpcExpentdition(npcSelecying, player.gameObject);
     }
+
     private void OnDestroy()
     {
         ClearItemDataInAllInventorySlotToListDataBoxes();
