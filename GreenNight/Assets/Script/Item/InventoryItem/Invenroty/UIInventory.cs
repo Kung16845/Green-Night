@@ -209,10 +209,6 @@ public class UIInventory : MonoBehaviour
         SetCostumeNpcExpentdition(npcSelecying, player.gameObject);
     }
 
-    private void OnDestroy()
-    {
-        // ClearItemDataInAllInventorySlotToListDataBoxes();
-    }
     public void ClearItemDataInAllInventorySlotToListDataBoxes()
     {
 

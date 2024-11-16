@@ -175,8 +175,9 @@ public class UIInventoryEX : UIInventory
         this.gameObject.SetActive(false);
     }
     public void ResetSlotUIEx()
-    {
-        expenditionManager.SetUIExButton(indexExpendition, null, null);
+    {   
+
+        
         GameObject uIIconComplete = null;
 
         if (indexExpendition == 1)
@@ -189,6 +190,28 @@ public class UIInventoryEX : UIInventory
         }
 
         uIIconComplete.gameObject.SetActive(false);
+        expenditionManager.SetUIExButton(indexExpendition, null, null);
+    }
+    public void ChoiceLeaveOurSupplies()
+    {   
+        
+        listItemDataInventoryEqicment.Clear();
+        listItemDataInventoryslot.Clear();
+        RefreshUIInventory();
+        Destroy(this.gameObject);
+    }
+    public void ChoiceFightForIt()
+    {
+        // เปลีย่นแมพต่อสู้
+    }
+    public void ChoiceGiveThemHalfourSupplies()
+    {
+        foreach (ItemData item in listItemDataInventoryslot)
+        {
+            item.count /= 2;
+        }
+        RefreshUIInventory();
+        Destroy(this.gameObject);
     }
     public bool IsEventTriggered()
     {
@@ -204,7 +227,7 @@ public class UIInventoryEX : UIInventory
             SetDataMoveSceneForEventExpendition();
             uINpcSending.SetActive(false);
             uINpcArriveEx.SetActive(true);
-            if(uINpcGoBack.activeSelf)
+            if (uINpcGoBack.activeSelf)
             {
                 uINpcArriveEx.SetActive(false);
             }
@@ -233,10 +256,10 @@ public class UIInventoryEX : UIInventory
         ConventDataUIToItemData();
     }
     private void OnDestroy()
-    {   
+    {
         int gameobjectsceneIndex = gameObject.scene.buildIndex;
         Debug.Log("Scene index Game object : " + gameobjectsceneIndex);
-        if(gameobjectsceneIndex != 0 )
+        if (gameobjectsceneIndex != 0)
         {
             return;
         }
@@ -248,9 +271,13 @@ public class UIInventoryEX : UIInventory
         {
             expenditionManager.uIExTwo = null;
         }
-
+        ResetSlotUIEx();
         expenditionManager.SetUIExButton(indexExpendition, null, null);
         ClearItemDataInAllInventorySlotToListDataBoxes();
+
+        npcManager.listNpc.Add(npcSelecying);
+        npcManager.listNpcWorkingMoreOneDay.Remove(npcSelecying);
+        npcManager.listNpcWorkingWIthInOneDay.Remove(npcSelecying);
         expenditionManager.listItemDataInventoryEqicment.Clear();
         expenditionManager.listItemDataInventoryslot.Clear();
     }

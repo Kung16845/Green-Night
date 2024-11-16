@@ -30,7 +30,7 @@ public class CountdownTimeDay : MonoBehaviour
         if (timeManager.dateTime.hour + (timeInSeconds / 60) >= 18)
         {
             finishDayCraftingTime = timeManager.dateTime.day + 1;
-            finishHourCraftingTime = timeManager.dateTime.hour + (int)(timeInSeconds / 60) - 18;
+            finishHourCraftingTime = 6 + timeManager.dateTime.hour + (int)(timeInSeconds / 60) - 18;
             finishMinutesCraftingTime = (int)timeInSeconds % 60;
         }
         else
