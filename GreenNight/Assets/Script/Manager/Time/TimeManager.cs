@@ -49,6 +49,7 @@ public class TimeManager : MonoBehaviour
         {
             currentTimeBetweenTricks = 0;
             Tick();
+            
         }
     }
     public void Tick()
@@ -86,8 +87,10 @@ public class DateTime
     }
     public void SetTimeStartDay()
     {
-        this.hour = 6;
-        this.minutes = 0;
+        // this.hour = 6;
+        // this.minutes = 0;
+        this.hour = 17;
+        this.minutes = 55;
     }
     public void SetTimeNightDay()
     {
@@ -133,7 +136,9 @@ public class DateTime
                 this.day++;
                 SetTimeStartDay();
                 // sceneSystem.SwitchScene(0);
+                
                 sceneSystem.ReturnToMainScene();
+
             }
             else if (SceneManager.GetActiveScene().buildIndex == 0 && this.hour <= 18 && this.minutes == 0)
             {

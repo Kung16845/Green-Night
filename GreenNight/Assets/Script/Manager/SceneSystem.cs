@@ -16,8 +16,8 @@ public class SceneSystem : MonoBehaviour
         timeManager = FindObjectOfType<TimeManager>();
         timeManager.sceneSystem1 = this;
         timeManager.dateTime.sceneSystem = this;
-       
-        // Debug.Log("sceneSystem");
+
+
     }
     public void SwitchScene(int sceneIndex)
     {
@@ -33,7 +33,7 @@ public class SceneSystem : MonoBehaviour
             Debug.LogWarning("Main scene is already loaded. Use ReturnToMainScene instead.");
             yield break;
         }
-        
+
         // Hide all root GameObjects in the main scene (Scene index 0)
         Scene mainScene = SceneManager.GetSceneByBuildIndex(mainSceneIndex);
         if (mainScene.IsValid() && mainScene.isLoaded)
@@ -46,7 +46,7 @@ public class SceneSystem : MonoBehaviour
 
         // Load the new scene additively
         SceneManager.LoadScene(sceneIndex, LoadSceneMode.Additive);
-        
+
         currentSceneIndex = sceneIndex;
     }
 
@@ -74,5 +74,11 @@ public class SceneSystem : MonoBehaviour
         }
 
 
+    }
+    private void OnEnable()
+    {
+        timeManager = FindObjectOfType<TimeManager>();
+        timeManager.sceneSystem1 = this;
+        timeManager.dateTime.sceneSystem = this;
     }
 }
