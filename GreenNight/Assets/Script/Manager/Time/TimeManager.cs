@@ -132,7 +132,7 @@ public class DateTime
             else if (this.hour == 4 && this.minutes == 0)
             {
 
-                this.isDayNight = false;
+                // this.isDayNight = false;
                 this.day++;
                 SetTimeStartDay();
                 // sceneSystem.SwitchScene(0);

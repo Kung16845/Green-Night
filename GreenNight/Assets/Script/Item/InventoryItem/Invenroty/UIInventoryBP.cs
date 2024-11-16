@@ -20,4 +20,17 @@ public class UIInventoryBP : UIInventory
     {
         ConventDataUIToItemData();
     }
+    private void OnDestroy()
+    {
+        int gameobjectsceneIndex = gameObject.scene.buildIndex;
+        Debug.Log("Scene index Game object : " + gameobjectsceneIndex);
+      
+        ClearItemDataInAllInventorySlotToListDataBoxes();
+
+        npcManager.listNpc.Add(npcSelecying);
+        npcManager.listNpcWorkingMoreOneDay.Remove(npcSelecying);
+        npcManager.listNpcWorkingWIthInOneDay.Remove(npcSelecying);
+        
+        
+    }
 }
