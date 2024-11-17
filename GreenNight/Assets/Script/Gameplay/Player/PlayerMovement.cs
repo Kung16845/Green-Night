@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
         float speedMultiplier = statAmplifier.GetSpeedMultiplier();
         float movementSpeed = baseSpeed * speedMultiplier;
         float sprintMovementSpeed = baseSprintSpeed * speedMultiplier;
-
+        
         if (direction.magnitude > 0) // Check if player is moving
         {
             // Flip character's direction based on horizontal input
