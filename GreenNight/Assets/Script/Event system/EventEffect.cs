@@ -25,7 +25,7 @@ public class EventEffect : MonoBehaviour
 
             case CardEvent.Swarm:
                 // Implement the effect for Swarm here
-                mainSpawner.AddActiveDeck(10122);
+                mainSpawner.AddActiveDeck(10130);
                 Debug.Log("Swarm event activated.");
                 break;
 

@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour
 {
-    [HideInInspector]
     public Lane lane;
 
-    private Coroutine spawnCoroutine;
+    public Coroutine spawnCoroutine;
 
     public void Initialize(Lane lane)
     {
@@ -53,6 +52,7 @@ public class SpawnPoint : MonoBehaviour
 
     private void SpawnZombie(ZombieSpawnQueue spawnConfig)
     {
+        Debug.Log("Spawned");
         if (spawnConfig.zombiePrefab != null)
         {
             GameObject zombieObject = Instantiate(spawnConfig.zombiePrefab, lane.spawnPoint.position, Quaternion.identity);
