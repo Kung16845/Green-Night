@@ -19270,6 +19270,7 @@ Transform:
   - {fileID: 1123376618}
   - {fileID: 1960134153}
   - {fileID: 1484128884}
+  - {fileID: 1256208284}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -31382,6 +31383,58 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1242061107}
   m_CullTransparentMesh: 1
+--- !u!1 &1256208283
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1256208284}
+  - component: {fileID: 1256208285}
+  m_Layer: 0
+  m_Name: 'SaveDDA '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1256208284
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256208283}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 741425701}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1256208285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256208283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63bcc3f9afffd1140a94b27bb23fdffd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scriptDDAdataCollector: {fileID: 0}
+  currentData:
+    killPerMinute: 0
+    accuracy: 0
+    multiKillCount: 0
+    barrierDamage: 0
+    recordCount: 0
+  savePathDataDDA: Assets/Script/DataCollector/dda_data.json
 --- !u!1 &1257102329
 GameObject:
   m_ObjectHideFlags: 0

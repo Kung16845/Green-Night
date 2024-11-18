@@ -9,6 +9,7 @@ public class TimeManager : MonoBehaviour
     public static TimeManager Instance { get; private set; }
 
     public SceneSystem sceneSystem1;
+    public SaveDataDDA saveDataDDA;
     public DateTime dateTime;
     [Header("Tick Setting")]
     [SerializeField] private int tickSeconedIncrease;
@@ -20,7 +21,7 @@ public class TimeManager : MonoBehaviour
     private void Awake()
     {   
         
-        dateTime = new DateTime(0, 0, 0, false, sceneSystem1);
+        dateTime = new DateTime(0, 0, 0, true, sceneSystem1,saveDataDDA);
         dateTime.SetTimeStartDay();
         currentTickSeconedIncrease = tickSeconedIncrease;
 
@@ -71,19 +72,21 @@ public class TimeManager : MonoBehaviour
 }
 [System.Serializable]
 public class DateTime
-{
+{   
     public int day;
     public int hour;
     public int minutes;
     public bool isDayNight;
     public SceneSystem sceneSystem;
-    public DateTime(int day, int hour, int minutes, bool isHaveDayNight, SceneSystem sceneSystem)
+    public SaveDataDDA saveDataDDA;
+    public DateTime(int day, int hour, int minutes, bool isHaveDayNight, SceneSystem sceneSystem, SaveDataDDA saveDataDDA)
     {
         this.day = day;
         this.hour = hour;
         this.minutes = minutes;
         this.isDayNight = isHaveDayNight;
         this.sceneSystem = sceneSystem;
+        this.saveDataDDA = saveDataDDA;
     }
     public void SetTimeStartDay()
     {
@@ -136,7 +139,7 @@ public class DateTime
                 this.day++;
                 SetTimeStartDay();
                 // sceneSystem.SwitchScene(0);
-                
+                saveDataDDA.AddData();
                 sceneSystem.ReturnToMainScene();
 
             }

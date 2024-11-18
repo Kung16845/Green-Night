@@ -36,12 +36,17 @@ public class DDAdataCollector : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void Start()
+    {
+        SaveDataDDA saveDataDDA = FindObjectOfType<SaveDataDDA>();
+        saveDataDDA.scriptDDAdataCollector = this;
 
+    }
     private void Update()
     {
         // Update the kill per minute and accuracy each frame
-        UpdateKillPerMinute();
-        UpdateAccuracy();
+        // UpdateKillPerMinute();
+        // UpdateAccuracy();
     }
 
     private void UpdateKillPerMinute()
@@ -128,4 +133,5 @@ public class DDAdataCollector : MonoBehaviour
         };
         return data;
     }
+    
 }

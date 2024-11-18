@@ -23,8 +23,13 @@ public class SaveDataDDA : MonoBehaviour
     {
         scriptDDAdataCollector = FindObjectOfType<DDAdataCollector>();
     }
-    public void AddData(float killPerMinute, float accuracy, int multiKillCount, float barrierDamage)
+    public void AddData()
     {
+        float killPerMinute = scriptDDAdataCollector.killPerMinute;
+        float accuracy = scriptDDAdataCollector.accuracy;
+        int multiKillCount = scriptDDAdataCollector.multiKillCount;
+        float barrierDamage = scriptDDAdataCollector.accuracy;
+
         // หากยังไม่มีข้อมูลเริ่มต้น ให้สร้างใหม่
         if (currentData == null)
         {
@@ -39,10 +44,10 @@ public class SaveDataDDA : MonoBehaviour
         }
 
         // บวกค่าปัจจุบัน
-        currentData.killPerMinute = (currentData.killPerMinute * currentData.recordCount + killPerMinute) / (currentData.recordCount + 1);
-        currentData.accuracy = (currentData.accuracy * currentData.recordCount + accuracy) / (currentData.recordCount + 1);
-        currentData.multiKillCount = Mathf.RoundToInt((currentData.multiKillCount * currentData.recordCount + multiKillCount) / (currentData.recordCount + 1));
-        currentData.barrierDamage = (currentData.barrierDamage * currentData.recordCount + barrierDamage) / (currentData.recordCount + 1);
+        currentData.killPerMinute = (currentData.killPerMinute + killPerMinute) / (currentData.recordCount + 1);
+        currentData.accuracy = (currentData.accuracy + accuracy) / (currentData.recordCount + 1);
+        currentData.multiKillCount = (currentData.multiKillCount + multiKillCount) / (currentData.recordCount + 1);
+        currentData.barrierDamage = (currentData.barrierDamage + barrierDamage) / (currentData.recordCount + 1);
 
         // เพิ่มจำนวนครั้งที่บันทึกข้อมูล
         currentData.recordCount++;
