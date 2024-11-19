@@ -9,7 +9,7 @@ public class DataDDA
 {
     public float killPerMinute;
     public float accuracy;
-    public int multiKillCount;
+    public float multiKillCount;
     public float barrierDamage;
     public int recordCount;
 }
@@ -27,8 +27,8 @@ public class SaveDataDDA : MonoBehaviour
     {
         float killPerMinute = scriptDDAdataCollector.killPerMinute;
         float accuracy = scriptDDAdataCollector.accuracy;
-        int multiKillCount = scriptDDAdataCollector.multiKillCount;
-        float barrierDamage = scriptDDAdataCollector.accuracy;
+        float multiKillCount = scriptDDAdataCollector.multiKillCount;
+        float barrierDamage = scriptDDAdataCollector.barrierDamage;
 
         // หากยังไม่มีข้อมูลเริ่มต้น ให้สร้างใหม่
         if (currentData == null)

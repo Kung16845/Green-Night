@@ -61,7 +61,7 @@ public class ShootBomb : MonoBehaviour
 
     void Update()
     {
-        ChanageTypeBomb();
+        // ChanageTypeBomb();
         
         if (prefabBomb == null) return;
 
@@ -117,8 +117,8 @@ public class ShootBomb : MonoBehaviour
                 Random.Range(vertical.x, vertical.y));
         }
 
-        ItemClass itemClassBomb = instantiatedBomb.GetComponent<ItemClass>();
-        uIInventory.RemoveItemData(itemClassBomb);
+        // ItemClass itemClassBomb = instantiatedBomb.GetComponent<ItemClass>();
+        // uIInventory.RemoveItemData(itemClassBomb);
     }
 
     public GameObject SpawnedNewBomb()

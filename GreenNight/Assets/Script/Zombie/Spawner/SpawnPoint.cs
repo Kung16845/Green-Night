@@ -56,7 +56,7 @@ public class SpawnPoint : MonoBehaviour
         if (spawnConfig.zombiePrefab != null)
         {
             GameObject zombieObject = Instantiate(spawnConfig.zombiePrefab, lane.spawnPoint.position, Quaternion.identity);
-
+            zombieObject.transform.SetParent(lane.spawnPoint.transform);
             Zombie zombie = zombieObject.GetComponent<Zombie>();
             if (zombie != null)
             {
