@@ -14,7 +14,7 @@ public class ShootBomb : MonoBehaviour
     public Transform trnsGunTip;
     private bool hasPressedG = false;
     public float maxChargeTime = 2f;
-    public float minimumChargeTime = 0.75f;
+    public float minimumChargeTime = 1;
     public float currentChargeTime = 0f;
     public UIInventory uIInventory;
     public int nubbombtype;
@@ -73,10 +73,10 @@ public class ShootBomb : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.G) && hasPressedG)
         {
-            Debug.Log("G Released");
             if (currentChargeTime < minimumChargeTime)
             {
                 ShootingBomb(groundDispenseVelocity * minimumChargeTime, verticalDispenseVelocity * minimumChargeTime);
+                Debug.Log(minimumChargeTime);
             }
             else
             {

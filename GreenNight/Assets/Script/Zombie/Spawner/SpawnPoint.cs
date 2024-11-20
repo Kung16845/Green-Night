@@ -52,7 +52,7 @@ public class SpawnPoint : MonoBehaviour
 
     private void SpawnZombie(ZombieSpawnQueue spawnConfig)
     {
-        Debug.Log("Spawned");
+        // Debug.Log("Spawned");
         if (spawnConfig.zombiePrefab != null)
         {
             GameObject zombieObject = Instantiate(spawnConfig.zombiePrefab, lane.spawnPoint.position, Quaternion.identity);
