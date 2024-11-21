@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 public class Weapon : MonoBehaviour
@@ -83,7 +84,7 @@ public class Weapon : MonoBehaviour
             caliberType = ConvertAmmoTypeToCaliberType(itemWeapon.ammoType);
 
             // Update derived values
-            currentAmmo = capacity;
+            currentAmmo = 0;
             fireRate = 60f / rateOfFire;
             initialAccuracy = accuracy;
             animationController.isgunequip = true;
@@ -378,33 +379,103 @@ public class Weapon : MonoBehaviour
         }
     }
 
-
     public IEnumerator Reload()
     {
+        if (currentAmmo == capacity)
+        {
+            yield break; // Exit the reload process if ammo is full
+        }
+        if (isReloading)
+        {
+            Debug.LogWarning("Already reloading!");
+            yield break; // Prevent multiple reloads simultaneously
+        }
+
         isReloading = true;
         animationController.isreload = true;
 
-        float reloadTime = (6.5f * (1 - (statAmplifier.GetCombatMultiplier() - 1))) * (100f - handling) / 100f * statAmplifier.GetReloadSpeedMultiplier();
+        // Calculate reload time based on stats and multipliers
+        float reloadTime = (6.5f * (1 - (statAmplifier.GetCombatMultiplier() - 1))) 
+                            * (100f - handling) / 100f 
+                            * statAmplifier.GetReloadSpeedMultiplier();
 
-        // Calculate the playback speed required for the animation to match reloadTime
+        // Adjust playback speed of the reload animation
         Animator animator = animationController.GetComponent<Animator>();
-        AnimationClip reloadAnimationClip = animator.runtimeAnimatorController.animationClips.FirstOrDefault(clip => clip.name == "ReloadGenericRifle");
-        
+        AnimationClip reloadAnimationClip = animator.runtimeAnimatorController.animationClips
+            .FirstOrDefault(clip => clip.name == "ReloadGenericRifle");
+
         if (reloadAnimationClip != null)
         {
             float animationDuration = reloadAnimationClip.length;
-            animator.speed = animationDuration / reloadTime; // Adjust playback speed to match reloadTime
+            animator.speed = animationDuration / reloadTime; // Match animation with reload time
         }
 
+        // Get the caliber type of the current weapon
+        CaliberType requiredCaliber = this.caliberType; // Use the caliberType directly from the weapon
+
+        // Map the caliber type to ammo ID (assuming the ammo IDs are pre-set)
+        Dictionary<CaliberType, int> caliberToAmmoID = new Dictionary<CaliberType, int>
+        {
+            { CaliberType.High, 1020125 },
+            { CaliberType.Shotgun, 1020126 },
+            { CaliberType.Low, 1020124 },
+            { CaliberType.Medium, 1020127 }
+        };
+
+        if (!caliberToAmmoID.TryGetValue(requiredCaliber, out int requiredAmmoID))
+        {
+            Debug.LogError("Caliber type not mapped to ammo ID!");
+            isReloading = false;
+            animationController.isreload = false;
+            yield break;
+        }
+
+        // Find all items in the inventory that match the required ammo ID
+        List<ItemData> matchingAmmoItems = uiInventory.listItemDataInventoryslot
+            .Where(item => item.idItem == requiredAmmoID && item.count > 0)
+            .ToList();
+
+        if (matchingAmmoItems.Count == 0)
+        {
+            Debug.LogWarning("No matching ammo found or not enough ammo!");
+            animator.speed = 1f; // Reset animator speed
+            animationController.isreload = false;
+            isReloading = false;
+            yield break;
+        }
+
+        // Calculate the total ammo available from all matching items
+        int totalAmmoAvailable = matchingAmmoItems.Sum(item => item.count);
+
+        // If there is enough ammo, proceed with reloading
+        int ammoNeeded = capacity - currentAmmo;
+        int ammoToReload = Mathf.Min(ammoNeeded, totalAmmoAvailable);
+
+        // Deduct ammo from the matching items in inventory
+        int ammoRemainingToReload = ammoToReload;
+        foreach (var item in matchingAmmoItems)
+        {
+            if (ammoRemainingToReload <= 0) break;
+
+            int ammoToTake = Mathf.Min(ammoRemainingToReload, item.count);
+            item.count -= ammoToTake; // Deduct ammo from the item
+            ammoRemainingToReload -= ammoToTake; // Reduce the remaining ammo needed
+        }
+
+        currentAmmo += ammoToReload; // Add the ammo to the weapon
+        Debug.Log($"Reloaded {ammoToReload} ammo. Current ammo: {currentAmmo}");
+
+        // Wait for reload time to complete
         yield return new WaitForSeconds(reloadTime);
 
-        // Reset the animation state and speed after reloading is complete
-        animator.speed = 1f; // Reset animator speed to default
+        // Reset the animation state and variables
+        animator.speed = 1f; // Reset animator speed
         animationController.isreload = false;
-        currentAmmo = capacity;
         isReloading = false;
-        shotsFiredConsecutively = 0; 
-        Debug.Log("Reloaded!");
+        shotsFiredConsecutively = 0;
+
+        // Refresh UI to reflect changes
+        uiInventory.RefreshUIInventory();
     }
 
     private void ApplyStatAmplifier()
