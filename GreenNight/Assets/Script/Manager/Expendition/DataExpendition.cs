@@ -10,5 +10,6 @@ public class DataExpendition : MonoBehaviour
     public int timescaleWalk;
     public int timescaleCar;
     public float riskEvent;
+    public int indexSceneExpendition;
     public Sprite spriteImagePlace;
 }
