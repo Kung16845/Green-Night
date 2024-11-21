@@ -11,6 +11,7 @@ public class UIInventoryEX : UIInventory
     public float timeScale;
     public float riskValue;
     public int indexExpendition;
+    public int indexSceneExpendition;
     public bool isArriveEx;
     public bool isArriveHome;
     public bool isExpenditon;
@@ -141,7 +142,7 @@ public class UIInventoryEX : UIInventory
     }
     public void GoExpendition()
     {
-        sceneSystem.SwitchScene(2);
+        sceneSystem.SwitchScene(indexSceneExpendition);
     }
 
     public void CancleGoExpenditionAndGoHone()
