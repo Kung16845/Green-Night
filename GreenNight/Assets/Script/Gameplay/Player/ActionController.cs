@@ -77,7 +77,7 @@ public class ActionController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             stuckProgress += releasedvalue * actionSpeed;
-            Debug.Log(stuckProgress);
+            // Debug.Log(stuckProgress);
             if (stuckProgress > maxStuckValue)
             {
                 stuckProgress = maxStuckValue;

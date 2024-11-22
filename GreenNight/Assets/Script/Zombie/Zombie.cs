@@ -12,6 +12,7 @@ public enum DamageType
     Fire,
     Acid,
     Explosive,
+    Poison,
     // Future damage types can be added here
 }
 public enum MutationType
@@ -33,6 +34,8 @@ public enum ZombieState
 
 public class Zombie : MonoBehaviour
 {
+    private Dictionary<object, PoisonEffect> activePoisonEffects = new Dictionary<object, PoisonEffect>();
+    private Dictionary<object, BurnEffect> activeBurnEffects = new Dictionary<object, BurnEffect>();
     protected Dictionary<DamageType, float> damageMultipliers;
     private float speedMultiplier = 1f;     // Movement speed multiplier
     private float attackSpeedMultiplier = 1f;
@@ -48,7 +51,8 @@ public class Zombie : MonoBehaviour
     public Rigidbody2D rb2D;
     public Barrier barrier;
     private bool canmove;
-
+    private Coroutine poisonCoroutine;
+    private float buildUpDamage = 0f; // Accumulated poison damage
     public float movementSpeed = 1.0f;       // Movement speed
 
     // Fields for Engaging Area
@@ -90,10 +94,8 @@ public class Zombie : MonoBehaviour
     public DDAdataCollector ddadataCollector;
     private void Awake()
     {
-        ApplyMutationEffects();
         currentSpeed = maxSpeed;
         currentHp = maxHp;
-        ArmourHp = maxArmourHp; // Initialize armor
         canmove = true;
         rb2D = GetComponent<Rigidbody2D>();
         originalSpeed = maxSpeed;
@@ -213,6 +215,7 @@ public class Zombie : MonoBehaviour
             else if (damageType == DamageType.Explosive)
             {
                 // Explosive damage splits between armor and health
+                Debug.Log("DamageExplosive");
                 float damageToArmor = adjustedDamage * 0.60f;
                 float damageToHealth = adjustedDamage * 0.40f;
                 ArmourHp -= damageToArmor;
@@ -412,6 +415,139 @@ public class Zombie : MonoBehaviour
                     explosionRadius[index]
                 );
             }
+        }
+    }
+    private class BurnEffect
+    {
+        public float tickDamage;
+        public float tickInterval;
+        public float durationRemaining;
+        public Coroutine burnCoroutine;
+    }
+    public void ApplyBurnEffect(float tickDamage, float tickInterval, float duration, object source)
+    {
+        if (activeBurnEffects.ContainsKey(source))
+        {
+            // Refresh existing burn effect
+            activeBurnEffects[source].durationRemaining = duration;
+        }
+        else
+        {
+            // Create a new burn effect
+            BurnEffect newEffect = new BurnEffect
+            {
+                tickDamage = tickDamage,
+                tickInterval = tickInterval,
+                durationRemaining = duration
+            };
+            newEffect.burnCoroutine = StartCoroutine(HandleBurnEffect(newEffect));
+            activeBurnEffects.Add(source, newEffect);
+        }
+    }
+
+    private IEnumerator HandleBurnEffect(BurnEffect burnEffect)
+    {
+        while (burnEffect.durationRemaining > 0f)
+        {
+            ZombieTakeDamage(burnEffect.tickDamage, DamageType.Fire);
+            yield return new WaitForSeconds(burnEffect.tickInterval);
+            burnEffect.durationRemaining -= burnEffect.tickInterval;
+        }
+
+        // Automatically clean up when the effect ends
+        foreach (var pair in activeBurnEffects)
+        {
+            if (pair.Value == burnEffect)
+            {
+                activeBurnEffects.Remove(pair.Key);
+                break;
+            }
+        }
+    }
+    private class PoisonEffect
+    {
+        public float tickDamage;
+        public float tickInterval;
+        public float damageBuildRate;
+        public float durationRemaining;
+        public float accumulatedDamage;
+        public Coroutine poisonCoroutine;
+        public Coroutine buildUpCoroutine;
+    }
+       public void StartPoisonEffect(float tickDamage, float tickInterval, float damageBuildRate, float poisonDuration, object source)
+    {
+        if (activePoisonEffects.ContainsKey(source))
+        {
+            // Refresh poison effect
+            PoisonEffect effect = activePoisonEffects[source];
+            effect.durationRemaining = poisonDuration;
+        }
+        else
+        {
+            // Create new poison effect
+            PoisonEffect newEffect = new PoisonEffect
+            {
+                tickDamage = tickDamage,
+                tickInterval = tickInterval,
+                damageBuildRate = damageBuildRate,
+                durationRemaining = poisonDuration,
+                accumulatedDamage = 0f
+            };
+
+            newEffect.poisonCoroutine = StartCoroutine(HandlePoisonTick(newEffect));
+            newEffect.buildUpCoroutine = StartCoroutine(AccumulateBuildUpDamage(newEffect));
+            activePoisonEffects.Add(source, newEffect);
+        }
+    }
+
+    public void StopPoisonEffect(object source)
+    {
+        if (activePoisonEffects.ContainsKey(source))
+        {
+            PoisonEffect effect = activePoisonEffects[source];
+
+            // Stop poison tick and build-up accumulation
+            if (effect.poisonCoroutine != null) StopCoroutine(effect.poisonCoroutine);
+            if (effect.buildUpCoroutine != null) StopCoroutine(effect.buildUpCoroutine);
+
+            // Apply accumulated build-up damage over the remaining duration
+            if (effect.accumulatedDamage > 0)
+            {
+                StartCoroutine(ApplyBuildUpDamage(effect.accumulatedDamage, effect.durationRemaining));
+            }
+
+            activePoisonEffects.Remove(source);
+        }
+    }
+
+    private IEnumerator HandlePoisonTick(PoisonEffect effect)
+    {
+        while (true)
+        {
+            ZombieTakeDamage(effect.tickDamage, DamageType.Poison);
+            yield return new WaitForSeconds(effect.tickInterval);
+        }
+    }
+
+    private IEnumerator AccumulateBuildUpDamage(PoisonEffect effect)
+    {
+        while (true)
+        {
+            effect.accumulatedDamage += effect.damageBuildRate * effect.tickInterval;
+            yield return new WaitForSeconds(effect.tickInterval);
+        }
+    }
+
+    private IEnumerator ApplyBuildUpDamage(float totalDamage, float duration)
+    {
+        float damagePerTick = totalDamage;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            ZombieTakeDamage(damagePerTick, DamageType.Poison);
+            yield return new WaitForSeconds(1f); // Apply damage every second
+            elapsed += 1f;
         }
     }
     protected virtual void InitializeDamageMultipliers()
