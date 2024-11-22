@@ -14,7 +14,7 @@ public class ShootBomb : MonoBehaviour
     public Transform trnsGunTip;
     private bool hasPressedG = false;
     public float maxChargeTime = 2f;
-    public float minimumChargeTime = 0.75f;
+    public float minimumChargeTime = 1;
     public float currentChargeTime = 0f;
     public UIInventory uIInventory;
     public int nubbombtype;
@@ -61,7 +61,7 @@ public class ShootBomb : MonoBehaviour
 
     void Update()
     {
-        ChanageTypeBomb();
+        // ChanageTypeBomb();
         
         if (prefabBomb == null) return;
 
@@ -73,10 +73,10 @@ public class ShootBomb : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.G) && hasPressedG)
         {
-            Debug.Log("G Released");
             if (currentChargeTime < minimumChargeTime)
             {
                 ShootingBomb(groundDispenseVelocity * minimumChargeTime, verticalDispenseVelocity * minimumChargeTime);
+                Debug.Log(minimumChargeTime);
             }
             else
             {
@@ -117,8 +117,8 @@ public class ShootBomb : MonoBehaviour
                 Random.Range(vertical.x, vertical.y));
         }
 
-        ItemClass itemClassBomb = instantiatedBomb.GetComponent<ItemClass>();
-        uIInventory.RemoveItemData(itemClassBomb);
+        // ItemClass itemClassBomb = instantiatedBomb.GetComponent<ItemClass>();
+        // uIInventory.RemoveItemData(itemClassBomb);
     }
 
     public GameObject SpawnedNewBomb()

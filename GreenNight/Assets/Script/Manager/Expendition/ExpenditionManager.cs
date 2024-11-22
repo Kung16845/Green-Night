@@ -38,7 +38,7 @@ public class ExpenditionManager : MonoBehaviour
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
         globalstat = FindObjectOfType<Globalstat>();
     }
-    public void CreateInventorySetExpendition(float timeScale,float riskValue)
+    public void CreateInventorySetExpendition(float timeScale,float riskValue,int indexSceneExpendition)
     {
         if (uIInventoryExPrefab == null)
         {
@@ -53,6 +53,7 @@ public class ExpenditionManager : MonoBehaviour
         uIInventoryEx.inventoryItemPresent = inventoryItemPresent;
         uIInventoryEx.timeScale = timeScale;
         uIInventoryEx.riskValue = riskValue;
+        uIInventoryEx.indexExpendition = indexSceneExpendition;
         uIEx.SetActive(true);
     }
 
