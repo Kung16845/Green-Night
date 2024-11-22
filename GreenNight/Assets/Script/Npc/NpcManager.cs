@@ -20,7 +20,7 @@ public class NpcManager : MonoBehaviour
     public TMP_Dropdown dropdown;
     public UIInventory uIInventory;
     public InventoryItemPresent inventoryItemPresent;
-    public Transform listPointSpawnerNpc;
+    public List<Transform> listPointSpawnerNpc;
     public GameObject prefabNpc;
     [Header("TextMeshProUGUI")]
     public TextMeshProUGUI levelEnduranceText;
@@ -99,7 +99,10 @@ public class NpcManager : MonoBehaviour
         BodyCoutume bodyCoutume = listBodyCoutume.FirstOrDefault(coutume => coutume.idBody == newNpc.idBody);
         FeedCoutume feedCoutume = listFeedCoutume.FirstOrDefault(coutume => coutume.idFeed == newNpc.idFeed);
 
-        GameObject npcOBJ = Instantiate(prefabNpc, listPointSpawnerNpc);
+        Transform transformSpawnNpc = listPointSpawnerNpc.ElementAt(Random.Range(0,listPointSpawnerNpc.Count));
+
+        GameObject npcOBJ = Instantiate(prefabNpc, transformSpawnNpc );
+        npcOBJ.transform.position = transformSpawnNpc.position;
         NpcCoutume npcCoutume = npcOBJ.GetComponent<NpcCoutume>();
 
         npcCoutume.SetCostume(headCoutume, bodyCoutume, feedCoutume);
