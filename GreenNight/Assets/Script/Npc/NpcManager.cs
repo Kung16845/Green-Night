@@ -101,7 +101,7 @@ public class NpcManager : MonoBehaviour
 
         Transform transformSpawnNpc = listPointSpawnerNpc.ElementAt(Random.Range(0,listPointSpawnerNpc.Count));
 
-        GameObject npcOBJ = Instantiate(prefabNpc, transformSpawnNpc );
+        GameObject npcOBJ = Instantiate(prefabNpc, transformSpawnNpc);
         npcOBJ.transform.position = transformSpawnNpc.position;
         NpcCoutume npcCoutume = npcOBJ.GetComponent<NpcCoutume>();
 
