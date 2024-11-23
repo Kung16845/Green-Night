@@ -189,19 +189,29 @@ public class UIInventory : MonoBehaviour
             }
             else
             {
-                InvenrotySlots inventortEqicment = listInvenrotySlotsUI.ElementAt(i + 12);
-                SlotType slotTypeSlot = inventortEqicment.slotTypeInventory;
-                Itemtype itemDatatype = itemData.itemtype;
+                // InvenrotySlots inventortEqicment = listInvenrotySlotsUI.ElementAt(i + 12);
+                InvenrotySlots inventortEqicment = listInvenrotySlotsUI.FirstOrDefault(
+                    slotInven => slotInven.slotTypeInventory == SlotType.SlotWeapon && itemData.itemtype == Itemtype.Weapon ||
+                     slotInven.slotTypeInventory == SlotType.SlotVest && itemData.itemtype == Itemtype.Vest ||
+                     slotInven.slotTypeInventory == SlotType.SlotBackpack && itemData.itemtype == Itemtype.Backpack ||
+                    slotInven.slotTypeInventory == SlotType.SlotTool && itemData.itemtype == Itemtype.Tool ||
+                    slotInven.slotTypeInventory == SlotType.SlotGrenade && itemData.itemtype == Itemtype.Grenade);
+                // SlotType slotTypeSlot = inventortEqicment.slotTypeInventory;
+                // Itemtype itemDatatype = itemData.itemtype;
 
-                // Check if the item matches the slot type
-                if (slotTypeSlot == SlotType.SlotWeapon && itemDatatype == Itemtype.Weapon ||
-                    slotTypeSlot == SlotType.SlotVest && itemDatatype == Itemtype.Vest ||
-                    slotTypeSlot == SlotType.SlotBackpack && itemDatatype == Itemtype.Backpack ||
-                    slotTypeSlot == SlotType.SlotTool && itemDatatype == Itemtype.Tool ||
-                    slotTypeSlot == SlotType.SlotGrenade && itemDatatype == Itemtype.Grenade)
-                {
-                    GameObject uIItemEqicment = CreateUIItem(itemData, inventortEqicment);
-                }
+                // // Check if the item matches the slot type
+                // if (slotTypeSlot == SlotType.SlotWeapon && itemDatatype == Itemtype.Weapon ||
+                //     slotTypeSlot == SlotType.SlotVest && itemDatatype == Itemtype.Vest ||
+                //     slotTypeSlot == SlotType.SlotBackpack && itemDatatype == Itemtype.Backpack ||
+                //     slotTypeSlot == SlotType.SlotTool && itemDatatype == Itemtype.Tool ||
+                //     slotTypeSlot == SlotType.SlotGrenade && itemDatatype == Itemtype.Grenade)
+                // {
+                GameObject uIItemEqicment = CreateUIItem(itemData, inventortEqicment);
+                // }
+                // else 
+                // {
+
+                // }
             }
         }
     }
@@ -229,7 +239,7 @@ public class UIInventory : MonoBehaviour
     public void ClearItemDataInAllInventorySlotToListDataBoxes()
     {
 
-      
+
         Debug.Log("ClearItemDataInAllInventorySlotToListDataBoxes");
         foreach (InvenrotySlots slotsItem in listInvenrotySlotsUI)
         {
