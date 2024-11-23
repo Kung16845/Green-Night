@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 624f098a72edbc143ac2b66496c4311b
+guid: c0caa8af4319f2b40b8bad48138a75d2
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -94,18 +94,18 @@ ScriptedImporter:
     spritePosition: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
-  - name: GruntArmored_ArmFront
+  - name: ReekerSpike_ArmFront
     originalName: 
-    pivot: {x: 0.4, y: 0.85}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 195
+      x: 223
       y: 4
-      width: 32
-      height: 98
-    spriteID: 6f4a029a41507454eb408ed89e0f5c61
+      width: 27
+      height: 97
+    spriteID: 3c1dd318ad7363547b60b891b2de6da7
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -113,20 +113,20 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 195, y: 4}
-    spritePosition: {x: 136, y: 57}
-  - name: GruntArmored_Head
+    uvTransform: {x: 223, y: 4}
+    spritePosition: {x: 142, y: 58}
+  - name: ReekerSpike_Head
     originalName: 
-    pivot: {x: 0.7252388, y: 0.09563051}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 124
-      width: 80
-      height: 87
-    spriteID: c8aa68fcf22b71448aaedc6275170dc2
+      x: 100
+      y: 4
+      width: 71
+      height: 97
+    spriteID: 5b2fc58024e439747be4d18dd3d8e38d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -134,20 +134,20 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 124}
-    spritePosition: {x: 81, y: 149}
-  - name: GruntArmored_Body
+    uvTransform: {x: 100, y: 4}
+    spritePosition: {x: 90, y: 144}
+  - name: ReekerSpike_Body
     originalName: 
-    pivot: {x: 0.42769238, y: 0.01734542}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 89
-      height: 112
-    spriteID: 38361a2343b494947b7a3dbc4322e621
+      width: 88
+      height: 102
+    spriteID: e534f05fac9d96445bf9601ad4c3890f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -156,61 +156,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-    spritePosition: {x: 96, y: 84}
-  - name: GruntArmored_LegFront
+    spritePosition: {x: 100, y: 84}
+  - name: ReekerSpike_LegFront
     originalName: 
-    pivot: {x: 0.4495266, y: 0.8907963}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 150
-      y: 67
-      width: 34
-      height: 101
-    spriteID: 51f19ecb14250bf49aadab943d67de94
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 150, y: 67}
-    spritePosition: {x: 131, y: 7}
-  - name: GruntArmored_LegBack
-    originalName: 
-    pivot: {x: 0.67788917, y: 0.9082}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 101
-      y: 67
-      width: 41
-      height: 103
-    spriteID: a07dce8735c159544954dba993317cff
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 101, y: 67}
-    spritePosition: {x: 100, y: 7}
-  - name: GruntArmored_ArmBack
-    originalName: 
-    pivot: {x: 0.8841285, y: 0.8198196}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 101
+      x: 179
       y: 4
-      width: 86
-      height: 55
-    spriteID: 0b1ac9e0e17cfba4ead0df22c65d642e
+      width: 36
+      height: 101
+    spriteID: e9d59fbfb1680654da5c8bc282899195
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -218,8 +176,50 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 101, y: 4}
-    spritePosition: {x: 52, y: 99}
+    uvTransform: {x: 179, y: 4}
+    spritePosition: {x: 129, y: 7}
+  - name: ReekerSpike_LegBack
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 97
+      y: 114
+      width: 44
+      height: 103
+    spriteID: 4fed37f4bd37ca64d8ef4515687ec589
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 97, y: 114}
+    spritePosition: {x: 98, y: 7}
+  - name: ReekerSpike_ArmBack
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 114
+      width: 85
+      height: 56
+    spriteID: bd4818417c1c2a5448587149a3996319
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 114}
+    spritePosition: {x: 52, y: 98}
   characterData:
     bones: []
     parts: []
@@ -235,43 +235,7 @@ ScriptedImporter:
     characterGroups: []
     pivot: {x: 0, y: 0}
     boneReadOnly: 0
-  platformSettings:
-  - name: DefaultTexturePlatform
-    overridden: 0
-    ignorePlatformSupport: 0
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    androidETC2FallbackOverride: 0
-  - name: Standalone
-    overridden: 0
-    ignorePlatformSupport: 0
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    androidETC2FallbackOverride: 0
-  - name: Server
-    overridden: 0
-    ignorePlatformSupport: 0
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    androidETC2FallbackOverride: 0
+  platformSettings: []
   mosaicLayers: 1
   characterMode: 1
   documentPivot: {x: 0, y: 0}
@@ -290,63 +254,63 @@ ScriptedImporter:
   resliceFromLayer: 0
   mosaicPSDLayers: []
   rigPSDLayers:
-  - name: GruntArmored_ArmFront
-    spriteName: GruntArmored_ArmFront
+  - name: ReekerSpike_ArmFront
+    spriteName: ReekerSpike_ArmFront
     isGroup: 0
     parentIndex: -1
-    spriteID: 6f4a029a41507454eb408ed89e0f5c61
+    spriteID: 3c1dd318ad7363547b60b891b2de6da7
     layerID: 0
-    mosaicPosition: {x: 195, y: 4}
+    mosaicPosition: {x: 223, y: 4}
     flatten: 0
     isImported: 1
     isVisible: 1
-  - name: GruntArmored_Head
-    spriteName: GruntArmored_Head
+  - name: ReekerSpike_Head
+    spriteName: ReekerSpike_Head
     isGroup: 0
     parentIndex: -1
-    spriteID: c8aa68fcf22b71448aaedc6275170dc2
-    layerID: 313523703
-    mosaicPosition: {x: 4, y: 124}
+    spriteID: 5b2fc58024e439747be4d18dd3d8e38d
+    layerID: 1645239469
+    mosaicPosition: {x: 100, y: 4}
     flatten: 0
     isImported: 1
     isVisible: 1
-  - name: GruntArmored_Body
-    spriteName: GruntArmored_Body
+  - name: ReekerSpike_Body
+    spriteName: ReekerSpike_Body
     isGroup: 0
     parentIndex: -1
-    spriteID: 38361a2343b494947b7a3dbc4322e621
-    layerID: -452897269
+    spriteID: e534f05fac9d96445bf9601ad4c3890f
+    layerID: -653507707
     mosaicPosition: {x: 4, y: 4}
     flatten: 0
     isImported: 1
     isVisible: 1
-  - name: GruntArmored_LegFront
-    spriteName: GruntArmored_LegFront
+  - name: ReekerSpike_LegFront
+    spriteName: ReekerSpike_LegFront
     isGroup: 0
     parentIndex: -1
-    spriteID: 51f19ecb14250bf49aadab943d67de94
-    layerID: -1134368000
-    mosaicPosition: {x: 150, y: 67}
+    spriteID: e9d59fbfb1680654da5c8bc282899195
+    layerID: -1109802184
+    mosaicPosition: {x: 179, y: 4}
     flatten: 0
     isImported: 1
     isVisible: 1
-  - name: GruntArmored_LegBack
-    spriteName: GruntArmored_LegBack
+  - name: ReekerSpike_LegBack
+    spriteName: ReekerSpike_LegBack
     isGroup: 0
     parentIndex: -1
-    spriteID: a07dce8735c159544954dba993317cff
-    layerID: 1707134602
-    mosaicPosition: {x: 101, y: 67}
+    spriteID: 4fed37f4bd37ca64d8ef4515687ec589
+    layerID: 1418817318
+    mosaicPosition: {x: 97, y: 114}
     flatten: 0
     isImported: 1
     isVisible: 1
-  - name: GruntArmored_ArmBack
-    spriteName: GruntArmored_ArmBack
+  - name: ReekerSpike_ArmBack
+    spriteName: ReekerSpike_ArmBack
     isGroup: 0
     parentIndex: -1
-    spriteID: 0b1ac9e0e17cfba4ead0df22c65d642e
-    layerID: 1785302128
-    mosaicPosition: {x: 101, y: 4}
+    spriteID: bd4818417c1c2a5448587149a3996319
+    layerID: -688834636
+    mosaicPosition: {x: 4, y: 114}
     flatten: 0
     isImported: 1
     isVisible: 1
