@@ -53,7 +53,7 @@ public class ExpenditionManager : MonoBehaviour
         uIInventoryEx.inventoryItemPresent = inventoryItemPresent;
         uIInventoryEx.timeScale = timeScale;
         uIInventoryEx.riskValue = riskValue;
-        uIInventoryEx.indexExpendition = indexSceneExpendition;
+        uIInventoryEx.indexSceneExpendition = indexSceneExpendition;
         uIEx.SetActive(true);
     }
 
