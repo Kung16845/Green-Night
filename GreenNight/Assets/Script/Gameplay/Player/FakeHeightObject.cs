@@ -1,7 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
-
+using System.Linq;
 public class FakeHeightObject : MonoBehaviour
 {
     public GameObject areaBombDamage;
@@ -11,9 +11,9 @@ public class FakeHeightObject : MonoBehaviour
     public float gravity = -10;
     public Vector2 groundVelocity;
     public float verticalVelocity;
-    private float lastIntialVerticalVelocity;
+    private float lastInitialVerticalVelocity;
     public bool isGrounded;
-    public float arttime;
+    public float artTime; // Detonation time
     public ShootBomb shootBomb;
 
     private void Update()
@@ -26,10 +26,10 @@ public class FakeHeightObject : MonoBehaviour
     {
         this.groundVelocity = groundVelocity;
         this.verticalVelocity = verticalVelocity;
-        lastIntialVerticalVelocity = verticalVelocity;
+        lastInitialVerticalVelocity = verticalVelocity;
     }
 
-    void UpdatePosition()
+    private void UpdatePosition()
     {
         if (!isGrounded)
         {
@@ -39,7 +39,7 @@ public class FakeHeightObject : MonoBehaviour
         trnsObject.position += (Vector3)groundVelocity * Time.deltaTime;
     }
 
-    void CheckGroundHit()
+    private void CheckGroundHit()
     {
         if (trnsBody.position.y < trnsObject.position.y && !isGrounded)
         {
@@ -49,23 +49,24 @@ public class FakeHeightObject : MonoBehaviour
         }
     }
 
-    public void Stick()
+    private void Stick()
     {
         groundVelocity = Vector2.zero;
-        StartCoroutine(DetonateAfterDelay(arttime)); // Detonate after a delay
+        StartCoroutine(DetonateAfterDelay(artTime));
     }
 
     private IEnumerator DetonateAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
 
-        SpawnAreaDamageBomb();
-        shootBomb.DestroyNewBomb(gameObject);
+        SpawnAreaDamage();
+        shootBomb.DestroyBomb(gameObject);
     }
 
-    public void SpawnAreaDamageBomb()
+    private void SpawnAreaDamage()
     {
-        Debug.Log("SpawnAreaDamageBomb");
+        Debug.Log("Area Bomb Damage Spawned");
         Instantiate(areaBombDamage, transform.position, Quaternion.identity);
     }
 }
+
