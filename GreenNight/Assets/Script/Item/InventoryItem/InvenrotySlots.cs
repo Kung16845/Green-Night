@@ -8,6 +8,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
 {
     public SlotType slotTypeInventory;
     public GameObject uIMoveItemsBoxesToInventory;
+    public GameObject uIInventoryBoxes;
     public Canvas canvas;
     public int maxCountItems;
     public InventoryItemPresent inventoryItemPresent;
@@ -43,6 +44,10 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
         //ItemData In ListItemData
         // Debug.Log("Ondeop");
 
+        if(!uIInventoryBoxes.activeSelf)
+        {
+            return;
+        }
 
         if ((slotTypeInventory == SlotType.SlotBag || slotTypeInventory == draggableItem.uITypeItem)
         && transform.childCount == 0)

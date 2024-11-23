@@ -2154,6 +2154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 3
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 1607597105}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -5834,6 +5835,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 1607597105}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -6035,6 +6037,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 1607597105}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -6248,6 +6251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 1607597105}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -9281,6 +9285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 1607597105}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -11164,6 +11169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 6
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 1607597105}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -15170,6 +15176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 2
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 1607597105}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -15404,6 +15411,7 @@ GameObject:
   - component: {fileID: 938463237}
   - component: {fileID: 938463236}
   - component: {fileID: 938463235}
+  - component: {fileID: 938463239}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -15483,6 +15491,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 7
   uIMoveItemsBoxesToInventory: {fileID: 0}
+  uIInventoryBoxes: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -15510,6 +15519,19 @@ MonoBehaviour:
   m_Spacing: {x: 50, y: 10}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &938463239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938463233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a07b3f6d39466349843b24cbcd3d86e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 938463234}
 --- !u!1 &976193132
 GameObject:
   m_ObjectHideFlags: 0
@@ -16238,6 +16260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 1607597105}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -18426,6 +18449,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 1607597105}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -19700,6 +19724,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 1607597105}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -22534,6 +22559,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 6
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 1607597105}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -23161,6 +23187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 4
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 1607597105}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -25196,6 +25223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 0
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 1607597105}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -26952,6 +26980,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 1607597105}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -27621,6 +27650,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 1607597105}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -28294,6 +28324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 1607597105}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -29833,6 +29864,18 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1607597105}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1843000349}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -31515,6 +31558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 1607597105}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -31634,6 +31678,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 1607597105}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -32745,6 +32790,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 1
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 1607597105}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
