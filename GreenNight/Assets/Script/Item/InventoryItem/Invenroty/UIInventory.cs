@@ -162,33 +162,50 @@ public class UIInventory : MonoBehaviour
     {
         ClearAllChildInvenrotySlot();
 
-
-        for (int i = 0; i < listItemDataInventoryslot.Count; i++)
+        // Iterate through inventory slots
+        for (int i = listItemDataInventoryslot.Count - 1; i >= 0; i--) // Reverse loop for safe removal
         {
-            InvenrotySlots inventortSlot = listInvenrotySlotsUI.ElementAt(i);
             ItemData itemData = listItemDataInventoryslot.ElementAt(i);
-            GameObject uIItem = CreateUIItem(itemData, inventortSlot);
 
-        }
-
-        for (int i = 0; i < listItemDataInventoryEqicment.Count; i++)
-        {
-            InvenrotySlots inventortEqicment = listInvenrotySlotsUI.ElementAt(i + 12);
-            ItemData itemData = listItemDataInventoryEqicment.ElementAt(i);
-            SlotType slotTypeSlot = inventortEqicment.slotTypeInventory;
-            Itemtype itemDatatype = itemData.itemtype;
-            if (slotTypeSlot == SlotType.SlotWeapon && itemDatatype == Itemtype.Weapon ||
-            slotTypeSlot == SlotType.SlotVest && itemDatatype == Itemtype.Vest ||
-            slotTypeSlot == SlotType.SlotBackpack && itemDatatype == Itemtype.Backpack ||
-            slotTypeSlot == SlotType.SlotTool && itemDatatype == Itemtype.Tool ||
-            slotTypeSlot == SlotType.SlotGrenade && itemDatatype == Itemtype.Grenade)
+            if (itemData.count == 0)
             {
-                GameObject uIItemEqicment = CreateUIItem(itemData, inventortEqicment);
+                listItemDataInventoryslot.RemoveAt(i); // Remove item with count 0
             }
-
+            else
+            {
+                InvenrotySlots inventortSlot = listInvenrotySlotsUI.ElementAt(i);
+                GameObject uIItem = CreateUIItem(itemData, inventortSlot);
+            }
         }
 
+        // Iterate through equipment slots
+        for (int i = listItemDataInventoryEqicment.Count - 1; i >= 0; i--) // Reverse loop for safe removal
+        {
+            ItemData itemData = listItemDataInventoryEqicment.ElementAt(i);
+
+            if (itemData.count == 0)
+            {
+                listItemDataInventoryEqicment.RemoveAt(i); // Remove item with count 0
+            }
+            else
+            {
+                InvenrotySlots inventortEqicment = listInvenrotySlotsUI.ElementAt(i + 12);
+                SlotType slotTypeSlot = inventortEqicment.slotTypeInventory;
+                Itemtype itemDatatype = itemData.itemtype;
+
+                // Check if the item matches the slot type
+                if (slotTypeSlot == SlotType.SlotWeapon && itemDatatype == Itemtype.Weapon ||
+                    slotTypeSlot == SlotType.SlotVest && itemDatatype == Itemtype.Vest ||
+                    slotTypeSlot == SlotType.SlotBackpack && itemDatatype == Itemtype.Backpack ||
+                    slotTypeSlot == SlotType.SlotTool && itemDatatype == Itemtype.Tool ||
+                    slotTypeSlot == SlotType.SlotGrenade && itemDatatype == Itemtype.Grenade)
+                {
+                    GameObject uIItemEqicment = CreateUIItem(itemData, inventortEqicment);
+                }
+            }
+        }
     }
+
     public StatAmplifier statAmplifier;
     public void SelectNpcDefenseScene()
     {

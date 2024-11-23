@@ -631,4 +631,12 @@ public class Zombie : MonoBehaviour
     {
         ZombieManager.Instance.UnregisterZombie(this);
     }
+    public void DisableCollider()
+    {
+        Collider2D collider = GetComponent<Collider2D>();
+        if (collider != null)
+        {
+            collider.enabled = false;
+        }
+    }
 }

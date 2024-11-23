@@ -39,6 +39,7 @@ public class Weapon : MonoBehaviour
     private ActionController actionController;
     private UIInventory uiInventory;
     private InventoryItemPresent inventoryItemPresent;
+    private int? currentWeaponId = null;
 
     void Start()
     {
@@ -70,6 +71,14 @@ public class Weapon : MonoBehaviour
     {
         if (itemWeapon != null)
         {
+            if (currentWeaponId == itemWeapon.idItem)
+            {
+                Debug.Log("Same weapon equipped. Skipping re-initialization.");
+                return; // Skip if the weapon ID hasn't changed
+            }
+
+            currentWeaponId = itemWeapon.idItem; // Update the current weapon ID
+
             // Apply stats from ItemWeapon to Weapon class
             rateOfFire = itemWeapon.rateOfFire;
             handling = itemWeapon.handling;
@@ -83,8 +92,6 @@ public class Weapon : MonoBehaviour
             spreadAngle = itemWeapon.Spreadangle;
             caliberType = ConvertAmmoTypeToCaliberType(itemWeapon.ammoType);
 
-            // Update derived values
-            currentAmmo = 0;
             fireRate = 60f / rateOfFire;
             initialAccuracy = accuracy;
             animationController.isgunequip = true;
@@ -101,11 +108,12 @@ public class Weapon : MonoBehaviour
         }
         else
         {
-            // No weapon equipped, reset stats or disable weapon functionality
             Debug.Log("No weapon equipped. Weapon functionality disabled.");
             DisableWeapon();
+            currentWeaponId = null; // Clear weapon ID
         }
     }
+
 
     private void DisableWeapon()
     {
@@ -387,7 +395,6 @@ public class Weapon : MonoBehaviour
         }
         if (isReloading)
         {
-            Debug.LogWarning("Already reloading!");
             yield break; // Prevent multiple reloads simultaneously
         }
 
@@ -424,7 +431,6 @@ public class Weapon : MonoBehaviour
 
         if (!caliberToAmmoID.TryGetValue(requiredCaliber, out int requiredAmmoID))
         {
-            Debug.LogError("Caliber type not mapped to ammo ID!");
             isReloading = false;
             animationController.isreload = false;
             yield break;
@@ -437,7 +443,6 @@ public class Weapon : MonoBehaviour
 
         if (matchingAmmoItems.Count == 0)
         {
-            Debug.LogWarning("No matching ammo found or not enough ammo!");
             animator.speed = 1f; // Reset animator speed
             animationController.isreload = false;
             isReloading = false;
@@ -463,7 +468,6 @@ public class Weapon : MonoBehaviour
         }
 
         currentAmmo += ammoToReload; // Add the ammo to the weapon
-        Debug.Log($"Reloaded {ammoToReload} ammo. Current ammo: {currentAmmo}");
 
         // Wait for reload time to complete
         yield return new WaitForSeconds(reloadTime);

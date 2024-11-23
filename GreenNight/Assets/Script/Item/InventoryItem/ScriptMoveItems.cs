@@ -72,8 +72,14 @@ public class ScriptMoveItems : MonoBehaviour
         {
             countItemMove = 1;
         }
+        if(countItemMove == 1)
+        {
+             SlotType slotTypeItemMove = itemClassMove.gameObject.GetComponentInParent<InvenrotySlots>().slotTypeInventory;
+            countItemMove = itemClassMove.maxCountItem;
+        }
         countText.text = countItemMove.ToString();
     }
+
     public void MoveItem()
     {
         //Move Item from boxes to inventoryslot

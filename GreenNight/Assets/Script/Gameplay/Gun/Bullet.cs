@@ -99,6 +99,10 @@ public class Bullet : MonoBehaviour
             Destroy(this.gameObject); // Destroy bullet if it has no penetrations left
         }
     }
+    public int GetPenetrationCount()
+    {
+        return penetrationCount;
+    }
 }
 
 
