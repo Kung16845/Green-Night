@@ -68,7 +68,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
 
             OpenUIMoveITems(scriptMoveItems);
         }
-        else
+        else 
         {
             List<ItemData> listItemDataBoxes = inventoryItemPresent.listItemsDataBox;
             ItemData itemData = listItemDataBoxes.FirstOrDefault(item => item.idItem == itemClassMove.idItem);

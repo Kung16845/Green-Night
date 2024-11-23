@@ -19,7 +19,7 @@ public class NpcMovement : MonoBehaviour
         animationController = GetComponent<AnimationController>();
         transform.rotation = Quaternion.Euler(0, 0, 0);
         isMoving = WalkContinue();
-
+        
         agent.avoidancePriority = Random.Range(0, 100); // กำหนดค่าความสำคัญแบบสุ่ม
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance; // ปิดการหลีกเลี่ยงสิ่งกีดขวาง
 
@@ -41,6 +41,7 @@ public class NpcMovement : MonoBehaviour
         else
         {
             timeCount += Time.deltaTime;
+            animationController.iswalk = false;
             if (timeCount >= maxTimeCount)
             {
                 timeCount = 0;
@@ -56,7 +57,7 @@ public class NpcMovement : MonoBehaviour
         animationController.iswalk = true;
     }
     public bool WalkContinue()
-    {
+    {   
         float randomValue = Random.Range(0f, 100f);
         maxTimeCount = Random.Range(5, 16);
         return randomValue >= 50.00f;
