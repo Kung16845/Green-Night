@@ -8,6 +8,7 @@ public class NpcMovement : MonoBehaviour
 {
     public List<Transform> listWayPointWalk;
     public Transform currentWayPoint;
+    private Vector3 lastPosition;
     public NavMeshAgent agent;
     public AnimationController animationController;
     public bool isMoving = false;
@@ -19,7 +20,7 @@ public class NpcMovement : MonoBehaviour
         animationController = GetComponent<AnimationController>();
         transform.rotation = Quaternion.Euler(0, 0, 0);
         isMoving = WalkContinue();
-        
+        lastPosition = transform.position;
         agent.avoidancePriority = Random.Range(0, 100); // กำหนดค่าความสำคัญแบบสุ่ม
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance; // ปิดการหลีกเลี่ยงสิ่งกีดขวาง
 
@@ -28,6 +29,19 @@ public class NpcMovement : MonoBehaviour
     void Update()
     {
         transform.rotation = Quaternion.Euler(0, 0, 0);
+
+        if (transform.position != lastPosition)
+        {
+            // ถ้าตำแหน่งเปลี่ยน ทำอะไรบางอย่าง
+            animationController.iswalk = true;
+            CheckHorizontalMovement();
+            // อัปเดตตำแหน่งล่าสุด
+            lastPosition = transform.position;
+        }
+        else 
+        {
+            animationController.iswalk = false;
+        }
         if (isMoving)
         {
             WalkWaypoint();
@@ -38,26 +52,40 @@ public class NpcMovement : MonoBehaviour
             }
 
         }
-        else
+        else if (!isMoving)
         {
             timeCount += Time.deltaTime;
-            animationController.iswalk = false;
+          
             if (timeCount >= maxTimeCount)
             {
+
                 timeCount = 0;
                 WalkWaypoint();
             }
         }
 
     }
+     void CheckHorizontalMovement()
+    {
+        if (transform.position.x > lastPosition.x)
+        {
+            // Debug.Log("Moved Right!");
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+        else if (transform.position.x < lastPosition.x)
+        {
+            // Debug.Log("Moved Left!");
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+    }
     public void WalkWaypoint()
     {
         currentWayPoint = listWayPointWalk.ElementAt(Random.Range(0, listWayPointWalk.Count));
         agent.SetDestination(currentWayPoint.position);
-        animationController.iswalk = true;
+        // 
     }
     public bool WalkContinue()
-    {   
+    {
         float randomValue = Random.Range(0f, 100f);
         maxTimeCount = Random.Range(5, 16);
         return randomValue >= 50.00f;
