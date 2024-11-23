@@ -9,7 +9,7 @@ public class UIcontrollerDefense : MonoBehaviour
     public GameObject BarrierHPUI;
     public GameObject PlayerUI;
     public GameObject MainBox;
-
+    public ActionController actionController;
     private bool isPlayerNear = false;
     private bool isInventoryActive = false;
     private bool isBoxActive = false;
@@ -59,13 +59,14 @@ public class UIcontrollerDefense : MonoBehaviour
     void ToggleInventoryUI()
     {
         isInventoryActive = !isInventoryActive;
-
         if (isInventoryActive)
         {
+            actionController.canuseweapon = false;
             ToggleUI(true, false, false, false, true);
         }
         else
         {
+            actionController.canuseweapon = true;
             ToggleUI(false, true, true, false, false);
         }
     }
@@ -76,10 +77,12 @@ public class UIcontrollerDefense : MonoBehaviour
 
         if (isBoxActive)
         {
+            actionController.canuseweapon = false;
             ActiveBoxUI();
         }
         else
         {
+            actionController.canuseweapon = true;
             DisableBoxUI();
         }
     }
