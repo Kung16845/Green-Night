@@ -159,7 +159,6 @@ public class Zombie : MonoBehaviour
                 {
                     transform.localScale = new Vector3(0.7f, 0.7f, 1); // Keep facing right
                 }
-
                 return true;
             }
         }

@@ -15,6 +15,7 @@ public class UIInventory : MonoBehaviour
     public NpcClass npcSelecying;
     public List<InvenrotySlots> listInvenrotySlotsUI = new List<InvenrotySlots>();
     public event Action<ItemWeapon> OnWeaponChanged;
+    public event Action<ItemVest> OnVestChanged;
     public List<ItemData> listItemDataInventoryEqicment;
     public List<ItemData> listItemDataInventoryslot;
     public Transform transformBoxes;
@@ -24,6 +25,7 @@ public class UIInventory : MonoBehaviour
     public TextMeshProUGUI levelCombatText;
     public TextMeshProUGUI levelSpeedText;
     public TextMeshProUGUI specialistNpcText;
+
     public void RemoveItemData(ItemClass itemClass)
     {
         ItemData itemData = new ItemData();
@@ -211,8 +213,8 @@ public class UIInventory : MonoBehaviour
         statAmplifier.endurance = npcSelecying.endurance;
         statAmplifier.combat = npcSelecying.combat;
         statAmplifier.speed = npcSelecying.speed;
-        Debug.Log("Npc endurance : " + statAmplifier.endurance);
-        Debug.Log("Npc endurance  Select : " + npcSelecying.endurance);
+        // Debug.Log("Npc endurance : " + statAmplifier.endurance);
+        // Debug.Log("Npc endurance  Select : " + npcSelecying.endurance);
         // Assign the NPC's specialist role to the StatAmplifier
         statAmplifier.specialistRole = npcSelecying.roleNpc;
         statAmplifier.InitializeAmplifiers(); // Recalculate multipliers
@@ -285,40 +287,49 @@ public class UIInventory : MonoBehaviour
         listItemDataInventoryEqicment.Clear();
         ConventAllUIItemInListInventorySlotToListItemData(listItemDataInventoryslot);
         ConventAllUIItemInListInventorySlotToListEqicmentItemData(listItemDataInventoryEqicment);
-        ItemData weaponItemData = listItemDataInventoryEqicment.FirstOrDefault(item => item.itemtype == Itemtype.Weapon);
 
+        // Weapon logic
+        ItemData weaponItemData = listItemDataInventoryEqicment.FirstOrDefault(item => item.itemtype == Itemtype.Weapon);
         if (weaponItemData != null)
         {
-            // Get the corresponding UIItemData using idItem
             UIItemData uiItemData = inventoryItemPresent.listUIItemPrefab
                 .FirstOrDefault(uiItem => uiItem.idItem == weaponItemData.idItem);
 
             if (uiItemData != null)
             {
-                // Get the ItemWeapon component
                 ItemWeapon itemWeapon = uiItemData.GetComponent<ItemWeapon>();
-
-                if (itemWeapon != null)
-                {
-                    // Invoke the event with the new weapon
-                    OnWeaponChanged?.Invoke(itemWeapon);
-                }
-                else
-                {
-                    Debug.LogWarning("ItemWeapon component not found on UIItemData.");
-                    OnWeaponChanged?.Invoke(null); // No weapon
-                }
+                OnWeaponChanged?.Invoke(itemWeapon);
             }
             else
             {
-                Debug.LogWarning("UIItemData not found for idItem: " + weaponItemData.idItem);
                 OnWeaponChanged?.Invoke(null); // No weapon
             }
         }
         else
         {
-            // No weapon equipped
             OnWeaponChanged?.Invoke(null);
+        }
+
+        // Vest logic
+        ItemData vestItemData = listItemDataInventoryEqicment.FirstOrDefault(item => item.itemtype == Itemtype.Vest);
+        if (vestItemData != null)
+        {
+            UIItemData uiItemData = inventoryItemPresent.listUIItemPrefab
+                .FirstOrDefault(uiItem => uiItem.idItem == vestItemData.idItem);
+
+            if (uiItemData != null)
+            {
+                ItemVest itemVest = uiItemData.GetComponent<ItemVest>();
+                OnVestChanged?.Invoke(itemVest);
+            }
+            else
+            {
+                OnVestChanged?.Invoke(null); // No vest
+            }
+        }
+        else
+        {
+            OnVestChanged?.Invoke(null);
         }
     }
     public GameObject CreateUIItem(ItemData itemData, InvenrotySlots invenrotySlots)
