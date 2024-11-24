@@ -44,10 +44,10 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
         //ItemData In ListItemData
         // Debug.Log("Ondeop");
 
-        if(!uIInventoryBoxes.activeSelf)
-        {
-            return;
-        }
+        // if(!uIInventoryBoxes.activeSelf)
+        // {
+        //     return;
+        // }
 
         if ((slotTypeInventory == SlotType.SlotBag || slotTypeInventory == draggableItem.uITypeItem)
         && transform.childCount == 0)
@@ -73,7 +73,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
 
             OpenUIMoveITems(scriptMoveItems);
         }
-        else 
+        else if(uIInventoryBoxes.activeSelf)
         {
             List<ItemData> listItemDataBoxes = inventoryItemPresent.listItemsDataBox;
             ItemData itemData = listItemDataBoxes.FirstOrDefault(item => item.idItem == itemClassMove.idItem);
