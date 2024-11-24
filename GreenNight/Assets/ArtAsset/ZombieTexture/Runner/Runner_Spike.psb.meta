@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5e469aaee36f326428e56f2539b6b3de
+guid: c0caa8af4319f2b40b8bad48138a75d2
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -94,18 +94,18 @@ ScriptedImporter:
     spritePosition: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
-  - name: ReekerExplode_ArmFront
+  - name: RunnerSpike_ArmFront
     originalName: 
-    pivot: {x: 0.37963244, y: 0.9206663}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 141
-      y: 131
+      x: 223
+      y: 4
       width: 27
       height: 97
-    spriteID: d4517de2b0d43d643882f8044f958773
+    spriteID: 3c1dd318ad7363547b60b891b2de6da7
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -113,20 +113,20 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 141, y: 131}
+    uvTransform: {x: 223, y: 4}
     spritePosition: {x: 142, y: 58}
-  - name: ReekerExplode_Head
+  - name: RunnerSpike_Head
     originalName: 
-    pivot: {x: 0.78888243, y: 0.13492903}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 103
+      x: 100
       y: 4
-      width: 65
-      height: 91
-    spriteID: 8da01a944ddbcbf4eb8c2be56126a288
+      width: 71
+      height: 97
+    spriteID: 5b2fc58024e439747be4d18dd3d8e38d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -134,20 +134,20 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 103, y: 4}
-    spritePosition: {x: 87, y: 142}
-  - name: ReekerExplode_Body
+    uvTransform: {x: 100, y: 4}
+    spritePosition: {x: 90, y: 144}
+  - name: RunnerSpike_Body
     originalName: 
-    pivot: {x: 0.4960319, y: 0.10248333}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 91
-      height: 119
-    spriteID: 43b99481f70043742936b4821ca8cb43
+      width: 88
+      height: 102
+    spriteID: e534f05fac9d96445bf9601ad4c3890f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -156,40 +156,40 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-    spritePosition: {x: 94, y: 78}
-  - name: ReekerExplode_LegFront
+    spritePosition: {x: 100, y: 84}
+  - name: RunnerSpike_LegFront
     originalName: 
-    pivot: {x: 0.46990797, y: 0.91115683}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 179
+      y: 4
+      width: 36
+      height: 101
+    spriteID: e9d59fbfb1680654da5c8bc282899195
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 179, y: 4}
+    spritePosition: {x: 129, y: 7}
+  - name: RunnerSpike_LegBack
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 97
-      y: 131
-      width: 36
-      height: 101
-    spriteID: f83e343f1760c3c4eb564b21f2bfee39
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 97, y: 131}
-    spritePosition: {x: 129, y: 7}
-  - name: ReekerExplode_LegBack
-    originalName: 
-    pivot: {x: 0.6887585, y: 0.8961614}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 176
-      y: 4
+      y: 114
       width: 44
       height: 103
-    spriteID: 37724ec1965e9434baf0f09f67cc12a5
+    spriteID: 4fed37f4bd37ca64d8ef4515687ec589
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -197,20 +197,20 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 176, y: 4}
+    uvTransform: {x: 97, y: 114}
     spritePosition: {x: 98, y: 7}
-  - name: ReekerExplode_ArmBack
+  - name: RunnerSpike_ArmBack
     originalName: 
-    pivot: {x: 0.8993373, y: 0.8804477}
-    alignment: 9
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 131
+      y: 114
       width: 85
       height: 56
-    spriteID: f6b269af1e29faa469a8a16ab30dc1f2
+    spriteID: bd4818417c1c2a5448587149a3996319
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -218,7 +218,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 131}
+    uvTransform: {x: 4, y: 114}
     spritePosition: {x: 52, y: 98}
   characterData:
     bones: []
@@ -290,63 +290,63 @@ ScriptedImporter:
   resliceFromLayer: 0
   mosaicPSDLayers: []
   rigPSDLayers:
-  - name: ReekerExplode_ArmFront
-    spriteName: ReekerExplode_ArmFront
+  - name: ReekerSpike_ArmFront
+    spriteName: ReekerSpike_ArmFront
     isGroup: 0
     parentIndex: -1
-    spriteID: d4517de2b0d43d643882f8044f958773
+    spriteID: 3c1dd318ad7363547b60b891b2de6da7
     layerID: 0
-    mosaicPosition: {x: 141, y: 131}
+    mosaicPosition: {x: 223, y: 4}
     flatten: 0
     isImported: 1
     isVisible: 1
-  - name: ReekerExplode_Head
-    spriteName: ReekerExplode_Head
+  - name: ReekerSpike_Head
+    spriteName: ReekerSpike_Head
     isGroup: 0
     parentIndex: -1
-    spriteID: 8da01a944ddbcbf4eb8c2be56126a288
-    layerID: -192790476
-    mosaicPosition: {x: 103, y: 4}
+    spriteID: 5b2fc58024e439747be4d18dd3d8e38d
+    layerID: 1645239469
+    mosaicPosition: {x: 100, y: 4}
     flatten: 0
     isImported: 1
     isVisible: 1
-  - name: ReekerExplode_Body
-    spriteName: ReekerExplode_Body
+  - name: ReekerSpike_Body
+    spriteName: ReekerSpike_Body
     isGroup: 0
     parentIndex: -1
-    spriteID: 43b99481f70043742936b4821ca8cb43
-    layerID: 1077672494
+    spriteID: e534f05fac9d96445bf9601ad4c3890f
+    layerID: -653507707
     mosaicPosition: {x: 4, y: 4}
     flatten: 0
     isImported: 1
     isVisible: 1
-  - name: ReekerExplode_LegFront
-    spriteName: ReekerExplode_LegFront
+  - name: ReekerSpike_LegFront
+    spriteName: ReekerSpike_LegFront
     isGroup: 0
     parentIndex: -1
-    spriteID: f83e343f1760c3c4eb564b21f2bfee39
-    layerID: 369281989
-    mosaicPosition: {x: 97, y: 131}
+    spriteID: e9d59fbfb1680654da5c8bc282899195
+    layerID: -1109802184
+    mosaicPosition: {x: 179, y: 4}
     flatten: 0
     isImported: 1
     isVisible: 1
-  - name: ReekerExplode_LegBack
-    spriteName: ReekerExplode_LegBack
+  - name: ReekerSpike_LegBack
+    spriteName: ReekerSpike_LegBack
     isGroup: 0
     parentIndex: -1
-    spriteID: 37724ec1965e9434baf0f09f67cc12a5
-    layerID: 2058665603
-    mosaicPosition: {x: 176, y: 4}
+    spriteID: 4fed37f4bd37ca64d8ef4515687ec589
+    layerID: 1418817318
+    mosaicPosition: {x: 97, y: 114}
     flatten: 0
     isImported: 1
     isVisible: 1
-  - name: ReekerExplode_ArmBack
-    spriteName: ReekerExplode_ArmBack
+  - name: ReekerSpike_ArmBack
+    spriteName: ReekerSpike_ArmBack
     isGroup: 0
     parentIndex: -1
-    spriteID: f6b269af1e29faa469a8a16ab30dc1f2
-    layerID: -259710521
-    mosaicPosition: {x: 4, y: 131}
+    spriteID: bd4818417c1c2a5448587149a3996319
+    layerID: -688834636
+    mosaicPosition: {x: 4, y: 114}
     flatten: 0
     isImported: 1
     isVisible: 1

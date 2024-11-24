@@ -6266,6 +6266,7 @@ GameObject:
   - component: {fileID: 369316101}
   - component: {fileID: 369316102}
   - component: {fileID: 369316103}
+  - component: {fileID: 369316104}
   m_Layer: 0
   m_Name: PlayerUIdata
   m_TagString: Untagged
@@ -6326,6 +6327,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponImage: {fileID: 1226109513}
   weapon: {fileID: 0}
+  uiInventory: {fileID: 0}
+  inventoryItemPresent: {fileID: 0}
+--- !u!114 &369316104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369316100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd11267ed7da3704595cd9be4f01c47a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grenadeImage: {fileID: 1167265922}
   uiInventory: {fileID: 0}
   inventoryItemPresent: {fileID: 0}
 --- !u!1 &370739649
@@ -31248,6 +31264,42 @@ PrefabInstance:
       propertyPath: stuckSlider
       value: 
       objectReference: {fileID: 4445692}
+    - target: {fileID: 3402574600514691903, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
+      propertyPath: grenadePrefabs.Array.data[0].prefab
+      value: 
+      objectReference: {fileID: 1988571029290551396, guid: b9a604f1da839ec4d8e3cfac6a3ce68e, type: 3}
+    - target: {fileID: 3402574600514691903, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
+      propertyPath: grenadePrefabs.Array.data[1].prefab
+      value: 
+      objectReference: {fileID: 1988571029290551396, guid: e1ae8fab5b99d2e4dac036ac65036228, type: 3}
+    - target: {fileID: 3402574600514691903, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
+      propertyPath: grenadePrefabs.Array.data[2].prefab
+      value: 
+      objectReference: {fileID: 1988571029290551396, guid: 6d307efaf665a334da433e1accbb07ff, type: 3}
+    - target: {fileID: 3402574600514691903, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
+      propertyPath: grenadePrefabs.Array.data[3].prefab
+      value: 
+      objectReference: {fileID: 1988571029290551396, guid: 139fa79a775a91e4ebc012ad86db131c, type: 3}
+    - target: {fileID: 3402574600514691903, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
+      propertyPath: grenadePrefabs.Array.data[4].prefab
+      value: 
+      objectReference: {fileID: 1988571029290551396, guid: a89372c3979ab37478f1e18e76ce9e1f, type: 3}
+    - target: {fileID: 3402574600514691903, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
+      propertyPath: grenadePrefabs.Array.data[5].prefab
+      value: 
+      objectReference: {fileID: 1988571029290551396, guid: 08878a37c15c9684ba086542bb658c9d, type: 3}
+    - target: {fileID: 3402574600514691903, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
+      propertyPath: grenadePrefabs.Array.data[6].prefab
+      value: 
+      objectReference: {fileID: 1988571029290551396, guid: 8cc7a52858359204d89792e46b8a8f6c, type: 3}
+    - target: {fileID: 3402574600514691903, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
+      propertyPath: grenadePrefabs.Array.data[7].prefab
+      value: 
+      objectReference: {fileID: 1988571029290551396, guid: 51211b413fd522744bd8c9850bf36160, type: 3}
+    - target: {fileID: 3402574600514691903, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
+      propertyPath: grenadePrefabs.Array.data[8].prefab
+      value: 
+      objectReference: {fileID: 1988571029290551396, guid: 1a1764c5946937244b84fab719efca99, type: 3}
     - target: {fileID: 4958575212990922125, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
       propertyPath: m_Name
       value: Player

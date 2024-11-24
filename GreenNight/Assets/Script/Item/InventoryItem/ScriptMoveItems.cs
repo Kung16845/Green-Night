@@ -42,7 +42,6 @@ public class ScriptMoveItems : MonoBehaviour
                     countItemMove = itemClassMove.quantityItem;
                 }
             }
-
         }
         else if (itemClassInChild != null)
         {
@@ -74,7 +73,7 @@ public class ScriptMoveItems : MonoBehaviour
         }
         if(countItemMove == 1)
         {
-             SlotType slotTypeItemMove = itemClassMove.gameObject.GetComponentInParent<InvenrotySlots>().slotTypeInventory;
+            SlotType slotTypeItemMove = itemClassMove.gameObject.GetComponentInParent<InvenrotySlots>().slotTypeInventory;
             countItemMove = itemClassMove.maxCountItem;
         }
         countText.text = countItemMove.ToString();

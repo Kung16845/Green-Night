@@ -31,6 +31,7 @@ public class ShootBomb : MonoBehaviour
     [Header("References")]
     public UIInventory uiInventory;
     private GameObject currentGrenadePrefab; // Grenade prefab to use based on item ID
+    private ItemData currentGrenadeItem;     // Reference to the current grenade item in the inventory
     private bool hasPressedG = false;
 
     private void Awake()
@@ -61,15 +62,15 @@ public class ShootBomb : MonoBehaviour
         {
             if (currentChargeTime < minimumChargeTime)
             {
-                LunchBomb(groundDispenseVelocity * minimumChargeTime, verticalDispenseVelocity * minimumChargeTime);
+                LaunchBomb(groundDispenseVelocity * minimumChargeTime, verticalDispenseVelocity * minimumChargeTime);
             }
             else if (currentChargeTime < maxChargeTime)
             {
-                LunchBomb(groundDispenseVelocity * currentChargeTime, verticalDispenseVelocity * currentChargeTime);
+                LaunchBomb(groundDispenseVelocity * currentChargeTime, verticalDispenseVelocity * currentChargeTime);
             }
             else
             {
-                LunchBomb(groundDispenseVelocity * maxChargeTime, verticalDispenseVelocity * maxChargeTime);
+                LaunchBomb(groundDispenseVelocity * maxChargeTime, verticalDispenseVelocity * maxChargeTime);
             }
 
             hasPressedG = false;
@@ -80,25 +81,23 @@ public class ShootBomb : MonoBehaviour
     private void UpdateGrenadeType()
     {
         // Find the equipped grenade in the inventory
-        var grenadeItem = uiInventory.listItemDataInventoryEqicment
+        currentGrenadeItem = uiInventory.listItemDataInventoryEqicment
             .FirstOrDefault(itemData => itemData.itemtype == Itemtype.Grenade);
 
-        if (grenadeItem != null)
+        if (currentGrenadeItem != null)
         {
-            // Match grenade prefab based on the item ID
             currentGrenadePrefab = grenadePrefabs
-                .FirstOrDefault(grenadeData => grenadeData.idItem == grenadeItem.idItem).prefab;
+                .FirstOrDefault(grenadeData => grenadeData.idItem == currentGrenadeItem.idItem).prefab;
         }
         else
         {
             currentGrenadePrefab = null;
-            Debug.Log("No Grenade was found in inventory");
         }
     }
 
-    private void LunchBomb(Vector2 ground, Vector2 vertical)
+    private void LaunchBomb(Vector2 ground, Vector2 vertical)
     {
-        if (currentGrenadePrefab == null) return;
+        if (currentGrenadePrefab == null || currentGrenadeItem == null) return;
 
         GameObject instantiatedBomb = SpawnNewBomb();
         if (GetComponent<SpriteRenderer>().flipX)
@@ -113,6 +112,9 @@ public class ShootBomb : MonoBehaviour
                 trnsGun.right * Random.Range(ground.x, ground.y),
                 Random.Range(vertical.x, vertical.y));
         }
+
+        // Remove the grenade from the inventory
+        RemoveGrenadeFromInventory();
     }
 
     private GameObject SpawnNewBomb()
@@ -122,6 +124,21 @@ public class ShootBomb : MonoBehaviour
         listSpawnedBombs.Add(instantiatedBomb);
         Debug.Log("Bomb Spawned");
         return instantiatedBomb;
+    }
+
+    private void RemoveGrenadeFromInventory()
+    {
+        currentGrenadeItem.count--;
+
+        if (currentGrenadeItem.count <= 0)
+        {
+            // Remove the item from the inventory if count reaches 0
+            uiInventory.listItemDataInventoryEqicment.Remove(currentGrenadeItem);
+            Debug.Log("Grenade item removed from inventory.");
+        }
+
+        // Optionally refresh the inventory UI
+        uiInventory.RefreshUIInventory();
     }
 
     public void DestroyBomb(GameObject bombToDestroy)
