@@ -847,7 +847,10 @@ GameObject:
   - component: {fileID: 5560521083911677140}
   - component: {fileID: 3402574600514691903}
   - component: {fileID: 7380441248179287106}
+  - component: {fileID: 7897039087542392119}
   - component: {fileID: 6379973495075975294}
+  - component: {fileID: 3146102653048607990}
+  - component: {fileID: 7493091738370920857}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -931,13 +934,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8173d5c823a2d5e4583f065290486466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 2
-  baseSprintSpeed: 4
-  baseMaxStamina: 100
   currentStamina: 100
-  baseStaminaRecoverSpeed: 10
-  baseStaminaConsumeSpeed: 15
-  minStaminaToSprint: 30
 --- !u!114 &2668224093323722925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1195,6 +1192,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba77dfe2c3ea6314da8063fc293b9820, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7897039087542392119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4958575212990922125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a84ab6d3ff88340a4d85dac162f702, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &6379973495075975294
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1247,6 +1256,50 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3146102653048607990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4958575212990922125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14dd429a0ae16014392e2b43e10bf0cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseSpeed: 2
+  baseSprintSpeed: 4
+  baseMaxStamina: 100
+  baseStaminaRecoverSpeed: 10
+  baseStaminaConsumeSpeed: 15
+  baseDamage: 0
+  baseHandling: 0
+  baseAccuracy: 0
+  baseStability: 0
+  speedModifier: 1
+  sprintSpeedModifier: 1
+  maxStaminaModifier: 1
+  staminaRecoverSpeedModifier: 1
+  staminaConsumeSpeedModifier: 1
+  damageModifier: 1
+  handlingModifier: 1
+  accuracyModifier: 1
+  stabilityModifier: 1
+--- !u!114 &7493091738370920857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4958575212990922125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81512b5e0eb247049871dc4d3bd10a21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equippedWeapons: []
+  weaponComponent: {fileID: 0}
 --- !u!1 &5212866311164574474
 GameObject:
   m_ObjectHideFlags: 0

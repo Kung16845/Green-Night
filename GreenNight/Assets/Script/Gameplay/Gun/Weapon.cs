@@ -56,19 +56,9 @@ public class Weapon : MonoBehaviour
                 statAmplifier.InitializeAmplifiers(); // Recalculate multipliers
                 statAmplifier.ApplyRoleModifiers();   // Apply role modifiers
             }
-        // DisableWeapon();
-        if (uiInventory != null)
-        {
-            // Subscribe to the OnWeaponChanged event
-            uiInventory.OnWeaponChanged += UpdateWeaponStats;
-        }
-        else
-        {
-            Debug.LogWarning("UIInventory not found.");
-        }
 
     }
-       private void UpdateWeaponStats(ItemWeapon itemWeapon)
+    public void UpdateWeaponStats(ItemWeapon itemWeapon)
     {
         if (itemWeapon != null)
         {
@@ -111,7 +101,7 @@ public class Weapon : MonoBehaviour
     }
 
 
-    private void DisableWeapon()
+    public void DisableWeapon()
     {
         // Reset stats
         rateOfFire = 0;
