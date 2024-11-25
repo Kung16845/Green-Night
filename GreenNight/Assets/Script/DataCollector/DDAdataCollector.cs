@@ -44,9 +44,8 @@ public class DDAdataCollector : MonoBehaviour
     }
     private void Update()
     {
-        // Update the kill per minute and accuracy each frame
-        // UpdateKillPerMinute();
-        // UpdateAccuracy();
+        UpdateKillPerMinute();
+        UpdateAccuracy();
     }
 
     private void UpdateKillPerMinute()

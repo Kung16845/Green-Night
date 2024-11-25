@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IEDUnit : Zombie
+public class ZombieIEDUnit : Zombie
 {
     protected override void InitializeDamageMultipliers()
     {

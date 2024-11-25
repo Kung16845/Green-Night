@@ -159,7 +159,6 @@ public class Zombie : MonoBehaviour
                 {
                     transform.localScale = new Vector3(0.7f, 0.7f, 1); // Keep facing right
                 }
-
                 return true;
             }
         }
@@ -624,12 +623,12 @@ public class Zombie : MonoBehaviour
     }
     private void OnEnable()
     {
-        ZombieManager.Instance.RegisterZombie(this);
+        ManagerZombie.Instance.RegisterZombie(this);
     }
 
     private void OnDisable()
     {
-        ZombieManager.Instance.UnregisterZombie(this);
+        ManagerZombie.Instance.UnregisterZombie(this);
     }
     public void DisableCollider()
     {

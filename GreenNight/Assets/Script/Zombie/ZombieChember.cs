@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chemberzombie : Zombie
+public class ZombieChember : Zombie
 {
     [Header("Speed Boost Settings")]
     public GameObject speedBoostAreaPrefab;

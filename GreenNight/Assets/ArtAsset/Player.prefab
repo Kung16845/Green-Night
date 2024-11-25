@@ -846,6 +846,7 @@ GameObject:
   - component: {fileID: 7044263987609638328}
   - component: {fileID: 5560521083911677140}
   - component: {fileID: 3402574600514691903}
+  - component: {fileID: 7380441248179287106}
   - component: {fileID: 6379973495075975294}
   m_Layer: 0
   m_Name: Player
@@ -1156,23 +1157,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grenadePrefabs:
   - idItem: 1020301
-    prefab: {fileID: 9105195170046179818, guid: 9bad9d4da06a7914589e48268ef63f9a, type: 3}
+    prefab: {fileID: 1988571029290551396, guid: b9a604f1da839ec4d8e3cfac6a3ce68e, type: 3}
   - idItem: 1020302
-    prefab: {fileID: 9105195170046179818, guid: 410d374dfc5698640a8492cdaef64ece, type: 3}
+    prefab: {fileID: 1988571029290551396, guid: e1ae8fab5b99d2e4dac036ac65036228, type: 3}
   - idItem: 1020303
-    prefab: {fileID: 9105195170046179818, guid: daa854e435676af4ea4df638362c427e, type: 3}
+    prefab: {fileID: 1988571029290551396, guid: 6d307efaf665a334da433e1accbb07ff, type: 3}
   - idItem: 1020304
-    prefab: {fileID: 9105195170046179818, guid: 4f21cb4705bf834429f0ac540d072580, type: 3}
+    prefab: {fileID: 1988571029290551396, guid: 139fa79a775a91e4ebc012ad86db131c, type: 3}
   - idItem: 1020305
-    prefab: {fileID: 9105195170046179818, guid: efdd88563e2ce174fac7d632513880f3, type: 3}
+    prefab: {fileID: 1988571029290551396, guid: a89372c3979ab37478f1e18e76ce9e1f, type: 3}
   - idItem: 1020306
-    prefab: {fileID: 9105195170046179818, guid: fdd10ece0e5faf44ca5a71600649ad84, type: 3}
+    prefab: {fileID: 1988571029290551396, guid: 08878a37c15c9684ba086542bb658c9d, type: 3}
   - idItem: 1020307
-    prefab: {fileID: 9105195170046179818, guid: 1749b04b4ac1598438ada647f3df9079, type: 3}
+    prefab: {fileID: 1988571029290551396, guid: 8cc7a52858359204d89792e46b8a8f6c, type: 3}
   - idItem: 1020308
-    prefab: {fileID: 9105195170046179818, guid: 1a01232e2100e6440a10df8db03e2d26, type: 3}
+    prefab: {fileID: 1988571029290551396, guid: 51211b413fd522744bd8c9850bf36160, type: 3}
   - idItem: 1020309
-    prefab: {fileID: 9105195170046179818, guid: 90c7c54fc39491c4493e366150234d07, type: 3}
+    prefab: {fileID: 1988571029290551396, guid: 1a1764c5946937244b84fab719efca99, type: 3}
   listSpawnedBombs: []
   groundDispenseVelocity: {x: 6, y: 6}
   verticalDispenseVelocity: {x: 6, y: 6}
@@ -1182,6 +1183,18 @@ MonoBehaviour:
   minimumChargeTime: 0.75
   currentChargeTime: 0
   uiInventory: {fileID: 0}
+--- !u!114 &7380441248179287106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4958575212990922125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba77dfe2c3ea6314da8063fc293b9820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &6379973495075975294
 SpriteRenderer:
   m_ObjectHideFlags: 0

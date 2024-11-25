@@ -22,7 +22,6 @@ public class WeaponImageDisplay : MonoBehaviour
             weapon = FindObjectOfType<Weapon>();
             if (weapon == null)
             {
-                Debug.LogError("Weapon reference not found!");
                 return;
             }
         }
@@ -32,7 +31,6 @@ public class WeaponImageDisplay : MonoBehaviour
             uiInventory = FindObjectOfType<UIInventory>();
             if (uiInventory == null)
             {
-                Debug.LogError("UIInventory not found!");
                 return;
             }
         }
@@ -42,7 +40,6 @@ public class WeaponImageDisplay : MonoBehaviour
             inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
             if (inventoryItemPresent == null)
             {
-                Debug.LogError("InventoryItemPresent not found!");
                 return;
             }
         }
@@ -75,13 +72,11 @@ public class WeaponImageDisplay : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning($"UIItemData not found for item ID: {weaponItemData.idItem}");
                 weaponImage.enabled = false; // Hide the image if no match
             }
         }
         else
         {
-            Debug.LogWarning("No weapon item equipped.");
             weaponImage.enabled = false; // Hide the image if no weapon is equipped
         }
     }

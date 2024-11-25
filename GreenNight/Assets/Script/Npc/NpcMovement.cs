@@ -19,7 +19,7 @@ public class NpcMovement : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         animationController = GetComponent<AnimationController>();
         transform.rotation = Quaternion.Euler(0, 0, 0);
-        isMoving = WalkContinue();
+        isMoving = true;
         lastPosition = transform.position;
         agent.avoidancePriority = Random.Range(0, 100); // กำหนดค่าความสำคัญแบบสุ่ม
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance; // ปิดการหลีกเลี่ยงสิ่งกีดขวาง
