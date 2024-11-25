@@ -54,8 +54,6 @@ public class ArmourEquip : MonoBehaviour
                     weapon.damage *= DamageIncreasePercent;
                 }
             }
-
-            Debug.Log($"Applied Vest Stats: Damage +{vest.damageIncreasePercent}%, Speed +{vest.speedIncreasePercent}%, Stamina +{vest.staminaIncreasePercent}%");
         }
         else
         {
@@ -78,7 +76,6 @@ public class ArmourEquip : MonoBehaviour
         StaminaIncreasePercent = 1;
         if(storedweapondamge != 0)
         {
-            Debug.Log(storedweapondamge);
             weapon.damage = storedweapondamge;
         }
         Debug.Log("Reset stats to defaults.");

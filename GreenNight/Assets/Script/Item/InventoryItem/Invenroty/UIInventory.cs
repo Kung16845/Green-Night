@@ -16,6 +16,7 @@ public class UIInventory : MonoBehaviour
     public List<InvenrotySlots> listInvenrotySlotsUI = new List<InvenrotySlots>();
     public event Action<ItemWeapon> OnWeaponChanged;
     public event Action<ItemVest> OnVestChanged;
+    public event Action<ItemBackpack> OnBackpackChanged;
     public List<ItemData> listItemDataInventoryEqicment;
     public List<ItemData> listItemDataInventoryslot;
     public Transform transformBoxes;
@@ -330,6 +331,26 @@ public class UIInventory : MonoBehaviour
         else
         {
             OnVestChanged?.Invoke(null);
+        }
+         ItemData backpackItemData = listItemDataInventoryEqicment.FirstOrDefault(item => item.itemtype == Itemtype.Backpack);
+        if (backpackItemData != null)
+        {
+            UIItemData uiItemData = inventoryItemPresent.listUIItemPrefab
+                .FirstOrDefault(uiItem => uiItem.idItem == backpackItemData.idItem);
+
+            if (uiItemData != null)
+            {
+                ItemBackpack itemBackpack = uiItemData.GetComponent<ItemBackpack>();
+                OnBackpackChanged?.Invoke(itemBackpack);
+            }
+            else
+            {
+                OnBackpackChanged?.Invoke(null); // No backpack
+            }
+        }
+        else
+        {
+            OnBackpackChanged?.Invoke(null);
         }
     }
     public GameObject CreateUIItem(ItemData itemData, InvenrotySlots invenrotySlots)
