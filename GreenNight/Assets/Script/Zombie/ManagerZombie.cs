@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ZombieManager : MonoBehaviour
+public class ManagerZombie : MonoBehaviour
 {
-    public static ZombieManager Instance { get; private set; }
+    public static ManagerZombie Instance { get; private set; }
 
     private List<Zombie> activeZombies = new List<Zombie>();
 

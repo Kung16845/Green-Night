@@ -9,7 +9,7 @@ public enum ChargingZombieState
     Stopped,
     Normal
 }
-public class Charger : Zombie
+public class ZombieCharger : Zombie
 {
     [Header("Charging Zombie Settings")]
     public float chargeUpTime = 2f;             // Time to charge up before speeding up
