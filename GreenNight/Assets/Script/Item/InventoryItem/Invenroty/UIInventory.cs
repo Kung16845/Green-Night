@@ -164,7 +164,7 @@ public class UIInventory : MonoBehaviour
     public void RefreshUIInventory()
     {   
         ClearAllChildInvenrotySlot();
-        inventoryItemPresent.UnlockSlotInventory(npcSelecying.countInventorySlot, npcSelecying.roleNpc);
+        inventoryItemPresent.UnlockSlotInventory(npcSelecying.countInventorySlot, npcSelecying.roleNpc, listItemDataInventoryEqicment);
 
         // Build a dictionary mapping SlotType to list of available slots
         Dictionary<SlotType, List<InvenrotySlots>> slotsByType = new Dictionary<SlotType, List<InvenrotySlots>>();
@@ -208,8 +208,7 @@ public class UIInventory : MonoBehaviour
                 }
                 else
                 {
-                    // No available slots
-                    // Handle this case if needed
+
                 }
             }
         }
@@ -270,7 +269,7 @@ public class UIInventory : MonoBehaviour
                 return SlotType.SlotGrenade;
             // Add other mappings as needed
             default:
-                return SlotType.SlotBag; // Indicating no valid slot
+                return SlotType.SlotLock; // Indicating no valid slot
         }
     }
     public StatAmplifier statAmplifier;
