@@ -39,17 +39,16 @@ public class Weapon : MonoBehaviour
     private ActionController actionController;
     private UIInventory uiInventory;
     private InventoryItemPresent inventoryItemPresent;
-    private ArmourEquip armourEquip;
+    private StatManager statManager;
     private int? currentWeaponId = null;
 
     void Start()
     {
         playerMovement = GetComponentInParent<PlayerMovement>();
-        armourEquip = GetComponent<ArmourEquip>();
         statAmplifier = GetComponent<StatAmplifier>();
         animationController = GetComponent<AnimationController>();
         actionController = GetComponent<ActionController>();
-
+        statManager = GetComponent<StatManager>();
         uiInventory = FindObjectOfType<UIInventory>();
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
         if (statAmplifier != null)
@@ -69,19 +68,12 @@ public class Weapon : MonoBehaviour
         }
 
     }
-    private void UpdateWeaponStats(ItemWeapon itemWeapon)
+       private void UpdateWeaponStats(ItemWeapon itemWeapon)
     {
         if (itemWeapon != null)
         {
-            if (currentWeaponId == itemWeapon.idItem)
-            {
-                Debug.Log("Same weapon equipped. Skipping re-initialization.");
-                return; // Skip if the weapon ID hasn't changed
-            }
-
-            currentWeaponId = itemWeapon.idItem; // Update the current weapon ID
-
-            // Apply stats from ItemWeapon to Weapon class
+            // Existing code to update weapon properties...
+            animationController.isgunequip = true;
             rateOfFire = itemWeapon.rateOfFire;
             handling = itemWeapon.handling;
             accuracy = itemWeapon.accuracy;
@@ -95,24 +87,26 @@ public class Weapon : MonoBehaviour
             caliberType = ConvertAmmoTypeToCaliberType(itemWeapon.ammoType);
 
             fireRate = 60f / rateOfFire;
-            initialAccuracy = accuracy;
-            animationController.isgunequip = true;
 
-            if (statAmplifier != null)
-            {
-                statAmplifier.InitializeAmplifiers(); // Recalculate multipliers
-                statAmplifier.ApplyRoleModifiers();   // Apply role modifiers
-            }
-            ApplyHandlingPenalty();
-            ApplyStatAmplifier();
+            // Pass base weapon stats to StatManager
+            statManager.baseDamage = damage;
+            statManager.baseHandling = handling;
+            statManager.baseAccuracy = accuracy;
+            statManager.baseStability = stability;
 
-            Debug.Log("Weapon stats updated.");
+            // Notify StatManager to recalculate stats
+            statManager.OnWeaponStatsChanged();
         }
         else
         {
-            Debug.Log("No weapon equipped. Weapon functionality disabled.");
+            statManager.baseDamage = 0f;
+            statManager.baseHandling = 0f; // Or a default value
+            statManager.baseAccuracy = 0f;
+            statManager.baseStability = 0f;
             DisableWeapon();
-            currentWeaponId = null; // Clear weapon ID
+
+            // Notify StatManager
+            statManager.OnWeaponStatsChanged();
         }
     }
 
@@ -378,15 +372,24 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    private void ApplyHandlingPenalty()
+     public float GetMovementHandlingPenalty()
     {
-        if (playerMovement != null && statAmplifier != null)
+        if(handling > 0)
         {
-            float handlingMultiplier = statAmplifier.GetHandlingMultiplier();
-
-            playerMovement.baseSpeed = playerMovement.baseSpeed * (1f - (0.5f * (100f - handling) / 100f)) * handlingMultiplier;
-            playerMovement.baseSprintSpeed = playerMovement.baseSprintSpeed * (1f - (0.3f * (100f - handling) / 100f)) * handlingMultiplier;
+        float penalty = 1f - (0.5f * (100f - handling) / 100f);
+        return Mathf.Clamp(penalty, 0.5f, 1f); 
         }
+        else return 1;
+    }
+
+    public float GetSprintHandlingPenalty()
+    {
+        if(handling > 0)
+        {
+            float penalty = 1f - (0.3f * (100f - handling) / 100f);
+            return Mathf.Clamp(penalty, 0.7f, 1f);
+        }
+        else return 1;
     }
 
     public IEnumerator Reload()
@@ -504,5 +507,36 @@ public class Weapon : MonoBehaviour
             handling = Mathf.Clamp(handling, 0, 100);
             stability = Mathf.Clamp(stability, 0, 100);
         }
+    }
+    public CaliberType GetCaliberType()
+    {
+        return caliberType;
+    }
+    public float GetDamageModifier()
+    {
+        return 1f; // If weapon directly affects damage, adjust accordingly
+    }
+
+    public float GetHandlingModifier()
+    {
+        return 1f; // Adjust based on weapon stats
+    }
+
+    public float GetAccuracyModifier()
+    {
+        return 1f; // Adjust based on weapon stats
+    }
+
+    public float GetStabilityModifier()
+    {
+        return 1f; // Adjust based on weapon stats
+    }
+     public void OnStatsChanged()
+    {
+        // Update weapon properties based on new stats from StatManager
+        damage = statManager.damage;
+        handling = statManager.handling;
+        accuracy = statManager.accuracy;
+        stability = statManager.stability;
     }
 }

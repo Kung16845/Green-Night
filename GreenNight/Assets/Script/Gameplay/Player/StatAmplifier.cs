@@ -7,7 +7,7 @@ public class StatAmplifier : MonoBehaviour
     public int speed = 1;     // Level 1-10
 
     public SpecialistRoleNpc specialistRole;
-
+    private StatManager statManager;
     // Role-based modifiers
     private float roleMaxStaminaModifier = 0f;
     private float roleStaminaConsumeModifier = 0f;
@@ -24,7 +24,13 @@ public class StatAmplifier : MonoBehaviour
     private float baseCombatMultiplier;
     private float baseSpeedMultiplier;
 
-    // New method to initialize and apply amplifiers
+    void Start()
+    {
+        InitializeAmplifiers();
+        statManager = GetComponent<StatManager>();
+        statManager.OnStatAmplifierChanged();
+    }
+    
     public void InitializeAmplifiers()
     {
         // Calculate base multipliers
@@ -34,6 +40,7 @@ public class StatAmplifier : MonoBehaviour
 
         // Apply role-based modifiers
         ApplyRoleModifiers();
+        statManager?.OnStatAmplifierChanged();
     }
 
     // Rest of the class remains the same...

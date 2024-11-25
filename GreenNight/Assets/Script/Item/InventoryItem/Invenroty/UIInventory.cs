@@ -211,21 +211,32 @@ public class UIInventory : MonoBehaviour
     {
         PlayerMovement player = FindObjectOfType<PlayerMovement>();
         statAmplifier = FindObjectOfType<StatAmplifier>();
+        StatManager statManager = FindObjectOfType<StatManager>();
+
+        // Update StatAmplifier properties
         statAmplifier.endurance = npcSelecying.endurance;
         statAmplifier.combat = npcSelecying.combat;
         statAmplifier.speed = npcSelecying.speed;
-        // Debug.Log("Npc endurance : " + statAmplifier.endurance);
-        // Debug.Log("Npc endurance  Select : " + npcSelecying.endurance);
-        // Assign the NPC's specialist role to the StatAmplifier
         statAmplifier.specialistRole = npcSelecying.roleNpc;
-        statAmplifier.InitializeAmplifiers(); // Recalculate multipliers
-        statAmplifier.ApplyRoleModifiers();   // Apply role modifiers
 
-        // Update player and weapon stats if necessary
-        player.currentStamina = player.GetMaxStamina();
+        // Initialize amplifiers
+        statAmplifier.InitializeAmplifiers();
+
+        // Notify StatManager of the change
+        statManager.OnStatAmplifierChanged();
+
+        // Update player's current stamina based on new max stamina
+        player.currentStamina = statManager.maxStamina;
+
+        // If you have a weapon equipped, ensure it updates the base stats
+        Weapon weapon = player.GetComponent<Weapon>();
+        if (weapon != null)
+        {
+            weapon.OnStatsChanged();
+        }
+
         SetCostumeNpcExpentdition(npcSelecying, player.gameObject);
     }
-
     public void ClearItemDataInAllInventorySlotToListDataBoxes()
     {
 
