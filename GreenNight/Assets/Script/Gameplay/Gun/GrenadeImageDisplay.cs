@@ -68,7 +68,6 @@ public class GrenadeImageDisplay : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("No grenade item equipped.");
             grenadeImage.enabled = false; // Hide the image if no grenade is equipped
         }
     }

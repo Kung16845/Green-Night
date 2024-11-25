@@ -39,11 +39,13 @@ public class Weapon : MonoBehaviour
     private ActionController actionController;
     private UIInventory uiInventory;
     private InventoryItemPresent inventoryItemPresent;
+    private ArmourEquip armourEquip;
     private int? currentWeaponId = null;
 
     void Start()
     {
         playerMovement = GetComponentInParent<PlayerMovement>();
+        armourEquip = GetComponent<ArmourEquip>();
         statAmplifier = GetComponent<StatAmplifier>();
         animationController = GetComponent<AnimationController>();
         actionController = GetComponent<ActionController>();
