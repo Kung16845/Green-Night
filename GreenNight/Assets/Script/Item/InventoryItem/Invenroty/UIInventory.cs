@@ -161,9 +161,9 @@ public class UIInventory : MonoBehaviour
 
     }
     public void RefreshUIInventory()
-    {
+    {   
         ClearAllChildInvenrotySlot();
-
+        inventoryItemPresent.UnlockSlotInventory(npcSelecying.countInventorySlot,npcSelecying.roleNpc);
         // Iterate through inventory slots
         for (int i = listItemDataInventoryslot.Count - 1; i >= 0; i--) // Reverse loop for safe removal
         {

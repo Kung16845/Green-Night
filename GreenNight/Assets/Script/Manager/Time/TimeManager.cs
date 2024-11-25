@@ -143,7 +143,7 @@ public class DateTime
                 sceneSystem.ReturnToMainScene();
 
             }
-            else if (SceneManager.GetActiveScene().buildIndex == 0 && this.hour <= 18 && this.minutes == 0)
+            else if (SceneManager.GetActiveScene().buildIndex == 0 && this.hour >= 18 && this.minutes >= 0)
             {
                 Debug.Log("Sceneswitch");
                 SetTimeNightDay();

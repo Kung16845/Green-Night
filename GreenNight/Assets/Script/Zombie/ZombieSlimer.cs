@@ -1,31 +1,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Reeker : Zombie
+public class ZombieSlimer : Zombie
 {
-    private enum ReekerState
+    private enum SlimerStates
     {
         Moving,
-        Spitting,
+        Attacking,
         SwitchingLanes
     }
 
-    [Header("Reeker Settings")]
-    public float spittingDuration = 5f;    // Total time spent spitting acid
-    public float spittingInterval = 1f;    // Time between each acid spit
-    public GameObject reekerAcidPoolPrefab; // Prefab of the AcidPool to spawn (renamed to avoid conflicts)
+    [Header("Slimer Settings")]
+    public float attackingDuration = 5f;         // Total time spent attacking
+    public float attackInterval = 1f;            // Time between each projectile launch
+    public GameObject slimeProjectilePrefab;     // Prefab of the slime projectile to spawn
+    public float projectileSpeed = 5f;           // Speed of the projectile
 
-    // Acid Pool Stats
-    [Header("Reeker Acid Pool Stats")]
-    public float reekerAcidBarrierDamage = 5f;
-    public float reekerAcidZombieDamage = 5f;
-    public float reekerAcidDuration = 5f;
-    public float reekerAcidRadius = 1f;
-    public float reekerAcidInterval = 1f;
-
-    private ReekerState ReekercurrentState;
-    private float spittingTimer = 0f;
-    private float spittingCooldown = 0f;
+    private SlimerStates slimerState;
+    private float SlimeattackTimer = 0f;
+    private float attackCooldown = 0f;
 
     // Reference to the engaging area position
     public Transform engagingPoint;
@@ -33,20 +26,22 @@ public class Reeker : Zombie
     // List of all lanes for lane switching
     private List<Lane> allLanes;
 
+    // Reference to the player
+    private Transform playerTransform;
+
     private void Start()
     {
         // Initialize necessary components
         rb2D = GetComponent<Rigidbody2D>();
         // Initialize variables
-        ReekercurrentState = ReekerState.Moving;
-        countTimer = attackTimer; // Initialize attack timer
+        slimerState = SlimerStates.Moving;
         // Get all lanes from LaneManager
         allLanes = LaneManager.Instance.allLanes;
 
         // Check if allLanes is set
         if (allLanes == null || allLanes.Count == 0)
         {
-            Debug.LogError("Reeker: allLanes is not set!");
+            Debug.LogError("Slimer: allLanes is not set!");
         }
         else
         {
@@ -64,8 +59,19 @@ public class Reeker : Zombie
             }
             else
             {
-                Debug.LogError("Reeker: currentLane is not set!");
+                Debug.LogError("Slimer: currentLane is not set!");
             }
+        }
+
+        // Find the player in the scene
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject != null)
+        {
+            playerTransform = playerObject.transform;
+        }
+        else
+        {
+            Debug.LogError("Slimer: Player not found in the scene!");
         }
     }
 
@@ -90,15 +96,15 @@ public class Reeker : Zombie
 
     private void Update()
     {
-        switch (ReekercurrentState)
+        switch (slimerState)
         {
-            case ReekerState.Moving:
+            case SlimerStates.Moving:
                 HandleMovingState();
                 break;
-            case ReekerState.Spitting:
-                HandleSpittingState();
+            case SlimerStates.Attacking:
+                HandleAttackingState();
                 break;
-            case ReekerState.SwitchingLanes:
+            case SlimerStates.SwitchingLanes:
                 HandleSwitchingLanesState();
                 break;
             default:
@@ -110,10 +116,10 @@ public class Reeker : Zombie
     {
         if (HasReachedEngagingPoint())
         {
-            ReekercurrentState = ReekerState.Spitting;
-            spittingTimer = spittingDuration;
-            spittingCooldown = 0f;
-            rb2D.velocity = Vector2.zero; // Stop moving while spitting
+            slimerState = SlimerStates.Attacking;
+            SlimeattackTimer = attackingDuration;
+            attackCooldown = 0f;
+            rb2D.velocity = Vector2.zero; // Stop moving while attacking
         }
         else
         {
@@ -122,20 +128,20 @@ public class Reeker : Zombie
         }
     }
 
-    private void HandleSpittingState()
+    private void HandleAttackingState()
     {
-        spittingTimer -= Time.deltaTime;
-        spittingCooldown -= Time.deltaTime;
+        SlimeattackTimer -= Time.deltaTime;
+        attackCooldown -= Time.deltaTime;
 
-        if (spittingCooldown <= 0f)
+        if (attackCooldown <= 0f)
         {
-            SpitAcid();
-            spittingCooldown = spittingInterval;
+            LaunchProjectile();
+            attackCooldown = attackInterval;
         }
 
-        if (spittingTimer <= 0f)
+        if (SlimeattackTimer <= 0f)
         {
-            ReekercurrentState = ReekerState.SwitchingLanes;
+            slimerState = SlimerStates.SwitchingLanes;
         }
     }
 
@@ -161,26 +167,20 @@ public class Reeker : Zombie
         rb2D.velocity = direction * currentSpeed;
     }
 
-    private void SpitAcid()
+    private void LaunchProjectile()
     {
-        if (reekerAcidPoolPrefab != null && currentLane != null && currentLane.attackPoint != null)
+        if (slimeProjectilePrefab != null && playerTransform != null)
         {
-            GameObject acidPool = Instantiate(reekerAcidPoolPrefab, currentLane.attackPoint.position, Quaternion.identity);
-            AcidPool acidPoolScript = acidPool.GetComponent<AcidPool>();
-            if (acidPoolScript != null)
+            GameObject projectile = Instantiate(slimeProjectilePrefab, transform.position, Quaternion.identity);
+            SlimeProjectile slimeProjectileScript = projectile.GetComponent<SlimeProjectile>();
+            if (slimeProjectileScript != null)
             {
-                acidPoolScript.Initialize(
-                barrierDamage: reekerAcidBarrierDamage,
-                zombieDamage: reekerAcidZombieDamage,
-                duration: reekerAcidDuration,
-                radius: reekerAcidRadius,
-                interval: reekerAcidInterval
-            );
+                slimeProjectileScript.Initialize(playerTransform.position, projectileSpeed);
             }
         }
         else
         {
-            Debug.LogWarning("Reeker: Cannot spit acid because reekerAcidPoolPrefab, currentLane, or attackPoint is null.");
+            Debug.LogWarning("Slimer: Cannot launch projectile because slimeProjectilePrefab or playerTransform is null.");
         }
     }
 
@@ -199,15 +199,15 @@ public class Reeker : Zombie
             // Update the current lane and engaging point
             SetLane(newLane);
 
-            // Do not change the Reeker's position; it will start moving towards the new engaging point from its current position
+            // Do not change the Slimer's position; it will start moving towards the new engaging point from its current position
 
             // Reset the state to moving
-            ReekercurrentState= ReekerState.Moving;
+            slimerState = SlimerStates.Moving;
         }
         else
         {
             // No other lanes to switch to
-            ReekercurrentState = ReekerState.Moving;
+            slimerState = SlimerStates.Moving;
         }
     }
 

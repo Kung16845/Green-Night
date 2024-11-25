@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ZombieGrunt : Zombie
-{
+{   
+    public bool isRunner;
     // Start is called before the first frame update
     void Start()
     {

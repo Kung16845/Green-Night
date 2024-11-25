@@ -623,12 +623,12 @@ public class Zombie : MonoBehaviour
     }
     private void OnEnable()
     {
-        ZombieManager.Instance.RegisterZombie(this);
+        ManagerZombie.Instance.RegisterZombie(this);
     }
 
     private void OnDisable()
     {
-        ZombieManager.Instance.UnregisterZombie(this);
+        ManagerZombie.Instance.UnregisterZombie(this);
     }
     public void DisableCollider()
     {

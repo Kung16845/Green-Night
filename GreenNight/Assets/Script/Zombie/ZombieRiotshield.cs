@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Riotshield : Zombie
+public class ZombieRiotshield : Zombie
 {
     protected override void InitializeDamageMultipliers()
     {
