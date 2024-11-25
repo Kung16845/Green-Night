@@ -41,7 +41,7 @@ public class Zombie : MonoBehaviour
     private float attackSpeedMultiplier = 1f;
     public float currentHp;
     public float maxHp;
-    public float maxArmourHp; 
+    public float maxArmourHp;
     public float ArmourHp;
     public float currentSpeed;
     public float maxSpeed;
@@ -58,7 +58,7 @@ public class Zombie : MonoBehaviour
     // Fields for Engaging Area
     public Lane currentLane;
     public bool isInEngagingArea = false;    // Whether the zombie is in the Engaging Area
-    
+
     [Header("Damage Effects")]
     public float slowdownAmount = 0.25f;           // Amount to slow down (e.g., 0.5 means half speed)
     public float damageEffectDuration = 0.01f;       // Duration of the slowdown and red color effect
@@ -68,7 +68,7 @@ public class Zombie : MonoBehaviour
     private Color originalColor;
     private Coroutine damageEffectCoroutine;
 
-     [Header("Mutation Settings")]
+    [Header("Mutation Settings")]
     public MutationType mutationType = MutationType.None;
     [Range(1, 3)]
     public int mutationTier = 1;                  // Tier 1 to 3
@@ -92,6 +92,8 @@ public class Zombie : MonoBehaviour
     private float previousDirectionX = 1f;
     [Header("DataTracker")]
     public DDAdataCollector ddadataCollector;
+    [Header("ID Zombie Costume")]
+    public string idZombieCoustume;
     private void Awake()
     {
         currentSpeed = maxSpeed;
@@ -117,7 +119,7 @@ public class Zombie : MonoBehaviour
     public void ZombieMoveFindBarrier()
     {
         // Move towards the attack point
-        if(canmove)
+        if (canmove)
         {
             if (currentLane != null && currentLane.attackPoint != null)
             {
@@ -228,7 +230,7 @@ public class Zombie : MonoBehaviour
                 // Pulse damage removes all armor
                 ArmourHp = 0f;
             }
-            else 
+            else
             {
                 // Other damage types apply full damage to armor
                 ArmourHp -= adjustedDamage;
@@ -263,7 +265,7 @@ public class Zombie : MonoBehaviour
 
     private void ApplyDamageEffects(DamageType damageType)
     {
-        if(damageType != DamageType.Acid)
+        if (damageType != DamageType.Acid)
         {
             if (damageEffectCoroutine != null)
             {
@@ -323,7 +325,7 @@ public class Zombie : MonoBehaviour
             case MutationType.Exploder:
                 ApplyExploderDeathEffect();
                 break;
-            // Other mutations have no death effect
+                // Other mutations have no death effect
         }
     }
     private void ApplyMutationEffects()
@@ -338,11 +340,11 @@ public class Zombie : MonoBehaviour
                 break;
             case MutationType.Acid:
                 maxHp += 150;
-                break;    
-            // Acid and Exploder mutations have effects on death
+                break;
+                // Acid and Exploder mutations have effects on death
         }
     }
-     private void ApplySpikeMutation()
+    private void ApplySpikeMutation()
     {
         float damageMultiplier = 1f;
         switch (mutationTier)
@@ -359,7 +361,7 @@ public class Zombie : MonoBehaviour
         }
         attackDamage *= damageMultiplier;
     }
-     private void ApplyArmourShellMutation()
+    private void ApplyArmourShellMutation()
     {
         float extraArmourHp = 0f;
         switch (mutationTier)
@@ -473,7 +475,7 @@ public class Zombie : MonoBehaviour
         public Coroutine poisonCoroutine;
         public Coroutine buildUpCoroutine;
     }
-       public void StartPoisonEffect(float tickDamage, float tickInterval, float damageBuildRate, float poisonDuration, object source)
+    public void StartPoisonEffect(float tickDamage, float tickInterval, float damageBuildRate, float poisonDuration, object source)
     {
         if (activePoisonEffects.ContainsKey(source))
         {
@@ -586,7 +588,7 @@ public class Zombie : MonoBehaviour
     {
         currentSpeed = maxSpeed * speedMultiplier;
     }
-     public void IncreaseAttackSpeed(float multiplier)
+    public void IncreaseAttackSpeed(float multiplier)
     {
         attackSpeedMultiplier *= multiplier;
     }
@@ -610,7 +612,7 @@ public class Zombie : MonoBehaviour
         mutationTier = tier;
         ApplyMutationEffects();
     }
-     public void StopZombie()
+    public void StopZombie()
     {
         currentState = ZombieState.Stopped;
         rb2D.velocity = Vector2.zero;

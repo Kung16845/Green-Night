@@ -31,6 +31,12 @@ public class UIExSelectPlace : MonoBehaviour
     {   
       
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => ExpenditionManager.Instance.CreateInventorySetExpendition(timescale, riskValue,indexSceneExpendition));
+        button.onClick.AddListener(() => AddButtonExpendition(button,timescale));
+        
     }
+    public void AddButtonExpendition(Button button,float timescale)
+    {   
+        // Debug.Log("Add Button Walk and Car");
+        ExpenditionManager.Instance.CreateInventorySetExpendition(timescale, riskValue,indexSceneExpendition);
+    }   
 }
