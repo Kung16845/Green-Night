@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using System.Linq;
 public class Weapon : MonoBehaviour
@@ -33,23 +34,23 @@ public class Weapon : MonoBehaviour
     private bool isFiring; 
 
     // References
+    public Slider reloadSlider;
     public Transform firePoint; // Point from where bullets are fired
     public GameObject bulletPrefab; // Bullet prefab
     public Vector2 bulletDirection;
     private ActionController actionController;
     private UIInventory uiInventory;
     private InventoryItemPresent inventoryItemPresent;
-    private ArmourEquip armourEquip;
+    private StatManager statManager;
     private int? currentWeaponId = null;
 
     void Start()
     {
         playerMovement = GetComponentInParent<PlayerMovement>();
-        armourEquip = GetComponent<ArmourEquip>();
         statAmplifier = GetComponent<StatAmplifier>();
         animationController = GetComponent<AnimationController>();
         actionController = GetComponent<ActionController>();
-
+        statManager = GetComponent<StatManager>();
         uiInventory = FindObjectOfType<UIInventory>();
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
         if (statAmplifier != null)
@@ -57,31 +58,14 @@ public class Weapon : MonoBehaviour
                 statAmplifier.InitializeAmplifiers(); // Recalculate multipliers
                 statAmplifier.ApplyRoleModifiers();   // Apply role modifiers
             }
-        // DisableWeapon();
-        if (uiInventory != null)
-        {
-            // Subscribe to the OnWeaponChanged event
-            uiInventory.OnWeaponChanged += UpdateWeaponStats;
-        }
-        else
-        {
-            Debug.LogWarning("UIInventory not found.");
-        }
 
     }
-    private void UpdateWeaponStats(ItemWeapon itemWeapon)
+    public void UpdateWeaponStats(ItemWeapon itemWeapon)
     {
         if (itemWeapon != null)
         {
-            if (currentWeaponId == itemWeapon.idItem)
-            {
-                Debug.Log("Same weapon equipped. Skipping re-initialization.");
-                return; // Skip if the weapon ID hasn't changed
-            }
-
-            currentWeaponId = itemWeapon.idItem; // Update the current weapon ID
-
-            // Apply stats from ItemWeapon to Weapon class
+            // Existing code to update weapon properties...
+            animationController.isgunequip = true;
             rateOfFire = itemWeapon.rateOfFire;
             handling = itemWeapon.handling;
             accuracy = itemWeapon.accuracy;
@@ -95,29 +79,31 @@ public class Weapon : MonoBehaviour
             caliberType = ConvertAmmoTypeToCaliberType(itemWeapon.ammoType);
 
             fireRate = 60f / rateOfFire;
-            initialAccuracy = accuracy;
-            animationController.isgunequip = true;
 
-            if (statAmplifier != null)
-            {
-                statAmplifier.InitializeAmplifiers(); // Recalculate multipliers
-                statAmplifier.ApplyRoleModifiers();   // Apply role modifiers
-            }
-            ApplyHandlingPenalty();
-            ApplyStatAmplifier();
+            // Pass base weapon stats to StatManager
+            statManager.baseDamage = damage;
+            statManager.baseHandling = handling;
+            statManager.baseAccuracy = accuracy;
+            statManager.baseStability = stability;
 
-            Debug.Log("Weapon stats updated.");
+            // Notify StatManager to recalculate stats
+            statManager.OnWeaponStatsChanged();
         }
         else
         {
-            Debug.Log("No weapon equipped. Weapon functionality disabled.");
+            statManager.baseDamage = 0f;
+            statManager.baseHandling = 0f; // Or a default value
+            statManager.baseAccuracy = 0f;
+            statManager.baseStability = 0f;
             DisableWeapon();
-            currentWeaponId = null; // Clear weapon ID
+
+            // Notify StatManager
+            statManager.OnWeaponStatsChanged();
         }
     }
 
 
-    private void DisableWeapon()
+    public void DisableWeapon()
     {
         // Reset stats
         rateOfFire = 0;
@@ -378,15 +364,24 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    private void ApplyHandlingPenalty()
+     public float GetMovementHandlingPenalty()
     {
-        if (playerMovement != null && statAmplifier != null)
+        if(handling > 0)
         {
-            float handlingMultiplier = statAmplifier.GetHandlingMultiplier();
-
-            playerMovement.baseSpeed = playerMovement.baseSpeed * (1f - (0.5f * (100f - handling) / 100f)) * handlingMultiplier;
-            playerMovement.baseSprintSpeed = playerMovement.baseSprintSpeed * (1f - (0.3f * (100f - handling) / 100f)) * handlingMultiplier;
+        float penalty = 1f - (0.5f * (100f - handling) / 100f);
+        return Mathf.Clamp(penalty, 0.5f, 1f); 
         }
+        else return 1;
+    }
+
+    public float GetSprintHandlingPenalty()
+    {
+        if(handling > 0)
+        {
+            float penalty = 1f - (0.3f * (100f - handling) / 100f);
+            return Mathf.Clamp(penalty, 0.7f, 1f);
+        }
+        else return 1;
     }
 
     public IEnumerator Reload()
@@ -402,12 +397,17 @@ public class Weapon : MonoBehaviour
 
         isReloading = true;
         animationController.isreload = true;
-
+        actionController.canchangeweapond = false;
         // Calculate reload time based on stats and multipliers
         float reloadTime = (6.5f * (1 - (statAmplifier.GetCombatMultiplier() - 1))) 
                             * (100f - handling) / 100f 
                             * statAmplifier.GetReloadSpeedMultiplier();
-
+        if (reloadSlider != null)
+        {
+            reloadSlider.gameObject.SetActive(true);
+            reloadSlider.maxValue = reloadTime;
+            reloadSlider.value = 0;
+        }
         // Adjust playback speed of the reload animation
         Animator animator = animationController.GetComponent<Animator>();
         AnimationClip reloadAnimationClip = animator.runtimeAnimatorController.animationClips
@@ -435,6 +435,7 @@ public class Weapon : MonoBehaviour
         {
             isReloading = false;
             animationController.isreload = false;
+            actionController.canchangeweapond = true;
             yield break;
         }
 
@@ -448,6 +449,7 @@ public class Weapon : MonoBehaviour
             animator.speed = 1f; // Reset animator speed
             animationController.isreload = false;
             isReloading = false;
+            actionController.canchangeweapond = true;
             yield break;
         }
 
@@ -468,12 +470,25 @@ public class Weapon : MonoBehaviour
             item.count -= ammoToTake; // Deduct ammo from the item
             ammoRemainingToReload -= ammoToTake; // Reduce the remaining ammo needed
         }
+        float elapsedTime = 0f;
+        while (elapsedTime < reloadTime)
+        {
+            elapsedTime += Time.deltaTime;
 
-        currentAmmo += ammoToReload; // Add the ammo to the weapon
+            // Update slider value
+            if (reloadSlider != null)
+            {
+                reloadSlider.value = elapsedTime;
+            }
 
-        // Wait for reload time to complete
-        yield return new WaitForSeconds(reloadTime);
-
+            yield return null;
+        }
+        actionController.canchangeweapond = true;
+        currentAmmo += ammoToReload;
+        if (reloadSlider != null)
+        {
+            reloadSlider.gameObject.SetActive(false);
+        }
         // Reset the animation state and variables
         animator.speed = 1f; // Reset animator speed
         animationController.isreload = false;
@@ -504,5 +519,36 @@ public class Weapon : MonoBehaviour
             handling = Mathf.Clamp(handling, 0, 100);
             stability = Mathf.Clamp(stability, 0, 100);
         }
+    }
+    public CaliberType GetCaliberType()
+    {
+        return caliberType;
+    }
+    public float GetDamageModifier()
+    {
+        return 1f; // If weapon directly affects damage, adjust accordingly
+    }
+
+    public float GetHandlingModifier()
+    {
+        return 1f; // Adjust based on weapon stats
+    }
+
+    public float GetAccuracyModifier()
+    {
+        return 1f; // Adjust based on weapon stats
+    }
+
+    public float GetStabilityModifier()
+    {
+        return 1f; // Adjust based on weapon stats
+    }
+     public void OnStatsChanged()
+    {
+        // Update weapon properties based on new stats from StatManager
+        damage = statManager.damage;
+        handling = statManager.handling;
+        accuracy = statManager.accuracy;
+        stability = statManager.stability;
     }
 }

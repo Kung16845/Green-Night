@@ -1,36 +1,27 @@
 using UnityEngine;
-using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float baseSpeed = 5f;
-    public float baseSprintSpeed = 8f;
-
-    public float baseMaxStamina = 100f;
+    private StatManager statManager;
     public float currentStamina;
-    public float baseStaminaRecoverSpeed = 10f;
-    public float baseStaminaConsumeSpeed = 15f;
-    public float minStaminaToSprint = 30f;
-
-    private bool isMovementStopped = false;
     private bool isSprinting = false;
-    private bool canSprint = true; // Track if player can start sprinting again
+    private bool canSprint = true;
     private ActionController actionController;
     private AnimationController animationController;
-    private StatAmplifier statAmplifier;
+    private StaminaUI staminaUI;
 
     void Start()
     {
-        statAmplifier = GetComponent<StatAmplifier>();
+        statManager = GetComponent<StatManager>();
         actionController = GetComponent<ActionController>();
         animationController = GetComponent<AnimationController>();
-        if (statAmplifier == null)
-        {
-            Debug.LogError("StatAmplifier component not found on the player.");
-        }
+        staminaUI = FindObjectOfType<StaminaUI>();
 
-        // Initialize current stamina to max stamina at the start
-        currentStamina = GetMaxStamina();
+        currentStamina = statManager.maxStamina;
+        if (staminaUI != null)
+        {
+            staminaUI.InitializeStaminaSlider(statManager.maxStamina);
+        }
     }
 
     void Update()
@@ -48,11 +39,7 @@ public class PlayerMovement : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         Vector2 direction = new Vector2(horizontal, vertical).normalized;
 
-        float speedMultiplier = statAmplifier.GetSpeedMultiplier();
-        float movementSpeed = baseSpeed * speedMultiplier;
-        float sprintMovementSpeed = baseSprintSpeed * speedMultiplier;
-        
-        if (direction.magnitude > 0) // Check if player is moving
+        if (direction.magnitude > 0)
         {
             // Flip character's direction based on horizontal input
             if (horizontal != 0)
@@ -68,14 +55,14 @@ public class PlayerMovement : MonoBehaviour
                 animationController.isrun = true;
                 animationController.iswalk = false;
                 isSprinting = true;
-                transform.Translate(direction * sprintMovementSpeed * Time.deltaTime);
+                transform.Translate(direction * statManager.sprintSpeed * Time.deltaTime);
             }
             else
             {
                 animationController.iswalk = true;
                 animationController.isrun = false;
                 isSprinting = false;
-                transform.Translate(direction * movementSpeed * Time.deltaTime);
+                transform.Translate(direction * statManager.speed * Time.deltaTime);
             }
         }
         else
@@ -85,54 +72,49 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
     private void HandleStamina()
     {
-        float staminaConsumeMultiplier = statAmplifier.GetStaminaConsumeMultiplier();
-        float staminaRecoverMultiplier = statAmplifier.GetStaminaRecoverMultiplier();
-
         if (isSprinting)
         {
-            // Consume stamina while sprinting
-            currentStamina -= baseStaminaConsumeSpeed * staminaConsumeMultiplier * Time.deltaTime;
+            currentStamina -= statManager.staminaConsumeSpeed * Time.deltaTime;
             if (currentStamina <= 0f)
             {
                 currentStamina = 0f;
-                canSprint = false; // Disable sprinting until stamina recovers
-                isSprinting = false; // Stop sprinting when stamina is depleted
+                canSprint = false;
+                isSprinting = false;
             }
         }
         else
         {
-            // Recover stamina when not sprinting
-            currentStamina += baseStaminaRecoverSpeed * staminaRecoverMultiplier * Time.deltaTime;
-            if (currentStamina > GetMaxStamina())
+            currentStamina += statManager.staminaRecoverSpeed * Time.deltaTime;
+            if (currentStamina > statManager.maxStamina)
             {
-                currentStamina = GetMaxStamina();
+                currentStamina = statManager.maxStamina;
             }
 
-            // Allow sprinting again if stamina reaches the minimum required level
-            if (currentStamina >= minStaminaToSprint)
+            if (currentStamina >= 30f) // Assuming min stamina to sprint is 30
             {
                 canSprint = true;
             }
         }
+        if (staminaUI != null)
+        {
+            staminaUI.UpdateStaminaSlider(currentStamina);
+        }
     }
 
-    public float GetMaxStamina()
+    // Method called when stats change
+    public void OnStatsChanged()
     {
-        return baseMaxStamina * statAmplifier.GetMaxStaminaMultiplier();
-    }
-
-    public void StopMovementForDuration(float duration)
-    {
-        StartCoroutine(StopMovementCoroutine(duration));
-    }
-
-    private IEnumerator StopMovementCoroutine(float duration)
-    {
-        isMovementStopped = true;
-        yield return new WaitForSeconds(duration);
-        isMovementStopped = false;
+        // Adjust current stamina if max stamina has changed
+        if (currentStamina > statManager.maxStamina)
+        {
+            currentStamina = statManager.maxStamina;
+        }
+          if (staminaUI != null)
+        {
+            staminaUI.InitializeStaminaSlider(statManager.maxStamina);
+        }
     }
 }
+

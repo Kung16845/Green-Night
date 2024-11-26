@@ -135,7 +135,7 @@ public class NpcManager : MonoBehaviour
         Sprite newSpriteHeadNpc = listHeadCoutume.FirstOrDefault(coutumeHead => coutumeHead.idHead == npcClassSelest.idHead).spriteHead;      
         uIInventory.spriteHeadNpc.sprite = newSpriteHeadNpc;
 
-        inventoryItemPresent.UnlockSlotInventory(npcClassSelest.countInventorySlot, npcClassSelest.roleNpc);
+        inventoryItemPresent.UnlockSlotInventory(npcClassSelest.countInventorySlot, npcClassSelest.roleNpc,uIInventory.listItemDataInventoryEqicment);
 
         SetText(npcClassSelest);
 

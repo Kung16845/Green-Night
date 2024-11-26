@@ -6,17 +6,8 @@ public class ItemBackpack : ItemClass
 {   
     [Header("Stat Backpack")]
     public int slotIncreasing;
+    public float StaminaRecoverSpeed;
+    public float IncreaseSpeed;
     public string buff;
     public string debuff;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

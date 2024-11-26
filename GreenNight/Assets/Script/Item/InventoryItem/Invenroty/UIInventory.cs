@@ -14,7 +14,7 @@ public class UIInventory : MonoBehaviour
     public NpcManager npcManager;
     public NpcClass npcSelecying;
     public List<InvenrotySlots> listInvenrotySlotsUI = new List<InvenrotySlots>();
-    public event Action<ItemWeapon> OnWeaponChanged;
+    public event Action<List<ItemWeapon>> OnWeaponsChanged;
     public event Action<ItemVest> OnVestChanged;
     public event Action<ItemBackpack> OnBackpackChanged;
     public List<ItemData> listItemDataInventoryEqicment;
@@ -164,9 +164,27 @@ public class UIInventory : MonoBehaviour
     public void RefreshUIInventory()
     {   
         ClearAllChildInvenrotySlot();
-        inventoryItemPresent.UnlockSlotInventory(npcSelecying.countInventorySlot,npcSelecying.roleNpc);
-        // Iterate through inventory slots
-        for (int i = listItemDataInventoryslot.Count - 1; i >= 0; i--) // Reverse loop for safe removal
+        inventoryItemPresent.UnlockSlotInventory(npcSelecying.countInventorySlot, npcSelecying.roleNpc, listItemDataInventoryEqicment);
+
+        // Build a dictionary mapping SlotType to list of available slots
+        Dictionary<SlotType, List<InvenrotySlots>> slotsByType = new Dictionary<SlotType, List<InvenrotySlots>>();
+
+        // Initialize the dictionary
+        foreach (SlotType slotType in Enum.GetValues(typeof(SlotType)))
+        {
+            slotsByType[slotType] = new List<InvenrotySlots>();
+        }
+
+        foreach (InvenrotySlots slot in listInvenrotySlotsUI)
+        {
+            slotsByType[slot.slotTypeInventory].Add(slot);
+        }
+
+        // Keep track of which slots have been used
+        HashSet<InvenrotySlots> usedSlots = new HashSet<InvenrotySlots>();
+
+        // Iterate through inventory slots (for items in listItemDataInventoryslot)
+        for (int i = listItemDataInventoryslot.Count - 1; i >= 0; i--)
         {
             ItemData itemData = listItemDataInventoryslot.ElementAt(i);
 
@@ -176,13 +194,27 @@ public class UIInventory : MonoBehaviour
             }
             else
             {
-                InvenrotySlots inventortSlot = listInvenrotySlotsUI.ElementAt(i);
-                GameObject uIItem = CreateUIItem(itemData, inventortSlot);
+                // Find the next available slot for inventory items (Assuming these are general slots)
+                // Assuming inventory slots are of type SlotBag
+                List<InvenrotySlots> bagSlots = slotsByType[SlotType.SlotBag];
+
+                // Find the next unused slot
+                InvenrotySlots inventortSlot = bagSlots.FirstOrDefault(slot => !usedSlots.Contains(slot));
+
+                if (inventortSlot != null)
+                {
+                    usedSlots.Add(inventortSlot);
+                    GameObject uIItem = CreateUIItem(itemData, inventortSlot);
+                }
+                else
+                {
+
+                }
             }
         }
 
-        // Iterate through equipment slots
-        for (int i = listItemDataInventoryEqicment.Count - 1; i >= 0; i--) // Reverse loop for safe removal
+        // Iterate through equipment items
+        for (int i = listItemDataInventoryEqicment.Count - 1; i >= 0; i--)
         {
             ItemData itemData = listItemDataInventoryEqicment.ElementAt(i);
 
@@ -192,40 +224,85 @@ public class UIInventory : MonoBehaviour
             }
             else
             {
-                // InvenrotySlots inventortEqicment = listInvenrotySlotsUI.ElementAt(i + 12);
-                InvenrotySlots inventortEqicment = listInvenrotySlotsUI.FirstOrDefault(
-                    slotInven => slotInven.slotTypeInventory == SlotType.SlotWeapon && itemData.itemtype == Itemtype.Weapon ||
-                     slotInven.slotTypeInventory == SlotType.SlotVest && itemData.itemtype == Itemtype.Vest ||
-                     slotInven.slotTypeInventory == SlotType.SlotBackpack && itemData.itemtype == Itemtype.Backpack ||
-                    slotInven.slotTypeInventory == SlotType.SlotTool && itemData.itemtype == Itemtype.Tool ||
-                    slotInven.slotTypeInventory == SlotType.SlotGrenade && itemData.itemtype == Itemtype.Grenade);
-               
-                GameObject uIItemEqicment = CreateUIItem(itemData, inventortEqicment);
-            
+                // Determine the SlotType based on itemData.itemtype
+                SlotType requiredSlotType = GetSlotTypeForItemType(itemData.itemtype);
+
+                if (requiredSlotType != SlotType.SlotLock)
+                {
+                    List<InvenrotySlots> slotsOfType = slotsByType[requiredSlotType];
+
+                    // Find the next unused slot of this type
+                    InvenrotySlots inventortEqicment = slotsOfType.FirstOrDefault(slot => !usedSlots.Contains(slot));
+
+                    if (inventortEqicment != null)
+                    {
+                        usedSlots.Add(inventortEqicment);
+                        GameObject uIItemEqicment = CreateUIItem(itemData, inventortEqicment);
+                    }
+                    else
+                    {
+                        // No available slots of this type
+                        // Handle this case if needed
+                    }
+                }
+                else
+                {
+                    // No valid slot type for this item
+                    // Handle this case if needed
+                }
             }
         }
     }
-
+    private SlotType GetSlotTypeForItemType(Itemtype itemType)
+    {
+        switch (itemType)
+        {
+            case Itemtype.Weapon:
+                return SlotType.SlotWeapon;
+            case Itemtype.Vest:
+                return SlotType.SlotVest;
+            case Itemtype.Backpack:
+                return SlotType.SlotBackpack;
+            case Itemtype.Tool:
+                return SlotType.SlotTool;
+            case Itemtype.Grenade:
+                return SlotType.SlotGrenade;
+            // Add other mappings as needed
+            default:
+                return SlotType.SlotLock; // Indicating no valid slot
+        }
+    }
     public StatAmplifier statAmplifier;
     public void SelectNpcDefenseScene()
     {
         PlayerMovement player = FindObjectOfType<PlayerMovement>();
         statAmplifier = FindObjectOfType<StatAmplifier>();
+        StatManager statManager = FindObjectOfType<StatManager>();
+
+        // Update StatAmplifier properties
         statAmplifier.endurance = npcSelecying.endurance;
         statAmplifier.combat = npcSelecying.combat;
         statAmplifier.speed = npcSelecying.speed;
-        // Debug.Log("Npc endurance : " + statAmplifier.endurance);
-        // Debug.Log("Npc endurance  Select : " + npcSelecying.endurance);
-        // Assign the NPC's specialist role to the StatAmplifier
         statAmplifier.specialistRole = npcSelecying.roleNpc;
-        statAmplifier.InitializeAmplifiers(); // Recalculate multipliers
-        statAmplifier.ApplyRoleModifiers();   // Apply role modifiers
 
-        // Update player and weapon stats if necessary
-        player.currentStamina = player.GetMaxStamina();
+        // Initialize amplifiers
+        statAmplifier.InitializeAmplifiers();
+
+        // Notify StatManager of the change
+        statManager.OnStatAmplifierChanged();
+
+        // Update player's current stamina based on new max stamina
+        player.currentStamina = statManager.maxStamina;
+
+        // If you have a weapon equipped, ensure it updates the base stats
+        Weapon weapon = player.GetComponent<Weapon>();
+        if (weapon != null)
+        {
+            weapon.OnStatsChanged();
+        }
+
         SetCostumeNpcExpentdition(npcSelecying, player.gameObject);
     }
-
     public void ClearItemDataInAllInventorySlotToListDataBoxes()
     {
 
@@ -290,25 +367,31 @@ public class UIInventory : MonoBehaviour
         ConventAllUIItemInListInventorySlotToListEqicmentItemData(listItemDataInventoryEqicment);
 
         // Weapon logic
-        ItemData weaponItemData = listItemDataInventoryEqicment.FirstOrDefault(item => item.itemtype == Itemtype.Weapon);
-        if (weaponItemData != null)
-        {
-            UIItemData uiItemData = inventoryItemPresent.listUIItemPrefab
-                .FirstOrDefault(uiItem => uiItem.idItem == weaponItemData.idItem);
+        List<ItemData> weaponItemDataList = listItemDataInventoryEqicment
+        .Where(item => item.itemtype == Itemtype.Weapon)
+        .ToList();
 
-            if (uiItemData != null)
+        if (weaponItemDataList.Count > 0)
+        {
+            List<ItemWeapon> itemWeapons = new List<ItemWeapon>();
+
+            foreach (var weaponItemData in weaponItemDataList)
             {
-                ItemWeapon itemWeapon = uiItemData.GetComponent<ItemWeapon>();
-                OnWeaponChanged?.Invoke(itemWeapon);
+                UIItemData uiItemData = inventoryItemPresent.listUIItemPrefab
+                    .FirstOrDefault(uiItem => uiItem.idItem == weaponItemData.idItem);
+
+                if (uiItemData != null)
+                {
+                    ItemWeapon itemWeapon = uiItemData.GetComponent<ItemWeapon>();
+                    itemWeapons.Add(itemWeapon);
+                }
             }
-            else
-            {
-                OnWeaponChanged?.Invoke(null); // No weapon
-            }
+
+            OnWeaponsChanged?.Invoke(itemWeapons);
         }
         else
         {
-            OnWeaponChanged?.Invoke(null);
+            OnWeaponsChanged?.Invoke(null);
         }
 
         // Vest logic

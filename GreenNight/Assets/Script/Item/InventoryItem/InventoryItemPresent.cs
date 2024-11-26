@@ -80,35 +80,52 @@ public class InventoryItemPresent : MonoBehaviour
             Destroy(child.gameObject);
         }
     }
-    public void UnlockSlotInventory(int numUnlock, SpecialistRoleNpc specialistRoleNpc)
+    public void UnlockSlotInventory(int numUnlock, SpecialistRoleNpc specialistRoleNpc, List<ItemData> listItemDataInventoryEqicment)
     {
+        // Lock all slots initially
         foreach (InvenrotySlots slot in listInvenrotySlots)
         {
             slot.slotTypeInventory = SlotType.SlotLock;
         }
 
+        // Unlock general inventory slots based on numUnlock
         for (int i = 1; i <= numUnlock; i++)
         {
             InvenrotySlots slot = listInvenrotySlots.ElementAt(i - 1);
             slot.slotTypeInventory = SlotType.SlotBag;
         }
 
-        if (specialistRoleNpc == SpecialistRoleNpc.Military_training)
+        // Define the item IDs that unlock the special slots
+        int militaryItemID = 1020605; // Replace with your Military item ID
+        int scavengerItemID = 1020604; // Replace with your Scavenger item ID
+
+        // Check if the items are equipped
+        bool hasMilitaryItem = listItemDataInventoryEqicment.Any(item => item.idItem == militaryItemID);
+        bool hasScavengerItem = listItemDataInventoryEqicment.Any(item => item.idItem == scavengerItemID);
+
+        // Unlock or lock the special military slot
+        if (specialistRoleNpc == SpecialistRoleNpc.Military_training || hasMilitaryItem)
         {
             invenrotySlotSpecialMilitaryLock.slotTypeInventory = SlotType.SlotWeapon;
         }
-
-        else if (specialistRoleNpc == SpecialistRoleNpc.Scavenger)
-        {
-            invenrotySlotSpecialScavengerLock.slotTypeInventory = SlotType.SlotTool;
-        }
-
         else
         {
             invenrotySlotSpecialMilitaryLock.slotTypeInventory = SlotType.SlotLock;
+        }
+
+        // Unlock or lock the special scavenger slot
+        if (specialistRoleNpc == SpecialistRoleNpc.Scavenger || hasScavengerItem)
+        {
+            invenrotySlotSpecialScavengerLock.slotTypeInventory = SlotType.SlotTool;
+        }
+        else
+        {
             invenrotySlotSpecialScavengerLock.slotTypeInventory = SlotType.SlotLock;
         }
     }
+
+
+
     public void AddItem(ItemData itemDataAdd)
     {
         ItemData itemDataInList = this.listItemsDataBox.FirstOrDefault(item => item.idItem == itemDataAdd.idItem && item.count != item.maxCount);

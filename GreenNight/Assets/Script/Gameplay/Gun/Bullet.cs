@@ -34,7 +34,7 @@ public class Bullet : MonoBehaviour
                 penetrationCount = 1;  // Medium caliber can penetrate 1 target
                 break;
             case CaliberType.High:
-                penetrationCount = 5;  // High caliber can penetrate 2 targets
+                penetrationCount = 4;  // High caliber can penetrate 2 targets
                 break;
             case CaliberType.Shotgun:
                 penetrationCount = 0;  // Shotgun pellets can't penetrate
@@ -91,6 +91,9 @@ public class Bullet : MonoBehaviour
             {
                 case CaliberType.Medium:
                 damage *= 0.5f;
+                break;
+                case CaliberType.High:
+                damage *= 0.8f;
                 break; 
             }
         }
