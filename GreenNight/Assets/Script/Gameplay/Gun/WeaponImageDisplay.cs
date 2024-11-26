@@ -1,27 +1,28 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using System.Collections;
 using System.Linq;
 
 public class WeaponImageDisplay : MonoBehaviour
 {
     [Header("UI Elements")]
-    public Image weaponImage; // UI Image to display the weapon's icon
+    public Image weaponImage1; // UI Image to display the first weapon's icon
+    public Image weaponImage2; // UI Image to display the second weapon's icon
 
     [Header("References")]
-    public Weapon weapon; // Reference to the Weapon script
+    public WeaponManager weaponManager; // Reference to the WeaponManager script
     public UIInventory uiInventory; // Reference to the inventory system
     public InventoryItemPresent inventoryItemPresent; // Reference to manage item data and UI updates
 
     private void Start()
     {
         // Find references if not assigned
-        if (weapon == null)
+        if (weaponManager == null)
         {
-            weapon = FindObjectOfType<Weapon>();
-            if (weapon == null)
+            weaponManager = FindObjectOfType<WeaponManager>();
+            if (weaponManager == null)
             {
+                Debug.LogError("WeaponManager not found.");
                 return;
             }
         }
@@ -31,6 +32,7 @@ public class WeaponImageDisplay : MonoBehaviour
             uiInventory = FindObjectOfType<UIInventory>();
             if (uiInventory == null)
             {
+                Debug.LogError("UIInventory not found.");
                 return;
             }
         }
@@ -40,44 +42,91 @@ public class WeaponImageDisplay : MonoBehaviour
             inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
             if (inventoryItemPresent == null)
             {
+                Debug.LogError("InventoryItemPresent not found.");
                 return;
             }
         }
 
-        UpdateWeaponImage();
+        // Subscribe to the OnWeaponsChanged event
+        uiInventory.OnWeaponsChanged += UpdateWeaponImages;
+
+        // Initial update
+        UpdateWeaponImages(weaponManager.equippedWeapons);
+    }
+
+    private void OnDestroy()
+    {
+        if (uiInventory != null)
+        {
+            uiInventory.OnWeaponsChanged -= UpdateWeaponImages;
+        }
     }
 
     private void Update()
     {
-        UpdateWeaponImage();
+        // Optionally, update the UI based on the current weapon selected
+        UpdateCurrentWeaponHighlight();
     }
 
-    private void UpdateWeaponImage()
+    private void UpdateWeaponImages(List<ItemWeapon> equippedWeapons)
     {
-        // Get the equipped weapon item from the inventory
-        var weaponItemData = uiInventory.listItemDataInventoryEqicment
-            .FirstOrDefault(item => item.itemtype == Itemtype.Weapon);
+        // Clear images
+        weaponImage1.enabled = false;
+        weaponImage2.enabled = false;
 
-        if (weaponItemData != null)
+        if (equippedWeapons != null && equippedWeapons.Count > 0)
         {
-            // Find the UIItemData corresponding to the weapon item
-            var uiItemData = inventoryItemPresent.listUIItemPrefab
-                .FirstOrDefault(uiItem => uiItem.idItem == weaponItemData.idItem);
+            for (int i = 0; i < equippedWeapons.Count; i++)
+            {
+                ItemWeapon itemWeapon = equippedWeapons[i];
 
-            if (uiItemData != null)
-            {
-                // Update the weapon image with the sprite
-                weaponImage.sprite = uiItemData.itemIconImage.sprite;
-                weaponImage.enabled = true; // Ensure the image is visible
-            }
-            else
-            {
-                weaponImage.enabled = false; // Hide the image if no match
+                // Find the UIItemData corresponding to the weapon item
+                var uiItemData = inventoryItemPresent.listUIItemPrefab
+                    .FirstOrDefault(uiItem => uiItem.idItem == itemWeapon.idItem);
+
+                if (uiItemData != null)
+                {
+                    if (i == 0)
+                    {
+                        // Update the weaponImage1
+                        weaponImage1.sprite = uiItemData.itemIconImage.sprite;
+                        weaponImage1.enabled = true;
+                    }
+                    else if (i == 1)
+                    {
+                        // Update the weaponImage2
+                        weaponImage2.sprite = uiItemData.itemIconImage.sprite;
+                        weaponImage2.enabled = true;
+                    }
+                    // If you support more weapons, add more conditions here
+                }
             }
         }
-        else
+    }
+
+    private void UpdateCurrentWeaponHighlight()
+    {
+        // Highlight the currently selected weapon
+        int currentWeaponIndex = weaponManager.currentWeaponIndex;
+
+        // Reset colors to default
+        weaponImage1.color = Color.white;
+        weaponImage2.color = Color.white;
+
+        // Dim the non-selected weapon to visually indicate which weapon is active
+        Color dimColor = new Color(0.7f, 0.7f, 0.7f);
+
+        if (currentWeaponIndex == 0)
         {
-            weaponImage.enabled = false; // Hide the image if no weapon is equipped
+            // Weapon 1 is selected
+            weaponImage1.color = Color.white;
+            weaponImage2.color = dimColor;
+        }
+        else if (currentWeaponIndex == 1)
+        {
+            // Weapon 2 is selected
+            weaponImage1.color = dimColor;
+            weaponImage2.color = Color.white;
         }
     }
 }

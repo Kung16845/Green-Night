@@ -7,7 +7,7 @@ public class WeaponManager : MonoBehaviour
     public Weapon weaponComponent; // Reference to the Weapon script
     private ActionController actionController;
 
-    private int currentWeaponIndex = 0;
+    public int currentWeaponIndex = 0;
     private UIInventory uiInventory;
 
     // Store ammo for each weapon
@@ -56,14 +56,16 @@ public class WeaponManager : MonoBehaviour
 
     void Update()
     {
-        // Handle weapon switching input
-        if (Input.GetKeyDown(KeyCode.Alpha1) && actionController.canchangeweapond)
+        if(actionController.canchangeweapond)
         {
-            SwitchWeapon(0);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2) && actionController.canchangeweapond)
-        {
-            SwitchWeapon(1);
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                SwitchWeapon(0);
+            }
+            else if(Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                SwitchWeapon(1);
+            }
         }
     }
 

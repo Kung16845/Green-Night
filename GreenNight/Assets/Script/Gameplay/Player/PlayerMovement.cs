@@ -8,14 +8,20 @@ public class PlayerMovement : MonoBehaviour
     private bool canSprint = true;
     private ActionController actionController;
     private AnimationController animationController;
+    private StaminaUI staminaUI;
 
     void Start()
     {
         statManager = GetComponent<StatManager>();
         actionController = GetComponent<ActionController>();
         animationController = GetComponent<AnimationController>();
+        staminaUI = FindObjectOfType<StaminaUI>();
 
         currentStamina = statManager.maxStamina;
+        if (staminaUI != null)
+        {
+            staminaUI.InitializeStaminaSlider(statManager.maxStamina);
+        }
     }
 
     void Update()
@@ -91,6 +97,10 @@ public class PlayerMovement : MonoBehaviour
                 canSprint = true;
             }
         }
+        if (staminaUI != null)
+        {
+            staminaUI.UpdateStaminaSlider(currentStamina);
+        }
     }
 
     // Method called when stats change
@@ -100,6 +110,10 @@ public class PlayerMovement : MonoBehaviour
         if (currentStamina > statManager.maxStamina)
         {
             currentStamina = statManager.maxStamina;
+        }
+          if (staminaUI != null)
+        {
+            staminaUI.InitializeStaminaSlider(statManager.maxStamina);
         }
     }
 }
