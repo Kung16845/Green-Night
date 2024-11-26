@@ -21,6 +21,27 @@ public class ItemWeapon : ItemClass
     public int Pellets;
     public float Spreadangle;
     public Ammotype ammoType; 
+    public Reloadtype reloadtype;
+    public Sprite gunsprite;
+    private string GetReloadAnimationName(Reloadtype reloadtype)
+    {
+        switch (reloadtype)
+        {
+            case Reloadtype.AssaultRifle:
+                return "ReloadGenericRifle";
+            case Reloadtype.SMG:
+                return "ReloadMp5";
+            case Reloadtype.Shotgunpump:
+                return "ReloadShotgun";
+            case Reloadtype.Sniper:
+                return "ReloadSniper";
+            case Reloadtype.Pistol:
+                return "ReloadSidearm";
+            default:
+                return "ReloadGenericRifle";
+        }
+    }
+
 }
 
 public enum Ammotype
@@ -29,4 +50,12 @@ public enum Ammotype
     MediumCaliber,
     LowCaliber,
     Shotgun
+}
+public enum Reloadtype
+{
+    AssaultRifle, 
+    SMG,
+    Shotgunpump,
+    Sniper,
+    Pistol
 }
