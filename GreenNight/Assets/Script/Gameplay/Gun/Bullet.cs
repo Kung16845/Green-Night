@@ -91,6 +91,9 @@ public class Bullet : MonoBehaviour
             {
                 case CaliberType.Medium:
                 damage *= 0.5f;
+                break;
+                case CaliberType.High:
+                damage *= 0.8f;
                 break; 
             }
         }

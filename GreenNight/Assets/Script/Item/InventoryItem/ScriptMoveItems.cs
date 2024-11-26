@@ -64,20 +64,61 @@ public class ScriptMoveItems : MonoBehaviour
 
         countText.text = countItemMove.ToString();
     }
-    public void DecreasteCountItem(int count)
+   public void DecreasteCountItem(int count)
     {
         countItemMove -= count;
+
+        // Ensure countItemMove does not fall below 1
         if (countItemMove < 1)
         {
             countItemMove = 1;
         }
-        if(countItemMove == 1)
+
+        SlotType slotTypeItemMove = itemClassMove.gameObject.GetComponentInParent<InvenrotySlots>().slotTypeInventory;
+
+        if (countItemMove == 1)
         {
-            SlotType slotTypeItemMove = itemClassMove.gameObject.GetComponentInParent<InvenrotySlots>().slotTypeInventory;
-            countItemMove = itemClassMove.maxCountItem;
+            // Case when countItemMove is set to 1, we allow it to reach the maximum count possible
+            if (itemClassInChild == null)
+            {
+                // If no item exists in the child slot
+                countItemMove = Mathf.Min(itemClassMove.maxCountItem, itemClassMove.quantityItem);
+            }
+            else if (itemClassInChild != null)
+            {
+                // If an item exists in the child slot
+                int maxAllowed = itemClassMove.maxCountItem - itemClassInChild.quantityItem;
+                countItemMove = Mathf.Min(itemClassMove.quantityItem, maxAllowed);
+            }
         }
+        else
+        {
+            // Adjust countItemMove to ensure it does not exceed limits
+            if (itemClassInChild == null)
+            {
+                // Case when there's no item in the child slot
+                if (countItemMove > itemClassMove.quantityItem)
+                {
+                    countItemMove = itemClassMove.quantityItem;
+                }
+            }
+            else if (itemClassInChild != null)
+            {
+                // Case when an item exists in the child slot
+                int maxAllowed = itemClassMove.maxCountItem - itemClassInChild.quantityItem;
+
+                if (countItemMove > itemClassMove.quantityItem || countItemMove > maxAllowed)
+                {
+                    countItemMove = Mathf.Min(itemClassMove.quantityItem, maxAllowed);
+                }
+            }
+        }
+
+        // Update the text to reflect the new count
         countText.text = countItemMove.ToString();
     }
+
+
 
     public void MoveItem()
     {
