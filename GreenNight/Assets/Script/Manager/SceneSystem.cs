@@ -12,14 +12,16 @@ public class SceneSystem : MonoBehaviour
     public TimeManager timeManager;
     private bool isSceneLoading = false;
     public SaveObjectActiveMainScene saveObjectActiveMainScene;
+   
     private void Start()
     {
         timeManager = FindObjectOfType<TimeManager>();
         timeManager.sceneSystem1 = this;
         timeManager.dateTime.sceneSystem = this;
         saveObjectActiveMainScene = FindObjectOfType<SaveObjectActiveMainScene>();    
-    
+       
     }
+    
     public void SwitchScene(int sceneIndex)
     {
 

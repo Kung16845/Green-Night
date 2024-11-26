@@ -6,9 +6,11 @@ public class Barrier : MonoBehaviour
 {
     public float currentHp;
     public float maxHp;
+    public SceneSystem sceneSystem;
     private void Start() 
     {
         currentHp = maxHp;
+        sceneSystem = FindAnyObjectByType<SceneSystem>();
     }
     public void BarrierTakeDamage(float damage)
     {
@@ -17,7 +19,8 @@ public class Barrier : MonoBehaviour
 
         if (currentHp <= 0)
         {
-            Time.timeScale = 0;
+            // Time.timeScale = 0;
+            sceneSystem.ReturnToMainScene();
         }
     }
 
