@@ -32,7 +32,7 @@ public class ShootBomb : MonoBehaviour
     public UIInventory uiInventory;
     private GameObject currentGrenadePrefab; // Grenade prefab to use based on item ID
     private ItemData currentGrenadeItem;     // Reference to the current grenade item in the inventory
-    private bool hasPressedG = false;
+    public bool hasPressedG = false;
 
     private void Awake()
     {

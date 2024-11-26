@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using System.Linq;
 public class Weapon : MonoBehaviour
@@ -33,6 +34,7 @@ public class Weapon : MonoBehaviour
     private bool isFiring; 
 
     // References
+    public Slider reloadSlider;
     public Transform firePoint; // Point from where bullets are fired
     public GameObject bulletPrefab; // Bullet prefab
     public Vector2 bulletDirection;
@@ -395,12 +397,17 @@ public class Weapon : MonoBehaviour
 
         isReloading = true;
         animationController.isreload = true;
-
+        actionController.canchangeweapond = false;
         // Calculate reload time based on stats and multipliers
         float reloadTime = (6.5f * (1 - (statAmplifier.GetCombatMultiplier() - 1))) 
                             * (100f - handling) / 100f 
                             * statAmplifier.GetReloadSpeedMultiplier();
-
+        if (reloadSlider != null)
+        {
+            reloadSlider.gameObject.SetActive(true);
+            reloadSlider.maxValue = reloadTime;
+            reloadSlider.value = 0;
+        }
         // Adjust playback speed of the reload animation
         Animator animator = animationController.GetComponent<Animator>();
         AnimationClip reloadAnimationClip = animator.runtimeAnimatorController.animationClips
@@ -428,6 +435,7 @@ public class Weapon : MonoBehaviour
         {
             isReloading = false;
             animationController.isreload = false;
+            actionController.canchangeweapond = true;
             yield break;
         }
 
@@ -441,6 +449,7 @@ public class Weapon : MonoBehaviour
             animator.speed = 1f; // Reset animator speed
             animationController.isreload = false;
             isReloading = false;
+            actionController.canchangeweapond = true;
             yield break;
         }
 
@@ -461,12 +470,25 @@ public class Weapon : MonoBehaviour
             item.count -= ammoToTake; // Deduct ammo from the item
             ammoRemainingToReload -= ammoToTake; // Reduce the remaining ammo needed
         }
+        float elapsedTime = 0f;
+        while (elapsedTime < reloadTime)
+        {
+            elapsedTime += Time.deltaTime;
 
-        currentAmmo += ammoToReload; // Add the ammo to the weapon
+            // Update slider value
+            if (reloadSlider != null)
+            {
+                reloadSlider.value = elapsedTime;
+            }
 
-        // Wait for reload time to complete
-        yield return new WaitForSeconds(reloadTime);
-
+            yield return null;
+        }
+        actionController.canchangeweapond = true;
+        currentAmmo += ammoToReload;
+        if (reloadSlider != null)
+        {
+            reloadSlider.gameObject.SetActive(false);
+        }
         // Reset the animation state and variables
         animator.speed = 1f; // Reset animator speed
         animationController.isreload = false;

@@ -47,13 +47,13 @@ public class UIcontrollerDefense : MonoBehaviour
         }
     }
 
-    void ToggleUI(bool inventoryActive, bool barrierHPActive, bool playerActive, bool boxItemActive = false, bool mainboxActive = false)
+    void ToggleUI(bool mainboxActive,bool inventoryActive, bool barrierHPActive, bool playerActive, bool boxItemActive)
     {
+        if (MainBox != null) MainBox.SetActive(mainboxActive);
         if (InventoryUI != null) InventoryUI.SetActive(inventoryActive);
         if (BarrierHPUI != null) BarrierHPUI.SetActive(barrierHPActive);
         if (PlayerUI != null) PlayerUI.SetActive(playerActive);
         if (BoxItemUI != null) BoxItemUI.SetActive(boxItemActive);
-        if (MainBox != null) MainBox.SetActive(mainboxActive);
     }
 
     void ToggleInventoryUI()
@@ -62,12 +62,12 @@ public class UIcontrollerDefense : MonoBehaviour
         if (isInventoryActive)
         {
             actionController.canuseweapon = false;
-            ToggleUI(true, false, false, false, true);
+            ToggleUI(true, true, false, false, false);
         }
         else
         {
             actionController.canuseweapon = true;
-            ToggleUI(false, true, true, false, false);
+            ToggleUI(false, false, true, true, false);
         }
     }
 
@@ -89,11 +89,11 @@ public class UIcontrollerDefense : MonoBehaviour
 
     void ActiveBoxUI()
     {
-        ToggleUI(true, false, false, true, true);
+        ToggleUI(true, true, false, false, true);
     }
 
     void DisableBoxUI()
     {
-        ToggleUI(false, true, true, false, false);
+        ToggleUI(false, false, true, true, false);
     }
 }

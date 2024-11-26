@@ -5,6 +5,7 @@ public class WeaponManager : MonoBehaviour
 {
     public List<ItemWeapon> equippedWeapons = new List<ItemWeapon>();
     public Weapon weaponComponent; // Reference to the Weapon script
+    private ActionController actionController;
 
     private int currentWeaponIndex = 0;
     private UIInventory uiInventory;
@@ -15,6 +16,7 @@ public class WeaponManager : MonoBehaviour
     void Start()
     {
         uiInventory = FindObjectOfType<UIInventory>();
+        actionController = GetComponent<ActionController>();
         if (uiInventory != null)
         {
             uiInventory.OnWeaponsChanged += OnWeaponsChanged;
@@ -55,11 +57,11 @@ public class WeaponManager : MonoBehaviour
     void Update()
     {
         // Handle weapon switching input
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1) && actionController.canchangeweapond)
         {
             SwitchWeapon(0);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        else if (Input.GetKeyDown(KeyCode.Alpha2) && actionController.canchangeweapond)
         {
             SwitchWeapon(1);
         }

@@ -7,6 +7,7 @@ public class ActionController : MonoBehaviour
     public bool canwalk = true;
     public bool canuseweapon = true;
     public bool canDoAction = true;
+    public bool canchangeweapond = true;
 
     public Slider stuckSlider; // Reference to the Slider component
 
