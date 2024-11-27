@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 84c287ecd2de94143818d984c1b71481
+guid: f4a58bd7cc348ef419a8de92c1e8080b
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -94,18 +94,18 @@ ScriptedImporter:
     spritePosition: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
-  - name: Slime_ArmTop
+  - name: FireFighter_ArmTop
     originalName: 
-    pivot: {x: 0.4329648, y: 0.88962615}
+    pivot: {x: 0.39647293, y: 0.90565753}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 165
-      y: 67
+      x: 153
+      y: 97
       width: 32
       height: 98
-    spriteID: cbd1b83f40f983547b120987a5206ac7
+    spriteID: ef892f73046796548a46c08f9a804992
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -113,20 +113,104 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 165, y: 67}
+    uvTransform: {x: 153, y: 97}
     spritePosition: {x: 136, y: 57}
-  - name: Slime_Head
+  - name: FireFighter_Head
     originalName: 
-    pivot: {x: 0.73527265, y: 0.081567094}
+    pivot: {x: 0.7387779, y: 0.07092463}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 123
+      y: 4
+      width: 82
+      height: 82
+    spriteID: cc167150d3f904c40ab8eca873c48e69
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 123, y: 4}
+    spritePosition: {x: 75, y: 149}
+  - name: FireFighter_Body
+    originalName: 
+    pivot: {x: 0.5198773, y: 0.026732853}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 53
+      y: 97
+      width: 50
+      height: 84
+    spriteID: f7e0512f514b63f4fbd2533751f21f00
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 53, y: 97}
+    spritePosition: {x: 111, y: 84}
+  - name: FireFighter_LegTop
+    originalName: 
+    pivot: {x: 0.40256277, y: 0.89360833}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 111
+      y: 97
+      width: 34
+      height: 101
+    spriteID: 64fbe24952657ee43b6a1c1617eaf302
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 111, y: 97}
+    spritePosition: {x: 131, y: 7}
+  - name: FireFighter_LegBack
+    originalName: 
+    pivot: {x: 0.66968364, y: 0.8923981}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 97
+      width: 41
+      height: 103
+    spriteID: af81bba0ee46bb94491c3c3f4763791c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 97}
+    spritePosition: {x: 100, y: 7}
+  - name: FireFighter_ArmBack
+    originalName: 
+    pivot: {x: 0.9178395, y: 0.60523236}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 62
-      height: 81
-    spriteID: a0611fb36e096a54c92278e4b4f58d62
+      width: 111
+      height: 85
+    spriteID: aa455309a4fddab4786565a80f79797b
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -135,91 +219,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-    spritePosition: {x: 91, y: 148}
-  - name: Slime_Body
-    originalName: 
-    pivot: {x: 0.49015507, y: 0.030099597}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 93
-      width: 54
-      height: 84
-    spriteID: cd0b51fc64d417641a48085046727b58
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 93}
-    spritePosition: {x: 111, y: 84}
-  - name: Slime_LegTop
-    originalName: 
-    pivot: {x: 0.44952706, y: 0.8907963}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 123
-      y: 67
-      width: 34
-      height: 101
-    spriteID: e9d5779c41e5a8549a4c2c199ba88bdd
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 123, y: 67}
-    spritePosition: {x: 131, y: 7}
-  - name: Slime_LegBack
-    originalName: 
-    pivot: {x: 0.67788917, y: 0.8748775}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 74
-      y: 67
-      width: 41
-      height: 103
-    spriteID: 07706b71c1d61bb47b265d244534d01c
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 74, y: 67}
-    spritePosition: {x: 100, y: 7}
-  - name: Slime_ArmBack
-    originalName: 
-    pivot: {x: 0.8488786, y: 0.80421865}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 74
-      y: 4
-      width: 91
-      height: 55
-    spriteID: ee7e11c57c0a6d7418c5470a64643231
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 74, y: 4}
-    spritePosition: {x: 52, y: 99}
+    spritePosition: {x: 27, y: 93}
   characterData:
     bones: []
     parts: []
@@ -290,63 +290,63 @@ ScriptedImporter:
   resliceFromLayer: 0
   mosaicPSDLayers: []
   rigPSDLayers:
-  - name: Slime_ArmTop
-    spriteName: Slime_ArmTop
+  - name: FireFighter_ArmTop
+    spriteName: FireFighter_ArmTop
     isGroup: 0
     parentIndex: -1
-    spriteID: cbd1b83f40f983547b120987a5206ac7
+    spriteID: ef892f73046796548a46c08f9a804992
     layerID: 0
-    mosaicPosition: {x: 165, y: 67}
+    mosaicPosition: {x: 153, y: 97}
     flatten: 0
     isImported: 1
     isVisible: 1
-  - name: Slime_Head
-    spriteName: Slime_Head
+  - name: FireFighter_Head
+    spriteName: FireFighter_Head
     isGroup: 0
     parentIndex: -1
-    spriteID: a0611fb36e096a54c92278e4b4f58d62
-    layerID: 1046656405
+    spriteID: cc167150d3f904c40ab8eca873c48e69
+    layerID: 2072632094
+    mosaicPosition: {x: 123, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: FireFighter_Body
+    spriteName: FireFighter_Body
+    isGroup: 0
+    parentIndex: -1
+    spriteID: f7e0512f514b63f4fbd2533751f21f00
+    layerID: 1501333668
+    mosaicPosition: {x: 53, y: 97}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: FireFighter_LegTop
+    spriteName: FireFighter_LegTop
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 64fbe24952657ee43b6a1c1617eaf302
+    layerID: -645869583
+    mosaicPosition: {x: 111, y: 97}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: FireFighter_LegBack
+    spriteName: FireFighter_LegBack
+    isGroup: 0
+    parentIndex: -1
+    spriteID: af81bba0ee46bb94491c3c3f4763791c
+    layerID: 1514220165
+    mosaicPosition: {x: 4, y: 97}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: FireFighter_ArmBack
+    spriteName: FireFighter_ArmBack
+    isGroup: 0
+    parentIndex: -1
+    spriteID: aa455309a4fddab4786565a80f79797b
+    layerID: 2068617877
     mosaicPosition: {x: 4, y: 4}
-    flatten: 0
-    isImported: 1
-    isVisible: 1
-  - name: Slime_Body
-    spriteName: Slime_Body
-    isGroup: 0
-    parentIndex: -1
-    spriteID: cd0b51fc64d417641a48085046727b58
-    layerID: 636465405
-    mosaicPosition: {x: 4, y: 93}
-    flatten: 0
-    isImported: 1
-    isVisible: 1
-  - name: Slime_LegTop
-    spriteName: Slime_LegTop
-    isGroup: 0
-    parentIndex: -1
-    spriteID: e9d5779c41e5a8549a4c2c199ba88bdd
-    layerID: 1301804064
-    mosaicPosition: {x: 123, y: 67}
-    flatten: 0
-    isImported: 1
-    isVisible: 1
-  - name: Slime_LegBack
-    spriteName: Slime_LegBack
-    isGroup: 0
-    parentIndex: -1
-    spriteID: 07706b71c1d61bb47b265d244534d01c
-    layerID: 1947949942
-    mosaicPosition: {x: 74, y: 67}
-    flatten: 0
-    isImported: 1
-    isVisible: 1
-  - name: Slime_ArmBack
-    spriteName: Slime_ArmBack
-    isGroup: 0
-    parentIndex: -1
-    spriteID: ee7e11c57c0a6d7418c5470a64643231
-    layerID: 371126212
-    mosaicPosition: {x: 74, y: 4}
     flatten: 0
     isImported: 1
     isVisible: 1
