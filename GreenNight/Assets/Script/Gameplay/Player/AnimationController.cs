@@ -37,4 +37,5 @@ public class AnimationController : MonoBehaviour
         UpperBodyanimator.SetBool("Iswalk", iswalk);
         UpperBodyanimator.SetBool("Isrun", isrun);
     }
+    
 }

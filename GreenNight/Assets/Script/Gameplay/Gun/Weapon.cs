@@ -19,6 +19,7 @@ public class Weapon : MonoBehaviour
     public float spreadAngle; // Spread angle for shotgun
     public int stabilityThreshold = 5; // Number of shots before stability penalty starts
     public CaliberType caliberType;
+    public Reloadtype reloadtype;
     private AnimationController animationController;
     // Internal variables
     [SerializeField] public int currentAmmo;
@@ -34,6 +35,7 @@ public class Weapon : MonoBehaviour
     private bool isFiring; 
 
     // References
+    public SpriteRenderer weaponSpriteRenderer;
     public Slider reloadSlider;
     public Transform firePoint; // Point from where bullets are fired
     public GameObject bulletPrefab; // Bullet prefab
@@ -77,9 +79,14 @@ public class Weapon : MonoBehaviour
             pellets = itemWeapon.Pellets;
             spreadAngle = itemWeapon.Spreadangle;
             caliberType = ConvertAmmoTypeToCaliberType(itemWeapon.ammoType);
-
+            reloadtype = itemWeapon.reloadtype;
+            animationController.Guntype = GetGunTypeInt(reloadtype);
             fireRate = 60f / rateOfFire;
-
+            if (weaponSpriteRenderer != null)
+            {
+                Debug.Log("AssignSprite");
+                weaponSpriteRenderer.sprite = itemWeapon.gunsprite;
+            }
             // Pass base weapon stats to StatManager
             statManager.baseDamage = damage;
             statManager.baseHandling = handling;
@@ -119,6 +126,10 @@ public class Weapon : MonoBehaviour
         caliberType = CaliberType.Low; // Add a 'None' type if needed
 
         // Additional logic to disable shooting
+        if (weaponSpriteRenderer != null)
+        {
+            weaponSpriteRenderer.sprite = null;
+        }
         currentAmmo = 0;
         isReloading = false;
         shotsFiredConsecutively = 0;
@@ -232,6 +243,7 @@ public class Weapon : MonoBehaviour
         {
             for (int i = 0; i < pellets; i++)
             {
+                animationController.isfire = true;
                 FirePellet();
             }
         }
@@ -409,14 +421,21 @@ public class Weapon : MonoBehaviour
             reloadSlider.value = 0;
         }
         // Adjust playback speed of the reload animation
+
         Animator animator = animationController.GetComponent<Animator>();
+        string reloadAnimationName = GetReloadAnimationName(reloadtype);
         AnimationClip reloadAnimationClip = animator.runtimeAnimatorController.animationClips
-            .FirstOrDefault(clip => clip.name == "ReloadGenericRifle");
+            .FirstOrDefault(clip => clip.name == reloadAnimationName);
 
         if (reloadAnimationClip != null)
         {
             float animationDuration = reloadAnimationClip.length;
             animator.speed = animationDuration / reloadTime; // Match animation with reload time
+        }
+        else
+        {
+            Debug.LogWarning($"Reload animation '{reloadAnimationName}' not found. Using default animation.");
+            // Optionally, handle the case where the animation clip is not found
         }
 
         // Get the caliber type of the current weapon
@@ -518,6 +537,42 @@ public class Weapon : MonoBehaviour
             accuracy = Mathf.Clamp(accuracy, 0, 100);
             handling = Mathf.Clamp(handling, 0, 100);
             stability = Mathf.Clamp(stability, 0, 100);
+        }
+    }
+    private string GetReloadAnimationName(Reloadtype reloadtype)
+    {
+        switch (reloadtype)
+        {
+            case Reloadtype.AssaultRifle:
+                return "ReloadGenericRifle";
+            case Reloadtype.SMG:
+                return "ReloadMp5";
+            case Reloadtype.Shotgunpump:
+                return "ReloadShotgun";
+            case Reloadtype.Sniper:
+                return "ReloadSniper";
+            case Reloadtype.Pistol:
+                return "ReloadSidearm";
+            default:
+                return "ReloadGenericRifle";
+        }
+    }
+    private int GetGunTypeInt(Reloadtype reloadtype)
+    {
+        switch (reloadtype)
+        {
+            case Reloadtype.AssaultRifle:
+                return 4;
+            case Reloadtype.SMG:
+                return 5;
+            case Reloadtype.Shotgunpump:
+                return 3;
+            case Reloadtype.Sniper:
+                return 2;
+            case Reloadtype.Pistol:
+                return 1;
+            default:
+                return 1; // Default or generic gun type
         }
     }
     public CaliberType GetCaliberType()
