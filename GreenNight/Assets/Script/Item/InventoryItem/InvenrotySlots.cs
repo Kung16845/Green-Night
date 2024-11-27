@@ -48,7 +48,10 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
         // {
         //     return;
         // }
-
+        if(slotTypeInventory == SlotType.SlotLock)
+        {
+            return;
+        }
         if ((slotTypeInventory == SlotType.SlotBag || slotTypeInventory == draggableItem.uITypeItem)
         && transform.childCount == 0)
         {   
