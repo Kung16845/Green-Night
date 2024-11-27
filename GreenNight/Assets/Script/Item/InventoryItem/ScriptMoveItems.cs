@@ -197,7 +197,9 @@ public class ScriptMoveItems : MonoBehaviour
         DraggableItem draggableItemMove = itemClassMove.gameObject.GetComponent<DraggableItem>();
         draggableItemMove.transform.SetParent(draggableItemMove.parentBeforeDray);
         draggableItemMove.parentAfterDray = draggableItemMove.parentBeforeDray;
-        Destroy(draggableItemMove.gameObject);
+        if(draggableItemMove.parentBeforeDray == inventoryItemPresent.transformsBoxes){
+            Destroy(draggableItemMove.gameObject);
+        }
         gameObject.SetActive(false);
     }
 }
