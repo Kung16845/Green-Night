@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class ZombieCostumeSet : MonoBehaviour
 {
-    public Sprite spriteHead;
-    public Sprite spriteBody;
-    public Sprite spriteTopArm;
-    public Sprite spriteBackArm;
-    public Sprite spriteTopLeg;
-    public Sprite spriteBackLeg;
+    public SpriteRenderer spriteHead;
+    public SpriteRenderer spriteBody;
+    public SpriteRenderer spriteTopArm;
+    public SpriteRenderer spriteBackArm;
+    public SpriteRenderer spriteTopLeg;
+    public SpriteRenderer spriteBackLeg;
     public Zombie zombie;
     public CoustumeZombieManager coustumeZombieManager;
     private void Awake()

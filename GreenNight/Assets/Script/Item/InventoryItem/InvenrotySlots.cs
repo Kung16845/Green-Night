@@ -48,7 +48,10 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
         // {
         //     return;
         // }
-
+        if(slotTypeInventory == SlotType.SlotLock )
+        {
+            return;
+        }
         if ((slotTypeInventory == SlotType.SlotBag || slotTypeInventory == draggableItem.uITypeItem)
         && transform.childCount == 0)
         {   
@@ -73,8 +76,12 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
 
             OpenUIMoveITems(scriptMoveItems);
         }
-        else if(uIInventoryBoxes.activeSelf)
-        {
+        else if(slotTypeInventory == SlotType.SlotBoxes)
+        {   
+            if(draggableItem.parentBeforeDray.GetComponentInParent<InvenrotySlots>().slotTypeInventory == SlotType.SlotBoxes)
+            {
+                return;
+            }
             List<ItemData> listItemDataBoxes = inventoryItemPresent.listItemsDataBox;
             ItemData itemData = listItemDataBoxes.FirstOrDefault(item => item.idItem == itemClassMove.idItem);
             
