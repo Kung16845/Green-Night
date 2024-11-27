@@ -11,14 +11,17 @@ public class SceneSystem : MonoBehaviour
     public Animator transitionAnim;
     public TimeManager timeManager;
     private bool isSceneLoading = false;
+    public SaveObjectActiveMainScene saveObjectActiveMainScene;
+   
     private void Start()
     {
         timeManager = FindObjectOfType<TimeManager>();
         timeManager.sceneSystem1 = this;
         timeManager.dateTime.sceneSystem = this;
-
-
+        saveObjectActiveMainScene = FindObjectOfType<SaveObjectActiveMainScene>();    
+       
     }
+    
     public void SwitchScene(int sceneIndex)
     {
 
@@ -35,11 +38,13 @@ public class SceneSystem : MonoBehaviour
         }
 
         // Hide all root GameObjects in the main scene (Scene index 0)
+        saveObjectActiveMainScene.objectActiveStates.Clear();
         Scene mainScene = SceneManager.GetSceneByBuildIndex(mainSceneIndex);
         if (mainScene.IsValid() && mainScene.isLoaded)
         {
             foreach (GameObject go in mainScene.GetRootGameObjects())
-            {
+            {   
+                saveObjectActiveMainScene.objectActiveStates[go] = go.activeSelf;
                 go.SetActive(false); // Temporarily hide main scene objects
             }
         }
@@ -49,7 +54,6 @@ public class SceneSystem : MonoBehaviour
 
         currentSceneIndex = sceneIndex;
     }
-
 
     public void ReturnToMainScene()
     {
@@ -69,12 +73,16 @@ public class SceneSystem : MonoBehaviour
         {
             foreach (GameObject go in mainScene.GetRootGameObjects())
             {
-                go.SetActive(true); // Restore main scene objects
+                // go.SetActive(true); // Restore main scene objects
+                if (saveObjectActiveMainScene.objectActiveStates.TryGetValue(go, out bool wasActive))
+                {
+                    go.SetActive(wasActive); // Restore the previous active state
+                }
             }
         }
 
-
     }
+
     private void OnEnable()
     {
         timeManager = FindObjectOfType<TimeManager>();
