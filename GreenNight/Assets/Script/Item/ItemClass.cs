@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
-
+using System.Linq;
 public class ItemClass : MonoBehaviour
 {   
     [Header("Stat")]
@@ -22,5 +22,14 @@ public class ItemClass : MonoBehaviour
     public int point;
     [Header("Icon")]
     public Image IconSprite;
-    
+    public Sprite itemIcon;
+    public virtual Dictionary<string, float> GetStats()
+    {
+        return new Dictionary<string, float>();
+    }
+
+    public virtual Dictionary<string, float> GetMaxStatValues()
+    {
+        return new Dictionary<string, float>();
+    }
 }

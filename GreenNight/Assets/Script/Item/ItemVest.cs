@@ -14,14 +14,25 @@ public class ItemVest : ItemClass
     public float Repairmaterial;
     public float Quality;
     // Start is called before the first frame update
-    void Start()
+     public override Dictionary<string, float> GetStats()
     {
-        
+        return new Dictionary<string, float>
+        {
+            { "damageIncrease", damageIncreasePercent },
+            { "speedIncrease", speedIncreasePercent },
+            { "staminaIncrease", staminaIncreasePercent },
+            { "rarityItem", rarityItem}
+        };
     }
 
-    // Update is called once per frame
-    void Update()
+    public override Dictionary<string, float> GetMaxStatValues()
     {
-        
+        return new Dictionary<string, float>
+        {
+            { "damageIncrease", 2 },
+            { "speedIncrease", 2 },
+            { "staminaIncrease", 2 },
+            { "rarityItem", 5}
+        };
     }
 }

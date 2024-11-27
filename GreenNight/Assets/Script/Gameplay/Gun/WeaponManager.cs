@@ -98,7 +98,6 @@ public class WeaponManager : MonoBehaviour
                 weaponAmmoDict[itemWeapon.idItem] = weaponComponent.currentAmmo;
             }
 
-            // Update weapon stats
             weaponComponent.UpdateWeaponStats(itemWeapon);
         }
     }
