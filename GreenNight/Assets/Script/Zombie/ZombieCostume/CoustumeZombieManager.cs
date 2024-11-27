@@ -10,12 +10,12 @@ public class CoustumeZombieManager : MonoBehaviour
     {
         CoustumeZombie coustumeZombie = listCoustumeZombie.FirstOrDefault(coustumeZombie => coustumeZombie.idZombieCoustume == zombie.idZombieCoustume);
         
-        zombieCostumeSet.spriteHead = coustumeZombie.spriteHead;
-        zombieCostumeSet.spriteBody = coustumeZombie.spriteBody;
-        zombieCostumeSet.spriteTopArm = coustumeZombie.spriteTopArm;
-        zombieCostumeSet.spriteBackArm = coustumeZombie.spriteBackArm;
-        zombieCostumeSet.spriteTopLeg = coustumeZombie.spriteTopLeg;
-        zombieCostumeSet.spriteBackLeg = coustumeZombie.spriteBackLeg;
+        zombieCostumeSet.spriteHead.sprite = coustumeZombie.spriteHead;
+        zombieCostumeSet.spriteBody.sprite = coustumeZombie.spriteBody;
+        zombieCostumeSet.spriteTopArm.sprite = coustumeZombie.spriteTopArm;
+        zombieCostumeSet.spriteBackArm.sprite = coustumeZombie.spriteBackArm;
+        zombieCostumeSet.spriteTopLeg.sprite = coustumeZombie.spriteTopLeg;
+        zombieCostumeSet.spriteBackLeg.sprite = coustumeZombie.spriteBackLeg;
         
     }
 }
