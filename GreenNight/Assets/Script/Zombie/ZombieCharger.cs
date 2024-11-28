@@ -39,7 +39,6 @@ public class ZombieCharger : Zombie
     {
         string mutationCode = GetMutationCode(mutationType);
         idZombieCoustume = $"30107{mutationCode}";
-        Debug.Log($"Zombie Costume ID set to: {idZombieCoustume}");
     }
     private void Start()
     {

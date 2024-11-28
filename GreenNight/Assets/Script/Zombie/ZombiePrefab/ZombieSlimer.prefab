@@ -180,12 +180,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 627890806415153417}
+  - component: {fileID: 6726007935078883326}
   - component: {fileID: 7724316402963042539}
   - component: {fileID: 7212457684156432225}
   - component: {fileID: 1707688155820899904}
   - component: {fileID: 2755647386073024319}
   - component: {fileID: 2702480993531072055}
-  - component: {fileID: 6726007935078883326}
   m_Layer: 0
   m_Name: ZombieSlimer
   m_TagString: Zombie
@@ -202,8 +202,8 @@ Transform:
   m_GameObject: {fileID: 3583349133157957265}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.2310586, y: -0.81035495, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7815214923376934025}
   - {fileID: 6071402627590432118}
@@ -211,6 +211,80 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6726007935078883326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3583349133157957265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46634386e515b444a9585d53c58ef9c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHp: 250
+  maxHp: 250
+  maxArmourHp: 0
+  ArmourHp: 0
+  currentSpeed: 1.7
+  maxSpeed: 1.7
+  attackDamage: 0
+  attackTimer: 0
+  countTimer: 0
+  rb2D: {fileID: 7212457684156432225}
+  barrier: {fileID: 0}
+  canmove: 1
+  movementSpeed: 1
+  currentLane:
+    laneID: 0
+    spawnPoint: {fileID: 0}
+    engagingArea: {fileID: 0}
+    attackPoint: {fileID: 0}
+  isInEngagingArea: 0
+  slowdownAmount: 0.25
+  damageEffectDuration: 0.01
+  animationControllerGrunt: {fileID: 1707688155820899904}
+  mutationType: 0
+  mutationTier: 1
+  acidPoolPrefab: {fileID: 8974713031636886679, guid: 674bad897b4809b43a15a1123c5b506a, type: 3}
+  acidBarrierDamage:
+  - 5
+  - 7
+  - 9
+  acidZombieDamage:
+  - 7
+  - 10
+  - 15
+  acidDuration:
+  - 5
+  - 10
+  - 15
+  acidRadius:
+  - 1
+  - 2
+  - 2.5
+  explosionPrefab: {fileID: 5215708325425232465, guid: 03e6a4dee4f07524fa190297e43e61ad, type: 3}
+  explosionBarrierDamage:
+  - 50
+  - 70
+  - 100
+  explosionZombieDamage:
+  - 55
+  - 100
+  - 150
+  explosionRadius:
+  - 2
+  - 3
+  - 4
+  currentState: 0
+  ddadataCollector: {fileID: 0}
+  idZombieCoustume: 
+  attackingDuration: 2
+  attackInterval: 2
+  slimeProjectilePrefab: {fileID: 8974713031636886679, guid: 81720c57fb96b1a49b76a028249bb180, type: 3}
+  projectileSpeed: 3.5
+  engagingPoint: {fileID: 0}
 --- !u!95 &7724316402963042539
 Animator:
   serializedVersion: 5
@@ -221,7 +295,7 @@ Animator:
   m_GameObject: {fileID: 3583349133157957265}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fd0a53af7cb0bc54bac4384af9f06eba, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3f78f8d54234611418380ac01e6251c9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -274,6 +348,7 @@ MonoBehaviour:
   IsAttack: 0
   IsDead: 0
   IsWalk: 0
+  Isreach: 0
   zombieGrunt: {fileID: 0}
 --- !u!70 &2755647386073024319
 CapsuleCollider2D:
@@ -330,78 +405,6 @@ MonoBehaviour:
   spriteBackLeg: {fileID: 3772805771487247412}
   zombie: {fileID: 0}
   coustumeZombieManager: {fileID: 0}
---- !u!114 &6726007935078883326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3583349133157957265}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46634386e515b444a9585d53c58ef9c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHp: 0
-  maxHp: 250
-  maxArmourHp: 0
-  ArmourHp: 0
-  currentSpeed: 0
-  maxSpeed: 1.7
-  attackDamage: 0
-  attackTimer: 0
-  countTimer: 0
-  rb2D: {fileID: 0}
-  barrier: {fileID: 0}
-  movementSpeed: 1
-  currentLane:
-    laneID: 0
-    spawnPoint: {fileID: 0}
-    engagingArea: {fileID: 0}
-    attackPoint: {fileID: 0}
-  isInEngagingArea: 0
-  slowdownAmount: 0.25
-  damageEffectDuration: 0.01
-  mutationType: 4
-  mutationTier: 1
-  acidPoolPrefab: {fileID: 8974713031636886679, guid: 674bad897b4809b43a15a1123c5b506a, type: 3}
-  acidBarrierDamage:
-  - 5
-  - 7
-  - 9
-  acidZombieDamage:
-  - 7
-  - 10
-  - 15
-  acidDuration:
-  - 5
-  - 10
-  - 15
-  acidRadius:
-  - 1
-  - 2
-  - 2.5
-  explosionPrefab: {fileID: 5215708325425232465, guid: 03e6a4dee4f07524fa190297e43e61ad, type: 3}
-  explosionBarrierDamage:
-  - 50
-  - 70
-  - 100
-  explosionZombieDamage:
-  - 55
-  - 100
-  - 150
-  explosionRadius:
-  - 2
-  - 3
-  - 4
-  currentState: 0
-  ddadataCollector: {fileID: 0}
-  idZombieCoustume: 
-  attackingDuration: 2
-  attackInterval: 2
-  slimeProjectilePrefab: {fileID: 8974713031636886679, guid: 81720c57fb96b1a49b76a028249bb180, type: 3}
-  projectileSpeed: 3.5
-  engagingPoint: {fileID: 0}
 --- !u!1 &5031821044456315415
 GameObject:
   m_ObjectHideFlags: 0

@@ -50,7 +50,7 @@ public class Zombie : MonoBehaviour
     public float countTimer;
     public Rigidbody2D rb2D;
     public Barrier barrier;
-    private bool canmove;
+    public bool canmove;
     private Coroutine poisonCoroutine;
     private float buildUpDamage = 0f; // Accumulated poison damage
     public float movementSpeed = 1.0f;       // Movement speed
@@ -64,6 +64,7 @@ public class Zombie : MonoBehaviour
     public float damageEffectDuration = 0.01f;       // Duration of the slowdown and red color effect
 
     private float originalSpeed;
+    public AnimationControllerGrunt animationControllerGrunt;
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
     private Coroutine damageEffectCoroutine;
@@ -94,18 +95,14 @@ public class Zombie : MonoBehaviour
     public DDAdataCollector ddadataCollector;
     [Header("ID Zombie Costume")]
     public string idZombieCoustume;
-    private void Awake()
+    void Start()
     {
+        canmove = true;
+        animationControllerGrunt =  GetComponent<AnimationControllerGrunt>();
         currentSpeed = maxSpeed;
         currentHp = maxHp;
-        canmove = true;
-        rb2D = GetComponent<Rigidbody2D>();
         originalSpeed = maxSpeed;
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null)
-        {
-            originalColor = spriteRenderer.color;
-        }
+        rb2D = GetComponent<Rigidbody2D>();
         InitializeDamageMultipliers();
     }
     public ZombieState CurrentState
@@ -131,11 +128,11 @@ public class Zombie : MonoBehaviour
                 // Flip the sprite based on movement direction along the x-axis
                 if (direction.x < 0)
                 {
-                    transform.localScale = new Vector3(-0.7f, 0.7f, 1); // Flip left
+                    transform.localScale = new Vector3(0.7f, 0.7f, 1); // Flip left
                 }
                 else if (direction.x > 0)
                 {
-                    transform.localScale = new Vector3(0.7f, 0.7f, 1); // Face right
+                    transform.localScale = new Vector3(-0.7f, 0.7f, 1); // Face right
                 }
             }
         }
@@ -146,20 +143,20 @@ public class Zombie : MonoBehaviour
         {
             float distanceToAttackPoint = Vector2.Distance(transform.position, currentLane.attackPoint.position);
             float thresholdDistance = 0.1f;
-
             if (distanceToAttackPoint <= thresholdDistance)
             {
                 // Zombie has reached the attack point, set to Attacking state
+                animationControllerGrunt.Isreach = true;
                 currentState = ZombieState.Attacking;
 
                 // Keep the sprite direction based on the previous movement
                 if (previousDirectionX < 0)
                 {
-                    transform.localScale = new Vector3(-0.7f, 0.7f, 1); // Keep facing left
+                    transform.localScale = new Vector3(0.7f, 0.7f, 1); // Keep facing left
                 }
                 else if (previousDirectionX > 0)
                 {
-                    transform.localScale = new Vector3(0.7f, 0.7f, 1); // Keep facing right
+                    transform.localScale = new Vector3(-0.7f, 0.7f, 1); // Keep facing right
                 }
                 return true;
             }
@@ -173,7 +170,9 @@ public class Zombie : MonoBehaviour
         if (barrier != null)
         {
             if (countTimer > 0)
+            {
                 countTimer -= Time.deltaTime * attackSpeedMultiplier;
+            }
             else
             {
                 barrier.BarrierTakeDamage(attackDamage);
@@ -250,7 +249,7 @@ public class Zombie : MonoBehaviour
     private IEnumerator ArmourBroken()
     {
         canmove = false;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         canmove = true;
     }
     private void ApplyOverflowDamageToHealth()
@@ -283,15 +282,48 @@ public class Zombie : MonoBehaviour
         {
             OnDeath();
             DDAdataCollector.Instance.OnZombieKilled(); // Notify the data collector
-            Destroy(this.gameObject);
+            StartCoroutine(DelayDead());
         }
+    }
+    private IEnumerator DelayDead()
+    {
+        animationControllerGrunt.IsDead = true; // Assume this triggers the death animation
+        currentState = ZombieState.Dead;
+        canmove = false;
+        rb2D.velocity = Vector2.zero; // Immediately stop movement
+
+        countTimer = Mathf.Infinity; 
+        DisableCollider(); // Prevent interactions
+        // Get the Animator component from the AnimationControllerGrunt
+        Animator animator = animationControllerGrunt.GetComponent<Animator>();
+
+        // Ensure the animator exists and wait for the death animation to finish
+        if (animator != null)
+        {
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            while (stateInfo.normalizedTime < 1.0f || !stateInfo.IsName("Zombie_Dead"))
+            {
+                yield return null; // Wait for the animation to finish
+                stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            }
+        }
+        else
+        {
+            Debug.LogError("Animator not found on AnimationControllerGrunt!");
+        }
+
+        // Destroy the GameObject after the animation has completed
+        Destroy(this.gameObject);
     }
 
     private IEnumerator DamageEffect()
     {
         // Slow down the zombie
+        if(!animationControllerGrunt.IsDead)
+        {
         speedMultiplier = slowdownAmount;
         UpdateCurrentSpeed();
+        }
 
         // Change sprite color to red
         if (spriteRenderer != null)

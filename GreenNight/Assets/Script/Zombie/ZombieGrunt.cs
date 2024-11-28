@@ -42,6 +42,5 @@ public class ZombieGrunt : Zombie
         }
         string mutationCode = GetMutationCode(mutationType);
         idZombieCoustume = $"301{zombietype}{mutationCode}";
-        Debug.Log($"Zombie Costume ID set to: {idZombieCoustume}");
     }
 }

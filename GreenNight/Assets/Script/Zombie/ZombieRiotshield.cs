@@ -12,7 +12,6 @@ public class ZombieRiotshield : Zombie
     {
         string mutationCode = GetMutationCode(mutationType);
         idZombieCoustume = $"30109{mutationCode}";
-        Debug.Log($"Zombie Costume ID set to: {idZombieCoustume}");
     }
     protected override void InitializeDamageMultipliers()
     {
@@ -23,7 +22,19 @@ public class ZombieRiotshield : Zombie
     }
     void Update()
     {
-        ZombieAttack();
-        ZombieMoveFindBarrier();
+        if (currentHp <= 0)
+        {
+            currentState = ZombieState.Dead;
+            return;
+        }
+        if (HasReachedAttackPoint())
+        {
+            rb2D.velocity = Vector2.zero;
+            ZombieAttack();
+        }
+        else
+        {
+            ZombieMoveFindBarrier();
+        }
     }
 }

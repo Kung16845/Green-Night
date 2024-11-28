@@ -96,12 +96,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4344038515310025482}
+  - component: {fileID: 8137572482377099103}
   - component: {fileID: 5972439370162798997}
   - component: {fileID: 1079131556632770152}
   - component: {fileID: 7487524252864676685}
   - component: {fileID: 5612367271163246660}
   - component: {fileID: 742553279818779839}
-  - component: {fileID: 8137572482377099103}
   m_Layer: 0
   m_Name: Zombie Chemer
   m_TagString: Zombie
@@ -118,8 +118,8 @@ Transform:
   m_GameObject: {fileID: 1182796759674554525}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.2310586, y: -0.81035495, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6906648595403962690}
   - {fileID: 6061898445447321620}
@@ -127,6 +127,81 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8137572482377099103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182796759674554525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1bc316fb69818745a9e1e9be762ed68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHp: 90
+  maxHp: 90
+  maxArmourHp: 0
+  ArmourHp: 0
+  currentSpeed: 1.5
+  maxSpeed: 1.5
+  attackDamage: 10
+  attackTimer: 3
+  countTimer: 0
+  rb2D: {fileID: 1079131556632770152}
+  barrier: {fileID: 0}
+  canmove: 0
+  movementSpeed: 1
+  currentLane:
+    laneID: 0
+    spawnPoint: {fileID: 0}
+    engagingArea: {fileID: 0}
+    attackPoint: {fileID: 0}
+  isInEngagingArea: 0
+  slowdownAmount: 0.25
+  damageEffectDuration: 0.1
+  animationControllerGrunt: {fileID: 0}
+  mutationType: 0
+  mutationTier: 1
+  acidPoolPrefab: {fileID: 8974713031636886679, guid: 674bad897b4809b43a15a1123c5b506a, type: 3}
+  acidBarrierDamage:
+  - 5
+  - 7
+  - 9
+  acidZombieDamage:
+  - 7
+  - 10
+  - 15
+  acidDuration:
+  - 5
+  - 10
+  - 15
+  acidRadius:
+  - 1
+  - 2
+  - 2.5
+  explosionPrefab: {fileID: 5215708325425232465, guid: 03e6a4dee4f07524fa190297e43e61ad, type: 3}
+  explosionBarrierDamage:
+  - 50
+  - 70
+  - 100
+  explosionZombieDamage:
+  - 55
+  - 100
+  - 150
+  explosionRadius:
+  - 2
+  - 3
+  - 4
+  currentState: 0
+  ddadataCollector: {fileID: 0}
+  idZombieCoustume: 
+  speedBoostAreaPrefab: {fileID: 5270464586629645707, guid: 41109857229177f46850021d888d4c0c, type: 3}
+  areaRadius: 3
+  areaDuration: 7
+  speedIncreaseAmount: 1.25
+  attackSpeedIncreaseAmount: 2
+  speedIncreaseDuration: 7
 --- !u!95 &5972439370162798997
 Animator:
   serializedVersion: 5
@@ -137,7 +212,7 @@ Animator:
   m_GameObject: {fileID: 1182796759674554525}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fd0a53af7cb0bc54bac4384af9f06eba, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3f78f8d54234611418380ac01e6251c9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -190,6 +265,7 @@ MonoBehaviour:
   IsAttack: 0
   IsDead: 0
   IsWalk: 0
+  Isreach: 0
   zombieGrunt: {fileID: 0}
 --- !u!70 &5612367271163246660
 CapsuleCollider2D:
@@ -246,79 +322,6 @@ MonoBehaviour:
   spriteBackLeg: {fileID: 631731888976696378}
   zombie: {fileID: 0}
   coustumeZombieManager: {fileID: 0}
---- !u!114 &8137572482377099103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1182796759674554525}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1bc316fb69818745a9e1e9be762ed68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHp: 0
-  maxHp: 90
-  maxArmourHp: 0
-  ArmourHp: 0
-  currentSpeed: 0
-  maxSpeed: 1.5
-  attackDamage: 10
-  attackTimer: 3
-  countTimer: 0
-  rb2D: {fileID: 0}
-  barrier: {fileID: 0}
-  movementSpeed: 1
-  currentLane:
-    laneID: 0
-    spawnPoint: {fileID: 0}
-    engagingArea: {fileID: 0}
-    attackPoint: {fileID: 0}
-  isInEngagingArea: 0
-  slowdownAmount: 0.25
-  damageEffectDuration: 0.1
-  mutationType: 1
-  mutationTier: 1
-  acidPoolPrefab: {fileID: 8974713031636886679, guid: 674bad897b4809b43a15a1123c5b506a, type: 3}
-  acidBarrierDamage:
-  - 5
-  - 7
-  - 9
-  acidZombieDamage:
-  - 7
-  - 10
-  - 15
-  acidDuration:
-  - 5
-  - 10
-  - 15
-  acidRadius:
-  - 1
-  - 2
-  - 2.5
-  explosionPrefab: {fileID: 5215708325425232465, guid: 03e6a4dee4f07524fa190297e43e61ad, type: 3}
-  explosionBarrierDamage:
-  - 50
-  - 70
-  - 100
-  explosionZombieDamage:
-  - 55
-  - 100
-  - 150
-  explosionRadius:
-  - 2
-  - 3
-  - 4
-  currentState: 0
-  ddadataCollector: {fileID: 0}
-  idZombieCoustume: 
-  speedBoostAreaPrefab: {fileID: 5270464586629645707, guid: 41109857229177f46850021d888d4c0c, type: 3}
-  areaRadius: 3
-  areaDuration: 7
-  speedIncreaseAmount: 1.25
-  attackSpeedIncreaseAmount: 2
-  speedIncreaseDuration: 7
 --- !u!1 &2381395681705583596
 GameObject:
   m_ObjectHideFlags: 0

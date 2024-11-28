@@ -9,7 +9,6 @@ public class CoustumeZombieManager : MonoBehaviour
     public void SetCostumeZombie(Zombie zombie,ZombieCostumeSet zombieCostumeSet)
     {
         CoustumeZombie coustumeZombie = listCoustumeZombie.FirstOrDefault(coustumeZombie => coustumeZombie.idZombieCoustume == zombie.idZombieCoustume);
-        Debug.Log(zombie.idZombieCoustume);
         zombieCostumeSet.spriteHead.sprite = coustumeZombie.spriteHead;
         zombieCostumeSet.spriteBody.sprite = coustumeZombie.spriteBody;
         zombieCostumeSet.spriteTopArm.sprite = coustumeZombie.spriteTopArm;

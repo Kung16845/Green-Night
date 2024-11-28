@@ -264,12 +264,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3898827698290537755}
+  - component: {fileID: 8822096434092909631}
   - component: {fileID: 2339716149477519525}
   - component: {fileID: 7276950499318716515}
   - component: {fileID: 7723038911845888991}
   - component: {fileID: 3856516509853490147}
   - component: {fileID: 2817592959295999823}
-  - component: {fileID: 8822096434092909631}
   m_Layer: 0
   m_Name: ZombieReeker
   m_TagString: Zombie
@@ -286,8 +286,8 @@ Transform:
   m_GameObject: {fileID: 3779784590760527690}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.2310586, y: -0.81035495, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2775770646833791670}
   - {fileID: 7941454821379358090}
@@ -295,6 +295,84 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8822096434092909631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3779784590760527690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1137af42f9c60354e92ab6b3ab148e51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHp: 250
+  maxHp: 250
+  maxArmourHp: 0
+  ArmourHp: 0
+  currentSpeed: 0
+  maxSpeed: 0.75
+  attackDamage: 0
+  attackTimer: 0.5
+  countTimer: 0
+  rb2D: {fileID: 7276950499318716515}
+  barrier: {fileID: 0}
+  canmove: 0
+  movementSpeed: 1
+  currentLane:
+    laneID: 0
+    spawnPoint: {fileID: 0}
+    engagingArea: {fileID: 0}
+    attackPoint: {fileID: 0}
+  isInEngagingArea: 0
+  slowdownAmount: 0.25
+  damageEffectDuration: 0.01
+  animationControllerGrunt: {fileID: 0}
+  mutationType: 0
+  mutationTier: 1
+  acidPoolPrefab: {fileID: 8974713031636886679, guid: 674bad897b4809b43a15a1123c5b506a, type: 3}
+  acidBarrierDamage:
+  - 5
+  - 7
+  - 9
+  acidZombieDamage:
+  - 7
+  - 10
+  - 15
+  acidDuration:
+  - 0
+  - 1
+  - 2
+  acidRadius:
+  - 3
+  - 5
+  - 7
+  explosionPrefab: {fileID: 5215708325425232465, guid: 03e6a4dee4f07524fa190297e43e61ad, type: 3}
+  explosionBarrierDamage:
+  - 50
+  - 70
+  - 100
+  explosionZombieDamage:
+  - 55
+  - 100
+  - 150
+  explosionRadius:
+  - 2
+  - 3
+  - 4
+  currentState: 0
+  ddadataCollector: {fileID: 0}
+  idZombieCoustume: 
+  spittingDuration: 4.5
+  spittingInterval: 4.5
+  reekerAcidPoolPrefab: {fileID: 8974713031636886679, guid: 674bad897b4809b43a15a1123c5b506a, type: 3}
+  reekerAcidBarrierDamage: 50
+  reekerAcidZombieDamage: 50
+  reekerAcidDuration: 4.5
+  reekerAcidRadius: 1.5
+  reekerAcidInterval: 0.5
+  engagingPoint: {fileID: 0}
 --- !u!95 &2339716149477519525
 Animator:
   serializedVersion: 5
@@ -305,7 +383,7 @@ Animator:
   m_GameObject: {fileID: 3779784590760527690}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fd0a53af7cb0bc54bac4384af9f06eba, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3f78f8d54234611418380ac01e6251c9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -358,6 +436,7 @@ MonoBehaviour:
   IsAttack: 0
   IsDead: 0
   IsWalk: 0
+  Isreach: 0
   zombieGrunt: {fileID: 0}
 --- !u!70 &3856516509853490147
 CapsuleCollider2D:
@@ -414,82 +493,6 @@ MonoBehaviour:
   spriteBackLeg: {fileID: 5851675875369336004}
   zombie: {fileID: 0}
   coustumeZombieManager: {fileID: 0}
---- !u!114 &8822096434092909631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3779784590760527690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1137af42f9c60354e92ab6b3ab148e51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHp: 0
-  maxHp: 250
-  maxArmourHp: 0
-  ArmourHp: 0
-  currentSpeed: 0
-  maxSpeed: 0.75
-  attackDamage: 0
-  attackTimer: 0.5
-  countTimer: 0
-  rb2D: {fileID: 0}
-  barrier: {fileID: 0}
-  movementSpeed: 1
-  currentLane:
-    laneID: 0
-    spawnPoint: {fileID: 0}
-    engagingArea: {fileID: 0}
-    attackPoint: {fileID: 0}
-  isInEngagingArea: 0
-  slowdownAmount: 0.25
-  damageEffectDuration: 0.01
-  mutationType: 4
-  mutationTier: 1
-  acidPoolPrefab: {fileID: 8974713031636886679, guid: 674bad897b4809b43a15a1123c5b506a, type: 3}
-  acidBarrierDamage:
-  - 5
-  - 7
-  - 9
-  acidZombieDamage:
-  - 7
-  - 10
-  - 15
-  acidDuration:
-  - 0
-  - 1
-  - 2
-  acidRadius:
-  - 3
-  - 5
-  - 7
-  explosionPrefab: {fileID: 5215708325425232465, guid: 03e6a4dee4f07524fa190297e43e61ad, type: 3}
-  explosionBarrierDamage:
-  - 50
-  - 70
-  - 100
-  explosionZombieDamage:
-  - 55
-  - 100
-  - 150
-  explosionRadius:
-  - 2
-  - 3
-  - 4
-  currentState: 0
-  ddadataCollector: {fileID: 0}
-  idZombieCoustume: 
-  spittingDuration: 4.5
-  spittingInterval: 4.5
-  reekerAcidPoolPrefab: {fileID: 8974713031636886679, guid: 674bad897b4809b43a15a1123c5b506a, type: 3}
-  reekerAcidBarrierDamage: 50
-  reekerAcidZombieDamage: 50
-  reekerAcidDuration: 4.5
-  reekerAcidRadius: 1.5
-  reekerAcidInterval: 0.5
-  engagingPoint: {fileID: 0}
 --- !u!1 &6851294823908187990
 GameObject:
   m_ObjectHideFlags: 0

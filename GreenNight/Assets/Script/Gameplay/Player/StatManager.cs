@@ -118,8 +118,6 @@ public class StatManager : MonoBehaviour
         // Calculate final stats
         speed = (baseSpeed * speedModifier) * movementHandlingPenalty;
         sprintSpeed = (baseSprintSpeed * speedModifier) * movementHandlingPenalty; // Assuming sprint speed uses the same modifier
-        Debug.Log($"Speed: {speed} (baseSpeed: {baseSpeed}, speedModifier: {speedModifier}, movementHandlingPenalty: {movementHandlingPenalty})");
-        Debug.Log($"Sprint Speed: {sprintSpeed} (baseSprintSpeed: {baseSprintSpeed}, sprintSpeedModifier: {sprintSpeedModifier}, sprintHandlingPenalty: {sprintHandlingPenalty})");
         maxStamina = baseMaxStamina * maxStaminaModifier;
         staminaRecoverSpeed = baseStaminaRecoverSpeed * staminaRecoverSpeedModifier;
         staminaConsumeSpeed = baseStaminaConsumeSpeed * staminaConsumeSpeedModifier;
