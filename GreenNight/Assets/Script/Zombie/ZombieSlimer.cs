@@ -28,6 +28,16 @@ public class ZombieSlimer : Zombie
 
     // Reference to the player
     private Transform playerTransform;
+    void Awake()
+    {
+        SetZombieCostumeId();
+    }
+    public void SetZombieCostumeId()
+    {
+        string mutationCode = GetMutationCode(mutationType);
+        idZombieCoustume = $"30105{mutationCode}";
+        Debug.Log($"Zombie Costume ID set to: {idZombieCoustume}");
+    }
 
     private void Start()
     {

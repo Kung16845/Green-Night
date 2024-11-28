@@ -16,6 +16,9 @@ public class ZombieCostumeSet : MonoBehaviour
     {
         coustumeZombieManager = FindObjectOfType<CoustumeZombieManager>();
         zombie  = GetComponent<Zombie>();
+    }
+    private void Start()
+    {
         coustumeZombieManager.SetCostumeZombie(zombie,this);
     }
 }

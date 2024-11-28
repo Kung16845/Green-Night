@@ -32,7 +32,16 @@ public class ZombieReeker : Zombie
 
     // List of all lanes for lane switching
     private List<Lane> allLanes;
-
+    void Awake()
+    {
+        SetZombieCostumeId();
+    }
+    public void SetZombieCostumeId()
+    {
+        string mutationCode = GetMutationCode(mutationType);
+        idZombieCoustume = $"30106{mutationCode}";
+        Debug.Log($"Zombie Costume ID set to: {idZombieCoustume}");
+    }
     private void Start()
     {
         // Initialize necessary components

@@ -11,6 +11,16 @@ public class ZombieChember : Zombie
     public float speedIncreaseAmount = 1.5f;          // Movement speed multiplier
     public float attackSpeedIncreaseAmount = 1.5f;    // Attack speed multiplier
     public float speedIncreaseDuration = 5f; 
+    void Awake()
+    {
+        SetZombieCostumeId();
+    }
+    public void SetZombieCostumeId()
+    {
+        string mutationCode = GetMutationCode(mutationType);
+        idZombieCoustume = $"30104{mutationCode}";
+        Debug.Log($"Zombie Costume ID set to: {idZombieCoustume}");
+    }
 
     protected override void InitializeDamageMultipliers()
     {

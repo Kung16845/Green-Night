@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class ZombieGrunt : Zombie
 {   
-    public bool isRunner;
-    // Start is called before the first frame update
-    void Start()
+    public bool Isrunner;
+    private string zombietype; // Type of zombie (e.g., "02" for grunts)
+
+    void Awake()
     {
-        
+        SetZombieCostumeId();
     }
 
-    // Update is called once per frame
     void Update()
     {     
         if (currentHp <= 0)
@@ -19,7 +19,7 @@ public class ZombieGrunt : Zombie
             currentState = ZombieState.Dead;
             return;
         }
-        if(HasReachedAttackPoint())
+        if (HasReachedAttackPoint())
         {
             rb2D.velocity = Vector2.zero;
             ZombieAttack();
@@ -28,5 +28,20 @@ public class ZombieGrunt : Zombie
         {
             ZombieMoveFindBarrier();
         }
+    }
+
+    public void SetZombieCostumeId()
+    {
+        if(Isrunner)
+        {
+            zombietype = "08";
+        }
+        else
+        {
+            zombietype = "01";
+        }
+        string mutationCode = GetMutationCode(mutationType);
+        idZombieCoustume = $"301{zombietype}{mutationCode}";
+        Debug.Log($"Zombie Costume ID set to: {idZombieCoustume}");
     }
 }

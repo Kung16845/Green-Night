@@ -640,4 +640,22 @@ public class Zombie : MonoBehaviour
             collider.enabled = false;
         }
     }
+    public string GetMutationCode(MutationType mutation)
+    {
+        switch (mutation)
+        {
+            case MutationType.None:
+                return "01";
+            case MutationType.Spike:
+                return "02";
+            case MutationType.Acid:
+                return "03";
+            case MutationType.Exploder:
+                return "04";
+            case MutationType.ArmourShell:
+                return "05";
+            default:
+                return "00"; // Default for undefined mutations
+        }
+    }
 }

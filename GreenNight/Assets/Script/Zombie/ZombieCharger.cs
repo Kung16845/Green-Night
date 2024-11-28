@@ -31,7 +31,16 @@ public class ZombieCharger : Zombie
 
     // Existing fields...
     private Color originalColor;
-
+    void Awake()
+    {
+        SetZombieCostumeId();
+    }
+    public void SetZombieCostumeId()
+    {
+        string mutationCode = GetMutationCode(mutationType);
+        idZombieCoustume = $"30107{mutationCode}";
+        Debug.Log($"Zombie Costume ID set to: {idZombieCoustume}");
+    }
     private void Start()
     {
         // Initialize the zombie's state

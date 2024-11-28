@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class ZombieIEDUnit : Zombie
 {
+    void Awake()
+    {
+        SetZombieCostumeId();
+    }
+    public void SetZombieCostumeId()
+    {
+        string mutationCode = GetMutationCode(mutationType);
+        idZombieCoustume = $"30103{mutationCode}";
+        Debug.Log($"Zombie Costume ID set to: {idZombieCoustume}");
+    }
     protected override void InitializeDamageMultipliers()
     {
         base.InitializeDamageMultipliers();
