@@ -53,6 +53,7 @@ public class ZombieCharger : Zombie
 
     private void Update()
     {
+        CheckForDeathCharger();
         switch (ChargercurrentState)
         {
             case ChargingZombieState.Stopped:
@@ -87,8 +88,8 @@ public class ZombieCharger : Zombie
     }
     private IEnumerator DelayDead()
     {
-            animationControllerCharger.Isstunt = false;
             animationControllerCharger.IsDead = true; 
+            animationControllerCharger.Isstunt = false;
             
             currentState = ZombieState.Dead;
             canmove = false;
@@ -212,7 +213,6 @@ public class ZombieCharger : Zombie
                 TriggerWeakness();
             }
         }
-        CheckForDeathCharger();
     }
     private void TriggerWeakness()
     {
