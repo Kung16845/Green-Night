@@ -146,7 +146,11 @@ public class Zombie : MonoBehaviour
             if (distanceToAttackPoint <= thresholdDistance)
             {
                 // Zombie has reached the attack point, set to Attacking state
+                if(animationControllerGrunt != null)
+                {
                 animationControllerGrunt.Isreach = true;
+                }
+                rb2D.velocity = Vector2.zero;
                 currentState = ZombieState.Attacking;
 
                 // Keep the sprite direction based on the previous movement
@@ -287,44 +291,48 @@ public class Zombie : MonoBehaviour
     }
     private IEnumerator DelayDead()
     {
-        animationControllerGrunt.IsDead = true; // Assume this triggers the death animation
-        currentState = ZombieState.Dead;
-        canmove = false;
-        rb2D.velocity = Vector2.zero; // Immediately stop movement
-
-        countTimer = Mathf.Infinity; 
-        DisableCollider(); // Prevent interactions
-        // Get the Animator component from the AnimationControllerGrunt
-        Animator animator = animationControllerGrunt.GetComponent<Animator>();
-
-        // Ensure the animator exists and wait for the death animation to finish
-        if (animator != null)
+        if(animationControllerGrunt != null)
         {
-            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-            while (stateInfo.normalizedTime < 1.0f || !stateInfo.IsName("Zombie_Dead"))
+            animationControllerGrunt.IsDead = true; 
+            
+            currentState = ZombieState.Dead;
+            canmove = false;
+            rb2D.velocity = Vector2.zero; // Immediately stop movement
+
+            countTimer = Mathf.Infinity; 
+            DisableCollider(); // Prevent interactions
+            // Get the Animator component from the AnimationControllerGrunt
+            Animator animator = animationControllerGrunt.GetComponent<Animator>();
+
+            // Ensure the animator exists and wait for the death animation to finish
+            if (animator != null)
             {
-                yield return null; // Wait for the animation to finish
-                stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                while (stateInfo.normalizedTime < 1.0f || !stateInfo.IsName("Zombie_Dead"))
+                {
+                    yield return null; // Wait for the animation to finish
+                    stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                }
             }
+            else
+            {
+                Debug.LogError("Animator not found on AnimationControllerGrunt!");
+            }
+            Destroy(this.gameObject);
         }
-        else
-        {
-            Debug.LogError("Animator not found on AnimationControllerGrunt!");
-        }
-
-        // Destroy the GameObject after the animation has completed
-        Destroy(this.gameObject);
     }
 
     private IEnumerator DamageEffect()
     {
         // Slow down the zombie
-        if(!animationControllerGrunt.IsDead)
+        if(animationControllerGrunt != null)
         {
-        speedMultiplier = slowdownAmount;
-        UpdateCurrentSpeed();
+            if(!animationControllerGrunt.IsDead)
+            {
+            speedMultiplier = slowdownAmount;
+            UpdateCurrentSpeed();
+            }
         }
-
         // Change sprite color to red
         if (spriteRenderer != null)
         {

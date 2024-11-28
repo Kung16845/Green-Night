@@ -25,8 +25,7 @@ public class ZombieChember : Zombie
     {
         base.InitializeDamageMultipliers(); // Initialize with default multipliers
 
-        // Immune to acid damage
-        damageMultipliers[DamageType.Acid] = 0f;
+        damageMultipliers[DamageType.Poison] = 0;
     }
 
     protected override void OnDeath()

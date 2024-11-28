@@ -94,9 +94,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6415787762879080139}
   - component: {fileID: 7048009884082583678}
+  - component: {fileID: 2240959822649740694}
   - component: {fileID: 5522239558334101437}
   - component: {fileID: 6580308060879220711}
-  - component: {fileID: 742299178048968355}
   - component: {fileID: 7546657585039989822}
   - component: {fileID: 6575279949758127717}
   m_Layer: 0
@@ -147,7 +147,7 @@ MonoBehaviour:
   countTimer: 0
   rb2D: {fileID: 6580308060879220711}
   barrier: {fileID: 0}
-  canmove: 0
+  canmove: 1
   movementSpeed: 1
   currentLane:
     laneID: 0
@@ -205,6 +205,24 @@ MonoBehaviour:
   chargeTimer: 0
   stopTimer: 0
   accumulatedDamage: 0
+  animationControllerCharger: {fileID: 2240959822649740694}
+--- !u!114 &2240959822649740694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3796076681768479923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e3d5df30a210d3478cf6224c3022a2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Isstunt: 0
+  IsDead: 0
+  Ischarged: 0
+  Isreach: 0
+  zombieGrunt: {fileID: 7048009884082583678}
 --- !u!95 &5522239558334101437
 Animator:
   serializedVersion: 5
@@ -253,23 +271,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &742299178048968355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3796076681768479923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c70c9e0ce6162344fb2994235d328ef2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsAttack: 0
-  IsDead: 0
-  IsWalk: 0
-  Isreach: 0
-  zombieGrunt: {fileID: 0}
 --- !u!70 &7546657585039989822
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
