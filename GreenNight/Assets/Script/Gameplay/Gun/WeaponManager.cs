@@ -31,6 +31,7 @@ public class WeaponManager : MonoBehaviour
 
     void OnWeaponsChanged(List<ItemWeapon> itemWeapons)
     {
+        SaveCurrentWeaponAmmo();
         if (itemWeapons != null && itemWeapons.Count > 0)
         {
             equippedWeapons = itemWeapons;

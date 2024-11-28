@@ -14,6 +14,10 @@ public class UIcontrollerDefense : MonoBehaviour
     private bool isInventoryActive = false;
     private bool isBoxActive = false;
 
+    void Start()
+    {
+        actionController.canuseweapon = false;
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab))
@@ -27,7 +31,7 @@ public class UIcontrollerDefense : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
