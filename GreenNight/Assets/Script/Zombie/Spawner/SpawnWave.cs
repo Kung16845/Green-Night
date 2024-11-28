@@ -22,5 +22,6 @@ public class ZombieSpawnQueue
     public int quantity;
     public float spawnInterval;
     public int zombieTier;
+    public MutationType mutationType; 
     // You can add more parameters if needed
 }

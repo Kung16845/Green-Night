@@ -330,16 +330,20 @@ MonoBehaviour:
   damageEffectDuration: 0.01
   animationControllerGrunt: {fileID: 7723038911845888991}
   mutationType: 0
+  allowSpikeMutation: 0
+  allowAcidMutation: 0
+  allowExploderMutation: 0
+  allowArmourShellMutation: 1
   mutationTier: 1
   acidPoolPrefab: {fileID: 8974713031636886679, guid: 674bad897b4809b43a15a1123c5b506a, type: 3}
   acidBarrierDamage:
-  - 5
-  - 7
-  - 9
-  acidZombieDamage:
-  - 7
   - 10
   - 15
+  - 25
+  acidZombieDamage:
+  - 10
+  - 7
+  - 5
   acidDuration:
   - 0
   - 1
@@ -354,9 +358,9 @@ MonoBehaviour:
   - 70
   - 100
   explosionZombieDamage:
-  - 55
   - 100
-  - 150
+  - 50
+  - 30
   explosionRadius:
   - 2
   - 3
@@ -373,7 +377,7 @@ MonoBehaviour:
   reekerAcidRadius: 1.5
   reekerAcidInterval: 0.5
   engagingPoint: {fileID: 0}
-  animationControllerGrunt: {fileID: 0}
+  animationControllerGrunt: {fileID: 7723038911845888991}
 --- !u!95 &2339716149477519525
 Animator:
   serializedVersion: 5

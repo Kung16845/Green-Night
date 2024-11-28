@@ -29,19 +29,17 @@ public class ZombieSlimer : Zombie
 
     // Reference to the player
     private Transform playerTransform;
-    void Awake()
-    {
-        SetZombieCostumeId();
-    }
+
     public void SetZombieCostumeId()
     {
         string mutationCode = GetMutationCode(mutationType);
         idZombieCoustume = $"30105{mutationCode}";
     }
 
-    private void Start()
+    protected override void Start()
     {
-        // Initialize necessary components
+        base.Start();
+        SetZombieCostumeId();
         animationControllerGrunt = GetComponent<AnimationControllerGrunt>();
         rb2D = GetComponent<Rigidbody2D>();
         // Initialize variables

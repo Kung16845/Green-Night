@@ -17,8 +17,9 @@ public class ZombieCostumeSet : MonoBehaviour
         coustumeZombieManager = FindObjectOfType<CoustumeZombieManager>();
         zombie  = GetComponent<Zombie>();
     }
-    private void Start()
+    private IEnumerator Start()
     {
-        coustumeZombieManager.SetCostumeZombie(zombie,this);
+        yield return new WaitForSeconds(1f);// Wait for the next frame
+        coustumeZombieManager.SetCostumeZombie(zombie, this);
     }
 }

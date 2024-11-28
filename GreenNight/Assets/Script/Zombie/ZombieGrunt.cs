@@ -7,11 +7,11 @@ public class ZombieGrunt : Zombie
     public bool Isrunner;
     private string zombietype; // Type of zombie (e.g., "02" for grunts)
 
-    void Awake()
+    protected override void Start()
     {
+        base.Start();
         SetZombieCostumeId();
     }
-
     void Update()
     {     
         if (currentHp <= 0)

@@ -570,7 +570,7 @@ MonoBehaviour:
   countTimer: 0
   rb2D: {fileID: 494150347233657389}
   barrier: {fileID: 0}
-  canmove: 0
+  canmove: 1
   movementSpeed: 1
   currentLane:
     laneID: 0
@@ -582,16 +582,20 @@ MonoBehaviour:
   damageEffectDuration: 0
   animationControllerGrunt: {fileID: 0}
   mutationType: 0
+  allowSpikeMutation: 1
+  allowAcidMutation: 0
+  allowExploderMutation: 0
+  allowArmourShellMutation: 0
   mutationTier: 1
   acidPoolPrefab: {fileID: 8974713031636886679, guid: 674bad897b4809b43a15a1123c5b506a, type: 3}
   acidBarrierDamage:
-  - 5
-  - 7
-  - 9
-  acidZombieDamage:
-  - 7
   - 10
   - 15
+  - 25
+  acidZombieDamage:
+  - 10
+  - 7
+  - 5
   acidDuration:
   - 5
   - 10
@@ -606,9 +610,9 @@ MonoBehaviour:
   - 70
   - 100
   explosionZombieDamage:
-  - 55
   - 100
-  - 150
+  - 50
+  - 30
   explosionRadius:
   - 2
   - 3

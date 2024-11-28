@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Zombiefirefighter : Zombie
 {
-    void Awake()
+    protected override void Start()
     {
+        base.Start();
         SetZombieCostumeId();
+        InitializeDamageMultipliers();
     }
     public void SetZombieCostumeId()
     {

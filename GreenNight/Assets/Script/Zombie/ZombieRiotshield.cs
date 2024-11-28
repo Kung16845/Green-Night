@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ZombieRiotshield : Zombie
 {
-    void Awake()
+    protected override void Start()
     {
+        base.Start();
         SetZombieCostumeId();
     }
     public void SetZombieCostumeId()

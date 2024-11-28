@@ -10,9 +10,11 @@ public class MainSpawner : MonoBehaviour
     [Header("Spawn Decks Configuration")]
     public List<SpawnDeck> ActiveSpawnDecks = new List<SpawnDeck>();  // Active decks being used
     public List<SpawnDeck> StorageDecks = new List<SpawnDeck>();      // Saved decks waiting to be used
-
+    [Header("Global Mutation Type")]
+    public MutationType globalMutationType = MutationType.None; 
+    [Range(0f, 1f)]
+    public float mutationApplyRate = 0f; 
     private int currentDeckIndex;
-    
     private Coroutine deckCoroutine;
 
     // Variable to determine which decks to use
@@ -105,41 +107,34 @@ public class MainSpawner : MonoBehaviour
     }
 
     private IEnumerator ProcessDeck(SpawnDeck deck)
+    {
+        foreach (SpawnWave wave in deck.spawnWaves)
         {
-            foreach (SpawnWave wave in deck.spawnWaves)
+            foreach (LaneSpawnConfig laneConfig in wave.laneSpawnConfigs)
             {
-                // Start spawning in all lanes simultaneously
-                foreach (LaneSpawnConfig laneConfig in wave.laneSpawnConfigs)
+                SpawnPoint spawnPoint = GetSpawnPointByLaneID(laneConfig.laneID);
+
+                if (spawnPoint != null)
                 {
-                    SpawnPoint spawnPoint = GetSpawnPointByLaneID(laneConfig.laneID);
-
-                    if (spawnPoint != null)
-                    {
-                        // Set spawn queue for the spawn point
-                        spawnPoint.StartSpawningQueue(laneConfig.zombieSpawnQueue);
-                    }
-                    else
-                    {
-                        Debug.LogWarning($"No spawn point found for lane ID {laneConfig.laneID}");
-                    }
+                    spawnPoint.StartSpawningQueue(laneConfig.zombieSpawnQueue, globalMutationType, mutationApplyRate);
                 }
-
-                // Wait for the wave duration or until all spawning is complete
-                yield return new WaitForSeconds(wave.timeUntilNextWave);
+                else
+                {
+                    Debug.LogWarning($"No spawn point found for lane ID {laneConfig.laneID}");
+                }
             }
 
-            // Wait for the deck's total duration if necessary
-            // If deck.deckDuration is used to determine additional wait time
-            if (deck.deckDuration > 0f)
-            {
-                yield return new WaitForSeconds(deck.deckDuration);
-            }
-
-            // Move to the next deck
-            currentDeckIndex++;
-            StartNextDeck();
+            yield return new WaitForSeconds(wave.timeUntilNextWave);
         }
 
+        if (deck.deckDuration > 0f)
+        {
+            yield return new WaitForSeconds(deck.deckDuration);
+        }
+
+        currentDeckIndex++;
+        StartNextDeck();
+    }
      private SpawnPoint GetSpawnPointByLaneID(int laneID)
     {
         Lane lane = lanes.Find(l => l.laneID == laneID);

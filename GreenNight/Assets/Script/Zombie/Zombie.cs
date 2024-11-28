@@ -71,6 +71,11 @@ public class Zombie : MonoBehaviour
 
     [Header("Mutation Settings")]
     public MutationType mutationType = MutationType.None;
+     [Header("Allowed Mutations")]
+    public bool allowSpikeMutation = true;
+    public bool allowAcidMutation = true;
+    public bool allowExploderMutation = true;
+    public bool allowArmourShellMutation = true;
     [Range(1, 3)]
     public int mutationTier = 1;                  // Tier 1 to 3
 
@@ -95,7 +100,7 @@ public class Zombie : MonoBehaviour
     public DDAdataCollector ddadataCollector;
     [Header("ID Zombie Costume")]
     public string idZombieCoustume;
-    void Start()
+    protected virtual void Start()
     {
         canmove = true;
         animationControllerGrunt =  GetComponent<AnimationControllerGrunt>();
@@ -380,6 +385,9 @@ public class Zombie : MonoBehaviour
                 break;
             case MutationType.Acid:
                 maxHp += 150;
+                break;
+            case MutationType.Exploder:
+                maxHp += 50;
                 break;
                 // Acid and Exploder mutations have effects on death
         }
@@ -679,6 +687,42 @@ public class Zombie : MonoBehaviour
         {
             collider.enabled = false;
         }
+    }
+    public void SetMutationType(MutationType mutationType)
+    {
+        if (IsMutationAllowed(mutationType))
+        {
+            this.mutationType = mutationType;
+        }
+        else
+        {
+            Debug.Log($"Mutation {mutationType} is not allowed. Setting mutation type to None.");
+            this.mutationType = MutationType.None;
+        }
+
+        ApplyMutationEffects(); // Apply the mutation effects
+    }
+    private bool IsMutationAllowed(MutationType mutationType)
+    {
+        switch (mutationType)
+        {
+            case MutationType.Spike:
+                return allowSpikeMutation;
+            case MutationType.Acid:
+                return allowAcidMutation;
+            case MutationType.Exploder:
+                return allowExploderMutation;
+            case MutationType.ArmourShell:
+                return allowArmourShellMutation;
+            case MutationType.None:
+                return true; // Always allow 'None'
+            default:
+                return true; // Default to true for any future mutations
+        }
+    }
+    public MutationType GetMutationType()
+    {
+        return mutationType;
     }
     public string GetMutationCode(MutationType mutation)
     {
