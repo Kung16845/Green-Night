@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class MainSpawner : MonoBehaviour
 {
     [Header("Lanes Configuration")]
@@ -22,6 +22,8 @@ public class MainSpawner : MonoBehaviour
     private SaveDataDDA saveDataDDA;  // Reference to SaveDataDDA script
     private int currentDeckIndex;
     private Coroutine deckCoroutine;
+    [Header("UI Elements")]
+    public TextMeshProUGUI startDelayText;
 
     [Header("Spawn Timing")]
     public float startDelay = 0f;
@@ -75,12 +77,27 @@ public class MainSpawner : MonoBehaviour
             spawnPoint.Initialize(lane);
         }
     }
+    private IEnumerator CountdownStartDelay()
+    {
+        float timeLeft = startDelay;
+        while (timeLeft > 0)
+        {
+            if (startDelayText != null)
+            {
+                startDelayText.text = $"{timeLeft:F1} ";
+            }
+
+            yield return new WaitForSeconds(0.1f); // Update every 0.1 seconds for smoother UI
+            timeLeft -= 0.1f;
+        }
+        startDelayText.gameObject.SetActive(false);
+    }
 
     private IEnumerator StartSpawningAfterDelay()
     {
-        Debug.Log("StartSpawningAfterDelay started.");
         if (startDelay > 0f)
         {
+            StartCoroutine(CountdownStartDelay());
             yield return new WaitForSeconds(startDelay);
         }
 
@@ -351,12 +368,6 @@ public class MainSpawner : MonoBehaviour
         return null;
     }
 
-    /// <summary>
-    /// Method to be called by SpawnPoint when zombies are spawned.
-    /// Decrements the zombies left to spawn.
-    /// </summary>
-    /// <param name="zombiesSpawned">Number of zombies spawned.</param>
-    /// <param name="deckDuration">Duration of the current deck.</param>
     public void OnZombieSpawned(int zombiesSpawned, float deckDuration)
     {
         totalZombiesLeft -= zombiesSpawned;
@@ -369,11 +380,6 @@ public class MainSpawner : MonoBehaviour
         Debug.Log($"Zombies Spawned: {zombiesSpawned}, Zombies Left: {totalZombiesLeft}");
     }
 
-    /// <summary>
-    /// Method to be called by SpawnPoint to increment zombies left to spawn.
-    /// </summary>
-    /// <param name="zombiesToSpawn">Number of zombies to spawn.</param>
-    /// <param name="deckDuration">Duration of the current deck.</param>
     public void OnZombieQueueStarted(int zombiesToSpawn, float deckDuration)
     {
         totalZombiesLeft += zombiesToSpawn;
@@ -394,9 +400,6 @@ public class MainSpawner : MonoBehaviour
             // Update the total duration left
             totalDurationLeft = Mathf.Max(totalDurationLeft - Time.deltaTime, 0f);
 
-            // Optionally, update UI or perform actions based on remaining time
-            // Example:
-            // Debug.Log($"Current Deck Duration Left: {currentDeckDurationLeft:F1}s, Total Duration Left: {totalDurationLeft:F1}s");
         }
     }
 }

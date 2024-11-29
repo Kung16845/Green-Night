@@ -382,6 +382,7 @@ public class Zombie : MonoBehaviour
         {
             case MutationType.Spike:
                 ApplySpikeMutation();
+                maxHp += 75;
                 break;
             case MutationType.ArmourShell:
                 ApplyArmourShellMutation();
@@ -407,7 +408,7 @@ public class Zombie : MonoBehaviour
                 damageMultiplier = 1.45f;
                 break;
             case 3:
-                damageMultiplier = 1.6f;
+                damageMultiplier = 1.8f;
                 break;
         }
         attackDamage *= damageMultiplier;

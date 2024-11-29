@@ -22,6 +22,7 @@ public class ItemWeapon : ItemClass
     public float Spreadangle;
     public Ammotype ammoType; 
     public Reloadtype reloadtype;
+    public AudioClip Gunshotsound;
     public Sprite gunsprite;
     private string GetReloadAnimationName(Reloadtype reloadtype)
     {
