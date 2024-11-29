@@ -410,7 +410,7 @@ public class Weapon : MonoBehaviour
         else return 1;
     }
 
-    public IEnumerator Reload()
+   public IEnumerator Reload()
     {
         if (currentAmmo == capacity)
         {
@@ -424,6 +424,7 @@ public class Weapon : MonoBehaviour
         isReloading = true;
         animationController.isreload = true;
         actionController.canchangeweapond = false;
+
         // Calculate reload time based on stats and multipliers
         float reloadTime = Mathf.Max(
                     (6.5f * (1 - (statAmplifier.GetCombatMultiplier() - 1)))
@@ -445,68 +446,32 @@ public class Weapon : MonoBehaviour
         else
         {
             Debug.LogWarning($"Reload animation '{reloadAnimationName}' not found. Using default animation.");
-            // Optionally, handle the case where the animation clip is not found
         }
 
-        // Get the caliber type of the current weapon
-        CaliberType requiredCaliber = this.caliberType; // Use the caliberType directly from the weapon
+        // Play the reload sound with adjusted pitch to match reload speed
+        Sound reloadSound = SoundManager.Instance.sounds
+            .Find(s => s.name == $"{reloadtype.ToString()}ReloadSound"); // Assume sound name format matches reload type
 
-        // Map the caliber type to ammo ID (assuming the ammo IDs are pre-set)
-        Dictionary<CaliberType, int> caliberToAmmoID = new Dictionary<CaliberType, int>
+        if (reloadSound != null && reloadSound.soundType == SoundType.VFXSound)
         {
-            { CaliberType.High, 1020125 },
-            { CaliberType.Shotgun, 1020126 },
-            { CaliberType.Low, 1020124 },
-            { CaliberType.Medium, 1020127 }
-        };
-
-        if (!caliberToAmmoID.TryGetValue(requiredCaliber, out int requiredAmmoID))
-        {
-            isReloading = false;
-            animationController.isreload = false;
-            actionController.canchangeweapond = true;
-            yield break;
+            AudioSource audioSource = SoundManager.Instance.GetAudioSourceForType(SoundType.VFXSound);
+            if (audioSource != null)
+            {
+                audioSource.clip = reloadSound.clip;
+                audioSource.pitch = reloadSound.clip.length / reloadTime; // Adjust pitch to match reload speed
+                audioSource.Play();
+            }
         }
 
-        // Find all items in the inventory that match the required ammo ID
-        List<ItemData> matchingAmmoItems = uiInventory.listItemDataInventoryslot
-            .Where(item => item.idItem == requiredAmmoID && item.count > 0)
-            .ToList();
-
-        if (matchingAmmoItems.Count == 0)
-        {
-            animator.speed = 1f; // Reset animator speed
-            animationController.isreload = false;
-            isReloading = false;
-            actionController.canchangeweapond = true;
-            yield break;
-        }
-
-        // Calculate the total ammo available from all matching items
-        int totalAmmoAvailable = matchingAmmoItems.Sum(item => item.count);
-
-        // If there is enough ammo, proceed with reloading
-        int ammoNeeded = capacity - currentAmmo;
-        int ammoToReload = Mathf.Min(ammoNeeded, totalAmmoAvailable);
+        // Simulate reload process
+        float elapsedTime = 0f;
         if (reloadSlider != null)
         {
             reloadSlider.gameObject.SetActive(true);
             reloadSlider.maxValue = reloadTime;
             reloadSlider.value = 0;
         }
-        PlayWeaponSounds(currentItemWeapon, "Reload");
 
-        // Deduct ammo from the matching items in inventory
-        int ammoRemainingToReload = ammoToReload;
-        foreach (var item in matchingAmmoItems)
-        {
-            if (ammoRemainingToReload <= 0) break;
-
-            int ammoToTake = Mathf.Min(ammoRemainingToReload, item.count);
-            item.count -= ammoToTake; // Deduct ammo from the item
-            ammoRemainingToReload -= ammoToTake; // Reduce the remaining ammo needed
-        }
-        float elapsedTime = 0f;
         while (elapsedTime < reloadTime)
         {
             elapsedTime += Time.deltaTime;
@@ -519,13 +484,15 @@ public class Weapon : MonoBehaviour
 
             yield return null;
         }
+
         actionController.canchangeweapond = true;
-        currentAmmo += ammoToReload;
+        currentAmmo = Mathf.Min(currentAmmo + (capacity - currentAmmo), capacity);
         if (reloadSlider != null)
         {
             reloadSlider.gameObject.SetActive(false);
         }
-        // Reset the animation state and variables
+
+        // Reset animation and state
         animator.speed = 1f; // Reset animator speed
         animationController.isreload = false;
         isReloading = false;
@@ -534,6 +501,7 @@ public class Weapon : MonoBehaviour
         // Refresh UI to reflect changes
         uiInventory.RefreshUIInventory();
     }
+
 
     private void ApplyStatAmplifier()
     {
