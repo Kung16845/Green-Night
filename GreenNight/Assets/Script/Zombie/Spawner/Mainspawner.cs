@@ -29,6 +29,15 @@ public class MainSpawner : MonoBehaviour
     // Variable to determine which decks to use
     public int desiredDeckTier = 1; // Set this in the Inspector or via code
 
+    // **Tracking Variables**
+    [Header("Spawn Tracking")]
+    public float currentDeckDurationLeft = 0f;     // Time left for the current deck
+    public float totalDurationLeft = 0f;           // Total time left for all active decks
+    public int totalZombiesLeft = 0;               // Total zombies left to spawn
+    public int currentDeckZombiesLeft = 0;         // Zombies left in the current deck
+
+    public List<SpawnDeck> remainingDecks = new List<SpawnDeck>(); // Decks yet to be spawned
+
     private void Start()
     {
         LaneManager.Instance.RegisterLanes(lanes);
@@ -37,8 +46,16 @@ public class MainSpawner : MonoBehaviour
         // Initialize saveDataDDA
         saveDataDDA = FindObjectOfType<SaveDataDDA>();
 
+        if (saveDataDDA == null)
+        {
+            Debug.LogError("SaveDataDDA not found in the scene.");
+        }
+
         // Calculate decks based on DDA setting
         CalculateDecks();
+
+        // Initialize tracking variables
+        InitializeTracking();
 
         currentDeckIndex = 0;
         StartCoroutine(StartSpawningAfterDelay());
@@ -61,7 +78,7 @@ public class MainSpawner : MonoBehaviour
 
     private IEnumerator StartSpawningAfterDelay()
     {
-        Debug.Log("StartCount.");
+        Debug.Log("StartSpawningAfterDelay started.");
         if (startDelay > 0f)
         {
             yield return new WaitForSeconds(startDelay);
@@ -70,6 +87,9 @@ public class MainSpawner : MonoBehaviour
         StartNextDeck();
     }
 
+    /// <summary>
+    /// Calculates and sets the ActiveSpawnDecks based on the DDA setting and ensures total duration <= 360 seconds.
+    /// </summary>
     public void CalculateDecks()
     {
         ActiveSpawnDecks.Clear();
@@ -91,9 +111,10 @@ public class MainSpawner : MonoBehaviour
                 return;
             }
 
-            // Sort decks by deckDuration descending to maximize duration utilization
-            possibleDecks.Sort((a, b) => b.deckDuration.CompareTo(a.deckDuration));
+            // Shuffle the possibleDecks using Fisher-Yates Shuffle
+            ShuffleListInPlace(possibleDecks);
 
+            // Add decks until totalDuration reaches 360 seconds
             foreach (var deck in possibleDecks)
             {
                 if (totalDuration + deck.deckDuration <= 360f)
@@ -118,6 +139,20 @@ public class MainSpawner : MonoBehaviour
         if (ActiveSpawnDecks.Count == 0)
         {
             Debug.LogWarning("No decks selected. Please check StorageDecks and selection criteria.");
+        }
+    }
+
+    private void ShuffleListInPlace<T>(List<T> list)
+    {
+        System.Random rand = new System.Random();
+        int n = list.Count;
+        for (int i = n - 1; i > 0; i--)
+        {
+            int j = rand.Next(i + 1);
+            // Swap list[i] with list[j]
+            T temp = list[i];
+            list[i] = list[j];
+            list[j] = temp;
         }
     }
 
@@ -153,18 +188,28 @@ public class MainSpawner : MonoBehaviour
         Debug.Log($"Randomly selected {selectedDecks.Count} decks with total duration {totalDuration} seconds.");
     }
 
-
+    private float CalculateDDAPoint(float killPerMinute,float accuracy,float barrierDamage,float multikill)
+    {
+        float DDASkillplayPoint;
+        killPerMinute *= 3;
+        accuracy *= 1;
+        barrierDamage = ((5000 - barrierDamage)/500) * 10;
+        multikill *= 7;
+        return DDASkillplayPoint = (killPerMinute + accuracy + barrierDamage + multikill);
+    }
     private int CalculateDesiredTier(DataDDA avgData)
     {
-        if (avgData.killPerMinute >= 188 && avgData.accuracy >= 80 && avgData.barrierDamage <= 1000 && avgData.multiKillCount >= 18)
+        float skillpoint = CalculateDDAPoint(avgData.killPerMinute,avgData.accuracy,avgData.barrierDamage,avgData.multiKillCount);
+        Debug.Log(skillpoint);
+        if (skillpoint >= 300)
         {
             return 4;
         }
-        else if (avgData.killPerMinute >= 150 && avgData.accuracy >= 70 && avgData.barrierDamage <= 1500 && avgData.multiKillCount >= 15)
+        else if (skillpoint >=225)
         {
             return 3;
         }
-        else if (avgData.killPerMinute >= 100 && avgData.accuracy >= 65 && avgData.barrierDamage <= 2500 && avgData.multiKillCount >= 10)
+        else if (skillpoint >= 150)
         {
             return 2;
         }
@@ -174,6 +219,35 @@ public class MainSpawner : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Initializes tracking variables based on ActiveSpawnDecks.
+    /// </summary>
+    private void InitializeTracking()
+    {
+        totalDurationLeft = 0f;
+        totalZombiesLeft = 0;
+
+        foreach (var deck in ActiveSpawnDecks)
+        {
+            totalDurationLeft += deck.deckDuration;
+
+            foreach (var wave in deck.spawnWaves)
+            {
+                foreach (var laneConfig in wave.laneSpawnConfigs)
+                {
+                    foreach (var zombieQueue in laneConfig.zombieSpawnQueue)
+                    {
+                        totalZombiesLeft += zombieQueue.quantity;
+                    }
+                }
+            }
+        }
+
+        // Initialize remainingDecks
+        remainingDecks = new List<SpawnDeck>(ActiveSpawnDecks);
+
+        Debug.Log($"Tracking Initialized: Total Duration Left = {totalDurationLeft}s, Total Zombies Left = {totalZombiesLeft}");
+    }
 
     // Existing AddActiveDeck method remains unchanged
     public void AddActiveDeck(int deckID)
@@ -184,6 +258,22 @@ public class MainSpawner : MonoBehaviour
         {
             ActiveSpawnDecks.Add(deckToAdd);
             Debug.Log($"Added deck '{deckToAdd.deckName}' (ID: {deckID}) to ActiveSpawnDecks.");
+
+            // Update tracking variables
+            totalDurationLeft += deckToAdd.deckDuration;
+
+            foreach (var wave in deckToAdd.spawnWaves)
+            {
+                foreach (var laneConfig in wave.laneSpawnConfigs)
+                {
+                    foreach (var zombieQueue in laneConfig.zombieSpawnQueue)
+                    {
+                        totalZombiesLeft += zombieQueue.quantity;
+                    }
+                }
+            }
+
+            remainingDecks.Add(deckToAdd);
         }
         else
         {
@@ -207,9 +297,15 @@ public class MainSpawner : MonoBehaviour
 
     private IEnumerator ProcessDeck(SpawnDeck deck)
     {
-        foreach (SpawnWave wave in deck.spawnWaves)
+        // Initialize currentDeckDurationLeft and currentDeckZombiesLeft
+        currentDeckDurationLeft = deck.deckDuration;
+        currentDeckZombiesLeft = 0;
+
+        Debug.Log($"Processing Deck '{deck.deckName}' with Duration {deck.deckDuration}s.");
+
+        foreach (var wave in deck.spawnWaves)
         {
-            foreach (LaneSpawnConfig laneConfig in wave.laneSpawnConfigs)
+            foreach (var laneConfig in wave.laneSpawnConfigs)
             {
                 SpawnPoint spawnPoint = GetSpawnPointByLaneID(laneConfig.laneID);
 
@@ -223,13 +319,23 @@ public class MainSpawner : MonoBehaviour
                 }
             }
 
+            // Wait for the wave's timeUntilNextWave
+            Debug.Log($"Waiting for {wave.timeUntilNextWave}s before next wave.");
             yield return new WaitForSeconds(wave.timeUntilNextWave);
         }
 
-        if (deck.deckDuration > 0f)
+        // Wait for the remaining deck duration
+        float elapsedTime = Time.time - (Time.time - deck.deckDuration + currentDeckDurationLeft);
+        float remainingDuration = deck.deckDuration - elapsedTime;
+        if (remainingDuration > 0f)
         {
-            yield return new WaitForSeconds(deck.deckDuration);
+            Debug.Log($"Waiting for remaining {remainingDuration}s of deck duration.");
+            yield return new WaitForSeconds(remainingDuration);
         }
+
+        Debug.Log($"Deck '{deck.deckName}' completed.");
+        currentDeckDurationLeft = 0f;
+        currentDeckZombiesLeft = 0;
 
         currentDeckIndex++;
         StartNextDeck();
@@ -243,5 +349,54 @@ public class MainSpawner : MonoBehaviour
             return lane.spawnPoint.GetComponent<SpawnPoint>();
         }
         return null;
+    }
+
+    /// <summary>
+    /// Method to be called by SpawnPoint when zombies are spawned.
+    /// Decrements the zombies left to spawn.
+    /// </summary>
+    /// <param name="zombiesSpawned">Number of zombies spawned.</param>
+    /// <param name="deckDuration">Duration of the current deck.</param>
+    public void OnZombieSpawned(int zombiesSpawned, float deckDuration)
+    {
+        totalZombiesLeft -= zombiesSpawned;
+        currentDeckZombiesLeft -= zombiesSpawned;
+
+        // Clamp the values to prevent negative numbers
+        totalZombiesLeft = Mathf.Max(totalZombiesLeft, 0);
+        currentDeckZombiesLeft = Mathf.Max(currentDeckZombiesLeft, 0);
+
+        Debug.Log($"Zombies Spawned: {zombiesSpawned}, Zombies Left: {totalZombiesLeft}");
+    }
+
+    /// <summary>
+    /// Method to be called by SpawnPoint to increment zombies left to spawn.
+    /// </summary>
+    /// <param name="zombiesToSpawn">Number of zombies to spawn.</param>
+    /// <param name="deckDuration">Duration of the current deck.</param>
+    public void OnZombieQueueStarted(int zombiesToSpawn, float deckDuration)
+    {
+        totalZombiesLeft += zombiesToSpawn;
+        currentDeckZombiesLeft += zombiesToSpawn;
+
+        Debug.Log($"Zombie Queue Started: {zombiesToSpawn} zombies to spawn.");
+    }
+
+    private void Update()
+    {
+        // Decrement the deck duration
+        if (currentDeckDurationLeft > 0f)
+        {
+            currentDeckDurationLeft -= Time.deltaTime;
+            if (currentDeckDurationLeft < 0f)
+                currentDeckDurationLeft = 0f;
+
+            // Update the total duration left
+            totalDurationLeft = Mathf.Max(totalDurationLeft - Time.deltaTime, 0f);
+
+            // Optionally, update UI or perform actions based on remaining time
+            // Example:
+            // Debug.Log($"Current Deck Duration Left: {currentDeckDurationLeft:F1}s, Total Duration Left: {totalDurationLeft:F1}s");
+        }
     }
 }

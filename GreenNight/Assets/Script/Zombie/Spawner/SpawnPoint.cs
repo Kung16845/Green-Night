@@ -7,10 +7,16 @@ public class SpawnPoint : MonoBehaviour
     public Lane lane;
 
     public Coroutine spawnCoroutine;
+    private MainSpawner mainSpawner;
 
     public void Initialize(Lane lane)
     {
         this.lane = lane;
+        mainSpawner = FindObjectOfType<MainSpawner>();
+        if (mainSpawner == null)
+        {
+            Debug.LogError("MainSpawner not found in the scene!");
+        }
     }
 
     // Starts spawning based on the queue
@@ -21,7 +27,6 @@ public class SpawnPoint : MonoBehaviour
             spawnCoroutine = StartCoroutine(SpawnZombieQueueCoroutine(spawnQueue, mutationType, mutationApplyRate));
         }
     }
-
     public void StopSpawning()
     {
         if (spawnCoroutine != null)
@@ -35,6 +40,9 @@ public class SpawnPoint : MonoBehaviour
     {
         foreach (ZombieSpawnQueue spawnConfig in spawnQueue)
         {
+            // Notify MainSpawner about zombies to spawn
+            mainSpawner?.OnZombieQueueStarted(spawnConfig.quantity, spawnConfig.spawnInterval);
+
             int spawnedZombies = 0;
             while (spawnedZombies < spawnConfig.quantity)
             {
@@ -42,12 +50,14 @@ public class SpawnPoint : MonoBehaviour
                 spawnedZombies++;
                 yield return new WaitForSeconds(spawnConfig.spawnInterval);
             }
+
+            // Notify MainSpawner about zombies spawned
+            mainSpawner?.OnZombieSpawned(spawnedZombies, spawnConfig.spawnInterval);
         }
 
         spawnCoroutine = null; // Reset coroutine so it can be started again if needed
     }
-
-    private void SpawnZombie(ZombieSpawnQueue spawnConfig, MutationType mutationType, float mutationApplyRate)
+     private void SpawnZombie(ZombieSpawnQueue spawnConfig, MutationType mutationType, float mutationApplyRate)
     {
         if (spawnConfig.zombiePrefab != null)
         {
@@ -69,6 +79,7 @@ public class SpawnPoint : MonoBehaviour
                 {
                     zombie.SetMutationType(MutationType.None);
                 }
+
             }
         }
         else

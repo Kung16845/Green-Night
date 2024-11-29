@@ -80,7 +80,7 @@ MonoBehaviour:
   - deckName: SwarmDeck
     deckDuration: 300
     deckTier: 4
-    deckID: 10124
+    deckID: 601020401
     spawnWaves:
     - laneSpawnConfigs:
       - laneID: 1
@@ -152,9 +152,9 @@ MonoBehaviour:
           mutationType: 0
       timeUntilNextWave: 100
   - deckName: BasicAttackDeck01
-    deckDuration: 180
+    deckDuration: 150
     deckTier: 1
-    deckID: 10121
+    deckID: 601010101
     spawnWaves:
     - laneSpawnConfigs:
       - laneID: 1
@@ -203,7 +203,7 @@ MonoBehaviour:
           spawnInterval: 30
           zombieTier: 1
           mutationType: 0
-      timeUntilNextWave: 60
+      timeUntilNextWave: 40
     - laneSpawnConfigs:
       - laneID: 1
         zombieSpawnQueue:
@@ -236,7 +236,7 @@ MonoBehaviour:
           spawnInterval: 1.75
           zombieTier: 1
           mutationType: 0
-      timeUntilNextWave: 60
+      timeUntilNextWave: 40
     - laneSpawnConfigs:
       - laneID: 1
         zombieSpawnQueue:
@@ -267,7 +267,7 @@ MonoBehaviour:
           spawnInterval: 1.75
           zombieTier: 1
           mutationType: 0
-      timeUntilNextWave: 60
+      timeUntilNextWave: 40
     - laneSpawnConfigs:
       - laneID: 1
         zombieSpawnQueue:
@@ -298,11 +298,11 @@ MonoBehaviour:
           spawnInterval: 1.75
           zombieTier: 1
           mutationType: 0
-      timeUntilNextWave: 60
+      timeUntilNextWave: 30
   - deckName: BasicAttackDeck02
-    deckDuration: 180
+    deckDuration: 150
     deckTier: 1
-    deckID: 10128
+    deckID: 601010102
     spawnWaves:
     - laneSpawnConfigs:
       - laneID: 1
@@ -331,7 +331,7 @@ MonoBehaviour:
         zombieSpawnQueue:
         - zombiePrefab: {fileID: 3967098827264922691, guid: 3268839227ded5a4e88aeec54b32c564, type: 3}
           quantity: 15
-          spawnInterval: 1.9
+          spawnInterval: 1.75
           zombieTier: 1
           mutationType: 0
         - zombiePrefab: {fileID: 3967098827264922691, guid: 69598908740a29b4a912e9fc382d1c2d, type: 3}
@@ -348,7 +348,7 @@ MonoBehaviour:
         zombieSpawnQueue:
         - zombiePrefab: {fileID: 3967098827264922691, guid: 3268839227ded5a4e88aeec54b32c564, type: 3}
           quantity: 15
-          spawnInterval: 1.9
+          spawnInterval: 1.75
           zombieTier: 1
           mutationType: 0
         - zombiePrefab: {fileID: 2822589981121301368, guid: d6f2e177f50cac44dab49594c8fd156e, type: 3}
@@ -356,7 +356,7 @@ MonoBehaviour:
           spawnInterval: 5
           zombieTier: 1
           mutationType: 0
-      timeUntilNextWave: 60
+      timeUntilNextWave: 50
     - laneSpawnConfigs:
       - laneID: 1
         zombieSpawnQueue:
@@ -394,11 +394,11 @@ MonoBehaviour:
           spawnInterval: 1.75
           zombieTier: 1
           mutationType: 0
-      timeUntilNextWave: 60
+      timeUntilNextWave: 50
     - laneSpawnConfigs:
       - laneID: 1
         zombieSpawnQueue:
-        - zombiePrefab: {fileID: 7550034601582792165, guid: b54311dd56100bf4c9f5f1744280125b, type: 3}
+        - zombiePrefab: {fileID: 3967098827264922691, guid: 3268839227ded5a4e88aeec54b32c564, type: 3}
           quantity: 5
           spawnInterval: 1.75
           zombieTier: 2
@@ -427,11 +427,11 @@ MonoBehaviour:
           spawnInterval: 1.75
           zombieTier: 1
           mutationType: 0
-      timeUntilNextWave: 60
+      timeUntilNextWave: 50
   - deckName: Riot And FirefighterTeam
-    deckDuration: 180
+    deckDuration: 150
     deckTier: 1
-    deckID: 10122
+    deckID: 601010103
     spawnWaves:
     - laneSpawnConfigs:
       - laneID: 1
@@ -485,7 +485,7 @@ MonoBehaviour:
           spawnInterval: 1
           zombieTier: 1
           mutationType: 0
-      timeUntilNextWave: 60
+      timeUntilNextWave: 75
     - laneSpawnConfigs:
       - laneID: 1
         zombieSpawnQueue:
@@ -518,11 +518,11 @@ MonoBehaviour:
           spawnInterval: 1
           zombieTier: 2
           mutationType: 0
-      timeUntilNextWave: 120
+      timeUntilNextWave: 75
   - deckName: ChargerTeam
-    deckDuration: 180
+    deckDuration: 150
     deckTier: 2
-    deckID: 10126
+    deckID: 601010201
     spawnWaves:
     - laneSpawnConfigs:
       - laneID: 1
@@ -586,7 +586,7 @@ MonoBehaviour:
           spawnInterval: 1
           zombieTier: 1
           mutationType: 0
-      timeUntilNextWave: 60
+      timeUntilNextWave: 75
     - laneSpawnConfigs:
       - laneID: 1
         zombieSpawnQueue:
@@ -607,11 +607,162 @@ MonoBehaviour:
           spawnInterval: 1.75
           zombieTier: 0
           mutationType: 0
-      timeUntilNextWave: 120
+      timeUntilNextWave: 75
+  - deckName: ChemerLeader
+    deckDuration: 150
+    deckTier: 2
+    deckID: 601010202
+    spawnWaves:
+    - laneSpawnConfigs:
+      - laneID: 1
+        zombieSpawnQueue:
+        - zombiePrefab: {fileID: 1182796759674554525, guid: 971bc0e8238e5b84b995ddb5e7de643e, type: 3}
+          quantity: 2
+          spawnInterval: 1.75
+          zombieTier: 1
+          mutationType: 0
+        - zombiePrefab: {fileID: 3967098827264922691, guid: 3268839227ded5a4e88aeec54b32c564, type: 3}
+          quantity: 12
+          spawnInterval: 1.75
+          zombieTier: 1
+          mutationType: 0
+        - zombiePrefab: {fileID: 1182796759674554525, guid: 971bc0e8238e5b84b995ddb5e7de643e, type: 3}
+          quantity: 2
+          spawnInterval: 1.75
+          zombieTier: 1
+          mutationType: 0
+        - zombiePrefab: {fileID: 2822589981121301368, guid: d6f2e177f50cac44dab49594c8fd156e, type: 3}
+          quantity: 3
+          spawnInterval: 1.75
+          zombieTier: 1
+          mutationType: 0
+      - laneID: 2
+        zombieSpawnQueue:
+        - zombiePrefab: {fileID: 1182796759674554525, guid: 971bc0e8238e5b84b995ddb5e7de643e, type: 3}
+          quantity: 2
+          spawnInterval: 1.75
+          zombieTier: 1
+          mutationType: 0
+        - zombiePrefab: {fileID: 3583349133157957265, guid: bd6188368fd109d4d87743b5c70a7402, type: 3}
+          quantity: 2
+          spawnInterval: 1.75
+          zombieTier: 1
+          mutationType: 0
+        - zombiePrefab: {fileID: 3779784590760527690, guid: e7fe30525e6990a4287ded6a43e078ff, type: 3}
+          quantity: 2
+          spawnInterval: 1.75
+          zombieTier: 1
+          mutationType: 0
+        - zombiePrefab: {fileID: 3967098827264922691, guid: 3268839227ded5a4e88aeec54b32c564, type: 3}
+          quantity: 11
+          spawnInterval: 1.75
+          zombieTier: 1
+          mutationType: 0
+      - laneID: 3
+        zombieSpawnQueue:
+        - zombiePrefab: {fileID: 1182796759674554525, guid: 971bc0e8238e5b84b995ddb5e7de643e, type: 3}
+          quantity: 2
+          spawnInterval: 1.75
+          zombieTier: 1
+          mutationType: 0
+        - zombiePrefab: {fileID: 3967098827264922691, guid: 3268839227ded5a4e88aeec54b32c564, type: 3}
+          quantity: 12
+          spawnInterval: 1.75
+          zombieTier: 1
+          mutationType: 0
+        - zombiePrefab: {fileID: 1182796759674554525, guid: 971bc0e8238e5b84b995ddb5e7de643e, type: 3}
+          quantity: 2
+          spawnInterval: 1.75
+          zombieTier: 1
+          mutationType: 0
+        - zombiePrefab: {fileID: 2822589981121301368, guid: d6f2e177f50cac44dab49594c8fd156e, type: 3}
+          quantity: 3
+          spawnInterval: 1.75
+          zombieTier: 1
+          mutationType: 0
+      timeUntilNextWave: 75
+    - laneSpawnConfigs:
+      - laneID: 1
+        zombieSpawnQueue:
+        - zombiePrefab: {fileID: 1182796759674554525, guid: 971bc0e8238e5b84b995ddb5e7de643e, type: 3}
+          quantity: 1
+          spawnInterval: 1.75
+          zombieTier: 1
+          mutationType: 0
+        - zombiePrefab: {fileID: 3967098827264922691, guid: 3268839227ded5a4e88aeec54b32c564, type: 3}
+          quantity: 7
+          spawnInterval: 1.75
+          zombieTier: 2
+          mutationType: 0
+        - zombiePrefab: {fileID: 1182796759674554525, guid: 971bc0e8238e5b84b995ddb5e7de643e, type: 3}
+          quantity: 1
+          spawnInterval: 1.75
+          zombieTier: 1
+          mutationType: 0
+        - zombiePrefab: {fileID: 3967098827264922691, guid: 3268839227ded5a4e88aeec54b32c564, type: 3}
+          quantity: 7
+          spawnInterval: 1.75
+          zombieTier: 2
+          mutationType: 0
+        - zombiePrefab: {fileID: 1182796759674554525, guid: 971bc0e8238e5b84b995ddb5e7de643e, type: 3}
+          quantity: 1
+          spawnInterval: 1.75
+          zombieTier: 1
+          mutationType: 0
+        - zombiePrefab: {fileID: 2822589981121301368, guid: d6f2e177f50cac44dab49594c8fd156e, type: 3}
+          quantity: 4
+          spawnInterval: 1.75
+          zombieTier: 2
+          mutationType: 0
+      - laneID: 2
+        zombieSpawnQueue:
+        - zombiePrefab: {fileID: 1182796759674554525, guid: 971bc0e8238e5b84b995ddb5e7de643e, type: 3}
+          quantity: 2
+          spawnInterval: 45
+          zombieTier: 1
+          mutationType: 0
+        - zombiePrefab: {fileID: 3779784590760527690, guid: e7fe30525e6990a4287ded6a43e078ff, type: 3}
+          quantity: 3
+          spawnInterval: 1.75
+          zombieTier: 2
+          mutationType: 0
+      - laneID: 3
+        zombieSpawnQueue:
+        - zombiePrefab: {fileID: 1182796759674554525, guid: 971bc0e8238e5b84b995ddb5e7de643e, type: 3}
+          quantity: 1
+          spawnInterval: 1.75
+          zombieTier: 1
+          mutationType: 0
+        - zombiePrefab: {fileID: 3967098827264922691, guid: 3268839227ded5a4e88aeec54b32c564, type: 3}
+          quantity: 7
+          spawnInterval: 1.75
+          zombieTier: 2
+          mutationType: 0
+        - zombiePrefab: {fileID: 1182796759674554525, guid: 971bc0e8238e5b84b995ddb5e7de643e, type: 3}
+          quantity: 1
+          spawnInterval: 1.75
+          zombieTier: 1
+          mutationType: 0
+        - zombiePrefab: {fileID: 3967098827264922691, guid: 3268839227ded5a4e88aeec54b32c564, type: 3}
+          quantity: 7
+          spawnInterval: 1.75
+          zombieTier: 2
+          mutationType: 0
+        - zombiePrefab: {fileID: 1182796759674554525, guid: 971bc0e8238e5b84b995ddb5e7de643e, type: 3}
+          quantity: 1
+          spawnInterval: 1.75
+          zombieTier: 1
+          mutationType: 0
+        - zombiePrefab: {fileID: 2822589981121301368, guid: d6f2e177f50cac44dab49594c8fd156e, type: 3}
+          quantity: 4
+          spawnInterval: 1.75
+          zombieTier: 2
+          mutationType: 0
+      timeUntilNextWave: 75
   - deckName: Bulldozer
-    deckDuration: 180
+    deckDuration: 150
     deckTier: 3
-    deckID: 10127
+    deckID: 601010301
     spawnWaves:
     - laneSpawnConfigs:
       - laneID: 1
@@ -638,7 +789,7 @@ MonoBehaviour:
           mutationType: 0
       - laneID: 2
         zombieSpawnQueue:
-        - zombiePrefab: {fileID: 7550034601582792165, guid: 7350d8c61e62eee44a92670606f3ebcc, type: 3}
+        - zombiePrefab: {fileID: 3967098827264922691, guid: 69598908740a29b4a912e9fc382d1c2d, type: 3}
           quantity: 10
           spawnInterval: 6
           zombieTier: 1
@@ -665,7 +816,7 @@ MonoBehaviour:
           spawnInterval: 5
           zombieTier: 3
           mutationType: 0
-      timeUntilNextWave: 60
+      timeUntilNextWave: 75
     - laneSpawnConfigs:
       - laneID: 1
         zombieSpawnQueue:
@@ -686,11 +837,11 @@ MonoBehaviour:
           spawnInterval: 1.75
           zombieTier: 3
           mutationType: 0
-      timeUntilNextWave: 120
+      timeUntilNextWave: 75
   - deckName: Reeker Horde
-    deckDuration: 180
+    deckDuration: 150
     deckTier: 3
-    deckID: 10129
+    deckID: 601010302
     spawnWaves:
     - laneSpawnConfigs:
       - laneID: 1
@@ -744,7 +895,7 @@ MonoBehaviour:
           spawnInterval: 1
           zombieTier: 2
           mutationType: 0
-      timeUntilNextWave: 90
+      timeUntilNextWave: 60
     - laneSpawnConfigs:
       - laneID: 1
         zombieSpawnQueue:
@@ -797,11 +948,11 @@ MonoBehaviour:
           spawnInterval: 1.75
           zombieTier: 2
           mutationType: 0
-      timeUntilNextWave: 120
+      timeUntilNextWave: 90
   - deckName: DarkHour
-    deckDuration: 360
+    deckDuration: 330
     deckTier: 4
-    deckID: 10130
+    deckID: 601010401
     spawnWaves:
     - laneSpawnConfigs:
       - laneID: 1
@@ -991,11 +1142,11 @@ MonoBehaviour:
           spawnInterval: 1
           zombieTier: 1
           mutationType: 0
-      timeUntilNextWave: 180
+      timeUntilNextWave: 150
   - deckName: Runner Horde
-    deckDuration: 360
+    deckDuration: 330
     deckTier: 4
-    deckID: 10131
+    deckID: 601010402
     spawnWaves:
     - laneSpawnConfigs:
       - laneID: 1
@@ -1150,9 +1301,14 @@ MonoBehaviour:
           spawnInterval: 30
           zombieTier: 3
           mutationType: 0
-      timeUntilNextWave: 180
-  globalMutationType: 4
+      timeUntilNextWave: 140
+  globalMutationType: 3
   mutationApplyRate: 0.755
-  useDDA: 1
+  useDDA: 0
   startDelay: 30
   desiredDeckTier: 1
+  currentDeckDurationLeft: 0
+  totalDurationLeft: 0
+  totalZombiesLeft: 0
+  currentDeckZombiesLeft: 0
+  remainingDecks: []
