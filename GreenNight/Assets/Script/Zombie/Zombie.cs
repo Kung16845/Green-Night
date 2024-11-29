@@ -276,7 +276,7 @@ public class Zombie : MonoBehaviour
 
     private void ApplyDamageEffects(DamageType damageType)
     {
-        if (damageType != DamageType.Acid)
+        if (damageType != DamageType.Acid && damageType != DamageType.Fire && damageType != DamageType.Poison)
         {
             if (damageEffectCoroutine != null)
             {
