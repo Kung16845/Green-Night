@@ -24,6 +24,7 @@ public class StatManager : MonoBehaviour
     public float handling { get; private set; }
     public float accuracy { get; private set; }
     public float stability { get; private set; }
+    
     public CaliberType caliberType { get; private set; }
 
     // Modifiers from items and roles

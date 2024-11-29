@@ -52,6 +52,7 @@ public class SpeedBoostArea : MonoBehaviour
     {
         // Increase zombie's speed
         zombie.IncreaseSpeed(speedIncreaseAmount);
+        zombie.IncreaseAttackSpeed(attackSpeedIncreaseAmount);
 
         // Wait for the speed increase duration
         yield return new WaitForSeconds(speedIncreaseDuration);

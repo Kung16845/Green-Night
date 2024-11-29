@@ -138,12 +138,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHp: 350
   maxHp: 350
-  maxArmourHp: 0
-  ArmourHp: 0
+  maxArmourHp: 50
+  ArmourHp: 50
   currentSpeed: 1
-  maxSpeed: 3
+  maxSpeed: 2.5
   attackDamage: 100
-  attackTimer: 3
+  attackTimer: 1.5
   countTimer: 0
   rb2D: {fileID: 6580308060879220711}
   barrier: {fileID: 0}
@@ -198,11 +198,11 @@ MonoBehaviour:
   ddadataCollector: {fileID: 0}
   idZombieCoustume: 
   chargeUpTime: 2.5
-  boostedSpeed: 3
+  boostedSpeed: 2.5
   boostedDamage: 350
   normalDamage: 100
   damageThreshold: 100
-  stopDuration: 2
+  stopDuration: 3
   bulletDamageReduction: 0.7
   weaknessDamageMultiplier: 2
   ChargercurrentState: 0

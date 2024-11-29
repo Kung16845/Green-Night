@@ -15,13 +15,17 @@ public class Bullet : MonoBehaviour
     public float damage;
     public CaliberType caliberType;
     private int penetrationCount = 0; // Tracks how many penetrations the bullet can do
+    public float dropOffThreshold; 
+    public float dropOffMultiplier = 0.4f;
     public int bulletID;
     private static int bulletIDCounter = 0;
+    private Vector2 initialPosition;
 
     // This method will initialize penetration count based on the caliber
     private void Start()
     {
         bulletID = bulletIDCounter++;
+        initialPosition = transform.position; 
     }
     public void InitializePenetration()
     {
@@ -41,7 +45,25 @@ public class Bullet : MonoBehaviour
                 break;
         }
     }
+    private void Update()
+    {
+        CheckDamageDropOff();
+    }
+     private void CheckDamageDropOff()
+    {
+        float distanceTraveled = Vector2.Distance(initialPosition, transform.position);
 
+        if (distanceTraveled >= dropOffThreshold)
+        {
+            ApplyDropOff();
+        }
+    }
+     private void ApplyDropOff()
+    {
+        
+        damage *= dropOffMultiplier; // Reduce damage instantly
+        enabled = false; // Disable further updates to prevent repeated application
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         Zombie zombie = other.GetComponent<Zombie>();

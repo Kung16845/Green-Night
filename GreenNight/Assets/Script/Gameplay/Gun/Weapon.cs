@@ -17,6 +17,7 @@ public class Weapon : MonoBehaviour
     public bool isShotgun; // Determines if the weapon is a shotgun
     public int pellets; // Number of pellets for shotgun
     public float spreadAngle; // Spread angle for shotgun
+    public float damageDropOff;
     public int stabilityThreshold = 5; // Number of shots before stability penalty starts
     public CaliberType caliberType;
     public Reloadtype reloadtype;
@@ -80,6 +81,7 @@ public class Weapon : MonoBehaviour
             spreadAngle = itemWeapon.Spreadangle;
             caliberType = ConvertAmmoTypeToCaliberType(itemWeapon.ammoType);
             reloadtype = itemWeapon.reloadtype;
+            damageDropOff = itemWeapon.damageDropOff;
             animationController.Guntype = GetGunTypeInt(reloadtype);
             fireRate = 60f / rateOfFire;
             if (weaponSpriteRenderer != null)
@@ -123,6 +125,7 @@ public class Weapon : MonoBehaviour
         isShotgun = false;
         pellets = 0;
         spreadAngle = 0;
+        damageDropOff = 0;
         caliberType = CaliberType.Low; // Add a 'None' type if needed
 
         // Additional logic to disable shooting
@@ -254,7 +257,7 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    private void FireBullet()
+   private void FireBullet()
     {
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
@@ -262,14 +265,16 @@ public class Weapon : MonoBehaviour
 
         // Set the caliber type and initial penetration count at the time of bullet instantiation
         bulletScript.caliberType = caliberType;
-        bulletScript.InitializePenetration();  // Initialize penetration
+        bulletScript.InitializePenetration();
 
+        // Set the damage and drop-off parameters
         bulletScript.damage = damage;
+        bulletScript.dropOffThreshold = damageDropOff;  // Example start distance
+        bulletScript.dropOffMultiplier = 0.4f;
 
         // Get the world position of the mouse
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        // Ensure the z-axis is the same since we are working in 2D
-        mouseWorldPosition.z = 0;
+        mouseWorldPosition.z = 0; // Ensure the z-axis is the same since we are working in 2D
 
         // Calculate the direction from the fire point to the mouse, and normalize it
         Vector2 bulletDirection = ((Vector2)mouseWorldPosition - (Vector2)firePoint.position).normalized;
@@ -281,8 +286,11 @@ public class Weapon : MonoBehaviour
 
         // Set bullet velocity in the direction of the mouse
         rb.velocity = bulletDirection * 70f;
-         DDAdataCollector.Instance.OnBulletFired(bulletScript.bulletID);
+
+        // Notify DDA system
+        DDAdataCollector.Instance.OnBulletFired(bulletScript.bulletID);
     }
+
 
 
    private void FirePellet()
@@ -303,6 +311,8 @@ public class Weapon : MonoBehaviour
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         Bullet bulletScript = bullet.GetComponent<Bullet>();
         bulletScript.damage = damage;
+        bulletScript.dropOffThreshold = damageDropOff;  // Example start distance
+        bulletScript.dropOffMultiplier = 0.4f;
         bulletScript.caliberType = caliberType;
 
         // Apply some accuracy adjustments
@@ -411,9 +421,12 @@ public class Weapon : MonoBehaviour
         animationController.isreload = true;
         actionController.canchangeweapond = false;
         // Calculate reload time based on stats and multipliers
-        float reloadTime = (6.5f * (1 - (statAmplifier.GetCombatMultiplier() - 1))) 
-                            * (100f - handling) / 100f 
-                            * statAmplifier.GetReloadSpeedMultiplier();
+        float reloadTime = Mathf.Max(
+                    (6.5f * (1 - (statAmplifier.GetCombatMultiplier() - 1)))
+                        * (100f - handling) / 100f
+                        * statAmplifier.GetReloadSpeedMultiplier(),
+                    1.25f // Minimum reload time
+                );
         if (reloadSlider != null)
         {
             reloadSlider.gameObject.SetActive(true);
@@ -605,5 +618,8 @@ public class Weapon : MonoBehaviour
         handling = statManager.handling;
         accuracy = statManager.accuracy;
         stability = statManager.stability;
+        accuracy = Mathf.Clamp(accuracy, 0, 100);
+        handling = Mathf.Clamp(handling, 0, 100);
+        stability = Mathf.Clamp(stability, 0, 100);
     }
 }

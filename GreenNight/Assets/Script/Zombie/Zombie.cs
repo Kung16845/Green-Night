@@ -54,6 +54,7 @@ public class Zombie : MonoBehaviour
     private Coroutine poisonCoroutine;
     private float buildUpDamage = 0f; // Accumulated poison damage
     public float movementSpeed = 1.0f;       // Movement speed
+    private bool isapply;
 
     // Fields for Engaging Area
     public Lane currentLane;
@@ -68,7 +69,7 @@ public class Zombie : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
     private Coroutine damageEffectCoroutine;
-
+    private Animator animator;
     [Header("Mutation Settings")]
     public MutationType mutationType = MutationType.None;
      [Header("Allowed Mutations")]
@@ -102,7 +103,9 @@ public class Zombie : MonoBehaviour
     public string idZombieCoustume;
     protected virtual void Start()
     {
+        animator = GetComponent<Animator>();
         canmove = true;
+        isapply = false;
         animationControllerGrunt =  GetComponent<AnimationControllerGrunt>();
         currentSpeed = maxSpeed;
         currentHp = maxHp;
@@ -613,7 +616,7 @@ public class Zombie : MonoBehaviour
             { DamageType.Explosive, 1f },
         };
     }
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         Barrier triggerbarrier = other.GetComponent<Barrier>();
         if (triggerbarrier != null)
@@ -623,14 +626,27 @@ public class Zombie : MonoBehaviour
     }
     public void IncreaseSpeed(float multiplier)
     {
-        speedMultiplier *= multiplier;
-        UpdateCurrentSpeed();
+        if(!isapply)
+        {
+            speedMultiplier *= multiplier;
+            UpdateAnimationSpeed();
+            UpdateCurrentSpeed();
+            isapply= true;
+        }
     }
 
     public void ResetSpeed()
     {
         speedMultiplier = 1f;
         UpdateCurrentSpeed();
+        UpdateAnimationSpeed();
+    }
+    private void UpdateAnimationSpeed()
+    {
+        if (animator != null)
+        {
+            animator.speed = attackSpeedMultiplier;
+        }
     }
     private void UpdateCurrentSpeed()
     {
@@ -638,7 +654,10 @@ public class Zombie : MonoBehaviour
     }
     public void IncreaseAttackSpeed(float multiplier)
     {
+        if(!isapply)
+        {
         attackSpeedMultiplier *= multiplier;
+        }
     }
 
     public void ResetAttackSpeed()
