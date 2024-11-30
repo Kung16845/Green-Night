@@ -76,15 +76,18 @@ public class SoundManager : MonoBehaviour
         UpdateVolumes();
     }
 
-    public void PlaySound(string name)
+    public void PlaySound(string name, float cooldownOverride = 0f)
     {
         Sound sound = sounds.Find(s => s.name == name);
         if (sound != null)
         {
+            // Use either the defined cooldown or an override (like fire rate)
+            float cooldown = cooldownOverride > 0f ? cooldownOverride : sound.cooldown;
+
             // Check cooldown
             if (soundCooldowns.TryGetValue(name, out float lastPlayedTime))
             {
-                if (Time.time - lastPlayedTime < sound.cooldown)
+                if (Time.time - lastPlayedTime < cooldown)
                 {
                     return; // Too soon to play this sound again
                 }
@@ -118,6 +121,7 @@ public class SoundManager : MonoBehaviour
             Debug.LogWarning($"Sound '{name}' not found!");
         }
     }
+
 
     public void UpdateVolumes()
     {

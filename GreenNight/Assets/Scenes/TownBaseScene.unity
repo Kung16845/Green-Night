@@ -23222,7 +23222,7 @@ MonoBehaviour:
   - name: DryFireSound
     clip: {fileID: 8300000, guid: aae04f67c5c4cde46a97bf2478091772, type: 3}
     soundType: 3
-    cooldown: 0
+    cooldown: 1.5
   - name: AK47
     clip: {fileID: 8300000, guid: 54de724fbac3db24d9169f55f50980d3, type: 3}
     soundType: 3
@@ -23274,15 +23274,15 @@ MonoBehaviour:
   - name: FLeshhit
     clip: {fileID: 8300000, guid: f9de83b653f7c074b995f18065bbd49b, type: 3}
     soundType: 2
-    cooldown: 0.1
+    cooldown: 0.25
   - name: ArmourHit
     clip: {fileID: 8300000, guid: 48e53ad559cf3a740bc27e20e60d0fb0, type: 3}
     soundType: 2
-    cooldown: 0.1
+    cooldown: 0.25
   - name: ZombieBurnt
     clip: {fileID: 8300000, guid: 54b6e3ba4bb9c5b4e96a7983626e70e8, type: 3}
     soundType: 2
-    cooldown: 0.1
+    cooldown: 0.3
   - name: ZombieAttackBarrier
     clip: {fileID: 8300000, guid: 0759fe42e4972b64bb6ee460423847c5, type: 3}
     soundType: 2
@@ -23300,6 +23300,7 @@ MonoBehaviour:
   vfxVolume: 1
   gunshotVolume: 0.76
   poolSize: 30
+  GunpoolSize: 30
 --- !u!1 &857472067
 GameObject:
   m_ObjectHideFlags: 0

@@ -656,7 +656,7 @@ public class Weapon : MonoBehaviour
         {
             
             case "Gunshot":
-                SoundManager.Instance.PlaySound(itemWeapon.Gunshotsound.name);
+                SoundManager.Instance.PlaySound(itemWeapon.Gunshotsound.name, fireRate);
                 break;
             case "Dry":
                 SoundManager.Instance.PlaySound("DryFireSound");

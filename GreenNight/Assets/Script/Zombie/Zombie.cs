@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 public enum DamageType
 {
 
@@ -101,6 +102,10 @@ public class Zombie : MonoBehaviour
     public DDAdataCollector ddadataCollector;
     [Header("ID Zombie Costume")]
     public string idZombieCoustume;
+    [SerializeField]
+    public GameObject hitMarkerPrefab; // Assign your hit marker prefab in the Inspector
+    private RawImage[] hitMarkerImages;    // Array to store references to marker images
+    private Coroutine hideMarkerCoroutine;
     protected virtual void Start()
     {
         animator = GetComponent<Animator>();
@@ -112,6 +117,15 @@ public class Zombie : MonoBehaviour
         originalSpeed = maxSpeed;
         rb2D = GetComponent<Rigidbody2D>();
         InitializeDamageMultipliers();
+        if (hitMarkerPrefab == null)
+        {
+            Transform canvasTransform = GameObject.Find("Canvas").transform; // Replace "Canvas" with your actual Canvas name
+            hitMarkerPrefab = canvasTransform.Find("Hitmarker")?.gameObject; 
+        }
+        if (hitMarkerPrefab != null)
+        {
+            hitMarkerImages = hitMarkerPrefab.GetComponentsInChildren<RawImage>();
+        }
     }
     public ZombieState CurrentState
     {
@@ -193,6 +207,12 @@ public class Zombie : MonoBehaviour
             }
         }
     }
+        private IEnumerator HideHitMarkerAfterDelay()
+    {
+        yield return new WaitForSeconds(0.1f); // Adjust delay as needed
+        hitMarkerPrefab.SetActive(false);
+    }
+
     public virtual void ZombieTakeDamage(float damage, DamageType damageType, float extraMultiplier = 1f)
     {
         // Calculate adjusted damage based on multipliers
@@ -202,27 +222,32 @@ public class Zombie : MonoBehaviour
             multiplier = damageMultipliers[damageType];
         }
         float adjustedDamage = damage * multiplier * extraMultiplier;
+        Color hitMarkerColor = Color.white; // Default color
+        Color orange = new Color(185f / 255f, 128f / 255f, 64f / 255f);
+        Color LightBlue = new Color(64f / 255f, 185f / 255f, 177f / 255f);
+
         if (ArmourHp > 0)
         {
             if (damageType == DamageType.HighcalliberBullet)
             {
-                // Bullet damage reduces damage by 15% to armor
                 float reducedDamage = adjustedDamage * 0.85f;
                 ArmourHp -= reducedDamage;
                 ApplyOverflowDamageToHealth();
+                hitMarkerColor = LightBlue; // Armor hit
             }
             else if (damageType == DamageType.MediumcaliberBullet)
             {
-                // Bullet damage reduces damage by 25% to armor
                 float reducedDamage = adjustedDamage * 0.75f;
                 ArmourHp -= reducedDamage;
                 ApplyOverflowDamageToHealth();
+                hitMarkerColor = LightBlue; // Armor hit
             }
             else if (damageType == DamageType.LowcaliberBullet || damageType == DamageType.ShotgunPellet)
             {
                 float reducedDamage = adjustedDamage * 0.50f;
                 ArmourHp -= reducedDamage;
                 ApplyOverflowDamageToHealth();
+                hitMarkerColor = LightBlue; // Armor hit
             }
             else if (damageType == DamageType.Explosive)
             {
@@ -230,20 +255,16 @@ public class Zombie : MonoBehaviour
                 float damageToHealth = adjustedDamage * 0.40f;
                 ArmourHp -= damageToArmor;
                 currentHp -= damageToHealth;
-
-                // Apply overflow damage to health
                 ApplyOverflowDamageToHealth();
             }
             else if (damageType == DamageType.Pulse)
             {
-                // Pulse damage removes all armor
                 ArmourHp = 0f;
+                hitMarkerColor = LightBlue; // Armor hit
             }
             else
             {
-                // Other damage types apply full damage to armor
                 ArmourHp -= adjustedDamage;
-                // Apply overflow damage to health
                 ApplyOverflowDamageToHealth();
             }
             SoundManager.Instance.PlaySound("ArmourHit");
@@ -252,15 +273,30 @@ public class Zombie : MonoBehaviour
         {
             SoundManager.Instance.PlaySound("FLeshhit");
             currentHp -= adjustedDamage;
+
+            if (adjustedDamage < 10)
+            {
+                hitMarkerColor = Color.grey; // Low damage
+            }
         }
-        if(damageType == DamageType.Fire)
+
+        if (damageType == DamageType.Fire)
         {
             SoundManager.Instance.PlaySound("ZombieBurnt");
+            hitMarkerColor = orange; // Fire damage
         }
+        else if (damageType == DamageType.Poison || damageType == DamageType.Acid)
+        {
+            hitMarkerColor = Color.green; // Poison or acid
+        }
+
+        // Show the hit marker with the determined color
+        ShowHitMarker(hitMarkerColor);
+
         // Apply damage effects and check for death
         ApplyDamageEffects(damageType);
         CheckForDeath();
-    }
+}
     private IEnumerator ArmourBroken()
     {
         canmove = false;
@@ -765,4 +801,26 @@ public class Zombie : MonoBehaviour
                 return "00"; // Default for undefined mutations
         }
     }
+    private void ShowHitMarker(Color markerColor)
+    {
+        if (hitMarkerPrefab == null || hitMarkerImages == null)
+            return;
+
+        // Set the color for each marker RawImage
+        foreach (var rawImage in hitMarkerImages)
+        {
+            rawImage.color = markerColor;
+        }
+
+        // Activate the hit marker object
+        hitMarkerPrefab.SetActive(true);
+
+        // Reset and start a coroutine to hide the hit marker after a short delay
+        if (hideMarkerCoroutine != null)
+        {
+            StopCoroutine(hideMarkerCoroutine);
+        }
+        hideMarkerCoroutine = StartCoroutine(HideHitMarkerAfterDelay());
+    }
+
 }
