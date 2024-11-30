@@ -26,12 +26,19 @@ public class SoundManager : MonoBehaviour
     public List<Sound> sounds = new List<Sound>();
     private Dictionary<string, float> soundCooldowns = new Dictionary<string, float>();
 
+    [Header("Volume Settings")]
+    [Range(0f, 1f)] public float bgVolume = 0.5f;
+    [Range(0f, 1f)] public float musicVolume = 0.5f;
+    [Range(0f, 1f)] public float vfxVolume = 0.5f;
+    [Range(0f, 1f)] public float gunshotVolume = 0.5f;
+
     [Header("Audio Source Pool")]
     public int poolSize = 30;
+    public int GunpoolSize = 30;
     private List<AudioSource> audioSourcePool;
-    private List<AudioSource> VFXaudioSourcePool;
+    private List<AudioSource> vfxAudioSourcePool;
     private int currentSourceIndex = 0;
-    private int VFXcurrentSourceIndex = 0;
+    private int vfxCurrentSourceIndex = 0;
     private AudioSource bgAudioSource;
     private AudioSource musicAudioSource;
 
@@ -46,35 +53,41 @@ public class SoundManager : MonoBehaviour
             bgAudioSource = gameObject.AddComponent<AudioSource>();
             musicAudioSource = gameObject.AddComponent<AudioSource>();
 
-            // Initialize audio source pool
+            // Initialize audio source pools
             audioSourcePool = new List<AudioSource>();
-            for (int i = 0; i < poolSize; i++)
+            for (int i = 0; i < GunpoolSize; i++)
             {
                 AudioSource source = gameObject.AddComponent<AudioSource>();
                 audioSourcePool.Add(source);
             }
-            VFXaudioSourcePool = new List<AudioSource>();
+
+            vfxAudioSourcePool = new List<AudioSource>();
             for (int i = 0; i < poolSize; i++)
             {
                 AudioSource source = gameObject.AddComponent<AudioSource>();
-                VFXaudioSourcePool.Add(source);
+                vfxAudioSourcePool.Add(source);
             }
         }
         else
         {
             Destroy(gameObject);
         }
+
+        UpdateVolumes();
     }
 
-    public void PlaySound(string name)
+    public void PlaySound(string name, float cooldownOverride = 0f)
     {
         Sound sound = sounds.Find(s => s.name == name);
         if (sound != null)
         {
+            // Use either the defined cooldown or an override (like fire rate)
+            float cooldown = cooldownOverride > 0f ? cooldownOverride : sound.cooldown;
+
             // Check cooldown
             if (soundCooldowns.TryGetValue(name, out float lastPlayedTime))
             {
-                if (Time.time - lastPlayedTime < sound.cooldown)
+                if (Time.time - lastPlayedTime < cooldown)
                 {
                     return; // Too soon to play this sound again
                 }
@@ -86,18 +99,20 @@ public class SoundManager : MonoBehaviour
             {
                 case SoundType.BGSound:
                     bgAudioSource.clip = sound.clip;
+                    bgAudioSource.volume = bgVolume;
                     bgAudioSource.Play();
                     break;
                 case SoundType.MusicSound:
                     musicAudioSource.clip = sound.clip;
+                    musicAudioSource.volume = musicVolume;
                     musicAudioSource.loop = true;
                     musicAudioSource.Play();
                     break;
                 case SoundType.VFXSound:
-                    PlayFromPoolVFX(sound.clip);
+                    PlayFromVFXPool(sound.clip, vfxVolume);
                     break;
                 case SoundType.Gunshot:
-                    PlayFromPool(sound.clip);
+                    PlayFromPool(sound.clip, gunshotVolume);
                     break;
             }
         }
@@ -106,6 +121,50 @@ public class SoundManager : MonoBehaviour
             Debug.LogWarning($"Sound '{name}' not found!");
         }
     }
+
+
+    public void UpdateVolumes()
+    {
+        bgAudioSource.volume = bgVolume;
+        musicAudioSource.volume = musicVolume;
+
+        foreach (var source in vfxAudioSourcePool)
+        {
+            source.volume = vfxVolume;
+        }
+
+        foreach (var source in audioSourcePool)
+        {
+            source.volume = gunshotVolume;
+        }
+    }
+
+    private void PlayFromPool(AudioClip clip, float volume)
+    {
+        if (audioSourcePool.Count == 0) return;
+
+        AudioSource source = audioSourcePool[currentSourceIndex];
+        source.clip = clip;
+        source.volume = volume;
+        source.Play();
+
+        // Move to the next source in the pool
+        currentSourceIndex = (currentSourceIndex + 1) % GunpoolSize;
+    }
+
+    private void PlayFromVFXPool(AudioClip clip, float volume)
+    {
+        if (vfxAudioSourcePool.Count == 0) return;
+
+        AudioSource source = vfxAudioSourcePool[vfxCurrentSourceIndex];
+        source.clip = clip;
+        source.volume = volume;
+        source.Play();
+
+        // Move to the next source in the pool
+        vfxCurrentSourceIndex = (vfxCurrentSourceIndex + 1) % poolSize;
+    }
+
     public AudioSource GetAudioSourceForType(SoundType type)
     {
         switch (type)
@@ -121,27 +180,7 @@ public class SoundManager : MonoBehaviour
                 return null;
         }
     }
-
-    private void PlayFromPool(AudioClip clip)
-    {
-        if (audioSourcePool.Count == 0) return;
-
-        AudioSource source = audioSourcePool[currentSourceIndex];
-        source.clip = clip;
-        source.Play();
-
-        // Move to the next source in the pool
-        currentSourceIndex = (currentSourceIndex + 1) % poolSize;
-    }
-    private void PlayFromPoolVFX(AudioClip clip)
-    {
-        if (VFXaudioSourcePool.Count == 0) return;
-
-        AudioSource source = VFXaudioSourcePool[VFXcurrentSourceIndex];
-        source.clip = clip;
-        source.Play();
-
-        // Move to the next source in the pool
-        VFXcurrentSourceIndex = (VFXcurrentSourceIndex + 1) % poolSize;
-    }
 }
+
+
+   

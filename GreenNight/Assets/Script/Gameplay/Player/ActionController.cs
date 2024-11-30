@@ -16,6 +16,11 @@ public class ActionController : MonoBehaviour
     private float stuckProgress = 0f; // Current progress on the slider
     public float maxStuckValue = 50f; // Value at which the player is released
 
+    // Cooldown-related variables
+    public float cooldownDuration = 5f; // Duration of the cooldown in seconds
+    private bool isCooldownActive = false;
+    private float cooldownTimer = 0f;
+
     void Start()
     {
         if (stuckSlider != null)
@@ -43,20 +48,21 @@ public class ActionController : MonoBehaviour
             HandleStuckState();
         }
 
-        // Example toggle for weapon use (unrelated to slime)
-        // if (!canuseweapon)
-        // {
-        //     if (Input.GetKeyDown(KeyCode.Q))
-        //     {
-        //         canuseweapon = true;
-        //         canwalk = true;
-        //     }
-        // }
+        if (isCooldownActive)
+        {
+            HandleCooldown();
+        }
     }
 
     // Call this method when the player gets stuck in slime
     public void StartStuck()
     {
+        if (isCooldownActive || isStuck)
+        {
+            // If cooldown is active or already stuck, do nothing
+            return;
+        }
+
         isStuck = true;
         canwalk = false;
         canuseweapon = false;
@@ -78,7 +84,6 @@ public class ActionController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             stuckProgress += releasedvalue * actionSpeed;
-            // Debug.Log(stuckProgress);
             if (stuckProgress > maxStuckValue)
             {
                 stuckProgress = maxStuckValue;
@@ -88,7 +93,6 @@ public class ActionController : MonoBehaviour
             if (stuckSlider != null)
             {
                 stuckSlider.value = stuckProgress;
-                // The OnSliderValueChanged method will be automatically called
             }
         }
     }
@@ -115,13 +119,31 @@ public class ActionController : MonoBehaviour
         if (stuckSlider != null)
         {
             stuckSlider.gameObject.SetActive(false);
-            // Remove the listener if added in code
-            // stuckSlider.onValueChanged.RemoveListener(OnSliderValueChanged);
         }
+
+        // Start cooldown
+        StartCooldown();
 
         // Reset the progress
         stuckProgress = 0f;
     }
+
+    private void StartCooldown()
+    {
+        isCooldownActive = true;
+        cooldownTimer = cooldownDuration;
+    }
+
+    private void HandleCooldown()
+    {
+        cooldownTimer -= Time.deltaTime;
+
+        if (cooldownTimer <= 0f)
+        {
+            isCooldownActive = false;
+        }
+    }
+
     public void SetWeapondFree()
     {
         canuseweapon = true;
