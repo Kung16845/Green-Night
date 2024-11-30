@@ -39,7 +39,12 @@ public class MainSpawner : MonoBehaviour
     public int currentDeckZombiesLeft = 0;         // Zombies left in the current deck
 
     public List<SpawnDeck> remainingDecks = new List<SpawnDeck>(); // Decks yet to be spawned
-
+    public CheckUsingDDA checkUsingDDA;
+    private void Awake() {
+        checkUsingDDA = FindObjectOfType<CheckUsingDDA>();
+        checkUsingDDA.mainSpawner = this;
+        useDDA = checkUsingDDA.isUsingDDA;
+    }
     private void Start()
     {
         LaneManager.Instance.RegisterLanes(lanes);
@@ -53,10 +58,10 @@ public class MainSpawner : MonoBehaviour
             Debug.LogError("SaveDataDDA not found in the scene.");
         }
 
-        // Calculate decks based on DDA setting
+        // // Calculate decks based on DDA setting
         CalculateDecks();
 
-        // Initialize tracking variables
+        // // Initialize tracking variables
         InitializeTracking();
 
         currentDeckIndex = 0;

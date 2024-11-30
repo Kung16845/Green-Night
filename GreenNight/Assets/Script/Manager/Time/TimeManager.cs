@@ -90,10 +90,10 @@ public class DateTime
     }
     public void SetTimeStartDay()
     {
-        this.hour = 6;
-        this.minutes = 0;
-        // this.hour = 17;
-        // this.minutes = 55;
+        // this.hour = 6;
+        // this.minutes = 0;
+        this.hour = 17;
+        this.minutes = 30;
     }
     public void SetTimeNightDay()
     {
