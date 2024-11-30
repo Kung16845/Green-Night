@@ -11,6 +11,7 @@ public class DDAdataCollector : MonoBehaviour
     public float accuracy;
     public int multiKillCount;
     public float barrierDamage;
+    public float valueFail;
 
     // Private fields for calculations
     private int totalKills;

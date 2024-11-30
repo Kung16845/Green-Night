@@ -3048,6 +3048,7 @@ MonoBehaviour:
   accuracy: 0
   multiKillCount: 0
   barrierDamage: 0
+  valueFail: 0
   recentKills: []
 --- !u!1 &203288090
 GameObject:
@@ -3572,6 +3573,7 @@ MonoBehaviour:
   currentHp: 0
   maxHp: 5000
   sceneSystem: {fileID: 0}
+  saveDataDDA: {fileID: 0}
 --- !u!4 &250726249
 Transform:
   m_ObjectHideFlags: 0
@@ -26751,6 +26753,10 @@ PrefabInstance:
     - target: {fileID: 165580668273915266, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
       propertyPath: m_Name
       value: ZombieSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511517036842616463, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
+      propertyPath: startDelay
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1511517036842616463, guid: 12cc86a46de23184f987d4cc38bac263, type: 3}
       propertyPath: startDelayText
