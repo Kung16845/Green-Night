@@ -80,7 +80,7 @@ public class SceneSystem : MonoBehaviour
                 }
             }
         }
-
+        
     }
 
     private void OnEnable()

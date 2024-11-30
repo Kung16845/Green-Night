@@ -10,6 +10,7 @@ public class DataDDA
     public float accuracy;
     public float multiKillCount;
     public float barrierDamage;
+    public float valueFail;
     public int recordCount;
 }
 
@@ -29,7 +30,7 @@ public class SaveDataDDA : MonoBehaviour
     private void Start()
     {
         scriptDDAdataCollector = FindObjectOfType<DDAdataCollector>();
-      
+
         LoadData();
     }
 
@@ -42,7 +43,9 @@ public class SaveDataDDA : MonoBehaviour
             accuracy = scriptDDAdataCollector.accuracy,
             multiKillCount = scriptDDAdataCollector.multiKillCount,
             barrierDamage = scriptDDAdataCollector.barrierDamage,
+            valueFail = scriptDDAdataCollector.valueFail,
             recordCount = dataCollection.records.Count + 1
+
         };
 
         // เพิ่มข้อมูลใหม่ลงในรายการ
@@ -62,7 +65,9 @@ public class SaveDataDDA : MonoBehaviour
         var totalAccuracy = 0f;
         var totalMultiKill = 0f;
         var totalBarrierDamage = 0f;
+        var totalValueFail = 0f;
         var totalCount = dataCollection.records.Count;
+        
 
         foreach (var record in dataCollection.records)
         {
@@ -70,12 +75,14 @@ public class SaveDataDDA : MonoBehaviour
             totalAccuracy += record.accuracy;
             totalMultiKill += record.multiKillCount;
             totalBarrierDamage += record.barrierDamage;
+            totalValueFail += record.valueFail;
         }
 
         dataCollection.averageData.killPerMinute = totalKills / totalCount;
         dataCollection.averageData.accuracy = totalAccuracy / totalCount;
         dataCollection.averageData.multiKillCount = totalMultiKill / totalCount;
         dataCollection.averageData.barrierDamage = totalBarrierDamage / totalCount;
+        dataCollection.averageData.valueFail = totalValueFail / totalCount;
         dataCollection.averageData.recordCount = totalCount;
     }
 
