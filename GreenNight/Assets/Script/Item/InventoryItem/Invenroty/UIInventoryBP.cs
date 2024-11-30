@@ -10,6 +10,7 @@ public class UIInventoryBP : UIInventory
     {
         SetValuableUIInventory();
         RefreshUIInventory();
+        SelectNpcDefenseScene();
     }
 
     private void OnEnable()

@@ -25,13 +25,22 @@ public class ZombieSlimer : Zombie
 
     // List of all lanes for lane switching
     private List<Lane> allLanes;
+    private AnimationControllerGrunt animationControllerGrunt;
 
     // Reference to the player
     private Transform playerTransform;
 
-    private void Start()
+    public void SetZombieCostumeId()
     {
-        // Initialize necessary components
+        string mutationCode = GetMutationCode(mutationType);
+        idZombieCoustume = $"30105{mutationCode}";
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+        SetZombieCostumeId();
+        animationControllerGrunt = GetComponent<AnimationControllerGrunt>();
         rb2D = GetComponent<Rigidbody2D>();
         // Initialize variables
         slimerState = SlimerStates.Moving;
@@ -123,24 +132,31 @@ public class ZombieSlimer : Zombie
         }
         else
         {
-            // Move towards the engaging point
-            MoveTowards(engagingPoint.position);
+            animationControllerGrunt.IsWalk = true;
+            animationControllerGrunt.IsAttack = false;
+            if(canmove)
+            {
+                MoveTowards(engagingPoint.position);
+            }
         }
     }
 
     private void HandleAttackingState()
     {
+        animationControllerGrunt.IsAttack = true;
         SlimeattackTimer -= Time.deltaTime;
         attackCooldown -= Time.deltaTime;
 
         if (attackCooldown <= 0f)
         {
+            animationControllerGrunt.Isreach = true;
             LaunchProjectile();
             attackCooldown = attackInterval;
         }
 
         if (SlimeattackTimer <= 0f)
         {
+            animationControllerGrunt.Isreach = false;
             slimerState = SlimerStates.SwitchingLanes;
         }
     }
@@ -165,6 +181,14 @@ public class ZombieSlimer : Zombie
     {
         Vector2 direction = (targetPosition - (Vector2)transform.position).normalized;
         rb2D.velocity = direction * currentSpeed;
+         if (direction.x < 0)
+            {
+                transform.localScale = new Vector3(0.7f, 0.7f, 1); // Flip left
+            }
+            else if (direction.x > 0)
+            {
+                transform.localScale = new Vector3(-0.7f, 0.7f, 1); // Face right
+            }
     }
 
     private void LaunchProjectile()

@@ -10,14 +10,22 @@ public class ZombieChember : Zombie
     public float areaDuration = 10f;
     public float speedIncreaseAmount = 1.5f;          // Movement speed multiplier
     public float attackSpeedIncreaseAmount = 1.5f;    // Attack speed multiplier
-    public float speedIncreaseDuration = 5f; 
-
+    public float speedIncreaseDuration = 5f;
+    public void SetZombieCostumeId()
+    {
+        string mutationCode = GetMutationCode(mutationType);
+        idZombieCoustume = $"30104{mutationCode}";
+    }
+    protected override void Start()
+    {
+        base.Start();
+        SetZombieCostumeId();
+    }
     protected override void InitializeDamageMultipliers()
     {
         base.InitializeDamageMultipliers(); // Initialize with default multipliers
 
-        // Immune to acid damage
-        damageMultipliers[DamageType.Acid] = 0f;
+        damageMultipliers[DamageType.Poison] = 0;
     }
 
     protected override void OnDeath()
@@ -45,7 +53,19 @@ public class ZombieChember : Zombie
     }
     private void Update()
     {
-        ZombieAttack();
-        ZombieMoveFindBarrier();
+        if (currentHp <= 0)
+        {
+            currentState = ZombieState.Dead;
+            return;
+        }
+        if (HasReachedAttackPoint())
+        {
+            rb2D.velocity = Vector2.zero;
+            ZombieAttack();
+        }
+        else
+        {
+            ZombieMoveFindBarrier();
+        }
     }
 }

@@ -28,13 +28,19 @@ public class ZombieCharger : Zombie
     [SerializeField] private float chargeTimer = 0f;
     [SerializeField] private float stopTimer = 0f;
     [SerializeField] private float accumulatedDamage = 0f;
+    public AnimationControllerCharger animationControllerCharger;
 
     // Existing fields...
     private Color originalColor;
-
-    private void Start()
+    public void SetZombieCostumeId()
     {
-        // Initialize the zombie's state
+        string mutationCode = GetMutationCode(mutationType);
+        idZombieCoustume = $"30107{mutationCode}";
+    }
+    protected override void Start()
+    {
+        base.Start();
+        SetZombieCostumeId();
         ChargercurrentState= ChargingZombieState.Charging;
         chargeTimer = chargeUpTime;
         attackDamage = normalDamage;  // Set initial attack damage
@@ -47,6 +53,7 @@ public class ZombieCharger : Zombie
 
     private void Update()
     {
+        CheckForDeathCharger();
         switch (ChargercurrentState)
         {
             case ChargingZombieState.Stopped:
@@ -59,11 +66,56 @@ public class ZombieCharger : Zombie
                 HandleBoostedState();
                 break;
             case ChargingZombieState.Normal:
-                // Normal behavior (if any)
-                ZombieAttack();
-                ZombieMoveFindBarrier();
+                 if (HasReachedAttackPoint())
+                {
+                    rb2D.velocity = Vector2.zero;
+                    animationControllerCharger.Ischarged = false;
+                    animationControllerCharger.Isstunt = false;
+                    animationControllerCharger.Isreach = true;
+                    ZombieAttack();
+                }
                 break;
         }
+    }
+    private void CheckForDeathCharger()
+    {
+        if (currentHp <= 0)
+        {
+            animationControllerCharger.Ischarged = false;
+            animationControllerCharger.Isreach = false;
+            StartCoroutine(DelayDead());
+        }
+    }
+    private IEnumerator DelayDead()
+    {
+            animationControllerCharger.IsDead = true; 
+            animationControllerCharger.Isstunt = false;
+            
+            currentState = ZombieState.Dead;
+            canmove = false;
+            rb2D.velocity = Vector2.zero; // Immediately stop movement
+
+            countTimer = Mathf.Infinity; 
+            DisableCollider(); // Prevent interactions
+            // Get the Animator component from the animationControllerCharger
+            Animator animator = animationControllerCharger.GetComponent<Animator>();
+
+            // Ensure the animator exists and wait for the death animation to finish
+            if (animator != null)
+            {
+                Debug.Log("Checknull");
+                AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                while (stateInfo.normalizedTime < 1.0f || !stateInfo.IsName("Zombie_Dead"))
+                {
+                    yield return null; // Wait for the animation to finish
+                    stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                }
+            }
+            else
+            {
+                Debug.LogError("Animator not found on animationControllerCharger!");
+            }
+            Destroy(this.gameObject);
     }
     private void HandleStoppedState()
     {
@@ -79,7 +131,11 @@ public class ZombieCharger : Zombie
         }
         else
         {
-            // Ensure the zombie stops moving
+            animationControllerCharger.Ischarged = false;
+            if(!animationControllerCharger.IsDead)
+            {
+                animationControllerCharger.Isstunt = true;
+            }
             rb2D.velocity = Vector2.zero;
         }
     }
@@ -104,15 +160,24 @@ public class ZombieCharger : Zombie
     }
     private void HandleBoostedState()
     {
-        // Move towards the barrier with boosted speed
-        ZombieAttack();
-        ZombieMoveFindBarrier();
+        animationControllerCharger.Isstunt = false;
+        animationControllerCharger.Ischarged = true;
+        if (HasReachedAttackPoint())
+        {
+            ChargercurrentState = ChargingZombieState.Normal;
+            rb2D.velocity = Vector2.zero;
+            animationControllerCharger.Ischarged = false;
+            animationControllerCharger.Isstunt = false;
+            animationControllerCharger.Isreach = true;
+            ZombieAttack();
+        }
     }
 
     protected override void InitializeDamageMultipliers()
     {
         base.InitializeDamageMultipliers();
         damageMultipliers[DamageType.LowcaliberBullet] = bulletDamageReduction;
+        damageMultipliers[DamageType.MediumcaliberBullet] = bulletDamageReduction;
         damageMultipliers[DamageType.HighcalliberBullet] = bulletDamageReduction;
     }
     public override void ZombieTakeDamage(float damage, DamageType damageType, float extraMultiplier = 1f)
@@ -162,6 +227,7 @@ public class ZombieCharger : Zombie
         // Remove bullet damage reduction during weakness
         bulletDamageReduction = 1f; // No reduction
         damageMultipliers[DamageType.LowcaliberBullet] = bulletDamageReduction;
+        damageMultipliers[DamageType.MediumcaliberBullet] = bulletDamageReduction;
         damageMultipliers[DamageType.HighcalliberBullet] = bulletDamageReduction;
         // Optionally: Play a stunned animation or effect
     }

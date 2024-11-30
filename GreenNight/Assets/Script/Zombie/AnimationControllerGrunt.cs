@@ -9,16 +9,17 @@ public class AnimationControllerGrunt : MonoBehaviour
     public bool IsAttack;
     public bool IsDead;
     public bool IsWalk;
-    public ZombieGrunt zombieGrunt;
+    public bool Isreach;
+    public Zombie zombieGrunt;
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        zombieGrunt = GetComponent<Zombie>();
         IsAttack = false;
         IsDead = false;
         IsWalk = true;
-        zombieGrunt = GetComponent<ZombieGrunt>();
     }
 
     // Update is called once per frame
@@ -28,21 +29,11 @@ public class AnimationControllerGrunt : MonoBehaviour
         {
             return;
         }
-
-        if (zombieGrunt.countTimer == 0)
+        animator.SetBool("Isattack",  IsAttack);
+        animator.SetBool("Isreach",  Isreach);
+        if(IsDead)
         {
-            IsWalk = true;
-            animator.SetBool("Isreach", false);
-        }
-        else
-        {
-            animator.SetBool("Isreach", true);
-        }
-
-        if (zombieGrunt.currentHp <= 0 && !IsDead)
-        {
-            IsDead = true;
-            animator.SetBool("Isdead", IsDead);
+            animator.SetTrigger("Isdead");
         }
     }
 }

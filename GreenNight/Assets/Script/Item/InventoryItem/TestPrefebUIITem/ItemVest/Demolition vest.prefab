@@ -68,8 +68,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: count
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c788dda6f400e8c48a0375db07c201ed, type: 2}
+  m_sharedMaterial: {fileID: 7780802052913712025, guid: c788dda6f400e8c48a0375db07c201ed, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -223,6 +223,8 @@ GameObject:
   - component: {fileID: 2830492767405450512}
   - component: {fileID: 1291614654634707552}
   - component: {fileID: 941940762069134744}
+  - component: {fileID: -5966644441047167213}
+  - component: {fileID: 4941073965905872523}
   m_Layer: 5
   m_Name: Demolition vest
   m_TagString: Untagged
@@ -310,6 +312,7 @@ MonoBehaviour:
   pointType: items
   point: 30
   IconSprite: {fileID: 5222524482886833746}
+  itemIcon: {fileID: 21300000, guid: 0388b307ba857714d8e1707f13619302, type: 3}
   damageIncreasePercent: 1
   speedIncreasePercent: 0.85
   staminaIncreasePercent: 1
@@ -318,3 +321,63 @@ MonoBehaviour:
   riskdecrease: 1.1
   Repairmaterial: 0
   Quality: 100
+--- !u!114 &-5966644441047167213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9105195170046179818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 0}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &4941073965905872523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9105195170046179818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae55359733d8f364f905121448e33a28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 0}
+  statPanelPrefab: {fileID: 2459759956663590009, guid: 6461006501354df48ba2d20bbcb8fbf1, type: 3}
+  statElementPrefab: {fileID: 3119790154746807855, guid: 60507d56abbae79449abf8e4553b381a, type: 3}
+  statPanelParent: {fileID: 0}

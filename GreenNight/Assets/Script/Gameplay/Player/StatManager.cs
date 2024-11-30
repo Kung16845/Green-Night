@@ -24,6 +24,7 @@ public class StatManager : MonoBehaviour
     public float handling { get; private set; }
     public float accuracy { get; private set; }
     public float stability { get; private set; }
+    
     public CaliberType caliberType { get; private set; }
 
     // Modifiers from items and roles
@@ -118,8 +119,6 @@ public class StatManager : MonoBehaviour
         // Calculate final stats
         speed = (baseSpeed * speedModifier) * movementHandlingPenalty;
         sprintSpeed = (baseSprintSpeed * speedModifier) * movementHandlingPenalty; // Assuming sprint speed uses the same modifier
-        Debug.Log($"Speed: {speed} (baseSpeed: {baseSpeed}, speedModifier: {speedModifier}, movementHandlingPenalty: {movementHandlingPenalty})");
-        Debug.Log($"Sprint Speed: {sprintSpeed} (baseSprintSpeed: {baseSprintSpeed}, sprintSpeedModifier: {sprintSpeedModifier}, sprintHandlingPenalty: {sprintHandlingPenalty})");
         maxStamina = baseMaxStamina * maxStaminaModifier;
         staminaRecoverSpeed = baseStaminaRecoverSpeed * staminaRecoverSpeedModifier;
         staminaConsumeSpeed = baseStaminaConsumeSpeed * staminaConsumeSpeedModifier;

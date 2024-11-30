@@ -29,15 +29,24 @@ public class ZombieReeker : Zombie
 
     // Reference to the engaging area position
     public Transform engagingPoint;
+    public AnimationControllerGrunt animationControllerGrunt;
 
     // List of all lanes for lane switching
     private List<Lane> allLanes;
-
-    private void Start()
+    public void SetZombieCostumeId()
     {
-        // Initialize necessary components
+        string mutationCode = GetMutationCode(mutationType);
+        idZombieCoustume = $"30106{mutationCode}";
+        Debug.Log($"Zombie Costume ID set to: {idZombieCoustume}");
+    }
+    protected override void Start()
+    {
+        base.Start();
+        SetZombieCostumeId();
+        animationControllerGrunt = GetComponent<AnimationControllerGrunt>();
         rb2D = GetComponent<Rigidbody2D>();
         // Initialize variables
+        currentSpeed = maxSpeed;
         ReekercurrentState = ReekerState.Moving;
         countTimer = attackTimer; // Initialize attack timer
         // Get all lanes from LaneManager
@@ -117,24 +126,31 @@ public class ZombieReeker : Zombie
         }
         else
         {
-            // Move towards the engaging point
-            MoveTowards(engagingPoint.position);
+            animationControllerGrunt.IsWalk = true;
+            animationControllerGrunt.IsAttack = false;
+            if(canmove)
+            {
+                MoveTowards(engagingPoint.position);
+            }
         }
     }
 
     private void HandleSpittingState()
     {
+        animationControllerGrunt.IsAttack = true;
         spittingTimer -= Time.deltaTime;
         spittingCooldown -= Time.deltaTime;
 
         if (spittingCooldown <= 0f)
         {
+            animationControllerGrunt.Isreach = true;
             SpitAcid();
             spittingCooldown = spittingInterval;
         }
 
         if (spittingTimer <= 0f)
         {
+            animationControllerGrunt.Isreach = false;
             ReekercurrentState = ReekerState.SwitchingLanes;
         }
     }
@@ -159,6 +175,14 @@ public class ZombieReeker : Zombie
     {
         Vector2 direction = (targetPosition - (Vector2)transform.position).normalized;
         rb2D.velocity = direction * currentSpeed;
+        if (direction.x < 0)
+            {
+                transform.localScale = new Vector3(0.7f, 0.7f, 1); // Flip left
+            }
+            else if (direction.x > 0)
+            {
+                transform.localScale = new Vector3(-0.7f, 0.7f, 1); // Face right
+            }
     }
 
     private void SpitAcid()

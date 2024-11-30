@@ -68,8 +68,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: count
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c788dda6f400e8c48a0375db07c201ed, type: 2}
+  m_sharedMaterial: {fileID: 7780802052913712025, guid: c788dda6f400e8c48a0375db07c201ed, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -223,6 +223,8 @@ GameObject:
   - component: {fileID: 2830492767405450512}
   - component: {fileID: 1291614654634707552}
   - component: {fileID: 7881988712087668296}
+  - component: {fileID: -5359616015599226432}
+  - component: {fileID: -6627334213562180851}
   m_Layer: 5
   m_Name: M24
   m_TagString: Untagged
@@ -310,6 +312,7 @@ MonoBehaviour:
   pointType: Items
   point: 70
   IconSprite: {fileID: 5222524482886833746}
+  itemIcon: {fileID: 21300000, guid: a4263eb6accad284dbe802785db18ebe, type: 3}
   Repairmaterial: 0
   Quality: 100
   rateOfFire: 50
@@ -320,9 +323,70 @@ MonoBehaviour:
   damage: 240
   fullAuto: 0
   isShotgun: 0
-  damageDropOff: 10
+  damageDropOff: 30
   Pellets: 0
   Spreadangle: 0
   ammoType: 0
   reloadtype: 3
+  Gunshotsound: {fileID: 8300000, guid: 7769c9cc9fed6ed4eb35c857a30e2b33, type: 3}
   gunsprite: {fileID: 21300000, guid: b98c529b377777d4b88c9b9ad84927b2, type: 3}
+--- !u!114 &-5359616015599226432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9105195170046179818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 0}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &-6627334213562180851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9105195170046179818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae55359733d8f364f905121448e33a28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 0}
+  statPanelPrefab: {fileID: 2459759956663590009, guid: 6461006501354df48ba2d20bbcb8fbf1, type: 3}
+  statElementPrefab: {fileID: 3119790154746807855, guid: 60507d56abbae79449abf8e4553b381a, type: 3}
+  statPanelParent: {fileID: 0}

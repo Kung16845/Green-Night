@@ -12,6 +12,7 @@ public class ScriptMoveItems : MonoBehaviour
     public ItemClass itemClassInChild;
     public DraggableItem draggableItemMove;
     public InventoryItemPresent inventoryItemPresent;
+    public UIInventory uIInventory;
     // Start is called before the first frame update
     private void OnEnable()
     {
@@ -20,6 +21,7 @@ public class ScriptMoveItems : MonoBehaviour
     }
     void Start()
     {
+        uIInventory = FindObjectOfType<UIInventory>();
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
         countItemMove = 1;
         countText.text = countItemMove.ToString();
@@ -162,7 +164,18 @@ public class ScriptMoveItems : MonoBehaviour
 
             Debug.Log("Not Parant Slot is SlotBoxes");
         }
+        bool isBackpackMoved = false;
 
+        if (itemClassMove != null && itemClassMove.itemtype == Itemtype.Backpack)
+        {
+            isBackpackMoved = true;
+        }
+
+        else if (itemClassInChild != null && itemClassInChild.itemtype == Itemtype.Backpack)
+        {
+            isBackpackMoved = true;
+        }
+        uIInventory.ConventDataUIToItemData();
         if (itemData != null)
         {
             if (itemData.count <= 0)
@@ -175,12 +188,13 @@ public class ScriptMoveItems : MonoBehaviour
         {
             Destroy(itemClassMove.gameObject);
         }
-
+        if (isBackpackMoved)
+        {
+            // Refresh the inventory UI to reflect the new slots
+            uIInventory.RefreshUIInventory();
+        }
         itemClassInChild = null;
         itemClassMove = null;
-
-
-        inventoryItemPresent.RefreshUIBox();
         inventoryItemPresent.RefreshUIBox();
         gameObject.SetActive(false);
     }

@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class Zombiefirefighter : Zombie
 {
+    protected override void Start()
+    {
+        base.Start();
+        SetZombieCostumeId();
+        InitializeDamageMultipliers();
+    }
+    public void SetZombieCostumeId()
+    {
+        string mutationCode = GetMutationCode(mutationType);
+        idZombieCoustume = $"30102{mutationCode}";
+    }
     protected override void InitializeDamageMultipliers()
     {
         base.InitializeDamageMultipliers(); // Initialize with default multipliers
@@ -13,7 +24,19 @@ public class Zombiefirefighter : Zombie
     }
     void Update()
     {
-        ZombieAttack();
-        ZombieMoveFindBarrier();
+        if (currentHp <= 0)
+        {
+            currentState = ZombieState.Dead;
+            return;
+        }
+        if (HasReachedAttackPoint())
+        {
+            rb2D.velocity = Vector2.zero;
+            ZombieAttack();
+        }
+        else
+        {
+            ZombieMoveFindBarrier();
+        }
     }
 }

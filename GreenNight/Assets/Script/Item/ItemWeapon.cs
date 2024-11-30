@@ -22,6 +22,7 @@ public class ItemWeapon : ItemClass
     public float Spreadangle;
     public Ammotype ammoType; 
     public Reloadtype reloadtype;
+    public AudioClip Gunshotsound;
     public Sprite gunsprite;
     private string GetReloadAnimationName(Reloadtype reloadtype)
     {
@@ -41,7 +42,35 @@ public class ItemWeapon : ItemClass
                 return "ReloadGenericRifle";
         }
     }
+    public override Dictionary<string, float> GetStats()
+    {
+        return new Dictionary<string, float>
+        {
+            { "Damage", damage },
+            { "Rate of Fire", rateOfFire },
+            { "handling", handling },
+            { "Accuracy", accuracy },
+            { "capacity", capacity },
+            { "stability", stability },
+            { "damageDropOff", damageDropOff },
+            { "rarityItem", rarityItem}
+        };
+    }
 
+    public override Dictionary<string, float> GetMaxStatValues()
+    {
+        return new Dictionary<string, float>
+        {
+            { "Damage", 350 },
+            { "Rate of Fire", 1000},
+            { "handling", 100 },
+            { "Accuracy", 100 },
+            { "capacity", 100 },
+            { "stability", 100 },
+            { "damageDropOff", 30 },
+            { "rarityItem", 5}
+        };
+    }
 }
 
 public enum Ammotype

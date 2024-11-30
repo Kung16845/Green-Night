@@ -17,6 +17,7 @@ public class Weapon : MonoBehaviour
     public bool isShotgun; // Determines if the weapon is a shotgun
     public int pellets; // Number of pellets for shotgun
     public float spreadAngle; // Spread angle for shotgun
+    public float damageDropOff;
     public int stabilityThreshold = 5; // Number of shots before stability penalty starts
     public CaliberType caliberType;
     public Reloadtype reloadtype;
@@ -35,6 +36,7 @@ public class Weapon : MonoBehaviour
     private bool isFiring; 
 
     // References
+    public ItemWeapon currentItemWeapon;
     public SpriteRenderer weaponSpriteRenderer;
     public Slider reloadSlider;
     public Transform firePoint; // Point from where bullets are fired
@@ -44,6 +46,7 @@ public class Weapon : MonoBehaviour
     private UIInventory uiInventory;
     private InventoryItemPresent inventoryItemPresent;
     private StatManager statManager;
+    private SoundManager SoundManager;
     private int? currentWeaponId = null;
 
     void Start()
@@ -60,13 +63,13 @@ public class Weapon : MonoBehaviour
                 statAmplifier.InitializeAmplifiers(); // Recalculate multipliers
                 statAmplifier.ApplyRoleModifiers();   // Apply role modifiers
             }
-
+        SoundManager = GetComponent<SoundManager>();
     }
     public void UpdateWeaponStats(ItemWeapon itemWeapon)
     {
         if (itemWeapon != null)
         {
-            // Existing code to update weapon properties...
+            currentItemWeapon = itemWeapon;
             animationController.isgunequip = true;
             rateOfFire = itemWeapon.rateOfFire;
             handling = itemWeapon.handling;
@@ -80,6 +83,7 @@ public class Weapon : MonoBehaviour
             spreadAngle = itemWeapon.Spreadangle;
             caliberType = ConvertAmmoTypeToCaliberType(itemWeapon.ammoType);
             reloadtype = itemWeapon.reloadtype;
+            damageDropOff = itemWeapon.damageDropOff;
             animationController.Guntype = GetGunTypeInt(reloadtype);
             fireRate = 60f / rateOfFire;
             if (weaponSpriteRenderer != null)
@@ -123,6 +127,7 @@ public class Weapon : MonoBehaviour
         isShotgun = false;
         pellets = 0;
         spreadAngle = 0;
+        damageDropOff = 0;
         caliberType = CaliberType.Low; // Add a 'None' type if needed
 
         // Additional logic to disable shooting
@@ -234,11 +239,12 @@ public class Weapon : MonoBehaviour
     {
         if (currentAmmo <= 0)
         {
+            PlayWeaponSounds(currentItemWeapon, "Dry");
             return;
         }
 
         currentAmmo--;
-
+        PlayWeaponSounds(currentItemWeapon, "Gunshot");
         if (isShotgun)
         {
             for (int i = 0; i < pellets; i++)
@@ -252,9 +258,10 @@ public class Weapon : MonoBehaviour
             animationController.isfire = true;
             FireBullet();
         }
+        PlayWeaponSounds(currentItemWeapon, "ShellDrop");
     }
 
-    private void FireBullet()
+   private void FireBullet()
     {
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
@@ -262,14 +269,16 @@ public class Weapon : MonoBehaviour
 
         // Set the caliber type and initial penetration count at the time of bullet instantiation
         bulletScript.caliberType = caliberType;
-        bulletScript.InitializePenetration();  // Initialize penetration
+        bulletScript.InitializePenetration();
 
+        // Set the damage and drop-off parameters
         bulletScript.damage = damage;
+        bulletScript.dropOffThreshold = damageDropOff;  // Example start distance
+        bulletScript.dropOffMultiplier = 0.4f;
 
         // Get the world position of the mouse
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        // Ensure the z-axis is the same since we are working in 2D
-        mouseWorldPosition.z = 0;
+        mouseWorldPosition.z = 0; // Ensure the z-axis is the same since we are working in 2D
 
         // Calculate the direction from the fire point to the mouse, and normalize it
         Vector2 bulletDirection = ((Vector2)mouseWorldPosition - (Vector2)firePoint.position).normalized;
@@ -281,8 +290,11 @@ public class Weapon : MonoBehaviour
 
         // Set bullet velocity in the direction of the mouse
         rb.velocity = bulletDirection * 70f;
-         DDAdataCollector.Instance.OnBulletFired(bulletScript.bulletID);
+
+        // Notify DDA system
+        DDAdataCollector.Instance.OnBulletFired(bulletScript.bulletID);
     }
+
 
 
    private void FirePellet()
@@ -303,6 +315,8 @@ public class Weapon : MonoBehaviour
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         Bullet bulletScript = bullet.GetComponent<Bullet>();
         bulletScript.damage = damage;
+        bulletScript.dropOffThreshold = damageDropOff;  // Example start distance
+        bulletScript.dropOffMultiplier = 0.4f;
         bulletScript.caliberType = caliberType;
 
         // Apply some accuracy adjustments
@@ -396,7 +410,7 @@ public class Weapon : MonoBehaviour
         else return 1;
     }
 
-    public IEnumerator Reload()
+   public IEnumerator Reload()
     {
         if (currentAmmo == capacity)
         {
@@ -410,17 +424,14 @@ public class Weapon : MonoBehaviour
         isReloading = true;
         animationController.isreload = true;
         actionController.canchangeweapond = false;
+
         // Calculate reload time based on stats and multipliers
-        float reloadTime = (6.5f * (1 - (statAmplifier.GetCombatMultiplier() - 1))) 
-                            * (100f - handling) / 100f 
-                            * statAmplifier.GetReloadSpeedMultiplier();
-        if (reloadSlider != null)
-        {
-            reloadSlider.gameObject.SetActive(true);
-            reloadSlider.maxValue = reloadTime;
-            reloadSlider.value = 0;
-        }
-        // Adjust playback speed of the reload animation
+        float reloadTime = Mathf.Max(
+                    (6.5f * (1 - (statAmplifier.GetCombatMultiplier() - 1)))
+                        * (100f - handling) / 100f
+                        * statAmplifier.GetReloadSpeedMultiplier(),
+                    1.25f // Minimum reload time
+                );
 
         Animator animator = animationController.GetComponent<Animator>();
         string reloadAnimationName = GetReloadAnimationName(reloadtype);
@@ -435,61 +446,32 @@ public class Weapon : MonoBehaviour
         else
         {
             Debug.LogWarning($"Reload animation '{reloadAnimationName}' not found. Using default animation.");
-            // Optionally, handle the case where the animation clip is not found
         }
 
-        // Get the caliber type of the current weapon
-        CaliberType requiredCaliber = this.caliberType; // Use the caliberType directly from the weapon
+        // Play the reload sound with adjusted pitch to match reload speed
+        Sound reloadSound = SoundManager.Instance.sounds
+            .Find(s => s.name == $"{reloadtype.ToString()}ReloadSound"); // Assume sound name format matches reload type
 
-        // Map the caliber type to ammo ID (assuming the ammo IDs are pre-set)
-        Dictionary<CaliberType, int> caliberToAmmoID = new Dictionary<CaliberType, int>
+        if (reloadSound != null && reloadSound.soundType == SoundType.VFXSound)
         {
-            { CaliberType.High, 1020125 },
-            { CaliberType.Shotgun, 1020126 },
-            { CaliberType.Low, 1020124 },
-            { CaliberType.Medium, 1020127 }
-        };
-
-        if (!caliberToAmmoID.TryGetValue(requiredCaliber, out int requiredAmmoID))
-        {
-            isReloading = false;
-            animationController.isreload = false;
-            actionController.canchangeweapond = true;
-            yield break;
+            AudioSource audioSource = SoundManager.Instance.GetAudioSourceForType(SoundType.VFXSound);
+            if (audioSource != null)
+            {
+                audioSource.clip = reloadSound.clip;
+                audioSource.pitch = reloadSound.clip.length / reloadTime; // Adjust pitch to match reload speed
+                audioSource.Play();
+            }
         }
 
-        // Find all items in the inventory that match the required ammo ID
-        List<ItemData> matchingAmmoItems = uiInventory.listItemDataInventoryslot
-            .Where(item => item.idItem == requiredAmmoID && item.count > 0)
-            .ToList();
-
-        if (matchingAmmoItems.Count == 0)
-        {
-            animator.speed = 1f; // Reset animator speed
-            animationController.isreload = false;
-            isReloading = false;
-            actionController.canchangeweapond = true;
-            yield break;
-        }
-
-        // Calculate the total ammo available from all matching items
-        int totalAmmoAvailable = matchingAmmoItems.Sum(item => item.count);
-
-        // If there is enough ammo, proceed with reloading
-        int ammoNeeded = capacity - currentAmmo;
-        int ammoToReload = Mathf.Min(ammoNeeded, totalAmmoAvailable);
-
-        // Deduct ammo from the matching items in inventory
-        int ammoRemainingToReload = ammoToReload;
-        foreach (var item in matchingAmmoItems)
-        {
-            if (ammoRemainingToReload <= 0) break;
-
-            int ammoToTake = Mathf.Min(ammoRemainingToReload, item.count);
-            item.count -= ammoToTake; // Deduct ammo from the item
-            ammoRemainingToReload -= ammoToTake; // Reduce the remaining ammo needed
-        }
+        // Simulate reload process
         float elapsedTime = 0f;
+        if (reloadSlider != null)
+        {
+            reloadSlider.gameObject.SetActive(true);
+            reloadSlider.maxValue = reloadTime;
+            reloadSlider.value = 0;
+        }
+
         while (elapsedTime < reloadTime)
         {
             elapsedTime += Time.deltaTime;
@@ -502,13 +484,15 @@ public class Weapon : MonoBehaviour
 
             yield return null;
         }
+
         actionController.canchangeweapond = true;
-        currentAmmo += ammoToReload;
+        currentAmmo = Mathf.Min(currentAmmo + (capacity - currentAmmo), capacity);
         if (reloadSlider != null)
         {
             reloadSlider.gameObject.SetActive(false);
         }
-        // Reset the animation state and variables
+
+        // Reset animation and state
         animator.speed = 1f; // Reset animator speed
         animationController.isreload = false;
         isReloading = false;
@@ -517,6 +501,7 @@ public class Weapon : MonoBehaviour
         // Refresh UI to reflect changes
         uiInventory.RefreshUIInventory();
     }
+
 
     private void ApplyStatAmplifier()
     {
@@ -605,5 +590,29 @@ public class Weapon : MonoBehaviour
         handling = statManager.handling;
         accuracy = statManager.accuracy;
         stability = statManager.stability;
+        accuracy = Mathf.Clamp(accuracy, 0, 100);
+        handling = Mathf.Clamp(handling, 0, 100);
+        stability = Mathf.Clamp(stability, 0, 100);
     }
+    public void PlayWeaponSounds(ItemWeapon itemWeapon, string soundType)
+    {
+        switch (soundType)
+        {
+            
+            case "Gunshot":
+                SoundManager.Instance.PlaySound(itemWeapon.Gunshotsound.name);
+                break;
+            case "Reload":
+                string reloadSoundName = itemWeapon.reloadtype.ToString() + "ReloadSound";
+                SoundManager.Instance.PlaySound(reloadSoundName);
+                break;
+            case "Dry":
+                SoundManager.Instance.PlaySound("DryFireSound");
+                break;
+            case "ShellDrop":
+                SoundManager.Instance.PlaySound("ShellDropSound");
+                break;
+        }
+    }
+
 }

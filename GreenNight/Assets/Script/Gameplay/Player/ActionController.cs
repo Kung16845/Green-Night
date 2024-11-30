@@ -122,4 +122,8 @@ public class ActionController : MonoBehaviour
         // Reset the progress
         stuckProgress = 0f;
     }
+    public void SetWeapondFree()
+    {
+        canuseweapon = true;
+    }
 }

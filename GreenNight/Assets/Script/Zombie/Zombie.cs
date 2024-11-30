@@ -50,10 +50,11 @@ public class Zombie : MonoBehaviour
     public float countTimer;
     public Rigidbody2D rb2D;
     public Barrier barrier;
-    private bool canmove;
+    public bool canmove;
     private Coroutine poisonCoroutine;
     private float buildUpDamage = 0f; // Accumulated poison damage
     public float movementSpeed = 1.0f;       // Movement speed
+    private bool isapply;
 
     // Fields for Engaging Area
     public Lane currentLane;
@@ -64,12 +65,18 @@ public class Zombie : MonoBehaviour
     public float damageEffectDuration = 0.01f;       // Duration of the slowdown and red color effect
 
     private float originalSpeed;
+    public AnimationControllerGrunt animationControllerGrunt;
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
     private Coroutine damageEffectCoroutine;
-
+    private Animator animator;
     [Header("Mutation Settings")]
     public MutationType mutationType = MutationType.None;
+     [Header("Allowed Mutations")]
+    public bool allowSpikeMutation = true;
+    public bool allowAcidMutation = true;
+    public bool allowExploderMutation = true;
+    public bool allowArmourShellMutation = true;
     [Range(1, 3)]
     public int mutationTier = 1;                  // Tier 1 to 3
 
@@ -94,18 +101,16 @@ public class Zombie : MonoBehaviour
     public DDAdataCollector ddadataCollector;
     [Header("ID Zombie Costume")]
     public string idZombieCoustume;
-    private void Awake()
+    protected virtual void Start()
     {
+        animator = GetComponent<Animator>();
+        canmove = true;
+        isapply = false;
+        animationControllerGrunt =  GetComponent<AnimationControllerGrunt>();
         currentSpeed = maxSpeed;
         currentHp = maxHp;
-        canmove = true;
-        rb2D = GetComponent<Rigidbody2D>();
         originalSpeed = maxSpeed;
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null)
-        {
-            originalColor = spriteRenderer.color;
-        }
+        rb2D = GetComponent<Rigidbody2D>();
         InitializeDamageMultipliers();
     }
     public ZombieState CurrentState
@@ -131,11 +136,11 @@ public class Zombie : MonoBehaviour
                 // Flip the sprite based on movement direction along the x-axis
                 if (direction.x < 0)
                 {
-                    transform.localScale = new Vector3(-0.7f, 0.7f, 1); // Flip left
+                    transform.localScale = new Vector3(0.7f, 0.7f, 1); // Flip left
                 }
                 else if (direction.x > 0)
                 {
-                    transform.localScale = new Vector3(0.7f, 0.7f, 1); // Face right
+                    transform.localScale = new Vector3(-0.7f, 0.7f, 1); // Face right
                 }
             }
         }
@@ -146,20 +151,24 @@ public class Zombie : MonoBehaviour
         {
             float distanceToAttackPoint = Vector2.Distance(transform.position, currentLane.attackPoint.position);
             float thresholdDistance = 0.1f;
-
             if (distanceToAttackPoint <= thresholdDistance)
             {
                 // Zombie has reached the attack point, set to Attacking state
+                if(animationControllerGrunt != null)
+                {
+                animationControllerGrunt.Isreach = true;
+                }
+                rb2D.velocity = Vector2.zero;
                 currentState = ZombieState.Attacking;
 
                 // Keep the sprite direction based on the previous movement
                 if (previousDirectionX < 0)
                 {
-                    transform.localScale = new Vector3(-0.7f, 0.7f, 1); // Keep facing left
+                    transform.localScale = new Vector3(0.7f, 0.7f, 1); // Keep facing left
                 }
                 else if (previousDirectionX > 0)
                 {
-                    transform.localScale = new Vector3(0.7f, 0.7f, 1); // Keep facing right
+                    transform.localScale = new Vector3(-0.7f, 0.7f, 1); // Keep facing right
                 }
                 return true;
             }
@@ -173,9 +182,12 @@ public class Zombie : MonoBehaviour
         if (barrier != null)
         {
             if (countTimer > 0)
+            {
                 countTimer -= Time.deltaTime * attackSpeedMultiplier;
+            }
             else
             {
+                SoundManager.Instance.PlaySound("ZombieAttackBarrier");
                 barrier.BarrierTakeDamage(attackDamage);
                 countTimer = attackTimer;
             }
@@ -197,7 +209,6 @@ public class Zombie : MonoBehaviour
                 // Bullet damage reduces damage by 15% to armor
                 float reducedDamage = adjustedDamage * 0.85f;
                 ArmourHp -= reducedDamage;
-                // Apply overflow damage to health
                 ApplyOverflowDamageToHealth();
             }
             else if (damageType == DamageType.MediumcaliberBullet)
@@ -215,8 +226,6 @@ public class Zombie : MonoBehaviour
             }
             else if (damageType == DamageType.Explosive)
             {
-                // Explosive damage splits between armor and health
-                Debug.Log("DamageExplosive");
                 float damageToArmor = adjustedDamage * 0.60f;
                 float damageToHealth = adjustedDamage * 0.40f;
                 ArmourHp -= damageToArmor;
@@ -237,12 +246,17 @@ public class Zombie : MonoBehaviour
                 // Apply overflow damage to health
                 ApplyOverflowDamageToHealth();
             }
+            SoundManager.Instance.PlaySound("ArmourHit");
         }
         else
         {
+            SoundManager.Instance.PlaySound("FLeshhit");
             currentHp -= adjustedDamage;
         }
-
+        if(damageType == DamageType.Fire)
+        {
+            SoundManager.Instance.PlaySound("ZombieBurnt");
+        }
         // Apply damage effects and check for death
         ApplyDamageEffects(damageType);
         CheckForDeath();
@@ -250,7 +264,7 @@ public class Zombie : MonoBehaviour
     private IEnumerator ArmourBroken()
     {
         canmove = false;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         canmove = true;
     }
     private void ApplyOverflowDamageToHealth()
@@ -265,7 +279,7 @@ public class Zombie : MonoBehaviour
 
     private void ApplyDamageEffects(DamageType damageType)
     {
-        if (damageType != DamageType.Acid)
+        if (damageType != DamageType.Acid && damageType != DamageType.Fire && damageType != DamageType.Poison)
         {
             if (damageEffectCoroutine != null)
             {
@@ -283,6 +297,38 @@ public class Zombie : MonoBehaviour
         {
             OnDeath();
             DDAdataCollector.Instance.OnZombieKilled(); // Notify the data collector
+            StartCoroutine(DelayDead());
+        }
+    }
+    private IEnumerator DelayDead()
+    {
+        if(animationControllerGrunt != null)
+        {
+            animationControllerGrunt.IsDead = true; 
+            
+            currentState = ZombieState.Dead;
+            canmove = false;
+            rb2D.velocity = Vector2.zero; // Immediately stop movement
+
+            countTimer = Mathf.Infinity; 
+            DisableCollider(); // Prevent interactions
+            // Get the Animator component from the AnimationControllerGrunt
+            Animator animator = animationControllerGrunt.GetComponent<Animator>();
+
+            // Ensure the animator exists and wait for the death animation to finish
+            if (animator != null)
+            {
+                AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                while (stateInfo.normalizedTime < 1.0f || !stateInfo.IsName("Zombie_Dead"))
+                {
+                    yield return null; // Wait for the animation to finish
+                    stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                }
+            }
+            else
+            {
+                Debug.LogError("Animator not found on AnimationControllerGrunt!");
+            }
             Destroy(this.gameObject);
         }
     }
@@ -290,9 +336,14 @@ public class Zombie : MonoBehaviour
     private IEnumerator DamageEffect()
     {
         // Slow down the zombie
-        speedMultiplier = slowdownAmount;
-        UpdateCurrentSpeed();
-
+        if(animationControllerGrunt != null)
+        {
+            if(!animationControllerGrunt.IsDead)
+            {
+            speedMultiplier = slowdownAmount;
+            UpdateCurrentSpeed();
+            }
+        }
         // Change sprite color to red
         if (spriteRenderer != null)
         {
@@ -334,12 +385,16 @@ public class Zombie : MonoBehaviour
         {
             case MutationType.Spike:
                 ApplySpikeMutation();
+                maxHp += 75;
                 break;
             case MutationType.ArmourShell:
                 ApplyArmourShellMutation();
                 break;
             case MutationType.Acid:
                 maxHp += 150;
+                break;
+            case MutationType.Exploder:
+                maxHp += 50;
                 break;
                 // Acid and Exploder mutations have effects on death
         }
@@ -356,7 +411,7 @@ public class Zombie : MonoBehaviour
                 damageMultiplier = 1.45f;
                 break;
             case 3:
-                damageMultiplier = 1.6f;
+                damageMultiplier = 1.8f;
                 break;
         }
         attackDamage *= damageMultiplier;
@@ -565,7 +620,7 @@ public class Zombie : MonoBehaviour
             { DamageType.Explosive, 1f },
         };
     }
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         Barrier triggerbarrier = other.GetComponent<Barrier>();
         if (triggerbarrier != null)
@@ -575,14 +630,27 @@ public class Zombie : MonoBehaviour
     }
     public void IncreaseSpeed(float multiplier)
     {
-        speedMultiplier *= multiplier;
-        UpdateCurrentSpeed();
+        if(!isapply)
+        {
+            speedMultiplier *= multiplier;
+            UpdateAnimationSpeed();
+            UpdateCurrentSpeed();
+            isapply= true;
+        }
     }
 
     public void ResetSpeed()
     {
         speedMultiplier = 1f;
         UpdateCurrentSpeed();
+        UpdateAnimationSpeed();
+    }
+    private void UpdateAnimationSpeed()
+    {
+        if (animator != null)
+        {
+            animator.speed = attackSpeedMultiplier;
+        }
     }
     private void UpdateCurrentSpeed()
     {
@@ -590,7 +658,10 @@ public class Zombie : MonoBehaviour
     }
     public void IncreaseAttackSpeed(float multiplier)
     {
+        if(!isapply)
+        {
         attackSpeedMultiplier *= multiplier;
+        }
     }
 
     public void ResetAttackSpeed()
@@ -638,6 +709,60 @@ public class Zombie : MonoBehaviour
         if (collider != null)
         {
             collider.enabled = false;
+        }
+    }
+    public void SetMutationType(MutationType mutationType)
+    {
+        if (IsMutationAllowed(mutationType))
+        {
+            this.mutationType = mutationType;
+        }
+        else
+        {
+            Debug.Log($"Mutation {mutationType} is not allowed. Setting mutation type to None.");
+            this.mutationType = MutationType.None;
+        }
+
+        ApplyMutationEffects(); // Apply the mutation effects
+    }
+    private bool IsMutationAllowed(MutationType mutationType)
+    {
+        switch (mutationType)
+        {
+            case MutationType.Spike:
+                return allowSpikeMutation;
+            case MutationType.Acid:
+                return allowAcidMutation;
+            case MutationType.Exploder:
+                return allowExploderMutation;
+            case MutationType.ArmourShell:
+                return allowArmourShellMutation;
+            case MutationType.None:
+                return true; // Always allow 'None'
+            default:
+                return true; // Default to true for any future mutations
+        }
+    }
+    public MutationType GetMutationType()
+    {
+        return mutationType;
+    }
+    public string GetMutationCode(MutationType mutation)
+    {
+        switch (mutation)
+        {
+            case MutationType.None:
+                return "01";
+            case MutationType.Spike:
+                return "02";
+            case MutationType.Acid:
+                return "03";
+            case MutationType.Exploder:
+                return "04";
+            case MutationType.ArmourShell:
+                return "05";
+            default:
+                return "00"; // Default for undefined mutations
         }
     }
 }

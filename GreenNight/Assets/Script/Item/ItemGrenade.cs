@@ -14,15 +14,25 @@ public class ItemGrenade : ItemClass
     public string effect;
     public string typeGrende;
 
-    // Start is called before the first frame update
-    void Start()
+    public override Dictionary<string, float> GetStats()
     {
-        
+        return new Dictionary<string, float>
+        {
+            { "damage", damage },
+            { "AoeRange", AoeRange },
+            { "armTime", armTime },
+            { "rarityItem", rarityItem}
+        };
     }
 
-    // Update is called once per frame
-    void Update()
+    public override Dictionary<string, float> GetMaxStatValues()
     {
-        
+        return new Dictionary<string, float>
+        {
+            { "damage", 500 },
+            { "AoeRange", 3 },
+            { "armTime", 3 },
+            { "rarityItem", 5}
+        };
     }
 }

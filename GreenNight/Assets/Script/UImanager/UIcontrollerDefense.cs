@@ -14,6 +14,10 @@ public class UIcontrollerDefense : MonoBehaviour
     private bool isInventoryActive = false;
     private bool isBoxActive = false;
 
+    void Start()
+    {
+        actionController.canuseweapon = false;
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab))

@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class ZombieRiotshield : Zombie
 {
+    protected override void Start()
+    {
+        base.Start();
+        SetZombieCostumeId();
+    }
+    public void SetZombieCostumeId()
+    {
+        string mutationCode = GetMutationCode(mutationType);
+        idZombieCoustume = $"30109{mutationCode}";
+    }
     protected override void InitializeDamageMultipliers()
     {
         base.InitializeDamageMultipliers();
@@ -13,7 +23,19 @@ public class ZombieRiotshield : Zombie
     }
     void Update()
     {
-        ZombieAttack();
-        ZombieMoveFindBarrier();
+        if (currentHp <= 0)
+        {
+            currentState = ZombieState.Dead;
+            return;
+        }
+        if (HasReachedAttackPoint())
+        {
+            rb2D.velocity = Vector2.zero;
+            ZombieAttack();
+        }
+        else
+        {
+            ZombieMoveFindBarrier();
+        }
     }
 }
