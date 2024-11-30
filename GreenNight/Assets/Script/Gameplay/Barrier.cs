@@ -21,6 +21,8 @@ public class Barrier : MonoBehaviour
         {
             // Time.timeScale = 0;
             sceneSystem.ReturnToMainScene();
+            sceneSystem.timeManager.dateTime.SetTimeStartDay();
+            sceneSystem.timeManager.dateTime.day++;
         }
     }
 
