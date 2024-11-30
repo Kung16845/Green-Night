@@ -494,7 +494,7 @@ public class Weapon : MonoBehaviour
             reloadSlider.maxValue = reloadTime;
             reloadSlider.value = 0;
         }
-        PlayWeaponSounds(currentItemWeapon, "Reload");
+        PlayReloadSound(reloadTime);
 
         // Deduct ammo from the matching items in inventory
         int ammoRemainingToReload = ammoToReload;
@@ -556,6 +556,30 @@ public class Weapon : MonoBehaviour
             stability = Mathf.Clamp(stability, 0, 100);
         }
     }
+    private void PlayReloadSound(float reloadTime)
+    {
+        // Find reload sound in the sound manager
+        string reloadSoundName = reloadtype.ToString() + "ReloadSound"; 
+        Sound reloadSound = SoundManager.Instance.sounds.Find(s => s.name == reloadSoundName);
+
+        if (reloadSound != null)
+        {
+            // Use the VFX pool for the reload sound
+            AudioSource audioSource = SoundManager.Instance.GetAudioSourceForType(SoundType.VFXSound);
+            if (audioSource != null)
+            {
+                audioSource.clip = reloadSound.clip;
+                audioSource.pitch = reloadSound.clip.length / reloadTime; // Adjust pitch to match reload time
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"Reload sound '{reloadSoundName}' not found!");
+        }
+    }
+
+
     private string GetReloadAnimationName(Reloadtype reloadtype)
     {
         switch (reloadtype)
@@ -633,10 +657,6 @@ public class Weapon : MonoBehaviour
             
             case "Gunshot":
                 SoundManager.Instance.PlaySound(itemWeapon.Gunshotsound.name);
-                break;
-            case "Reload":
-                string reloadSoundName = itemWeapon.reloadtype.ToString() + "ReloadSound";
-                SoundManager.Instance.PlaySound(reloadSoundName);
                 break;
             case "Dry":
                 SoundManager.Instance.PlaySound("DryFireSound");

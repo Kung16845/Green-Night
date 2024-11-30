@@ -91,6 +91,8 @@ public class MainSpawner : MonoBehaviour
             timeLeft -= 0.1f;
         }
         startDelayText.gameObject.SetActive(false);
+        SoundManager.Instance.PlaySound("Siren");
+        // SoundManager.Instance.PlaySound("Playmusic");
     }
 
     private IEnumerator StartSpawningAfterDelay()

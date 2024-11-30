@@ -187,6 +187,7 @@ public class Zombie : MonoBehaviour
             }
             else
             {
+                SoundManager.Instance.PlaySound("ZombieAttackBarrier");
                 barrier.BarrierTakeDamage(attackDamage);
                 countTimer = attackTimer;
             }
@@ -208,7 +209,6 @@ public class Zombie : MonoBehaviour
                 // Bullet damage reduces damage by 15% to armor
                 float reducedDamage = adjustedDamage * 0.85f;
                 ArmourHp -= reducedDamage;
-                // Apply overflow damage to health
                 ApplyOverflowDamageToHealth();
             }
             else if (damageType == DamageType.MediumcaliberBullet)
@@ -226,8 +226,6 @@ public class Zombie : MonoBehaviour
             }
             else if (damageType == DamageType.Explosive)
             {
-                // Explosive damage splits between armor and health
-                Debug.Log("DamageExplosive");
                 float damageToArmor = adjustedDamage * 0.60f;
                 float damageToHealth = adjustedDamage * 0.40f;
                 ArmourHp -= damageToArmor;
@@ -248,12 +246,17 @@ public class Zombie : MonoBehaviour
                 // Apply overflow damage to health
                 ApplyOverflowDamageToHealth();
             }
+            SoundManager.Instance.PlaySound("ArmourHit");
         }
         else
         {
+            SoundManager.Instance.PlaySound("FLeshhit");
             currentHp -= adjustedDamage;
         }
-
+        if(damageType == DamageType.Fire)
+        {
+            SoundManager.Instance.PlaySound("ZombieBurnt");
+        }
         // Apply damage effects and check for death
         ApplyDamageEffects(damageType);
         CheckForDeath();
