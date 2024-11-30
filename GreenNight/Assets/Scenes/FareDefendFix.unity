@@ -1820,6 +1820,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHp: 0
   maxHp: 1000000
+  sceneSystem: {fileID: 0}
 --- !u!4 &100358038
 Transform:
   m_ObjectHideFlags: 0
@@ -2254,6 +2255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 3
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -3928,6 +3930,7 @@ MonoBehaviour:
   accuracy: 0
   multiKillCount: 0
   barrierDamage: 0
+  recentKills: []
 --- !u!1 &217756458
 GameObject:
   m_ObjectHideFlags: 0
@@ -4518,6 +4521,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHp: 0
   maxHp: 5000
+  sceneSystem: {fileID: 0}
 --- !u!4 &250726249
 Transform:
   m_ObjectHideFlags: 0
@@ -5841,6 +5845,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -6042,6 +6047,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -6255,6 +6261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -9176,6 +9183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -10877,6 +10885,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 6
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -11319,8 +11328,10 @@ MonoBehaviour:
   isShotgun: 0
   pellets: 0
   spreadAngle: 0
+  damageDropOff: 0
   stabilityThreshold: 5
   caliberType: 0
+  reloadtype: 0
   currentAmmo: 0
   fireRate: 0
   nextFireTime: 0
@@ -11328,6 +11339,9 @@ MonoBehaviour:
   isNpc: 1
   accuracyPenalty: 0
   shotsFiredConsecutively: 0
+  currentItemWeapon: {fileID: 0}
+  weaponSpriteRenderer: {fileID: 0}
+  reloadSlider: {fileID: 0}
   firePoint: {fileID: 736084983}
   bulletPrefab: {fileID: 1617540189290291661, guid: 24767a2c5fdcaf449bcb669d907ddf44, type: 3}
   bulletDirection: {x: 0, y: 0}
@@ -12363,6 +12377,7 @@ MonoBehaviour:
   itemClassInChild: {fileID: 0}
   draggableItemMove: {fileID: 0}
   inventoryItemPresent: {fileID: 0}
+  uIInventory: {fileID: 0}
 --- !u!114 &785936804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14872,6 +14887,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 2
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -15185,6 +15201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 7
   uIMoveItemsBoxesToInventory: {fileID: 0}
+  uIInventoryBoxes: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -15864,6 +15881,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -16356,8 +16374,10 @@ MonoBehaviour:
   isShotgun: 0
   pellets: 0
   spreadAngle: 0
+  damageDropOff: 0
   stabilityThreshold: 5
   caliberType: 0
+  reloadtype: 0
   currentAmmo: 0
   fireRate: 0
   nextFireTime: 0
@@ -16365,6 +16385,9 @@ MonoBehaviour:
   isNpc: 1
   accuracyPenalty: 0
   shotsFiredConsecutively: 0
+  currentItemWeapon: {fileID: 0}
+  weaponSpriteRenderer: {fileID: 0}
+  reloadSlider: {fileID: 0}
   firePoint: {fileID: 1027179896}
   bulletPrefab: {fileID: 1617540189290291661, guid: 24767a2c5fdcaf449bcb669d907ddf44, type: 3}
   bulletDirection: {x: 0, y: 0}
@@ -18052,6 +18075,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -18172,8 +18196,10 @@ MonoBehaviour:
   isShotgun: 0
   pellets: 0
   spreadAngle: 0
+  damageDropOff: 0
   stabilityThreshold: 5
   caliberType: 0
+  reloadtype: 0
   currentAmmo: 0
   fireRate: 0
   nextFireTime: 0
@@ -18181,6 +18207,9 @@ MonoBehaviour:
   isNpc: 1
   accuracyPenalty: 0
   shotsFiredConsecutively: 0
+  currentItemWeapon: {fileID: 0}
+  weaponSpriteRenderer: {fileID: 0}
+  reloadSlider: {fileID: 0}
   firePoint: {fileID: 1177562322}
   bulletPrefab: {fileID: 1617540189290291661, guid: 24767a2c5fdcaf449bcb669d907ddf44, type: 3}
   bulletDirection: {x: 0, y: 0}
@@ -19250,6 +19279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -20633,8 +20663,10 @@ MonoBehaviour:
   isShotgun: 0
   pellets: 0
   spreadAngle: 0
+  damageDropOff: 0
   stabilityThreshold: 5
   caliberType: 1
+  reloadtype: 0
   currentAmmo: 0
   fireRate: 0
   nextFireTime: 0
@@ -20642,6 +20674,9 @@ MonoBehaviour:
   isNpc: 0
   accuracyPenalty: 0
   shotsFiredConsecutively: 0
+  currentItemWeapon: {fileID: 0}
+  weaponSpriteRenderer: {fileID: 0}
+  reloadSlider: {fileID: 0}
   firePoint: {fileID: 1268715205}
   bulletPrefab: {fileID: 1617540189290291661, guid: 24767a2c5fdcaf449bcb669d907ddf44, type: 3}
   bulletDirection: {x: 0, y: 0}
@@ -20657,13 +20692,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8173d5c823a2d5e4583f065290486466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 2
-  baseSprintSpeed: 4
-  baseMaxStamina: 100
   currentStamina: 0
-  baseStaminaRecoverSpeed: 10
-  baseStaminaConsumeSpeed: 15
-  minStaminaToSprint: 1
 --- !u!61 &1268715208
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -20813,6 +20842,7 @@ MonoBehaviour:
   canwalk: 1
   canuseweapon: 1
   canDoAction: 1
+  canchangeweapond: 1
   stuckSlider: {fileID: 4445692}
   maxStuckValue: 100
 --- !u!1 &1270024151
@@ -21017,7 +21047,7 @@ RectTransform:
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.81333333}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -21406,8 +21436,10 @@ MonoBehaviour:
   isShotgun: 0
   pellets: 0
   spreadAngle: 0
+  damageDropOff: 0
   stabilityThreshold: 5
   caliberType: 0
+  reloadtype: 0
   currentAmmo: 0
   fireRate: 0
   nextFireTime: 0
@@ -21415,6 +21447,9 @@ MonoBehaviour:
   isNpc: 1
   accuracyPenalty: 0
   shotsFiredConsecutively: 0
+  currentItemWeapon: {fileID: 0}
+  weaponSpriteRenderer: {fileID: 0}
+  reloadSlider: {fileID: 0}
   firePoint: {fileID: 1352017376}
   bulletPrefab: {fileID: 1617540189290291661, guid: 24767a2c5fdcaf449bcb669d907ddf44, type: 3}
   bulletDirection: {x: 0, y: 0}
@@ -21565,6 +21600,7 @@ MonoBehaviour:
   currentSceneIndex: 0
   transitionAnim: {fileID: 2131302740}
   timeManager: {fileID: 0}
+  saveObjectActiveMainScene: {fileID: 0}
 --- !u!4 &1352831301
 Transform:
   m_ObjectHideFlags: 0
@@ -21856,6 +21892,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 6
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -22483,6 +22520,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 4
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -23544,7 +23582,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1281429227}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.81333333
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -24686,6 +24724,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 0
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -26442,6 +26481,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -26976,6 +27016,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -27649,6 +27690,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -30263,6 +30305,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 219520505, guid: 48abea61df02f8646bc024b5f36644b8, type: 3}
+    - target: {fileID: 4132368582949445596, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4958575212990922125, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
       propertyPath: m_Name
       value: Player
@@ -30503,6 +30549,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -30622,6 +30669,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 5
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
@@ -31649,6 +31697,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotTypeInventory: 1
   uIMoveItemsBoxesToInventory: {fileID: 785936801}
+  uIInventoryBoxes: {fileID: 0}
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
