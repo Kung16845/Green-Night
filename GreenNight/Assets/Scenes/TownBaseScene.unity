@@ -23202,75 +23202,105 @@ MonoBehaviour:
   - name: AssaultRifleReloadSound
     clip: {fileID: 8300000, guid: ab7a23ed13a541148990e93c6645d865, type: 3}
     soundType: 2
+    cooldown: 0
   - name: SMGReloadSound
     clip: {fileID: 8300000, guid: 9dd4811466b0b0c4ea3aa2486de7446f, type: 3}
     soundType: 2
+    cooldown: 0
   - name: SniperReloadSound
     clip: {fileID: 8300000, guid: e6ea2a0f50ce3cc4d8d94362ff10219d, type: 3}
     soundType: 2
+    cooldown: 0
   - name: ShotgunpumpReloadSound
     clip: {fileID: 8300000, guid: 18ed78405c77ef94aba2d11ce19d7bc8, type: 3}
     soundType: 2
+    cooldown: 0
   - name: PistolReloadSound
     clip: {fileID: 8300000, guid: 21311cb17dc279e4686ffb63b62af0df, type: 3}
     soundType: 2
+    cooldown: 0
   - name: DryFireSound
     clip: {fileID: 8300000, guid: aae04f67c5c4cde46a97bf2478091772, type: 3}
     soundType: 3
+    cooldown: 1.5
   - name: AK47
     clip: {fileID: 8300000, guid: 54de724fbac3db24d9169f55f50980d3, type: 3}
     soundType: 3
+    cooldown: 0.1
   - name: AWP
     clip: {fileID: 8300000, guid: f3a716d770c4eaa49ae06bedcb0234c7, type: 3}
     soundType: 3
+    cooldown: 0.1
   - name: G18
     clip: {fileID: 8300000, guid: 78bc34499996a88468d9e4fa8d488cb2, type: 3}
     soundType: 3
+    cooldown: 0.1
   - name: M4
     clip: {fileID: 8300000, guid: 5e1ab8b067d49814fb0563426110bd07, type: 3}
     soundType: 3
+    cooldown: 0.1
   - name: M24
     clip: {fileID: 8300000, guid: 7769c9cc9fed6ed4eb35c857a30e2b33, type: 3}
     soundType: 3
+    cooldown: 0.1
   - name: MK14
     clip: {fileID: 8300000, guid: 1a8bfa006a021f84fa0a9ea8ff9ac949, type: 3}
     soundType: 3
+    cooldown: 0.1
   - name: MP5
     clip: {fileID: 8300000, guid: c06f73c3ab860b94e81e270a52e3b1e1, type: 3}
     soundType: 3
+    cooldown: 0.1
   - name: MP7
     clip: {fileID: 8300000, guid: ad086b29fc259eb45a684064c5fb661c, type: 3}
     soundType: 3
+    cooldown: 0.1
   - name: SaigaShotgun
     clip: {fileID: 8300000, guid: 4f526a87751892b4a9036faab011e71c, type: 3}
     soundType: 3
+    cooldown: 0.1
   - name: ShellDropSound
     clip: {fileID: 8300000, guid: ed63c5e21e11e7f48ae0ae4e5dff0848, type: 3}
     soundType: 3
+    cooldown: 0.1
   - name: Shotgun
     clip: {fileID: 8300000, guid: aed2886f566b34441b5aef1b57c13c67, type: 3}
     soundType: 3
+    cooldown: 0.1
   - name: SwitchGun
     clip: {fileID: 8300000, guid: beae9d4535f6f21469cc2afeb1f1eae3, type: 3}
     soundType: 3
+    cooldown: 0.1
   - name: FLeshhit
     clip: {fileID: 8300000, guid: f9de83b653f7c074b995f18065bbd49b, type: 3}
     soundType: 2
+    cooldown: 0.25
   - name: ArmourHit
     clip: {fileID: 8300000, guid: 48e53ad559cf3a740bc27e20e60d0fb0, type: 3}
     soundType: 2
+    cooldown: 0.25
   - name: ZombieBurnt
     clip: {fileID: 8300000, guid: 54b6e3ba4bb9c5b4e96a7983626e70e8, type: 3}
     soundType: 2
+    cooldown: 0.3
   - name: ZombieAttackBarrier
-    clip: {fileID: 8300000, guid: 54b6e3ba4bb9c5b4e96a7983626e70e8, type: 3}
+    clip: {fileID: 8300000, guid: 0759fe42e4972b64bb6ee460423847c5, type: 3}
     soundType: 2
+    cooldown: 0.1
   - name: Siren
     clip: {fileID: 8300000, guid: 4ededabeb0265744ab2a70b6b986a980, type: 3}
     soundType: 0
+    cooldown: 0
   - name: Playmusic
     clip: {fileID: 8300000, guid: 3902ed1e570d092469ea1398254dfbda, type: 3}
     soundType: 1
+    cooldown: 0
+  bgVolume: 0.688
+  musicVolume: 0.5
+  vfxVolume: 1
+  gunshotVolume: 0.76
+  poolSize: 30
+  GunpoolSize: 30
 --- !u!1 &857472067
 GameObject:
   m_ObjectHideFlags: 0
