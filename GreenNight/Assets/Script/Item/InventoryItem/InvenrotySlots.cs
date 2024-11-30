@@ -12,6 +12,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
     public Canvas canvas;
     public int maxCountItems;
     public InventoryItemPresent inventoryItemPresent;
+    public UIInventory uIInventory;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +49,10 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
         // {
         //     return;
         // }
+        if(slotTypeInventory == SlotType.SlotBackpack)
+        {
+            uIInventory.RefreshUIInventory();
+        }
         if(slotTypeInventory == SlotType.SlotLock )
         {
             return;
