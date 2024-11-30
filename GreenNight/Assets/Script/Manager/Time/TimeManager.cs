@@ -139,7 +139,7 @@ public class DateTime
                 this.day++;
                 SetTimeStartDay();
                 // sceneSystem.SwitchScene(0);
-                saveDataDDA.AddData();
+                // saveDataDDA.AddData();
                 sceneSystem.ReturnToMainScene();
 
             }
