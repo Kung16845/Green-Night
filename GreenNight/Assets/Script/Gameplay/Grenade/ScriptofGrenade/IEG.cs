@@ -6,8 +6,10 @@ public class IEG : MonoBehaviour
 {
     public float damage;
     public float Delay;
+    private Collider2D collider2D;
     void Start()
     {
+        collider2D = GetComponent<Collider2D>();
         StartCoroutine(DestroyAfterDelay(Delay));
     }
     void OnTriggerEnter2D(Collider2D other)
@@ -21,6 +23,9 @@ public class IEG : MonoBehaviour
     private IEnumerator DestroyAfterDelay(float Delay)
     {
         yield return new WaitForSeconds(Delay);
+        collider2D.enabled = false;
+        yield return new WaitForSeconds(0.60f);
         Destroy(this.gameObject);
+
     }
 }

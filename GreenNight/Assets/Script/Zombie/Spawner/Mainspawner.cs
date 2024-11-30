@@ -212,18 +212,19 @@ public class MainSpawner : MonoBehaviour
         Debug.Log($"Randomly selected {selectedDecks.Count} decks with total duration {totalDuration} seconds.");
     }
 
-    private float CalculateDDAPoint(float killPerMinute,float accuracy,float barrierDamage,float multikill)
+    private float CalculateDDAPoint(float killPerMinute,float accuracy,float barrierDamage,float multikill,float failedattempt)
     {
         float DDASkillplayPoint;
         killPerMinute *= 2;
         accuracy *= 1;
         barrierDamage = ((5000 - barrierDamage)/500) * 10;
         multikill *= 5;
-        return DDASkillplayPoint = (killPerMinute + accuracy + barrierDamage + multikill);
+        failedattempt *= 75;
+        return DDASkillplayPoint = (killPerMinute + accuracy + barrierDamage + multikill - failedattempt);
     }
     private int CalculateDesiredTier(DataDDA avgData)
     {
-        float skillpoint = CalculateDDAPoint(avgData.killPerMinute,avgData.accuracy,avgData.barrierDamage,avgData.multiKillCount);
+        float skillpoint = CalculateDDAPoint(avgData.killPerMinute,avgData.accuracy,avgData.barrierDamage,avgData.multiKillCount,avgData.valueFail);
         Debug.Log(skillpoint);
         if (skillpoint >= 320)
         {

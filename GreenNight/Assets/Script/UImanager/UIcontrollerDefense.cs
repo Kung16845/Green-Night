@@ -12,6 +12,7 @@ public class UIcontrollerDefense : MonoBehaviour
     public ActionController actionController;
     private bool isPlayerNear = false;
     private bool isInventoryActive = false;
+    public bool isfrsttime = true;
     private bool isBoxActive = false;
 
     void Start()
@@ -20,12 +21,12 @@ public class UIcontrollerDefense : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab) && !isfrsttime)
         {
             ToggleInventoryUI();
         }
 
-        if (isPlayerNear && Input.GetKeyDown(KeyCode.E))
+        if (isPlayerNear && Input.GetKeyDown(KeyCode.E) && !isfrsttime)
         {
             ToggleBoxUI();
         }
@@ -100,4 +101,8 @@ public class UIcontrollerDefense : MonoBehaviour
     {
         ToggleUI(false, false, true, true, false);
     }
+    public void canopeninvent()
+    {
+        isfrsttime = false;
+    } 
 }

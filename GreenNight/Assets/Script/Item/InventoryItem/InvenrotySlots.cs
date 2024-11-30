@@ -49,10 +49,10 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
         // {
         //     return;
         // }
-        if(slotTypeInventory == SlotType.SlotBackpack)
-        {
-            uIInventory.RefreshUIInventory();
-        }
+        // if(slotTypeInventory == SlotType.SlotBackpack)
+        // {
+        //     uIInventory.RefreshUIInventory();
+        // }
         if(slotTypeInventory == SlotType.SlotLock )
         {
             return;
