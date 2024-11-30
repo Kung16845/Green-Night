@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f0da720ddf7bafa4dbdfcaef96d64e76
+guid: 53fc996eeb11a6645b65b6d2a96eeed6
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -94,18 +94,18 @@ ScriptedImporter:
     spritePosition: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
-  - name: EODUnit_ArmTop
+  - name: ChemerSpike_ArmTop
     originalName: 
-    pivot: {x: 0.37933683, y: 0.91151524}
+    pivot: {x: 0.4132185, y: 0.8967147}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 207
-      y: 97
+      x: 147
+      y: 114
       width: 32
       height: 98
-    spriteID: a65d47d6deeb65b4aaaf181b08ee0d8c
+    spriteID: 10363fb2576539949ba9b3c6ef2a8ded
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -113,20 +113,41 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 207, y: 97}
-    spritePosition: {x: 143, y: 62}
-  - name: EODUnit_Head
+    uvTransform: {x: 147, y: 114}
+    spritePosition: {x: 136, y: 57}
+  - name: ChemerSpike_Head
     originalName: 
-    pivot: {x: 0.59116805, y: 0.0962105}
+    pivot: {x: 0.6684679, y: 0.06878826}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 103
+      y: 4
+      width: 73
+      height: 92
+    spriteID: 0f9d5bf36b48bef4e8bbf686663d8d51
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 103, y: 4}
+    spritePosition: {x: 88, y: 149}
+  - name: ChemerSpike_Body
+    originalName: 
+    pivot: {x: 0.33433893, y: 0.021608638}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 80
-      height: 85
-    spriteID: 51cfe71726977424cb9a1f694e214b0e
+      width: 91
+      height: 102
+    spriteID: 5067fa92bca7ca647b53ba9c5a0190fe
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -135,19 +156,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-    spritePosition: {x: 86, y: 144}
-  - name: EODUnit_Body
+    spritePosition: {x: 100, y: 84}
+  - name: ChemerSpike_LegTop
     originalName: 
-    pivot: {x: 0.46682608, y: 0.13446559}
+    pivot: {x: 0.39498767, y: 0.8849309}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 76
-      y: 97
-      width: 64
-      height: 92
-    spriteID: e1936106e9cf83348ad692ead9f8dfdc
+      x: 184
+      y: 4
+      width: 34
+      height: 101
+    spriteID: 78a55a7ea1236904096110034bbc1591
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -155,62 +176,41 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 76, y: 97}
-    spritePosition: {x: 102, y: 80}
-  - name: EODUnit_LegTop
+    uvTransform: {x: 184, y: 4}
+    spritePosition: {x: 131, y: 7}
+  - name: ChemerSpike_LegBack
     originalName: 
-    pivot: {x: 0.7011062, y: 0.8823008}
+    pivot: {x: 0.6644914, y: 0.87745667}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 98
+      y: 114
+      width: 41
+      height: 103
+    spriteID: 2a4253f0db7a89c4c8bb79103c13163a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 98, y: 114}
+    spritePosition: {x: 100, y: 7}
+  - name: ChemerSpike_ArmBack
+    originalName: 
+    pivot: {x: 0.8921018, y: 0.8101585}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 97
-      width: 64
-      height: 101
-    spriteID: a7d98bc358d8d5b4a804f2dfe0b00c85
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 97}
-    spritePosition: {x: 105, y: 7}
-  - name: EODUnit_LegBack
-    originalName: 
-    pivot: {x: 0.69348264, y: 0.89117116}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 148
-      y: 97
-      width: 51
-      height: 102
-    spriteID: 26e79c7ccbd6bbf4ca826b7ca97c6ef1
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 148, y: 97}
-    spritePosition: {x: 85, y: 8}
-  - name: EODUnit_ArmBack
-    originalName: 
-    pivot: {x: 0.8698504, y: 0.8198196}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 92
-      y: 4
-      width: 87
+      y: 114
+      width: 86
       height: 55
-    spriteID: 3778e38d327aeca4fbccf4c465cf781c
+    spriteID: 11bb9527811f35e4c9f8e98764d8ccdf
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -218,8 +218,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 92, y: 4}
-    spritePosition: {x: 31, y: 101}
+    uvTransform: {x: 4, y: 114}
+    spritePosition: {x: 52, y: 99}
   characterData:
     bones: []
     parts: []
@@ -290,63 +290,63 @@ ScriptedImporter:
   resliceFromLayer: 0
   mosaicPSDLayers: []
   rigPSDLayers:
-  - name: ZombieEODUnit_ArmTop
-    spriteName: ZombieEODUnit_ArmTop
+  - name: ChemerSpike_ArmTop
+    spriteName: ChemerSpike_ArmTop
     isGroup: 0
     parentIndex: -1
-    spriteID: a65d47d6deeb65b4aaaf181b08ee0d8c
+    spriteID: 10363fb2576539949ba9b3c6ef2a8ded
     layerID: 0
-    mosaicPosition: {x: 207, y: 97}
+    mosaicPosition: {x: 147, y: 114}
     flatten: 0
     isImported: 1
     isVisible: 1
-  - name: ZombieEODUnit_Head
-    spriteName: ZombieEODUnit_Head
+  - name: ChemerSpike_Head
+    spriteName: ChemerSpike_Head
     isGroup: 0
     parentIndex: -1
-    spriteID: 51cfe71726977424cb9a1f694e214b0e
-    layerID: -2111363319
+    spriteID: 0f9d5bf36b48bef4e8bbf686663d8d51
+    layerID: -533299389
+    mosaicPosition: {x: 103, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: ChemerSpike_Body
+    spriteName: ChemerSpike_Body
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 5067fa92bca7ca647b53ba9c5a0190fe
+    layerID: 737163583
     mosaicPosition: {x: 4, y: 4}
     flatten: 0
     isImported: 1
     isVisible: 1
-  - name: ZombieEODUnit_Body
-    spriteName: ZombieEODUnit_Body
+  - name: ChemerSpike_LegTop
+    spriteName: ChemerSpike_LegTop
     isGroup: 0
     parentIndex: -1
-    spriteID: e1936106e9cf83348ad692ead9f8dfdc
-    layerID: -410765415
-    mosaicPosition: {x: 76, y: 97}
+    spriteID: 78a55a7ea1236904096110034bbc1591
+    layerID: 662464464
+    mosaicPosition: {x: 184, y: 4}
     flatten: 0
     isImported: 1
     isVisible: 1
-  - name: ZombieEODUnit_LegTop
-    spriteName: ZombieEODUnit_LegTop
+  - name: ChemerSpike_LegBack
+    spriteName: ChemerSpike_LegBack
     isGroup: 0
     parentIndex: -1
-    spriteID: a7d98bc358d8d5b4a804f2dfe0b00c85
-    layerID: -2077385276
-    mosaicPosition: {x: 4, y: 97}
+    spriteID: 2a4253f0db7a89c4c8bb79103c13163a
+    layerID: -504797614
+    mosaicPosition: {x: 98, y: 114}
     flatten: 0
     isImported: 1
     isVisible: 1
-  - name: ZombieEODUnit_LegBack
-    spriteName: ZombieEODUnit_LegBack
+  - name: ChemerSpike_ArmBack
+    spriteName: ChemerSpike_ArmBack
     isGroup: 0
     parentIndex: -1
-    spriteID: 26e79c7ccbd6bbf4ca826b7ca97c6ef1
-    layerID: 1336878234
-    mosaicPosition: {x: 148, y: 97}
-    flatten: 0
-    isImported: 1
-    isVisible: 1
-  - name: ZombieEODUnit_ArmBack
-    spriteName: ZombieEODUnit_ArmBack
-    isGroup: 0
-    parentIndex: -1
-    spriteID: 3778e38d327aeca4fbccf4c465cf781c
-    layerID: -2125310816
-    mosaicPosition: {x: 92, y: 4}
+    spriteID: 11bb9527811f35e4c9f8e98764d8ccdf
+    layerID: 1471586392
+    mosaicPosition: {x: 4, y: 114}
     flatten: 0
     isImported: 1
     isVisible: 1
