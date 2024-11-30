@@ -80,7 +80,7 @@ public class SceneSystem : MonoBehaviour
                 }
             }
         }
-
+        timeManager.dateTime.SetTimeStartDay();
     }
 
     private void OnEnable()
