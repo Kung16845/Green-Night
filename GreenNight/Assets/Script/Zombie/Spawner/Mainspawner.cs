@@ -83,15 +83,15 @@ public class MainSpawner : MonoBehaviour
 
         // Initialize saveDataDDA
         saveDataDDA = FindObjectOfType<SaveDataDDA>();
-
+        
         if (saveDataDDA == null)
         {
             Debug.LogError("SaveDataDDA not found in the scene.");
         }
 
         // // Calculate decks based on DDA setting
-        CalculateDecks();
-
+        // CalculateDecks();
+        AddActiveDeck(601010203);
         // // Initialize tracking variables
         InitializeTracking();
 
@@ -336,7 +336,7 @@ public class MainSpawner : MonoBehaviour
             Debug.LogWarning($"Deck with ID {deckID} not found in StorageDecks.");
         }
     }
-
+    public bool isCompleteSpawned;
     private void StartNextDeck()
     {
         Debug.Log("StartNextDeck.");
@@ -361,7 +361,8 @@ public class MainSpawner : MonoBehaviour
             StartCoroutine(ProcessDeck(currentDeck));
         }
         else
-        {
+        {   
+            isCompleteSpawned = true;
             Debug.Log("All spawn decks have been completed.");
         }
     }

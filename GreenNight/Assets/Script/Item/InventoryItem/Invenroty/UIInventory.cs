@@ -232,7 +232,7 @@ public class UIInventory : MonoBehaviour
                     List<InvenrotySlots> slotsOfType = slotsByType[requiredSlotType];
 
                     // Find the next unused slot of this type
-                    InvenrotySlots inventortEqicment = slotsOfType.FirstOrDefault(slot => !usedSlots.Contains(slot));
+                    InvenrotySlots inventortEqicment = slotsOfType.LastOrDefault(slot => !usedSlots.Contains(slot));
 
                     if (inventortEqicment != null)
                     {
