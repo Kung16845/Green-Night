@@ -91,7 +91,7 @@ public class MainSpawner : MonoBehaviour
 
         // // Calculate decks based on DDA setting
         // CalculateDecks();
-        AddActiveDeck(601010203);
+        AddActiveDeck(601010101);
         // // Initialize tracking variables
         InitializeTracking();
 
@@ -246,7 +246,7 @@ public class MainSpawner : MonoBehaviour
     private float CalculateDDAPoint(float killPerMinute,float accuracy,float barrierDamage,float multikill,float failedattempt)
     {
         float DDASkillplayPoint;
-        killPerMinute *= 2;
+        killPerMinute *= 2; 
         accuracy *= 1;
         barrierDamage = ((5000 - barrierDamage)/500) * 10;
         multikill *= 5;
@@ -256,6 +256,17 @@ public class MainSpawner : MonoBehaviour
     private int CalculateDesiredTier(DataDDA avgData)
     {
         float skillpoint = CalculateDDAPoint(avgData.killPerMinute,avgData.accuracy,avgData.barrierDamage,avgData.multiKillCount,avgData.valueFail);
+        if (persistentMutations.Count == 0)
+            {
+                persistentMutations = GetSelectedMutations(skillpoint); // Store in persistentMutations
+                Debug.Log("Mutations selected for all decks: " + string.Join(", ", persistentMutations));
+            }
+            else
+            {
+                Debug.Log("Using persistent mutations: " + string.Join(", ", persistentMutations));
+            }
+
+            // Start the current deck using the persistent mutations
         Debug.Log(skillpoint);
         if (skillpoint >= 320)
         {
@@ -343,21 +354,6 @@ public class MainSpawner : MonoBehaviour
         if (currentDeckIndex < ActiveSpawnDecks.Count)
         {
             SpawnDeck currentDeck = ActiveSpawnDecks[currentDeckIndex];
-
-            // Check if mutations are already selected; if not, select them
-            if (persistentMutations.Count == 0)
-            {
-                DataDDA avgData = saveDataDDA.dataCollection.averageData;
-                float skillPoint = CalculateDDAPoint(avgData.killPerMinute, avgData.accuracy, avgData.barrierDamage, avgData.multiKillCount, avgData.valueFail);
-                persistentMutations = GetSelectedMutations(skillPoint); // Store in persistentMutations
-                Debug.Log("Mutations selected for all decks: " + string.Join(", ", persistentMutations));
-            }
-            else
-            {
-                Debug.Log("Using persistent mutations: " + string.Join(", ", persistentMutations));
-            }
-
-            // Start the current deck using the persistent mutations
             StartCoroutine(ProcessDeck(currentDeck));
         }
         else

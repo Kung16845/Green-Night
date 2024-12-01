@@ -90,6 +90,7 @@ public class DateTime
     }
     public void SetTimeStartDay()
     {
+        this.day++;
         // this.hour = 6;
         // this.minutes = 0;
         this.hour = 17;
@@ -136,8 +137,8 @@ public class DateTime
             {
 
                 // this.isDayNight = false;
-                this.day++;
-                SetTimeStartDay();
+                // this.day++;
+                // SetTimeStartDay();
                 // sceneSystem.SwitchScene(0);
                 // saveDataDDA.AddData();
                 sceneSystem.ReturnToMainScene();
