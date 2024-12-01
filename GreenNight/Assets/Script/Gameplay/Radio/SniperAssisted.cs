@@ -18,7 +18,6 @@ public class SniperAssisted : MonoBehaviour
 
     private bool isAvailable = true;
     private bool isActive = false;
-    private float cooldownTimer = 0f;
 
     private void Start()
     {
@@ -28,22 +27,20 @@ public class SniperAssisted : MonoBehaviour
         }
         if (cooldownSlider != null)
         {
-            cooldownSlider.maxValue = abilityCooldown;
+            cooldownSlider.maxValue = assistantDuration; // Set the max value for the active duration
             cooldownSlider.value = 0;
         }
     }
 
     private void Update()
     {
-        if (!isAvailable)
+        // If the ability is not available and not active, update the cooldown slider
+        if (!isAvailable && !isActive)
         {
-            cooldownTimer -= Time.deltaTime;
-            if (cooldownSlider != null)
-            {
-                cooldownSlider.value = abilityCooldown - cooldownTimer;
-            }
+            cooldownSlider.maxValue = abilityCooldown; // Set the slider to track cooldown
+            cooldownSlider.value -= Time.deltaTime;
 
-            if (cooldownTimer <= 0f)
+            if (cooldownSlider.value <= 0f)
             {
                 isAvailable = true;
                 if (sniperButton != null)
@@ -60,11 +57,14 @@ public class SniperAssisted : MonoBehaviour
 
         isAvailable = false;
         isActive = true;
-        cooldownTimer = abilityCooldown;
         if (sniperButton != null)
         {
             sniperButton.interactable = false;
         }
+
+        // Reset and start the slider for active duration
+        cooldownSlider.maxValue = assistantDuration;
+        cooldownSlider.value = 0;
 
         StartCoroutine(SniperAssistanceRoutine());
     }
@@ -75,12 +75,37 @@ public class SniperAssisted : MonoBehaviour
 
         while (elapsed < assistantDuration)
         {
-            DealRandomDamage();
-            yield return new WaitForSeconds(shotCooldown);
-            elapsed += shotCooldown;
+            if (elapsed % shotCooldown < Time.deltaTime) // Perform damage periodically without skipping
+            {
+                DealRandomDamage();
+            }
+
+            elapsed += Time.deltaTime;
+
+            // Update slider continuously during active phase
+            if (cooldownSlider != null)
+            {
+                cooldownSlider.value = elapsed;
+            }
+
+            yield return null;
         }
 
         isActive = false;
+
+        // Start cooldown phase
+        cooldownSlider.maxValue = abilityCooldown;
+        cooldownSlider.value = abilityCooldown;
+        StartCoroutine(CooldownRoutine());
+    }
+
+    private IEnumerator CooldownRoutine()
+    {
+        while (cooldownSlider.value > 0f)
+        {
+            cooldownSlider.value -= Time.deltaTime;
+            yield return null;
+        }
     }
 
     private void DealRandomDamage()

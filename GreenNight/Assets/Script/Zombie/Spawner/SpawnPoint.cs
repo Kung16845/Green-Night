@@ -76,10 +76,11 @@ public class SpawnPoint : MonoBehaviour
                 // Determine if mutations should be applied
                 if (Random.value <= mutationApplyRate)
                 {
-                    // Assign mutations based on selectedMutations
-                    foreach (var mutation in selectedMutations)
+                    // Randomly select a mutation from selectedMutations
+                    if (selectedMutations.Count > 0)
                     {
-                        zombie.SetMutationType(mutation);;
+                        MutationType randomMutation = selectedMutations[Random.Range(0, selectedMutations.Count)];
+                        zombie.SetMutationType(randomMutation);
                     }
                 }
                 else
