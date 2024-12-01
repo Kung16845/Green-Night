@@ -257,14 +257,14 @@ public class MainSpawner : MonoBehaviour
     {
         float skillpoint = CalculateDDAPoint(avgData.killPerMinute,avgData.accuracy,avgData.barrierDamage,avgData.multiKillCount,avgData.valueFail);
         if (persistentMutations.Count == 0)
-            {
-                persistentMutations = GetSelectedMutations(skillpoint); // Store in persistentMutations
-                Debug.Log("Mutations selected for all decks: " + string.Join(", ", persistentMutations));
-            }
-            else
-            {
-                Debug.Log("Using persistent mutations: " + string.Join(", ", persistentMutations));
-            }
+        {
+            persistentMutations = GetSelectedMutations(skillpoint); // Store in persistentMutations
+            Debug.Log("Mutations selected for all decks: " + string.Join(", ", persistentMutations));
+        }
+        else
+        {
+            Debug.Log("Using persistent mutations: " + string.Join(", ", persistentMutations));
+        }
 
             // Start the current deck using the persistent mutations
         Debug.Log(skillpoint);
@@ -319,8 +319,18 @@ public class MainSpawner : MonoBehaviour
     // Existing AddActiveDeck method remains unchanged
     public void AddActiveDeck(int deckID)
     {
-        // Find the deck with the given deckID in StorageDecks
+        // // Find the deck with the given deckID in StorageDecks
         SpawnDeck deckToAdd = StorageDecks.Find(deck => deck.deckID == deckID);
+        // float skillpoint = CalculateDDAPoint(avgData.killPerMinute,avgData.accuracy,avgData.barrierDamage,avgData.multiKillCount,avgData.valueFail);
+        // if (persistentMutations.Count == 0)
+        // {
+        //     persistentMutations = GetSelectedMutations(skillpoint); // Store in persistentMutations
+        //     Debug.Log("Mutations selected for all decks: " + string.Join(", ", persistentMutations));
+        // }
+        // else
+        // {
+        //     Debug.Log("Using persistent mutations: " + string.Join(", ", persistentMutations));
+        // }
         if (deckToAdd != null)
         {
             ActiveSpawnDecks.Add(deckToAdd);
