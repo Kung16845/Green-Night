@@ -56,6 +56,20 @@ public class MainSpawner : MonoBehaviour
         }
         return new List<MutationType> { MutationType.None };
     }
+    public List<MutationType> GetRandomMutations(int count)
+    {
+        // Get all possible MutationTypes (excluding None)
+        List<MutationType> allMutations = new List<MutationType>();
+        foreach (MutationType mutation in System.Enum.GetValues(typeof(MutationType)))
+        {
+            if (mutation != MutationType.None)
+            {
+                allMutations.Add(mutation);
+            }
+        }
+
+        return SelectRandomMutations(allMutations, count);
+    }
     private List<MutationType> SelectRandomMutations(List<MutationType> availableMutations, int count)
     {
         List<MutationType> selectedMutations = new List<MutationType>();
@@ -90,8 +104,8 @@ public class MainSpawner : MonoBehaviour
         }
 
         // // Calculate decks based on DDA setting
-        // CalculateDecks();
-        AddActiveDeck(601010101);
+        CalculateDecks();
+        // AddActiveDeck(601010101);
         // // Initialize tracking variables
         InitializeTracking();
 
@@ -224,7 +238,7 @@ public class MainSpawner : MonoBehaviour
 
         List<SpawnDeck> availableDecks = new List<SpawnDeck>(deckPool);
         System.Random rand = new System.Random();
-
+         GetRandomMutations(2);
         while (availableDecks.Count > 0 && totalDuration < maxDuration)
         {
             int index = rand.Next(availableDecks.Count);
@@ -321,16 +335,17 @@ public class MainSpawner : MonoBehaviour
     {
         // // Find the deck with the given deckID in StorageDecks
         SpawnDeck deckToAdd = StorageDecks.Find(deck => deck.deckID == deckID);
-        // float skillpoint = CalculateDDAPoint(avgData.killPerMinute,avgData.accuracy,avgData.barrierDamage,avgData.multiKillCount,avgData.valueFail);
-        // if (persistentMutations.Count == 0)
-        // {
-        //     persistentMutations = GetSelectedMutations(skillpoint); // Store in persistentMutations
-        //     Debug.Log("Mutations selected for all decks: " + string.Join(", ", persistentMutations));
-        // }
-        // else
-        // {
-        //     Debug.Log("Using persistent mutations: " + string.Join(", ", persistentMutations));
-        // }
+        DataDDA avgData = saveDataDDA.dataCollection.averageData;
+        float skillpoint = CalculateDDAPoint(avgData.killPerMinute,avgData.accuracy,avgData.barrierDamage,avgData.multiKillCount,avgData.valueFail);
+        if (persistentMutations.Count == 0)
+        {
+            persistentMutations = GetSelectedMutations(skillpoint); // Store in persistentMutations
+            Debug.Log("Mutations selected for all decks: " + string.Join(", ", persistentMutations));
+        }
+        else
+        {
+            Debug.Log("Using persistent mutations: " + string.Join(", ", persistentMutations));
+        }
         if (deckToAdd != null)
         {
             ActiveSpawnDecks.Add(deckToAdd);

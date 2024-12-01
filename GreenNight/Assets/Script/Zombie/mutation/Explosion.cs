@@ -29,16 +29,16 @@ public class Explosion : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Barrier barrierComponent = other.GetComponent<Barrier>();
+        if (barrierComponent != null)
+        {
+            Debug.Log("Barrierfound");
+            barrierComponent.BarrierTakeDamage(barrierDamage);
+        }
         Zombie zombie = other.GetComponent<Zombie>();
         if (zombie != null)
         {
             zombie.ZombieTakeDamage(zombieDamage, DamageType.Explosive);
-        }
-
-        Barrier barrierComponent = other.GetComponent<Barrier>();
-        if (barrierComponent != null)
-        {
-            barrierComponent.BarrierTakeDamage(barrierDamage);
         }
     }
 }
