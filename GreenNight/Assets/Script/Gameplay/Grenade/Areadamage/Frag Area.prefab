@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5657313681973111825}
   - component: {fileID: 2557328883562315874}
   - component: {fileID: 146146595157182062}
+  - component: {fileID: 2702447830788870977}
   m_Layer: 0
   m_Name: Frag Area
   m_TagString: Untagged
@@ -26,9 +27,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6530836468787553761}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 15.95, y: 1.06, z: 0}
-  m_LocalScale: {x: 2.7556405, y: 2.7556405, z: 2.7556405}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -66,9 +67,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.005664468}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.3779908
 --- !u!212 &2557328883562315874
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -110,8 +111,8 @@ SpriteRenderer:
   m_SortingLayerID: -587923211
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: ff4ee2eed8301784ebac61a82b1d8aa7, type: 3}
-  m_Color: {r: 0.1882353, g: 0.8117647, b: 0.38452134, a: 0.0627451}
+  m_Sprite: {fileID: 1785648016, guid: 862fad52e84c0814faa43271ba311a29, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -135,3 +136,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 250
   Delay: 0.25
+--- !u!95 &2702447830788870977
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6530836468787553761}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ef79b76d1ea6e124d92dfb30d618ac7e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

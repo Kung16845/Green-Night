@@ -8,6 +8,7 @@ public class ActionController : MonoBehaviour
     public bool canuseweapon = true;
     public bool canDoAction = true;
     public bool canchangeweapond = true;
+    public bool canopeninventory = false;
 
     public Slider stuckSlider; // Reference to the Slider component
 
@@ -147,5 +148,9 @@ public class ActionController : MonoBehaviour
     public void SetWeapondFree()
     {
         canuseweapon = true;
+    }
+    public void SetWalkFree()
+    {
+        canwalk = true;
     }
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8003402428868060125}
   - component: {fileID: 4310513354349531283}
   - component: {fileID: 3001614007809679301}
+  - component: {fileID: -6331647503979758562}
   m_Layer: 0
   m_Name: DynamiteArea
   m_TagString: Untagged
@@ -26,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7924042667731793650}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 15.07, y: 0.67, z: 0}
-  m_LocalScale: {x: 4.0472503, y: 4.0472503, z: 4.0472503}
+  m_LocalScale: {x: 1, y: 1, z: 4.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &8003402428868060125
 CircleCollider2D:
@@ -66,9 +67,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.016993284}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 2.0124104
 --- !u!212 &4310513354349531283
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -110,8 +111,8 @@ SpriteRenderer:
   m_SortingLayerID: -587923211
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: ff4ee2eed8301784ebac61a82b1d8aa7, type: 3}
-  m_Color: {r: 0.8117647, g: 0.58705854, b: 0.1882353, a: 0.0627451}
+  m_Sprite: {fileID: 1785648016, guid: 862fad52e84c0814faa43271ba311a29, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -135,3 +136,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 450
   Delay: 0.25
+--- !u!95 &-6331647503979758562
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7924042667731793650}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ef79b76d1ea6e124d92dfb30d618ac7e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

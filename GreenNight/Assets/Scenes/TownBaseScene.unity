@@ -23422,7 +23422,7 @@ MonoBehaviour:
     cooldown: 0
   - name: DryFireSound
     clip: {fileID: 8300000, guid: aae04f67c5c4cde46a97bf2478091772, type: 3}
-    soundType: 3
+    soundType: 2
     cooldown: 1.5
   - name: AK47
     clip: {fileID: 8300000, guid: 54de724fbac3db24d9169f55f50980d3, type: 3}
@@ -23462,7 +23462,7 @@ MonoBehaviour:
     cooldown: 0.1
   - name: ShellDropSound
     clip: {fileID: 8300000, guid: ed63c5e21e11e7f48ae0ae4e5dff0848, type: 3}
-    soundType: 3
+    soundType: 2
     cooldown: 0.1
   - name: Shotgun
     clip: {fileID: 8300000, guid: aed2886f566b34441b5aef1b57c13c67, type: 3}
@@ -23496,12 +23496,12 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 3902ed1e570d092469ea1398254dfbda, type: 3}
     soundType: 1
     cooldown: 0
-  bgVolume: 0.688
+  bgVolume: 0.399
   musicVolume: 0.5
   vfxVolume: 1
-  gunshotVolume: 0.76
-  poolSize: 30
-  GunpoolSize: 30
+  gunshotVolume: 0.406
+  poolSize: 15
+  GunpoolSize: 25
 --- !u!1 &857472067
 GameObject:
   m_ObjectHideFlags: 0
@@ -50614,6 +50614,7 @@ MonoBehaviour:
   transitionAnim: {fileID: 1907810393}
   timeManager: {fileID: 725400160}
   saveObjectActiveMainScene: {fileID: 0}
+  saveDataDDA: {fileID: 0}
 --- !u!4 &1882447345
 Transform:
   m_ObjectHideFlags: 0

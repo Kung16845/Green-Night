@@ -10,6 +10,11 @@ public class MainSpawner : MonoBehaviour
     [Header("Spawn Decks Configuration")]
     public List<SpawnDeck> ActiveSpawnDecks = new List<SpawnDeck>();  // Active decks being used
     public List<SpawnDeck> StorageDecks = new List<SpawnDeck>();      // Saved decks waiting to be used
+    private List<MutationType> currentDeckMutations; 
+    [Header("Selected Mutations")]
+    [SerializeField]
+    private List<MutationType> persistentMutations = new List<MutationType>();
+    public List<MutationSelectionRule> mutationSelectionRules = new List<MutationSelectionRule>();
 
     [Header("Global Mutation Settings")]
     public MutationType globalMutationType = MutationType.None;
@@ -40,6 +45,32 @@ public class MainSpawner : MonoBehaviour
 
     public List<SpawnDeck> remainingDecks = new List<SpawnDeck>(); // Decks yet to be spawned
     public CheckUsingDDA checkUsingDDA;
+    public List<MutationType> GetSelectedMutations(float skillPoint)
+    {
+        foreach (var rule in mutationSelectionRules)
+        {
+            if (skillPoint >= rule.minSkillPoint)
+            {
+                return SelectRandomMutations(rule.availableMutations, rule.mutationsToSelect);
+            }
+        }
+        return new List<MutationType> { MutationType.None };
+    }
+    private List<MutationType> SelectRandomMutations(List<MutationType> availableMutations, int count)
+    {
+        List<MutationType> selectedMutations = new List<MutationType>();
+        List<MutationType> pool = new List<MutationType>(availableMutations);
+        System.Random rand = new System.Random();
+
+        for (int i = 0; i < count && pool.Count > 0; i++)
+        {
+            int index = rand.Next(pool.Count);
+            selectedMutations.Add(pool[index]);
+            pool.RemoveAt(index); // Prevent selecting the same mutation multiple times
+        }
+
+        return selectedMutations;
+    }
     private void Awake() {
         checkUsingDDA = FindObjectOfType<CheckUsingDDA>();
         checkUsingDDA.mainSpawner = this;
@@ -212,18 +243,19 @@ public class MainSpawner : MonoBehaviour
         Debug.Log($"Randomly selected {selectedDecks.Count} decks with total duration {totalDuration} seconds.");
     }
 
-    private float CalculateDDAPoint(float killPerMinute,float accuracy,float barrierDamage,float multikill)
+    private float CalculateDDAPoint(float killPerMinute,float accuracy,float barrierDamage,float multikill,float failedattempt)
     {
         float DDASkillplayPoint;
         killPerMinute *= 2;
         accuracy *= 1;
         barrierDamage = ((5000 - barrierDamage)/500) * 10;
         multikill *= 5;
-        return DDASkillplayPoint = (killPerMinute + accuracy + barrierDamage + multikill);
+        failedattempt *= 75;
+        return DDASkillplayPoint = (killPerMinute + accuracy + barrierDamage + multikill - failedattempt);
     }
     private int CalculateDesiredTier(DataDDA avgData)
     {
-        float skillpoint = CalculateDDAPoint(avgData.killPerMinute,avgData.accuracy,avgData.barrierDamage,avgData.multiKillCount);
+        float skillpoint = CalculateDDAPoint(avgData.killPerMinute,avgData.accuracy,avgData.barrierDamage,avgData.multiKillCount,avgData.valueFail);
         Debug.Log(skillpoint);
         if (skillpoint >= 320)
         {
@@ -311,6 +343,21 @@ public class MainSpawner : MonoBehaviour
         if (currentDeckIndex < ActiveSpawnDecks.Count)
         {
             SpawnDeck currentDeck = ActiveSpawnDecks[currentDeckIndex];
+
+            // Check if mutations are already selected; if not, select them
+            if (persistentMutations.Count == 0)
+            {
+                DataDDA avgData = saveDataDDA.dataCollection.averageData;
+                float skillPoint = CalculateDDAPoint(avgData.killPerMinute, avgData.accuracy, avgData.barrierDamage, avgData.multiKillCount, avgData.valueFail);
+                persistentMutations = GetSelectedMutations(skillPoint); // Store in persistentMutations
+                Debug.Log("Mutations selected for all decks: " + string.Join(", ", persistentMutations));
+            }
+            else
+            {
+                Debug.Log("Using persistent mutations: " + string.Join(", ", persistentMutations));
+            }
+
+            // Start the current deck using the persistent mutations
             StartCoroutine(ProcessDeck(currentDeck));
         }
         else
@@ -318,10 +365,9 @@ public class MainSpawner : MonoBehaviour
             Debug.Log("All spawn decks have been completed.");
         }
     }
-
     private IEnumerator ProcessDeck(SpawnDeck deck)
     {
-        // Initialize currentDeckDurationLeft and currentDeckZombiesLeft
+        // Initialize tracking variables
         currentDeckDurationLeft = deck.deckDuration;
         currentDeckZombiesLeft = 0;
 
@@ -335,7 +381,12 @@ public class MainSpawner : MonoBehaviour
 
                 if (spawnPoint != null)
                 {
-                    spawnPoint.StartSpawningQueue(laneConfig.zombieSpawnQueue, globalMutationType, mutationApplyRate);
+                    // Use the persistent mutations for all decks
+                    spawnPoint.StartSpawningQueue(
+                        laneConfig.zombieSpawnQueue,
+                        persistentMutations,
+                        mutationApplyRate
+                    );
                 }
                 else
                 {
@@ -348,22 +399,17 @@ public class MainSpawner : MonoBehaviour
             yield return new WaitForSeconds(wave.timeUntilNextWave);
         }
 
-        // Wait for the remaining deck duration
-        float elapsedTime = Time.time - (Time.time - deck.deckDuration + currentDeckDurationLeft);
-        float remainingDuration = deck.deckDuration - elapsedTime;
-        if (remainingDuration > 0f)
-        {
-            Debug.Log($"Waiting for remaining {remainingDuration}s of deck duration.");
-            yield return new WaitForSeconds(remainingDuration);
-        }
-
         Debug.Log($"Deck '{deck.deckName}' completed.");
         currentDeckDurationLeft = 0f;
         currentDeckZombiesLeft = 0;
 
         currentDeckIndex++;
+
+        // Proceed to the next deck
         StartNextDeck();
     }
+
+
 
     private SpawnPoint GetSpawnPointByLaneID(int laneID)
     {

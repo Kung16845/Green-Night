@@ -82,7 +82,7 @@ public class SaveDataDDA : MonoBehaviour
         dataCollection.averageData.accuracy = totalAccuracy / totalCount;
         dataCollection.averageData.multiKillCount = totalMultiKill / totalCount;
         dataCollection.averageData.barrierDamage = totalBarrierDamage / totalCount;
-        dataCollection.averageData.valueFail = totalValueFail / totalCount;
+        dataCollection.averageData.valueFail = totalValueFail;
         dataCollection.averageData.recordCount = totalCount;
     }
 
