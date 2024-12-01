@@ -8,6 +8,8 @@ public class ItemClass : MonoBehaviour
 {   
     [Header("Stat")]
     public string nameItem;
+    [TextArea(15,15)]
+    public string Describetion;
     public int quantityItem;
     public int maxCountItem;
     public Itemtype itemtype;
