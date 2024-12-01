@@ -81,9 +81,12 @@ public class NpcManager : MonoBehaviour
         newNpc.nameNpc = randomFirstName + " " + randomLastName;
         newNpc.roleNpc = (SpecialistRoleNpc)Random.Range(0, 6);
 
-        newNpc.endurance = Random.Range(1, 3);
-        newNpc.combat = Random.Range(1, 3);
-        newNpc.speed = Random.Range(1, 3);
+        // newNpc.endurance = Random.Range(1, 3);
+        newNpc.endurance = Random.Range(2, 9);
+        // newNpc.combat = Random.Range(1, 3);
+        newNpc.combat = Random.Range(4, 9);
+        // newNpc.speed = Random.Range(1, 3);
+        newNpc.speed = Random.Range(2, 9);
         newNpc.countInventorySlot = 6;
         newNpc.bed = 1;
         newNpc.foodPerDay= 2;
