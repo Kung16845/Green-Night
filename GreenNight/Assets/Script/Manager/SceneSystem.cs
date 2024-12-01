@@ -13,16 +13,28 @@ public class SceneSystem : MonoBehaviour
     private bool isSceneLoading = false;
     public SaveObjectActiveMainScene saveObjectActiveMainScene;
     public SaveDataDDA saveDataDDA;
-   
+    public GameObject uICompleteNightbeforeEndTIme;
+    public MainSpawner mainSpawner;
     private void Start()
     {
         timeManager = FindObjectOfType<TimeManager>();
         timeManager.sceneSystem1 = this;
         timeManager.dateTime.sceneSystem = this;
-        saveObjectActiveMainScene = FindObjectOfType<SaveObjectActiveMainScene>();    
+        saveObjectActiveMainScene = FindObjectOfType<SaveObjectActiveMainScene>();
         saveDataDDA = FindObjectOfType<SaveDataDDA>();
+        mainSpawner = FindObjectOfType<MainSpawner>();
     }
-    
+    private void Update()
+    {
+        if (uICompleteNightbeforeEndTIme== null) return;
+        if(!mainSpawner.isCompleteSpawned) return;
+        
+        Zombie[] zombies = FindObjectsOfType<Zombie>();
+        if (zombies.Length == 0)
+        {
+            uICompleteNightbeforeEndTIme.gameObject.SetActive(true);
+        }
+    }
     public void SwitchScene(int sceneIndex)
     {
 
@@ -44,7 +56,7 @@ public class SceneSystem : MonoBehaviour
         if (mainScene.IsValid() && mainScene.isLoaded)
         {
             foreach (GameObject go in mainScene.GetRootGameObjects())
-            {   
+            {
                 saveObjectActiveMainScene.objectActiveStates[go] = go.activeSelf;
                 go.SetActive(false); // Temporarily hide main scene objects
             }

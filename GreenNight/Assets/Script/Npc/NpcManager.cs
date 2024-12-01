@@ -79,7 +79,7 @@ public class NpcManager : MonoBehaviour
         string randomLastName = lastNames[Random.Range(0, lastNames.Length)];
 
         newNpc.nameNpc = randomFirstName + " " + randomLastName;
-        newNpc.roleNpc = (SpecialistRoleNpc)Random.Range(0, 6);
+        newNpc.roleNpc = (SpecialistRoleNpc)Random.Range(0, 8);
 
         // newNpc.endurance = Random.Range(1, 3);
         newNpc.endurance = Random.Range(2, 9);
