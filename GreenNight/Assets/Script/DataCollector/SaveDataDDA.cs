@@ -30,8 +30,8 @@ public class SaveDataDDA : MonoBehaviour
     private void Start()
     {
         scriptDDAdataCollector = FindObjectOfType<DDAdataCollector>();
-
-        LoadData();
+        savePathDataDDA = Path.Combine(Application.dataPath,"dda_data.json");
+        // LoadData();
     }
 
     public void AddData()
@@ -67,7 +67,7 @@ public class SaveDataDDA : MonoBehaviour
         var totalBarrierDamage = 0f;
         var totalValueFail = 0f;
         var totalCount = dataCollection.records.Count;
-        
+
 
         foreach (var record in dataCollection.records)
         {
@@ -82,7 +82,7 @@ public class SaveDataDDA : MonoBehaviour
         dataCollection.averageData.accuracy = totalAccuracy / totalCount;
         dataCollection.averageData.multiKillCount = totalMultiKill / totalCount;
         dataCollection.averageData.barrierDamage = totalBarrierDamage / totalCount;
-        dataCollection.averageData.valueFail = totalValueFail / totalCount;
+        dataCollection.averageData.valueFail = totalValueFail;
         dataCollection.averageData.recordCount = totalCount;
     }
 

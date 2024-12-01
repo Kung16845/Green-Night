@@ -12,6 +12,7 @@ public class SceneSystem : MonoBehaviour
     public TimeManager timeManager;
     private bool isSceneLoading = false;
     public SaveObjectActiveMainScene saveObjectActiveMainScene;
+    public SaveDataDDA saveDataDDA;
    
     private void Start()
     {
@@ -19,7 +20,7 @@ public class SceneSystem : MonoBehaviour
         timeManager.sceneSystem1 = this;
         timeManager.dateTime.sceneSystem = this;
         saveObjectActiveMainScene = FindObjectOfType<SaveObjectActiveMainScene>();    
-       
+        saveDataDDA = FindObjectOfType<SaveDataDDA>();
     }
     
     public void SwitchScene(int sceneIndex)
@@ -80,7 +81,7 @@ public class SceneSystem : MonoBehaviour
                 }
             }
         }
-        
+        saveDataDDA.AddData();
     }
 
     private void OnEnable()

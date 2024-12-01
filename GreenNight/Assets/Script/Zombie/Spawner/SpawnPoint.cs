@@ -20,13 +20,15 @@ public class SpawnPoint : MonoBehaviour
     }
 
     // Starts spawning based on the queue
-     public void StartSpawningQueue(List<ZombieSpawnQueue> spawnQueue, MutationType mutationType, float mutationApplyRate)
+    public void StartSpawningQueue(List<ZombieSpawnQueue> spawnQueue, List<MutationType> selectedMutations, float mutationApplyRate)
     {
         if (spawnCoroutine == null)
         {
-            spawnCoroutine = StartCoroutine(SpawnZombieQueueCoroutine(spawnQueue, mutationType, mutationApplyRate));
+            Debug.Log($"Starting Spawn Zombie Queue: {spawnQueue.Count} zombies, MutationTypes: {string.Join(", ", selectedMutations)}, ApplyRate: {mutationApplyRate}");
+            spawnCoroutine = StartCoroutine(SpawnZombieQueueCoroutine(spawnQueue, selectedMutations, mutationApplyRate));
         }
     }
+
     public void StopSpawning()
     {
         if (spawnCoroutine != null)
@@ -36,7 +38,7 @@ public class SpawnPoint : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnZombieQueueCoroutine(List<ZombieSpawnQueue> spawnQueue, MutationType mutationType, float mutationApplyRate)
+    private IEnumerator SpawnZombieQueueCoroutine(List<ZombieSpawnQueue> spawnQueue, List<MutationType> selectedMutations, float mutationApplyRate)
     {
         foreach (ZombieSpawnQueue spawnConfig in spawnQueue)
         {
@@ -46,7 +48,7 @@ public class SpawnPoint : MonoBehaviour
             int spawnedZombies = 0;
             while (spawnedZombies < spawnConfig.quantity)
             {
-                SpawnZombie(spawnConfig, mutationType, mutationApplyRate);
+                SpawnZombie(spawnConfig, selectedMutations, mutationApplyRate);
                 spawnedZombies++;
                 yield return new WaitForSeconds(spawnConfig.spawnInterval);
             }
@@ -57,7 +59,8 @@ public class SpawnPoint : MonoBehaviour
 
         spawnCoroutine = null; // Reset coroutine so it can be started again if needed
     }
-     private void SpawnZombie(ZombieSpawnQueue spawnConfig, MutationType mutationType, float mutationApplyRate)
+
+    private void SpawnZombie(ZombieSpawnQueue spawnConfig, List<MutationType> selectedMutations, float mutationApplyRate)
     {
         if (spawnConfig.zombiePrefab != null)
         {
@@ -70,16 +73,22 @@ public class SpawnPoint : MonoBehaviour
                 zombie.SetLane(lane);
                 zombie.SetTier(spawnConfig.zombieTier);
 
-                // Apply mutation based on the mutationApplyRate
+                // Determine if mutations should be applied
                 if (Random.value <= mutationApplyRate)
                 {
-                    zombie.SetMutationType(mutationType);
+                    // Randomly select a mutation from selectedMutations
+                    if (selectedMutations.Count > 0)
+                    {
+                        MutationType randomMutation = selectedMutations[Random.Range(0, selectedMutations.Count)];
+                        zombie.SetMutationType(randomMutation);
+                    }
                 }
                 else
                 {
                     zombie.SetMutationType(MutationType.None);
                 }
 
+                // Optionally, you can notify MainSpawner directly here if needed
             }
         }
         else
@@ -87,4 +96,12 @@ public class SpawnPoint : MonoBehaviour
             Debug.LogWarning("SpawnPoint: zombiePrefab is null in spawnConfig.");
         }
     }
+
+}
+[System.Serializable]
+public struct MutationSelectionRule
+{
+    public float minSkillPoint;                  // Minimum skill point to apply this rule
+    public int mutationsToSelect;                // Number of mutations to select (1 or 2)
+    public List<MutationType> availableMutations; // List of mutations available for selection
 }

@@ -141,29 +141,47 @@ public class SoundManager : MonoBehaviour
 
     private void PlayFromPool(AudioClip clip, float volume)
     {
-        if (audioSourcePool.Count == 0) return;
+        for (int i = 0; i < audioSourcePool.Count; i++)
+        {
+            int index = (currentSourceIndex + i) % audioSourcePool.Count;
+            AudioSource source = audioSourcePool[index];
 
-        AudioSource source = audioSourcePool[currentSourceIndex];
-        source.clip = clip;
-        source.volume = volume;
-        source.Play();
+            if (!source.isPlaying)
+            {
+                source.clip = clip;
+                source.volume = volume;
+                source.Play();
 
-        // Move to the next source in the pool
-        currentSourceIndex = (currentSourceIndex + 1) % GunpoolSize;
+                currentSourceIndex = (index + 1) % audioSourcePool.Count;
+                return;
+            }
+        }
+
+        Debug.LogWarning("All audio sources are busy. Sound could not be played.");
     }
+
 
     private void PlayFromVFXPool(AudioClip clip, float volume)
     {
-        if (vfxAudioSourcePool.Count == 0) return;
+        for (int i = 0; i < vfxAudioSourcePool.Count; i++)
+        {
+            int index = (vfxCurrentSourceIndex + i) % vfxAudioSourcePool.Count;
+            AudioSource source = vfxAudioSourcePool[index];
 
-        AudioSource source = vfxAudioSourcePool[vfxCurrentSourceIndex];
-        source.clip = clip;
-        source.volume = volume;
-        source.Play();
+            if (!source.isPlaying)
+            {
+                source.clip = clip;
+                source.volume = volume;
+                source.Play();
 
-        // Move to the next source in the pool
-        vfxCurrentSourceIndex = (vfxCurrentSourceIndex + 1) % poolSize;
+                vfxCurrentSourceIndex = (index + 1) % vfxAudioSourcePool.Count;
+                return;
+            }
+        }
+
+        Debug.LogWarning("All VFX audio sources are busy. Sound could not be played.");
     }
+
 
     public AudioSource GetAudioSourceForType(SoundType type)
     {

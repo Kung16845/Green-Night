@@ -403,6 +403,7 @@ public class Zombie : MonoBehaviour
 
     protected virtual void OnDeath()
     {
+        if (currentState == ZombieState.Dead) return;
         currentState = ZombieState.Dead;
         switch (mutationType)
         {
