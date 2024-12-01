@@ -119,7 +119,7 @@ public class SniperAssisted : MonoBehaviour
         if (target != null)
         {
             target.ZombieTakeDamage(damage, damageType);
-            SoundManager.Instance.PlaySound("AWP");
+            SoundManager.Instance.PlaySound("M24");
         }
     }
 }
