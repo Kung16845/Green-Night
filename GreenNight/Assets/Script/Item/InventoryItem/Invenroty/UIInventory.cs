@@ -117,8 +117,8 @@ public class UIInventory : MonoBehaviour
         npcManager = FindObjectOfType<NpcManager>();
         npcManager.dropdown = this.dropdown;
         npcManager.uIInventory = this;
-        npcManager.levelCombatText = levelEnduranceText;
-        npcManager.levelEnduranceText = levelCombatText;
+        npcManager.levelCombatText = levelCombatText;
+        npcManager.levelEnduranceText = levelEnduranceText;
         npcManager.levelSpeedText = levelSpeedText;
         npcManager.specialistNpcText = specialistNpcText;
 

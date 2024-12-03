@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +17,7 @@ public class SniperAssisted : MonoBehaviour
 
     private bool isAvailable = true;
     private bool isActive = false;
+    private bool isUIInteractable =  false; // Flag to check if the UI is interactable
 
     private void Start()
     {
@@ -25,15 +25,31 @@ public class SniperAssisted : MonoBehaviour
         {
             sniperButton.onClick.AddListener(ActivateSniperAssistance);
         }
+
         if (cooldownSlider != null)
         {
             cooldownSlider.maxValue = assistantDuration; // Set the max value for the active duration
             cooldownSlider.value = 0;
         }
+
+        // Ensure the UI is always visible and interactable by default
+        if (sniperButton != null)
+        {
+            sniperButton.gameObject.SetActive(true);
+        }
     }
 
     private void Update()
     {
+        // Check for the "Tab" key to toggle UI interactivity
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            ToggleUIInteractability();
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            ActivateSniperAssistance();
+        }
         // If the ability is not available and not active, update the cooldown slider
         if (!isAvailable && !isActive)
         {
@@ -51,9 +67,21 @@ public class SniperAssisted : MonoBehaviour
         }
     }
 
+    private void ToggleUIInteractability()
+    {
+        // Toggle the interactability of the UI elements
+        isUIInteractable = !isUIInteractable;
+
+        // Set the interactability of the button based on the flag
+        if (sniperButton != null)
+        {
+            sniperButton.interactable = isUIInteractable;
+        }
+    }
+
     private void ActivateSniperAssistance()
     {
-        if (!isAvailable) return;
+        if (!isAvailable || !isUIInteractable) return;
 
         isAvailable = false;
         isActive = true;

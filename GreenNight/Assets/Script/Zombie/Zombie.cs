@@ -194,7 +194,14 @@ public class Zombie : MonoBehaviour
     public void ZombieAttack()
     {
         if (barrier != null)
-        {
+        {   
+            if(mutationType == MutationType.Exploder)
+            {
+                ZombieTakeDamage(10000, DamageType.Explosive);
+                int index = mutationTier - 1;
+                barrier.BarrierTakeDamage(explosionBarrierDamage[index]);
+                Debug.Log(explosionBarrierDamage[index]);
+            }
             if (countTimer > 0)
             {
                 countTimer -= Time.deltaTime * attackSpeedMultiplier;

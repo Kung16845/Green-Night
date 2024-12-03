@@ -94,6 +94,8 @@ public class SceneSystem : MonoBehaviour
             }
         }
         saveDataDDA.AddData();
+        // timeManager.dateTime.day++;
+        timeManager.dateTime.SetTimeStartDay();
     }
 
     private void OnEnable()
