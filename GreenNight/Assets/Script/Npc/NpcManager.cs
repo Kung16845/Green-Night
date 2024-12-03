@@ -92,7 +92,7 @@ public class NpcManager : MonoBehaviour
         newNpc.foodPerDay= 2;
         newNpc.hp = 100f;
         newNpc.morale = 50f;
-
+        
         newNpc.idnpc = idNpc;
         newNpc.idHead = Random.Range(0, listHeadCoutume.Count);
         newNpc.idBody = Random.Range(0, listBodyCoutume.Count);

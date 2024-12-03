@@ -25,7 +25,7 @@ public class CountdownTimeDay : MonoBehaviour
         timeManager = FindObjectOfType<TimeManager>();
         ratio = timeScale / 1000f;
         timeInSeconds = ratio * 60;
-
+      
 
         if (timeManager.dateTime.hour + (timeInSeconds / 60) >= 18)
         {
@@ -39,8 +39,11 @@ public class CountdownTimeDay : MonoBehaviour
             finishHourCraftingTime = timeManager.dateTime.hour + (int)(timeInSeconds / 60);
             finishMinutesCraftingTime = (int)timeInSeconds % 60;
         }
-        Debug.Log("Day : " + finishDayCraftingTime + " Hour : " + finishHourCraftingTime
-        + " Minutes : " + finishMinutesCraftingTime);
+        uIInventoryEX.finishDayCraftingTime = finishDayCraftingTime;
+        uIInventoryEX.finishHourCraftingTime =finishHourCraftingTime;
+        uIInventoryEX.finishMinutesCraftingTime = finishMinutesCraftingTime;
+        // Debug.Log("Day : " + finishDayCraftingTime + " Hour : " + finishHourCraftingTime
+        // + " Minutes : " + finishMinutesCraftingTime);
 
     }
     // Update is called once per frame
