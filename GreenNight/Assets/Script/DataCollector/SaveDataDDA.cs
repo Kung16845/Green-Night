@@ -31,7 +31,7 @@ public class SaveDataDDA : MonoBehaviour
     {
         scriptDDAdataCollector = FindObjectOfType<DDAdataCollector>();
         savePathDataDDA = Path.Combine(Application.dataPath,"dda_data.json");
-        LoadDataFromDataJsonToScriptData();
+        // LoadDataFromDataJsonToScriptData();
     }
 
     public void AddData()
