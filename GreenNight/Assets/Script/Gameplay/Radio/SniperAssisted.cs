@@ -82,7 +82,7 @@ public class SniperAssisted : MonoBehaviour
     private void ActivateSniperAssistance()
     {
         if (!isAvailable || !isUIInteractable) return;
-
+        SoundManager.Instance.PlaySound("Radio");
         isAvailable = false;
         isActive = true;
         if (sniperButton != null)

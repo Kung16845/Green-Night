@@ -419,6 +419,7 @@ public class MainSpawner : MonoBehaviour
             // Wait for the wave's timeUntilNextWave
             Debug.Log($"Waiting for {wave.timeUntilNextWave}s before next wave.");
             yield return new WaitForSeconds(wave.timeUntilNextWave);
+            SoundManager.Instance.PlaySound("ZombieScream");
         }
 
         Debug.Log($"Deck '{deck.deckName}' completed.");
