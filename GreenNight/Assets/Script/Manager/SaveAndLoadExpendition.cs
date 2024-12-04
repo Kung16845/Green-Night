@@ -28,7 +28,6 @@ public class DataExpendition
     List<ItemData> listItemDataInventorySlot;
     public float timeScale;
     public int indexButtonExpendition;
-    public int indexButtonExpendition;
     public int indexSceneExpendition;
     public bool isArriveEx;
     public bool isArriveHome;

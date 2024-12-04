@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DataExpendition : MonoBehaviour
+public class DataExpenditionUI : MonoBehaviour
 {
     public string namePlace;
     public string infoDescriptPlace;

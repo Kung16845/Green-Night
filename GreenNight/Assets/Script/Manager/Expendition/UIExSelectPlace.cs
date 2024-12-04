@@ -15,7 +15,7 @@ public class UIExSelectPlace : MonoBehaviour
     public Button buttonWalk;
     public Button buttonCar;
 
-    public void SetInfoPlaceSelect(DataExpendition dataExpendition)
+    public void SetInfoPlaceSelect(DataExpenditionUI dataExpendition)
     {
         textNamePlace.text = dataExpendition.namePlace;
         textDescriptPlace.text = dataExpendition.infoDescriptPlace;
