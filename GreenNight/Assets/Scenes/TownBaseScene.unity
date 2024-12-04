@@ -214,7 +214,7 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 951354}
-          m_ObjectArgumentAssemblyTypeName: DataExpendition, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: DataExpenditionUI, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -276,6 +276,7 @@ MonoBehaviour:
   timescaleWalk: 8000
   timescaleCar: 3000
   riskEvent: 20
+  riskUnderGrounEvent: 0
   indexSceneExpendition: 2
   spriteImagePlace: {fileID: 1772179358, guid: 1ac6251f402a4744387c12b79671514b, type: 3}
 --- !u!1 &8389596
@@ -3527,7 +3528,7 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 129230575}
-          m_ObjectArgumentAssemblyTypeName: DataExpendition, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: DataExpenditionUI, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3589,6 +3590,7 @@ MonoBehaviour:
   timescaleWalk: 12000
   timescaleCar: 8000
   riskEvent: 20
+  riskUnderGrounEvent: 0
   indexSceneExpendition: 2
   spriteImagePlace: {fileID: 829052252, guid: 5e3d630e8d4342a46b7ab1514906fbf9, type: 3}
 --- !u!1 &132707172
@@ -5643,9 +5645,9 @@ RectTransform:
   m_Father: {fileID: 807342593}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &212484013
@@ -8223,7 +8225,7 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 296692462}
-          m_ObjectArgumentAssemblyTypeName: DataExpendition, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: DataExpenditionUI, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -8285,6 +8287,7 @@ MonoBehaviour:
   timescaleWalk: 36000
   timescaleCar: 18000
   riskEvent: 60
+  riskUnderGrounEvent: 0
   indexSceneExpendition: 2
   spriteImagePlace: {fileID: 37209598, guid: 1ac6251f402a4744387c12b79671514b, type: 3}
 --- !u!1 &297630828
@@ -14636,18 +14639,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
-      - m_Target: {fileID: 1405571902}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
 --- !u!114 &530363966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14838,7 +14829,7 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 541871142}
-          m_ObjectArgumentAssemblyTypeName: DataExpendition, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: DataExpenditionUI, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -14900,6 +14891,7 @@ MonoBehaviour:
   timescaleWalk: 8000
   timescaleCar: 3000
   riskEvent: 35
+  riskUnderGrounEvent: 0
   indexSceneExpendition: 2
   spriteImagePlace: {fileID: 2047854437, guid: 5e3d630e8d4342a46b7ab1514906fbf9, type: 3}
 --- !u!1 &542176692
@@ -23700,9 +23692,9 @@ RectTransform:
   m_Father: {fileID: 807342593}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -250}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &870448413
@@ -26736,9 +26728,9 @@ RectTransform:
   m_Father: {fileID: 1696862904}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 110, y: -37.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 219, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &970539895
@@ -36839,9 +36831,9 @@ RectTransform:
   m_Father: {fileID: 1696862904}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 390, y: -37.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 219, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1430998055
@@ -46455,7 +46447,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Give them half our supplies
+  m_text: 'Walk '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 64f3897734609dc44a9aa8832895f590, type: 2}
   m_sharedMaterial: {fileID: 7306825576259480810, guid: 64f3897734609dc44a9aa8832895f590, type: 2}
@@ -47105,7 +47097,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1799568114
 RectTransform:
   m_ObjectHideFlags: 0
@@ -48985,7 +48977,7 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1829112367}
-          m_ObjectArgumentAssemblyTypeName: DataExpendition, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: DataExpenditionUI, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -49047,6 +49039,7 @@ MonoBehaviour:
   timescaleWalk: 8000
   timescaleCar: 4000
   riskEvent: 20
+  riskUnderGrounEvent: 0
   indexSceneExpendition: 2
   spriteImagePlace: {fileID: -1946814335, guid: 1ac6251f402a4744387c12b79671514b, type: 3}
 --- !u!1 &1830564510
@@ -52911,7 +52904,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: No, I won't
+  m_text: Car
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 64f3897734609dc44a9aa8832895f590, type: 2}
   m_sharedMaterial: {fileID: 7306825576259480810, guid: 64f3897734609dc44a9aa8832895f590, type: 2}
@@ -55835,7 +55828,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 620597051}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -56125,6 +56118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a91dbd2939471641925b860932adfba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startIDNPC: 7000
   listHeadCoutume:
   - idHead: 0
     spriteHead: {fileID: -1520836183, guid: cdca247a1a44b9b478888294add648ff, type: 3}
@@ -58474,7 +58468,7 @@ MonoBehaviour:
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 2127891072}
-          m_ObjectArgumentAssemblyTypeName: DataExpendition, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: DataExpenditionUI, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -58536,6 +58530,7 @@ MonoBehaviour:
   timescaleWalk: 4000
   timescaleCar: 2000
   riskEvent: 45
+  riskUnderGrounEvent: 0
   indexSceneExpendition: 2
   spriteImagePlace: {fileID: 0}
 --- !u!1 &2129929927

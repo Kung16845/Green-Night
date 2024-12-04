@@ -31,7 +31,7 @@ public class SaveDataDDA : MonoBehaviour
     {
         scriptDDAdataCollector = FindObjectOfType<DDAdataCollector>();
         savePathDataDDA = Path.Combine(Application.dataPath,"dda_data.json");
-        // LoadData();
+        LoadDataFromDataJsonToScriptData();
     }
 
     public void AddData()
@@ -93,7 +93,7 @@ public class SaveDataDDA : MonoBehaviour
         Debug.Log($"Data saved to {savePathDataDDA}");
     }
 
-    private void LoadData()
+    private void LoadDataFromDataJsonToScriptData()
     {
         if (File.Exists(savePathDataDDA))
         {

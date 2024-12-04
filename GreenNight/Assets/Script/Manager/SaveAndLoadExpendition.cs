@@ -23,10 +23,11 @@ public class SaveAndLoadExpendition : MonoBehaviour
 [Serializable]
 public class DataExpendition
 {
-    public NpcClass npcExpendition;
+    public int idNPCExpendition;
     List<ItemData> listItemDataInventoryEqicment;
     List<ItemData> listItemDataInventorySlot;
     public float timeScale;
+    public float riskEvent;
     public int indexButtonExpendition;
     public int indexSceneExpendition;
     public bool isArriveEx;

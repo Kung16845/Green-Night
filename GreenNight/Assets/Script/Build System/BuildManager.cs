@@ -158,7 +158,8 @@ public class BuildManager : MonoBehaviour
         
         if (steel >= building.steelCost && plank >= building.plankCost && food >= building.foodCost
         && fuel >= building.fuelCost && ammo >= building.ammoCost && npc >= building.npcCost)
-        {
+        {   
+         
             steel -= building.steelCost;
             plank -= building.plankCost;
             food -= building.foodCost;

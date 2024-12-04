@@ -216,6 +216,10 @@ public class UIInventoryEX : UIInventory
         foreach (ItemData item in listItemDataInventoryslot)
         {
             item.count /= 2;
+            if(item.count == 1)
+            {
+                item.count = 0;
+            }
         }
         RefreshUIInventory();
         Destroy(this.gameObject);

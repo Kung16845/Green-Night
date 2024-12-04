@@ -296,11 +296,14 @@ public class UIInventory : MonoBehaviour
 
         // If you have a weapon equipped, ensure it updates the base stats
         Weapon weapon = player.GetComponent<Weapon>();
+
         if (weapon != null)
         {
             weapon.OnStatsChanged();
         }
-
+        npcManager.listNpc.Remove(npcSelecying);
+        npcManager.listNpcWorkingMoreOneDay.Remove(npcSelecying);
+        npcManager.listNpcWorkingWIthInOneDay.Remove(npcSelecying);
         SetCostumeNpcExpentdition(npcSelecying, player.gameObject);
     }
     public void ClearItemDataInAllInventorySlotToListDataBoxes()

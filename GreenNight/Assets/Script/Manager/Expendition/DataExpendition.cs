@@ -10,6 +10,8 @@ public class DataExpenditionUI : MonoBehaviour
     public int timescaleWalk;
     public int timescaleCar;
     public float riskEvent;
+    public float riskUnderGrounEvent;
+    
     public int indexSceneExpendition;
     public Sprite spriteImagePlace;
 }
