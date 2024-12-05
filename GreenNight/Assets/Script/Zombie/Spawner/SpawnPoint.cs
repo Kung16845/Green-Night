@@ -48,6 +48,8 @@ public class SpawnPoint : MonoBehaviour
             int spawnedZombies = 0;
             while (spawnedZombies < spawnConfig.quantity)
             {
+                Debug.Log(spawnedZombies);
+                Debug.Log(spawnConfig.quantity);
                 SpawnZombie(spawnConfig, selectedMutations, mutationApplyRate);
                 spawnedZombies++;
                 yield return new WaitForSeconds(spawnConfig.spawnInterval);

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -11,33 +12,58 @@ public class TutorialManager : MonoBehaviour
         [TextArea(15, 20)]
         public string description; // Text to display for this tutorial step
         public GameObject highlightObject; // Object to highlight (optional)
-        public Transform panelTextPosition; // Transform to set the position of the paneltext (optional)
+        public Transform panelTextPosition;
+        public Transform Buttonposition; // Transform to set the position of the paneltext (optional)
     }
 
     public List<TutorialStep> tutorialSteps = new List<TutorialStep>();
     public TextMeshProUGUI tutorialText; // UI Text to show tutorial descriptions
     public GameObject paneltext;
     public GameObject overlayPanel; // Optional: Panel to dim the background
+    public MainSpawner mainSpawner;
 
     private int currentStepIndex = 0;
 
-    void Start()
+    // New variable to control if tutorial can proceed
+    public GameObject Confirmbutton;
+    private CheckUsingDDA checkUsingDDA;
+    public bool isturorialnight = true;
+    public bool activetutorial;
+    private bool canProceed = false;
+    public bool tutorialfinished = false;
+
+    // Timeout duration for showing the confirm button
+    public float buttonTimeout = 5f; 
+    void Awake()
     {
-        if (tutorialSteps.Count > 0)
+        checkUsingDDA = FindObjectOfType<CheckUsingDDA>();
+        if(checkUsingDDA.ActiveTutorial)
+            isturorialnight = true;
+        else
+            isturorialnight = false;
+    }
+    void Start()
+    {   
+        mainSpawner = FindObjectOfType<MainSpawner>();
+        if(isturorialnight)
         {
-            Time.timeScale = 0f; // Pause the game
-            ShowTutorialStep();
+            if (tutorialSteps.Count > 0)
+            {
+                ShowTutorialStep();
+            }
+            else
+            {
+                Debug.LogWarning("No tutorial steps defined!");
+                EndTutorial();
+            }
         }
         else
-        {
-            Debug.LogWarning("No tutorial steps defined!");
-            EndTutorial();
-        }
+            this.gameObject.SetActive(false);
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // Detect left mouse button click
+        if (canProceed) // Check if allowed to proceed
         {
             NextTutorialStep();
         }
@@ -59,6 +85,16 @@ public class TutorialManager : MonoBehaviour
                 {
                     paneltext.transform.position = step.panelTextPosition.position;
                 }
+
+                if (Confirmbutton != null)
+                {
+                    Confirmbutton.SetActive(false); // Hide the button initially
+                }
+
+                if (step.Buttonposition != null)
+                {
+                    Confirmbutton.transform.position = step.Buttonposition.position;
+                }
             }
 
             if (overlayPanel != null)
@@ -67,11 +103,28 @@ public class TutorialManager : MonoBehaviour
             // Highlight object if specified
             if (step.highlightObject != null)
                 step.highlightObject.SetActive(true);
+
+            // Reset canProceed for the new step
+            canProceed = false;
+
+            // Start coroutine to show confirm button after a timeout
+            StartCoroutine(ShowConfirmButtonAfterTimeout());
         }
+    }
+
+    private IEnumerator ShowConfirmButtonAfterTimeout()
+    {
+        yield return new WaitForSeconds(buttonTimeout);
+
+        if (Confirmbutton != null)
+            Confirmbutton.SetActive(true); // Show the button after the timeout
     }
 
     private void NextTutorialStep()
     {
+        // Stop any ongoing button timeout coroutine
+        StopCoroutine(ShowConfirmButtonAfterTimeout());
+
         // Deactivate current highlight object if any
         if (currentStepIndex < tutorialSteps.Count && tutorialSteps[currentStepIndex].highlightObject != null)
         {
@@ -92,16 +145,26 @@ public class TutorialManager : MonoBehaviour
 
     private void EndTutorial()
     {
-        Time.timeScale = 1f; // Resume the game
+        checkUsingDDA.ActiveTutorial = false;
+        mainSpawner.StartNextDeck();
+        mainSpawner.startDelayText.gameObject.SetActive(false);
+        if (Confirmbutton != null)
+            Confirmbutton.SetActive(false);
 
         if (tutorialText != null)
         {
             paneltext.gameObject.SetActive(false);
             tutorialText.text = ""; // Clear tutorial text
         }
+
         if (overlayPanel != null)
             overlayPanel.SetActive(false);
 
         Debug.Log("Tutorial finished.");
+    }
+
+    public void SetCanproceed()
+    {
+        canProceed = true;
     }
 }

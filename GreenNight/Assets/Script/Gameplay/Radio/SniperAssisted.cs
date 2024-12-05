@@ -23,7 +23,7 @@ public class SniperAssisted : MonoBehaviour
     {
         if (sniperButton != null)
         {
-            sniperButton.onClick.AddListener(ActivateSniperAssistance);
+            sniperButton.onClick.AddListener(() => ActivateSniperAssistance());
         }
 
         if (cooldownSlider != null)
@@ -46,9 +46,9 @@ public class SniperAssisted : MonoBehaviour
         {
             ToggleUIInteractability();
         }
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.T) && cooldownSlider.value == 0)
         {
-            ActivateSniperAssistance();
+            ActivateSniperAssistance(true); // Force activation
         }
         // If the ability is not available and not active, update the cooldown slider
         if (!isAvailable && !isActive)
@@ -79,12 +79,19 @@ public class SniperAssisted : MonoBehaviour
         }
     }
 
-    private void ActivateSniperAssistance()
+    private void ActivateSniperAssistance(bool forceActivate = false)
     {
-        if (!isAvailable || !isUIInteractable) return;
+        // Do not allow activation if ability is already active or in cooldown
+        if (isActive || (!isAvailable && !forceActivate))
+        {
+            Debug.LogWarning("Cannot activate sniper assistance: either already active or in cooldown.");
+            return;
+        }
+
         SoundManager.Instance.PlaySound("Radio");
         isAvailable = false;
         isActive = true;
+
         if (sniperButton != null)
         {
             sniperButton.interactable = false;

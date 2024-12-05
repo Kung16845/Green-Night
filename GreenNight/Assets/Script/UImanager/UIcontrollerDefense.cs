@@ -10,6 +10,16 @@ public class UIcontrollerDefense : MonoBehaviour
     public GameObject PlayerUI;
     public GameObject MainBox;
     public ActionController actionController;
+
+    public float nearR = 1f; // Red component for "near" color
+    public float nearG = 0.5f; // Green component for "near" color
+    public float nearB = 0.5f; // Blue component for "near" color
+    public float defaultR = 1f; // Red component for default color
+    public float defaultG = 1f; // Green component for default color
+    public float defaultB = 1f; // Blue component for default color
+
+    private SpriteRenderer spriteRenderer; // SpriteRenderer for 2D objects
+    private Renderer objectRenderer; // Renderer for 3D objects
     private bool isPlayerNear = false;
     private bool isInventoryActive = false;
     public bool isfrsttime = true;
@@ -18,7 +28,15 @@ public class UIcontrollerDefense : MonoBehaviour
     void Start()
     {
         actionController.canuseweapon = false;
+
+        // Get SpriteRenderer or Renderer component
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        objectRenderer = GetComponent<Renderer>();
+
+        // Set the initial color
+        SetDefaultColor();
     }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab) && !isfrsttime)
@@ -37,6 +55,7 @@ public class UIcontrollerDefense : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerNear = true;
+            SetNearColor(); // Change to "near" color
         }
     }
 
@@ -45,6 +64,8 @@ public class UIcontrollerDefense : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerNear = false;
+            SetDefaultColor(); // Revert to default color
+
             if (isBoxActive)
             {
                 DisableBoxUI(); // Automatically disable the box UI when the player leaves the range
@@ -52,7 +73,7 @@ public class UIcontrollerDefense : MonoBehaviour
         }
     }
 
-    void ToggleUI(bool mainboxActive,bool inventoryActive, bool barrierHPActive, bool playerActive, bool boxItemActive)
+    void ToggleUI(bool mainboxActive, bool inventoryActive, bool barrierHPActive, bool playerActive, bool boxItemActive)
     {
         if (MainBox != null) MainBox.SetActive(mainboxActive);
         if (InventoryUI != null) InventoryUI.SetActive(inventoryActive);
@@ -101,8 +122,35 @@ public class UIcontrollerDefense : MonoBehaviour
     {
         ToggleUI(false, false, true, true, false);
     }
+
     public void canopeninvent()
     {
         isfrsttime = false;
-    } 
+    }
+
+    private void SetNearColor()
+    {
+        Color nearColor = new Color(nearR, nearG, nearB, 1f); // Alpha is set to 1 (fully visible)
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = nearColor;
+        }
+        else if (objectRenderer != null)
+        {
+            objectRenderer.material.color = nearColor;
+        }
+    }
+
+    private void SetDefaultColor()
+    {
+        Color defaultColor = new Color(defaultR, defaultG, defaultB, 1f); // Alpha is set to 1 (fully visible)
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = defaultColor;
+        }
+        else if (objectRenderer != null)
+        {
+            objectRenderer.material.color = defaultColor;
+        }
+    }
 }

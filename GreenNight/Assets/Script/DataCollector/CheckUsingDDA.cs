@@ -5,6 +5,7 @@ using UnityEngine;
 public class CheckUsingDDA : MonoBehaviour
 {
     public bool isUsingDDA; 
+    public bool ActiveTutorial = true;
     public MainSpawner mainSpawner;
     public void USEDDA()
     {
@@ -13,5 +14,9 @@ public class CheckUsingDDA : MonoBehaviour
     public void NOTUSEDDA()
     {
         isUsingDDA = false;
+    }
+    public void ReplayTutorial()
+    {
+        ActiveTutorial = true;
     }
 }

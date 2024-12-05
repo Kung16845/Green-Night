@@ -93,7 +93,9 @@ public class SceneSystem : MonoBehaviour
                 }
             }
         }
-        saveDataDDA.AddData();
+        TutorialManager tutorialManager = FindObjectOfType<TutorialManager>();
+        if(!tutorialManager.isturorialnight)
+            saveDataDDA.AddData();
         // timeManager.dateTime.day++;
         timeManager.dateTime.SetTimeStartDay();
     }
