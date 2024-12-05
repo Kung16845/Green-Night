@@ -4,6 +4,7 @@ using System.Linq;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryItemPresent : MonoBehaviour
 {
@@ -215,5 +216,58 @@ public class InventoryItemPresent : MonoBehaviour
         newItemData.itemtype = itemClass.itemtype;
 
         return newItemData;
+    }
+    private Dictionary<int, Ammotype> ammoItemIdToAmmoType = new Dictionary<int, Ammotype>
+    {
+        // Add mappings from ammo item IDs to their ammo types
+        { 1020125, Ammotype.HighCaliber }, // Replace with actual ammo item IDs
+        { 1020127, Ammotype.MediumCaliber },
+        { 1020124, Ammotype.LowCaliber },
+        { 1020126, Ammotype.Shotgun },
+        // Continue for all ammo items
+    };
+    public void HighlightAmmoItems(Ammotype ammoType)
+    {
+        Debug.Log("HighlightItem");
+        foreach (Transform child in transformsBoxes)
+        {
+            UIItemData uiItemData = child.GetComponent<UIItemData>();
+            if (uiItemData != null)
+            {
+                ItemData itemData = listItemsDataBox.FirstOrDefault(item => item.idItem == uiItemData.idItem);
+
+                if (itemData != null && itemData.itemtype == Itemtype.Ammo)
+                {
+                    // Get the ammo type for this item via the mapping
+                    if (ammoItemIdToAmmoType.TryGetValue(itemData.idItem, out Ammotype itemAmmoType))
+                    {
+                        if (itemAmmoType == ammoType)
+                        {
+                            // Highlight the ammo item by changing its image color
+                            Image itemImage = uiItemData.itemIconImage;
+                            if (itemImage != null)
+                            {
+                                itemImage.color = Color.yellow; // Highlight color
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public void ResetAmmoHighlighting()
+    {
+        foreach (Transform child in transformsBoxes)
+        {
+            UIItemData uiItemData = child.GetComponent<UIItemData>();
+            if (uiItemData != null)
+            {
+                Image itemImage = uiItemData.itemIconImage;
+                if (itemImage != null)
+                {
+                    itemImage.color = Color.white; // Original color
+                }
+            }
+        }
     }
 }

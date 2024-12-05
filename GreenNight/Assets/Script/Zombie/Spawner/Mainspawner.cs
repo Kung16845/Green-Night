@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 public class MainSpawner : MonoBehaviour
 {
     [Header("Lanes Configuration")]
@@ -30,6 +31,8 @@ public class MainSpawner : MonoBehaviour
     private Coroutine deckCoroutine;
     [Header("UI Elements")]
     public TextMeshProUGUI startDelayText;
+    [Header("Wave Announcement UI")]
+    public Image Waveannoucer; 
 
     [Header("Spawn Timing")]
     public float startDelay = 0f;
@@ -67,6 +70,7 @@ public class MainSpawner : MonoBehaviour
 
         if(tutorialManager.isturorialnight)
         {
+            startDelayText.gameObject.SetActive(false);
             AddActiveDeck(601010001);// Add infinity spawnDeck
         }
         else
@@ -337,7 +341,7 @@ public class MainSpawner : MonoBehaviour
             Debug.LogWarning($"Deck with ID {deckID} not found in StorageDecks.");
         }
     }
-    public bool isCompleteSpawned;
+    public bool isCompleteSpawned = false;
     public void StartNextDeck()
     {
         if (currentDeckIndex < ActiveSpawnDecks.Count)
@@ -365,7 +369,6 @@ public class MainSpawner : MonoBehaviour
             foreach (var laneConfig in wave.laneSpawnConfigs)
             {
                 SpawnPoint spawnPoint = GetSpawnPointByLaneID(laneConfig.laneID);
-
                 if (spawnPoint != null)
                 {
                     // Use the persistent mutations for all decks
@@ -380,13 +383,11 @@ public class MainSpawner : MonoBehaviour
                     Debug.LogWarning($"No spawn point found for lane ID {laneConfig.laneID}");
                 }
             }
-
             // Wait for the wave's timeUntilNextWave
             Debug.Log($"Waiting for {wave.timeUntilNextWave}s before next wave.");
             yield return new WaitForSeconds(wave.timeUntilNextWave);
             SoundManager.Instance.PlaySound("ZombieScream");
         }
-
         Debug.Log($"Deck '{deck.deckName}' completed.");
         currentDeckDurationLeft = 0f;
         currentDeckZombiesLeft = 0;
@@ -396,9 +397,28 @@ public class MainSpawner : MonoBehaviour
         // Proceed to the next deck
         StartNextDeck();
     }
+    private IEnumerator FlashWaveAnnouncement(float duration)
+    {
+        float timeElapsed = 0f;
+        bool isVisible = true;
 
+        while (timeElapsed < duration)
+        {
+            if (Waveannoucer != null)
+            {
+                Waveannoucer.gameObject.SetActive(isVisible);
+            }
 
+            isVisible = !isVisible; // Toggle visibility
+            timeElapsed += 0.5f;   // Adjust flashing speed (0.25 seconds per toggle)
+            yield return new WaitForSeconds(0.5f);
+        }
 
+        if (Waveannoucer != null)
+        {
+            Waveannoucer.gameObject.SetActive(false); // Ensure UI is hidden after flashing
+        }
+    }
     private SpawnPoint GetSpawnPointByLaneID(int laneID)
     {
         Lane lane = lanes.Find(l => l.laneID == laneID);

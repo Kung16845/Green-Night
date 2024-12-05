@@ -130,7 +130,6 @@ public class ScriptMoveItems : MonoBehaviour
         SlotType slotTypeItemMoveParantBefore = draggableItemMove.parentBeforeDray.GetComponent<InvenrotySlots>().slotTypeInventory;
         //Move Item within InventorySlot
         List<ItemData> listItemDataBoxes = inventoryItemPresent.listItemsDataBox;
-
         if (slotTypeItemMoveParantBefore == SlotType.SlotBoxes && itemClassInChild == null)
         {
             itemData.count -= countItemMove;
@@ -214,6 +213,7 @@ public class ScriptMoveItems : MonoBehaviour
         if(draggableItemMove.parentBeforeDray == inventoryItemPresent.transformsBoxes){
             Destroy(draggableItemMove.gameObject);
         }
+        inventoryItemPresent.ResetAmmoHighlighting();
         gameObject.SetActive(false);
     }
 }

@@ -15,13 +15,16 @@ public class SceneSystem : MonoBehaviour
     public SaveDataDDA saveDataDDA;
     public GameObject uICompleteNightbeforeEndTIme;
     public MainSpawner mainSpawner;
+    public TutorialManager tutorialManager;
     private void Start()
     {
+        
         timeManager = FindObjectOfType<TimeManager>();
         timeManager.sceneSystem1 = this;
         timeManager.dateTime.sceneSystem = this;
         saveObjectActiveMainScene = FindObjectOfType<SaveObjectActiveMainScene>();
         saveDataDDA = FindObjectOfType<SaveDataDDA>();
+        tutorialManager = FindObjectOfType<TutorialManager>();
         mainSpawner = FindObjectOfType<MainSpawner>();
     }
     private void Update()
@@ -32,6 +35,7 @@ public class SceneSystem : MonoBehaviour
         Zombie[] zombies = FindObjectsOfType<Zombie>();
         if (zombies.Length == 0)
         {
+            Debug.Log("ZombieOutReturn?");
             uICompleteNightbeforeEndTIme.gameObject.SetActive(true);
         }
     }
@@ -93,9 +97,11 @@ public class SceneSystem : MonoBehaviour
                 }
             }
         }
-        TutorialManager tutorialManager = FindObjectOfType<TutorialManager>();
-        if(!tutorialManager.isturorialnight)
+        if(tutorialManager == null)
+        {
             saveDataDDA.AddData();
+            Debug.Log("SaveData");
+        }
         // timeManager.dateTime.day++;
         timeManager.dateTime.SetTimeStartDay();
     }
