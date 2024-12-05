@@ -66,12 +66,13 @@ public class NpcManager : MonoBehaviour
     {
 
         for (int i = 0; i < 5; i++)
-        {
-            CreateNpc();
+        {   
+            startIDNPC++;
+            CreateNpc(startIDNPC);
         }
 
     }
-    public void CreateNpc()
+    public void CreateNpc(int idNpc)
     {
 
         NpcClass newNpc = new NpcClass();
@@ -94,8 +95,8 @@ public class NpcManager : MonoBehaviour
         newNpc.hp = 100f;
         newNpc.morale = 50f;
         
-        startIDNPC++;
-        newNpc.idnpc = startIDNPC;
+        
+        newNpc.idnpc = idNpc;
         newNpc.idHead = Random.Range(0, listHeadCoutume.Count);
         newNpc.idBody = Random.Range(0, listBodyCoutume.Count);
         newNpc.idFeed = Random.Range(0, listFeedCoutume.Count);

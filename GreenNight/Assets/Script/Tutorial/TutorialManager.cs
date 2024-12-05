@@ -20,6 +20,7 @@ public class TutorialManager : MonoBehaviour
     public TextMeshProUGUI tutorialText; // UI Text to show tutorial descriptions
     public GameObject paneltext;
     public GameObject overlayPanel; // Optional: Panel to dim the background
+    public GameObject uIBacktoMainScene;
     public MainSpawner mainSpawner;
 
     private int currentStepIndex = 0;
@@ -160,6 +161,7 @@ public class TutorialManager : MonoBehaviour
         if (overlayPanel != null)
             overlayPanel.SetActive(false);
 
+        uIBacktoMainScene.gameObject.SetActive(true);
         Debug.Log("Tutorial finished.");
     }
 
