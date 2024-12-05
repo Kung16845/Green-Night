@@ -133,9 +133,9 @@ public class MainSpawner : MonoBehaviour
         ActiveSpawnDecks.Clear();
         float totalDuration = 0f;
 
-        if (useDDA && saveDataDDA != null && saveDataDDA.dataCollection != null)
+        if (useDDA && saveDataDDA != null && saveDataDDA.dataDDACollection != null)
         {
-            DataDDA avgData = saveDataDDA.dataCollection.averageData;
+            DataDDA avgData = saveDataDDA.dataDDACollection.averageData;
             desiredDeckTier = CalculateDesiredTier(avgData);
             Debug.Log($"DDA enabled. Desired deck tier: {desiredDeckTier}");
 
@@ -304,7 +304,7 @@ public class MainSpawner : MonoBehaviour
     {
         // // Find the deck with the given deckID in StorageDecks
         SpawnDeck deckToAdd = StorageDecks.Find(deck => deck.deckID == deckID);
-        DataDDA avgData = saveDataDDA.dataCollection.averageData;
+        DataDDA avgData = saveDataDDA.dataDDACollection.averageData;
         float skillpoint = CalculateDDAPoint(avgData.killPerMinute,avgData.accuracy,avgData.barrierDamage,avgData.multiKillCount,avgData.valueFail);
         if (persistentMutations.Count == 0)
         {

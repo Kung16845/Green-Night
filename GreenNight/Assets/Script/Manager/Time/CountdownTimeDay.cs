@@ -15,9 +15,11 @@ public class CountdownTimeDay : MonoBehaviour
     public GameObject iconCompleteSend;
     public TimeManager timeManager;
     public UIInventoryEX uIInventoryEX;
-    private void Awake()
+    public void SaveDayFinishExpenditionInUIEX()
     {
-        
+        uIInventoryEX.finishDayCraftingTime = finishDayCraftingTime;
+        uIInventoryEX.finishHourCraftingTime = finishHourCraftingTime;
+        uIInventoryEX.finishMinutesCraftingTime = finishMinutesCraftingTime;
     }
     public void SetStartExpendition()
     {
@@ -39,9 +41,8 @@ public class CountdownTimeDay : MonoBehaviour
             finishHourCraftingTime = timeManager.dateTime.hour + (int)(timeInSeconds / 60);
             finishMinutesCraftingTime = (int)timeInSeconds % 60;
         }
-        uIInventoryEX.finishDayCraftingTime = finishDayCraftingTime;
-        uIInventoryEX.finishHourCraftingTime =finishHourCraftingTime;
-        uIInventoryEX.finishMinutesCraftingTime = finishMinutesCraftingTime;
+        
+        SaveDayFinishExpenditionInUIEX();
         // Debug.Log("Day : " + finishDayCraftingTime + " Hour : " + finishHourCraftingTime
         // + " Minutes : " + finishMinutesCraftingTime);
 
