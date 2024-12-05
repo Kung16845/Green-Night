@@ -469,7 +469,7 @@ public class Weapon : MonoBehaviour
         }
 
         // Find all items in the inventory that match the required ammo ID
-        List<ItemData> matchingAmmoItems = uiInventory.listItemDataInventoryslot
+        List<ItemData> matchingAmmoItems = uiInventory.listItemDataInventorySlot
             .Where(item => item.idItem == requiredAmmoID && item.count > 0)
             .ToList();
 

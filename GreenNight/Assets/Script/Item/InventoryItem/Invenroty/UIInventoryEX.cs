@@ -89,13 +89,13 @@ public class UIInventoryEX : UIInventory
         Debug.Log("SetDataMoveSceneForEventExpendition");
         expenditionManager.npcSelecying = this.npcSelecying;
         expenditionManager.listItemDataInventoryEqicment = this.listItemDataInventoryEqicment;
-        expenditionManager.listItemDataInventoryslot = this.listItemDataInventoryslot;
+        expenditionManager.listItemDataInventoryslot = this.listItemDataInventorySlot;
     }
     public void SetInventoryItemDataEx(List<ItemData> listDataInventoryslot, List<ItemData> listDataInventoryEqicment)
     {
-        listItemDataInventoryslot.Clear();
+        listItemDataInventorySlot.Clear();
         listItemDataInventoryEqicment.Clear();
-        listItemDataInventoryslot = listDataInventoryslot;
+        listItemDataInventorySlot = listDataInventoryslot;
         listItemDataInventoryEqicment = listDataInventoryEqicment;
         RefreshUIInventory();
     }
@@ -177,7 +177,7 @@ public class UIInventoryEX : UIInventory
         Sprite spriteHeadNpc = npcManager.listHeadCoutume.FirstOrDefault(head => head.idHead == npcSelecying.idHead).spriteHead;
         string textdayFinish = "Day : " + countdownTimeDay.finishDayCraftingTime.ToString() + "\n"
         + countdownTimeDay.finishHourCraftingTime.ToString() + ":" + countdownTimeDay.finishMinutesCraftingTime.ToString();
-
+        
         expenditionManager.SetUIExButton(indexButtonExpendition, spriteHeadNpc, textdayFinish);
         this.gameObject.SetActive(false);
     }
@@ -203,7 +203,7 @@ public class UIInventoryEX : UIInventory
     {
 
         listItemDataInventoryEqicment.Clear();
-        listItemDataInventoryslot.Clear();
+        listItemDataInventorySlot.Clear();
         RefreshUIInventory();
         Destroy(this.gameObject);
     }
@@ -213,7 +213,7 @@ public class UIInventoryEX : UIInventory
     }
     public void ChoiceGiveThemHalfourSupplies()
     {
-        foreach (ItemData item in listItemDataInventoryslot)
+        foreach (ItemData item in listItemDataInventorySlot)
         {
             item.count /= 2;
             if(item.count == 1)
@@ -301,7 +301,7 @@ public class UIInventoryEX : UIInventory
         expenditionManager.listItemDataInventoryEqicment.Clear();
         expenditionManager.listItemDataInventoryslot.Clear();
         listItemDataInventoryEqicment.Clear();
-        listItemDataInventoryslot.Clear();
+        listItemDataInventorySlot.Clear();
         // this.gameObject.SetActive(false);
         // sceneSystem.SwitchScene(0);
     }

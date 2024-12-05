@@ -24,7 +24,7 @@ public class DataDDACollection
 public class SaveDataDDA : MonoBehaviour
 {
     public DDAdataCollector scriptDDAdataCollector;
-    public DataDDACollection dataCollection;
+    public DataDDACollection dataDDACollection;
     [SerializeField] private string savePathDataDDA;
 
     private void Start()
@@ -44,18 +44,18 @@ public class SaveDataDDA : MonoBehaviour
             multiKillCount = scriptDDAdataCollector.multiKillCount,
             barrierDamage = scriptDDAdataCollector.barrierDamage,
             valueFail = scriptDDAdataCollector.valueFail,
-            recordCount = dataCollection.records.Count + 1
+            recordCount = dataDDACollection.records.Count + 1
 
         };
 
         // เพิ่มข้อมูลใหม่ลงในรายการ
-        dataCollection.records.Add(newRecord);
+        dataDDACollection.records.Add(newRecord);
 
         // คำนวณค่าเฉลี่ยใหม่
         CalculateAverage();
 
         // บันทึกข้อมูล
-        SaveData();
+        SaveDataDDATOJSON();
     }
 
     private void CalculateAverage()
@@ -66,10 +66,10 @@ public class SaveDataDDA : MonoBehaviour
         var totalMultiKill = 0f;
         var totalBarrierDamage = 0f;
         var totalValueFail = 0f;
-        var totalCount = dataCollection.records.Count;
+        var totalCount = dataDDACollection.records.Count;
 
 
-        foreach (var record in dataCollection.records)
+        foreach (var record in dataDDACollection.records)
         {
             totalKills += record.killPerMinute;
             totalAccuracy += record.accuracy;
@@ -78,39 +78,39 @@ public class SaveDataDDA : MonoBehaviour
             totalValueFail += record.valueFail;
         }
 
-        dataCollection.averageData.killPerMinute = totalKills / totalCount;
-        dataCollection.averageData.accuracy = totalAccuracy / totalCount;
-        dataCollection.averageData.multiKillCount = totalMultiKill / totalCount;
-        dataCollection.averageData.barrierDamage = totalBarrierDamage / totalCount;
-        dataCollection.averageData.valueFail = totalValueFail;
-        dataCollection.averageData.recordCount = totalCount;
+        dataDDACollection.averageData.killPerMinute = totalKills / totalCount;
+        dataDDACollection.averageData.accuracy = totalAccuracy / totalCount;
+        dataDDACollection.averageData.multiKillCount = totalMultiKill / totalCount;
+        dataDDACollection.averageData.barrierDamage = totalBarrierDamage / totalCount;
+        dataDDACollection.averageData.valueFail = totalValueFail;
+        dataDDACollection.averageData.recordCount = totalCount;
     }
 
-    private void SaveData()
+    public void SaveDataDDATOJSON()
     {
-        string json = JsonUtility.ToJson(dataCollection, true);
+        string json = JsonUtility.ToJson(dataDDACollection, true);
         File.WriteAllText(savePathDataDDA, json);
         Debug.Log($"Data saved to {savePathDataDDA}");
     }
-
-    private void LoadDataFromDataJsonToScriptData()
+ 
+    public void LoadDataDDAFromJsonToScriptData()
     {
         if (File.Exists(savePathDataDDA))
         {
             string json = File.ReadAllText(savePathDataDDA);
-            dataCollection = JsonUtility.FromJson<DataDDACollection>(json);
+            dataDDACollection = JsonUtility.FromJson<DataDDACollection>(json);
             Debug.Log($"Data loaded from {savePathDataDDA}");
         }
         else
         {
-            dataCollection = new DataDDACollection();
+            dataDDACollection = new DataDDACollection();
             Debug.Log("No data file found. Created new data collection.");
         }
     }
 
     public void ResetData()
     {
-        dataCollection = new DataDDACollection();
-        SaveData();
+        dataDDACollection = new DataDDACollection();
+        SaveDataDDATOJSON();
     }
 }
