@@ -26,6 +26,7 @@ public class UIInventory : MonoBehaviour
     public TextMeshProUGUI levelCombatText;
     public TextMeshProUGUI levelSpeedText;
     public TextMeshProUGUI specialistNpcText;
+    public TextMeshProUGUI nameNpcText;
 
     public void RemoveItemData(ItemClass itemClass)
     {

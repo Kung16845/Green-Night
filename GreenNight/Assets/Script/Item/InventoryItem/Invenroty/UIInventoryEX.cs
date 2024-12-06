@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class UIInventoryEX : UIInventory
 {
@@ -27,7 +28,9 @@ public class UIInventoryEX : UIInventory
 
     private void Awake()
     {
+
         SetValuableUIInventory();
+
         expenditionManager = FindObjectOfType<ExpenditionManager>();
 
     }
@@ -57,15 +60,42 @@ public class UIInventoryEX : UIInventory
             // SetDataForEventExpendition();
             expenditionManager.playerObject = FindObjectOfType<PlayerMovement>().gameObject;
             statAmplifier = FindObjectOfType<StatAmplifier>();
+
             GameObject npcPlayer = expenditionManager.playerObject;
+
+            npcSelecying = expenditionManager.npcSelecying;
+            npcManager = FindObjectOfType<NpcManager>();
+
+            npcManager.dropdown = this.dropdown;
+            npcManager.uIInventory = this;
+            npcManager.levelCombatText = levelCombatText;
+            npcManager.levelEnduranceText = levelEnduranceText;
+            npcManager.levelSpeedText = levelSpeedText;
+            npcManager.specialistNpcText = specialistNpcText;
+
+            levelCombatText.text = npcSelecying.combat.ToString();
+            levelEnduranceText.text = npcSelecying.endurance.ToString();
+            levelSpeedText.text = npcSelecying.speed.ToString();
+            specialistNpcText.text = npcSelecying.roleNpc.ToString();
+
+            dropdown.ClearOptions();
+            TMP_Dropdown.OptionData option = new TMP_Dropdown.OptionData();
+            option.text = npcSelecying.nameNpc; 
+
+            dropdown.AddOptions(new List<TMP_Dropdown.OptionData> { option });
+            spriteHeadNpc.sprite = npcManager.listHeadCoutume.FirstOrDefault(npcCoustume => npcCoustume.idHead == npcSelecying.idHead).spriteHead;
 
             SetInventoryItemDataEx(expenditionManager.listItemDataInventoryslot, expenditionManager.listItemDataInventoryEqicment);
             SetCostumeNpcExpentdition(npcSelecying, npcPlayer);
             // Recalculate stat amplifiers
             if (statAmplifier != null)
             {
+                statAmplifier.endurance = npcSelecying.endurance;
+                statAmplifier.combat = npcSelecying.combat;
+                statAmplifier.speed = npcSelecying.speed;
+                statAmplifier.specialistRole = npcSelecying.roleNpc;
                 statAmplifier.InitializeAmplifiers(); // Recalculate multipliers
-                statAmplifier.ApplyRoleModifiers();   // Apply role modifiers
+                // statAmplifier.ApplyRoleModifiers();   // Apply role modifiers
             }
             RefreshUIInventory();
             // expenditionManager.listItemDataInventoryslot.Clear();
@@ -138,12 +168,12 @@ public class UIInventoryEX : UIInventory
             countdownTimeDay.iconCompleteSend = expenditionManager.uIButtonEXTwo.iconComplete;
             indexButtonExpendition = 2;
         }
-        
+
 
         string textdayFinish = "Day : " + finishDayCraftingTime.ToString() + "\n"
         + finishHourCraftingTime.ToString() + ":" + finishMinutesCraftingTime.ToString();
         Sprite spriteHeadNpc = npcManager.listHeadCoutume.FirstOrDefault(head => head.idHead == npcSelecying.idHead).spriteHead;
-        
+
         expenditionManager.SetUIExButton(indexButtonExpendition, spriteHeadNpc, textdayFinish);
     }
     public void GoExpendition()
@@ -177,7 +207,7 @@ public class UIInventoryEX : UIInventory
         Sprite spriteHeadNpc = npcManager.listHeadCoutume.FirstOrDefault(head => head.idHead == npcSelecying.idHead).spriteHead;
         string textdayFinish = "Day : " + countdownTimeDay.finishDayCraftingTime.ToString() + "\n"
         + countdownTimeDay.finishHourCraftingTime.ToString() + ":" + countdownTimeDay.finishMinutesCraftingTime.ToString();
-        
+
         expenditionManager.SetUIExButton(indexButtonExpendition, spriteHeadNpc, textdayFinish);
         this.gameObject.SetActive(false);
     }
@@ -216,7 +246,7 @@ public class UIInventoryEX : UIInventory
         foreach (ItemData item in listItemDataInventorySlot)
         {
             item.count /= 2;
-            if(item.count == 1)
+            if (item.count == 1)
             {
                 item.count = 0;
             }
