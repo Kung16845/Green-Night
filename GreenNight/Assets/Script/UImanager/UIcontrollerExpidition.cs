@@ -23,7 +23,7 @@ public class UIcontrollerExpidition : MonoBehaviour
     {
         if (InventoryUI != null) InventoryUI.SetActive(inventoryActive);
     }
-    void ToggleInventoryUI()
+    public void ToggleInventoryUI()
     {
         isInventoryActive = !isInventoryActive;
         if (isInventoryActive)

@@ -143,8 +143,8 @@ public class UIInventory : MonoBehaviour
         {
             inventoryItemPresent.listInvenrotySlots.Add(listInvenrotySlotsUI.ElementAt(i));
         }
-
-        inventoryItemPresent.transformsBoxes = transformBoxes;
+        if(transformBoxes != null)
+            inventoryItemPresent.transformsBoxes = transformBoxes;
     }
     public void RefreshUIBoxCategory(int numCategory)
     {

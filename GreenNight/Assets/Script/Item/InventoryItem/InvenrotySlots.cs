@@ -42,6 +42,8 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
         ItemClass itemClassInChild = GetComponentInChildren<ItemClass>();
         // Script Move
         ScriptMoveItems scriptMoveItems = uIMoveItemsBoxesToInventory.GetComponent<ScriptMoveItems>();
+        if(scriptMoveItems == null)
+            Debug.Log("Scriptnull");
         //ItemData In ListItemData
         // Debug.Log("Ondeop");
 
@@ -67,7 +69,8 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
             scriptMoveItems.draggableItemMove = uIitem.GetComponent<DraggableItem>();
 
 
-            if (draggableItem.parentBeforeDray.GetComponentInParent<InvenrotySlots>().slotTypeInventory == SlotType.SlotBoxes)
+            if (draggableItem.parentBeforeDray.GetComponentInParent<InvenrotySlots>().slotTypeInventory == SlotType.SlotBoxes || 
+            draggableItem.parentBeforeDray.GetComponentInParent<InvenrotySlots>().slotTypeInventory == SlotType.SlotLoot )
             {
                 OpenUIMoveITems(scriptMoveItems);
             }
@@ -104,7 +107,10 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
             }
             Destroy(itemClassMove.gameObject);
         }
-
+        else if(slotTypeInventory == SlotType.SlotLoot)
+        {
+            OpenUIMoveITems(scriptMoveItems);
+        }
         uIItemDataDrag.slotTypeParent = slotTypeInventory;
 
         inventoryItemPresent.RefreshUIBox();
@@ -113,7 +119,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
 
     public void OpenUIMoveITems(ScriptMoveItems scriptMoveItems)
     {
-        // Debug.Log("OpenUIMoveITems");
+        Debug.Log("OpenUIMoveITems");
         scriptMoveItems.countItemMove = 1;
         scriptMoveItems.countText.text = "1";
         uIMoveItemsBoxesToInventory.SetActive(true);
@@ -139,5 +145,6 @@ public enum SlotType
     SlotGrenade,
     SlotBag,
     SlotLock,
-    SlotBoxes
+    SlotBoxes,
+    SlotLoot
 }
