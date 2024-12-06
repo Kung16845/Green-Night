@@ -9,6 +9,7 @@ public class NpcManager : MonoBehaviour
 {
     private string[] firstNames = { "John", "Jane", "Alex", "Emily", "Chris", "Sara" };
     private string[] lastNames = { "Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia" };
+    public int startIDNPC = 7000;
     [Header("List Coutume")]
     public List<HeadCoutume> listHeadCoutume = new List<HeadCoutume>();
     public List<BodyCoutume> listBodyCoutume = new List<BodyCoutume>();
@@ -65,8 +66,9 @@ public class NpcManager : MonoBehaviour
     {
 
         for (int i = 0; i < 5; i++)
-        {
-            CreateNpc(i);
+        {   
+            startIDNPC++;
+            CreateNpc(startIDNPC);
         }
 
     }
@@ -92,7 +94,8 @@ public class NpcManager : MonoBehaviour
         newNpc.foodPerDay= 2;
         newNpc.hp = 100f;
         newNpc.morale = 50f;
-
+        
+        
         newNpc.idnpc = idNpc;
         newNpc.idHead = Random.Range(0, listHeadCoutume.Count);
         newNpc.idBody = Random.Range(0, listBodyCoutume.Count);

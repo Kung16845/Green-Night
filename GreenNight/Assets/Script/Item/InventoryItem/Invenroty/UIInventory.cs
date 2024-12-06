@@ -18,7 +18,7 @@ public class UIInventory : MonoBehaviour
     public event Action<ItemVest> OnVestChanged;
     public event Action<ItemBackpack> OnBackpackChanged;
     public List<ItemData> listItemDataInventoryEqicment;
-    public List<ItemData> listItemDataInventoryslot;
+    public List<ItemData> listItemDataInventorySlot;
     public Transform transformBoxes;
     public InventoryItemPresent inventoryItemPresent;
     [Header("TextMeshProUGUI")]
@@ -26,6 +26,7 @@ public class UIInventory : MonoBehaviour
     public TextMeshProUGUI levelCombatText;
     public TextMeshProUGUI levelSpeedText;
     public TextMeshProUGUI specialistNpcText;
+    public TextMeshProUGUI nameNpcText;
 
     public void RemoveItemData(ItemClass itemClass)
     {
@@ -33,7 +34,7 @@ public class UIInventory : MonoBehaviour
 
         if (itemClass.itemtype == Itemtype.Ammo || itemClass.itemtype == Itemtype.General)
         {
-            itemData = listItemDataInventoryslot.FirstOrDefault(itemnpc => itemnpc.idItem == itemClass.idItem);
+            itemData = listItemDataInventorySlot.FirstOrDefault(itemnpc => itemnpc.idItem == itemClass.idItem);
         }
         else
         {
@@ -48,7 +49,7 @@ public class UIInventory : MonoBehaviour
             {
                 if (itemClass.itemtype == Itemtype.Ammo || itemClass.itemtype == Itemtype.General)
                 {
-                    listItemDataInventoryslot.Remove(itemData);
+                    listItemDataInventorySlot.Remove(itemData);
                 }
 
                 else
@@ -66,8 +67,8 @@ public class UIInventory : MonoBehaviour
 
     public void AddITemlistInvenrotySlots(ItemClass itemClass)
     {
-        ItemData itemData = listItemDataInventoryslot.FirstOrDefault(item => item.idItem == itemClass.idItem);
-        if (listItemDataInventoryslot.Count < npcSelecying.countInventorySlot)
+        ItemData itemData = listItemDataInventorySlot.FirstOrDefault(item => item.idItem == itemClass.idItem);
+        if (listItemDataInventorySlot.Count < npcSelecying.countInventorySlot)
         {
             if (itemData != null)
             {
@@ -79,13 +80,13 @@ public class UIInventory : MonoBehaviour
                 {
                     ItemData newitemData = itemData;
                     newitemData.count = itemClass.quantityItem - (itemData.maxCount - itemData.count);
-                    listItemDataInventoryslot.Add(newitemData);
+                    listItemDataInventorySlot.Add(newitemData);
                     itemData.count = itemData.maxCount;
                 }
             }
             else
             {
-                listItemDataInventoryslot.Add(itemData);
+                listItemDataInventorySlot.Add(itemData);
             }
         }
         else
@@ -142,8 +143,8 @@ public class UIInventory : MonoBehaviour
         {
             inventoryItemPresent.listInvenrotySlots.Add(listInvenrotySlotsUI.ElementAt(i));
         }
-
-        inventoryItemPresent.transformsBoxes = transformBoxes;
+        if(transformBoxes != null)
+            inventoryItemPresent.transformsBoxes = transformBoxes;
     }
     public void RefreshUIBoxCategory(int numCategory)
     {
@@ -184,13 +185,13 @@ public class UIInventory : MonoBehaviour
         HashSet<InvenrotySlots> usedSlots = new HashSet<InvenrotySlots>();
 
         // Iterate through inventory slots (for items in listItemDataInventoryslot)
-        for (int i = listItemDataInventoryslot.Count - 1; i >= 0; i--)
+        for (int i = listItemDataInventorySlot.Count - 1; i >= 0; i--)
         {
-            ItemData itemData = listItemDataInventoryslot.ElementAt(i);
+            ItemData itemData = listItemDataInventorySlot.ElementAt(i);
 
             if (itemData.count == 0)
             {
-                listItemDataInventoryslot.RemoveAt(i); // Remove item with count 0
+                listItemDataInventorySlot.RemoveAt(i); // Remove item with count 0
             }
             else
             {
@@ -296,11 +297,14 @@ public class UIInventory : MonoBehaviour
 
         // If you have a weapon equipped, ensure it updates the base stats
         Weapon weapon = player.GetComponent<Weapon>();
+
         if (weapon != null)
         {
             weapon.OnStatsChanged();
         }
-
+        npcManager.listNpc.Remove(npcSelecying);
+        npcManager.listNpcWorkingMoreOneDay.Remove(npcSelecying);
+        npcManager.listNpcWorkingWIthInOneDay.Remove(npcSelecying);
         SetCostumeNpcExpentdition(npcSelecying, player.gameObject);
     }
     public void ClearItemDataInAllInventorySlotToListDataBoxes()
@@ -361,9 +365,9 @@ public class UIInventory : MonoBehaviour
     }
     public void ConventDataUIToItemData()
     {
-        listItemDataInventoryslot.Clear();
+        listItemDataInventorySlot.Clear();
         listItemDataInventoryEqicment.Clear();
-        ConventAllUIItemInListInventorySlotToListItemData(listItemDataInventoryslot);
+        ConventAllUIItemInListInventorySlotToListItemData(listItemDataInventorySlot);
         ConventAllUIItemInListInventorySlotToListEqicmentItemData(listItemDataInventoryEqicment);
 
         // Weapon logic

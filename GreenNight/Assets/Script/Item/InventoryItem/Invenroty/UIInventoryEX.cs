@@ -5,25 +5,32 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class UIInventoryEX : UIInventory
 {
     public float timeScale;
     public float riskValue;
-    public int indexExpendition;
+    public int indexButtonExpendition;
     public int indexSceneExpendition;
     public bool isArriveEx;
     public bool isArriveHome;
     public bool isExpenditon;
+    public int finishDayCraftingTime;
+    public int finishHourCraftingTime;
+    public int finishMinutesCraftingTime;
     public ExpenditionManager expenditionManager;
     public SceneSystem sceneSystem;
     public GameObject uINpcSending;
     public GameObject uINpcArriveEx;
     public GameObject uINpcGoBack;
     public List<GameObject> listEvnet;
+
     private void Awake()
     {
+
         SetValuableUIInventory();
+
         expenditionManager = FindObjectOfType<ExpenditionManager>();
 
     }
@@ -31,11 +38,11 @@ public class UIInventoryEX : UIInventory
     {
         sceneSystem = FindObjectOfType<SceneSystem>();
         SetPlayerExpendition();
-        if (indexExpendition == 1)
+        if (indexButtonExpendition == 1)
         {
             expenditionManager.uIExOne = this.gameObject;
         }
-        else if (indexExpendition == 2)
+        else if (indexButtonExpendition == 2)
         {
             expenditionManager.uIExTwo = this.gameObject;
         }
@@ -53,15 +60,42 @@ public class UIInventoryEX : UIInventory
             // SetDataForEventExpendition();
             expenditionManager.playerObject = FindObjectOfType<PlayerMovement>().gameObject;
             statAmplifier = FindObjectOfType<StatAmplifier>();
+
             GameObject npcPlayer = expenditionManager.playerObject;
+
+            npcSelecying = expenditionManager.npcSelecying;
+            npcManager = FindObjectOfType<NpcManager>();
+
+            npcManager.dropdown = this.dropdown;
+            npcManager.uIInventory = this;
+            npcManager.levelCombatText = levelCombatText;
+            npcManager.levelEnduranceText = levelEnduranceText;
+            npcManager.levelSpeedText = levelSpeedText;
+            npcManager.specialistNpcText = specialistNpcText;
+
+            levelCombatText.text = npcSelecying.combat.ToString();
+            levelEnduranceText.text = npcSelecying.endurance.ToString();
+            levelSpeedText.text = npcSelecying.speed.ToString();
+            specialistNpcText.text = npcSelecying.roleNpc.ToString();
+
+            dropdown.ClearOptions();
+            TMP_Dropdown.OptionData option = new TMP_Dropdown.OptionData();
+            option.text = npcSelecying.nameNpc; 
+
+            dropdown.AddOptions(new List<TMP_Dropdown.OptionData> { option });
+            spriteHeadNpc.sprite = npcManager.listHeadCoutume.FirstOrDefault(npcCoustume => npcCoustume.idHead == npcSelecying.idHead).spriteHead;
 
             SetInventoryItemDataEx(expenditionManager.listItemDataInventoryslot, expenditionManager.listItemDataInventoryEqicment);
             SetCostumeNpcExpentdition(npcSelecying, npcPlayer);
             // Recalculate stat amplifiers
             if (statAmplifier != null)
             {
+                statAmplifier.endurance = npcSelecying.endurance;
+                statAmplifier.combat = npcSelecying.combat;
+                statAmplifier.speed = npcSelecying.speed;
+                statAmplifier.specialistRole = npcSelecying.roleNpc;
                 statAmplifier.InitializeAmplifiers(); // Recalculate multipliers
-                statAmplifier.ApplyRoleModifiers();   // Apply role modifiers
+                // statAmplifier.ApplyRoleModifiers();   // Apply role modifiers
             }
             RefreshUIInventory();
             // expenditionManager.listItemDataInventoryslot.Clear();
@@ -70,7 +104,7 @@ public class UIInventoryEX : UIInventory
     }
     public void CallFuntionAddListenerButton()
     {
-        if (indexExpendition == 1)
+        if (indexButtonExpendition == 1)
         {
             expenditionManager.OpenUIExpenditionInventoryOne();
         }
@@ -79,22 +113,19 @@ public class UIInventoryEX : UIInventory
             expenditionManager.OpenUIExpenditionInventoryTwo();
         }
     }
-    public void Update()
-    {
 
-    }
     public void SetDataMoveSceneForEventExpendition()
     {
         Debug.Log("SetDataMoveSceneForEventExpendition");
         expenditionManager.npcSelecying = this.npcSelecying;
         expenditionManager.listItemDataInventoryEqicment = this.listItemDataInventoryEqicment;
-        expenditionManager.listItemDataInventoryslot = this.listItemDataInventoryslot;
+        expenditionManager.listItemDataInventoryslot = this.listItemDataInventorySlot;
     }
     public void SetInventoryItemDataEx(List<ItemData> listDataInventoryslot, List<ItemData> listDataInventoryEqicment)
     {
-        listItemDataInventoryslot.Clear();
+        listItemDataInventorySlot.Clear();
         listItemDataInventoryEqicment.Clear();
-        listItemDataInventoryslot = listDataInventoryslot;
+        listItemDataInventorySlot = listDataInventoryslot;
         listItemDataInventoryEqicment = listDataInventoryEqicment;
         RefreshUIInventory();
     }
@@ -107,7 +138,6 @@ public class UIInventoryEX : UIInventory
 
         npcManager.listNpc.Remove(npcSelecying);
 
-        Sprite spriteHeadNpc = npcManager.listHeadCoutume.FirstOrDefault(head => head.idHead == npcSelecying.idHead).spriteHead;
         DateTime dateTime = countdownTimeDay.timeManager.dateTime;
 
         if (dateTime.day <= countdownTimeDay.finishDayCraftingTime)
@@ -119,26 +149,32 @@ public class UIInventoryEX : UIInventory
             npcManager.listNpcWorkingMoreOneDay.Add(npcSelecying);
         }
 
+        SetUIExButton(countdownTimeDay);
+
+        uINpcSending.SetActive(true);
+        this.gameObject.SetActive(false);
+    }
+    public void SetUIExButton(CountdownTimeDay countdownTimeDay)
+    {
         if (expenditionManager.uIExOne == null)
         {
             expenditionManager.uIExOne = this.gameObject;
             countdownTimeDay.iconCompleteSend = expenditionManager.uIButtonEXOne.iconComplete;
-            indexExpendition = 1;
+            indexButtonExpendition = 1;
         }
         else
         {
             expenditionManager.uIExTwo = this.gameObject;
             countdownTimeDay.iconCompleteSend = expenditionManager.uIButtonEXTwo.iconComplete;
-            indexExpendition = 2;
+            indexButtonExpendition = 2;
         }
 
-        string textdayFinish = "Day : " + countdownTimeDay.finishDayCraftingTime.ToString() + "\n"
-        + countdownTimeDay.finishHourCraftingTime.ToString() + ":" + countdownTimeDay.finishMinutesCraftingTime.ToString();
 
-        expenditionManager.SetUIExButton(indexExpendition, spriteHeadNpc, textdayFinish);
+        string textdayFinish = "Day : " + finishDayCraftingTime.ToString() + "\n"
+        + finishHourCraftingTime.ToString() + ":" + finishMinutesCraftingTime.ToString();
+        Sprite spriteHeadNpc = npcManager.listHeadCoutume.FirstOrDefault(head => head.idHead == npcSelecying.idHead).spriteHead;
 
-        uINpcSending.SetActive(true);
-        this.gameObject.SetActive(false);
+        expenditionManager.SetUIExButton(indexButtonExpendition, spriteHeadNpc, textdayFinish);
     }
     public void GoExpendition()
     {
@@ -153,13 +189,13 @@ public class UIInventoryEX : UIInventory
         countdownTimeDay.SetStartExpendition();
         GameObject uIIconComplete = null;
 
-        if (indexExpendition == 1)
+        if (indexButtonExpendition == 1)
         {
             expenditionManager.uIExOne = this.gameObject;
             countdownTimeDay.iconCompleteSend = expenditionManager.uIButtonEXOne.iconComplete;
             uIIconComplete = expenditionManager.uIButtonEXOne.iconComplete;
         }
-        else if (indexExpendition == 2)
+        else if (indexButtonExpendition == 2)
         {
             expenditionManager.uIExTwo = this.gameObject;
             countdownTimeDay.iconCompleteSend = expenditionManager.uIButtonEXTwo.iconComplete;
@@ -172,32 +208,32 @@ public class UIInventoryEX : UIInventory
         string textdayFinish = "Day : " + countdownTimeDay.finishDayCraftingTime.ToString() + "\n"
         + countdownTimeDay.finishHourCraftingTime.ToString() + ":" + countdownTimeDay.finishMinutesCraftingTime.ToString();
 
-        expenditionManager.SetUIExButton(indexExpendition, spriteHeadNpc, textdayFinish);
+        expenditionManager.SetUIExButton(indexButtonExpendition, spriteHeadNpc, textdayFinish);
         this.gameObject.SetActive(false);
     }
     public void ResetSlotUIEx()
-    {   
+    {
 
-        
+
         GameObject uIIconComplete = null;
 
-        if (indexExpendition == 1)
+        if (indexButtonExpendition == 1)
         {
             uIIconComplete = expenditionManager.uIButtonEXOne.iconComplete;
         }
-        else if (indexExpendition == 2)
+        else if (indexButtonExpendition == 2)
         {
             uIIconComplete = expenditionManager.uIButtonEXTwo.iconComplete;
         }
 
         uIIconComplete.gameObject.SetActive(false);
-        expenditionManager.SetUIExButton(indexExpendition, null, null);
+        expenditionManager.SetUIExButton(indexButtonExpendition, null, null);
     }
     public void ChoiceLeaveOurSupplies()
-    {   
-        
+    {
+
         listItemDataInventoryEqicment.Clear();
-        listItemDataInventoryslot.Clear();
+        listItemDataInventorySlot.Clear();
         RefreshUIInventory();
         Destroy(this.gameObject);
     }
@@ -207,9 +243,13 @@ public class UIInventoryEX : UIInventory
     }
     public void ChoiceGiveThemHalfourSupplies()
     {
-        foreach (ItemData item in listItemDataInventoryslot)
+        foreach (ItemData item in listItemDataInventorySlot)
         {
             item.count /= 2;
+            if (item.count == 1)
+            {
+                item.count = 0;
+            }
         }
         RefreshUIInventory();
         Destroy(this.gameObject);
@@ -264,7 +304,7 @@ public class UIInventoryEX : UIInventory
         {
             return;
         }
-        if (indexExpendition == 1)
+        if (indexButtonExpendition == 1)
         {
             expenditionManager.uIExOne = null;
         }
@@ -273,7 +313,7 @@ public class UIInventoryEX : UIInventory
             expenditionManager.uIExTwo = null;
         }
         ResetSlotUIEx();
-        expenditionManager.SetUIExButton(indexExpendition, null, null);
+        expenditionManager.SetUIExButton(indexButtonExpendition, null, null);
         ClearItemDataInAllInventorySlotToListDataBoxes();
 
         npcManager.listNpc.Add(npcSelecying);
@@ -291,7 +331,7 @@ public class UIInventoryEX : UIInventory
         expenditionManager.listItemDataInventoryEqicment.Clear();
         expenditionManager.listItemDataInventoryslot.Clear();
         listItemDataInventoryEqicment.Clear();
-        listItemDataInventoryslot.Clear();
+        listItemDataInventorySlot.Clear();
         // this.gameObject.SetActive(false);
         // sceneSystem.SwitchScene(0);
     }

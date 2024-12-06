@@ -15,9 +15,11 @@ public class CountdownTimeDay : MonoBehaviour
     public GameObject iconCompleteSend;
     public TimeManager timeManager;
     public UIInventoryEX uIInventoryEX;
-    private void Awake()
+    public void SaveDayFinishExpenditionInUIEX()
     {
-        
+        uIInventoryEX.finishDayCraftingTime = finishDayCraftingTime;
+        uIInventoryEX.finishHourCraftingTime = finishHourCraftingTime;
+        uIInventoryEX.finishMinutesCraftingTime = finishMinutesCraftingTime;
     }
     public void SetStartExpendition()
     {
@@ -25,22 +27,24 @@ public class CountdownTimeDay : MonoBehaviour
         timeManager = FindObjectOfType<TimeManager>();
         ratio = timeScale / 1000f;
         timeInSeconds = ratio * 60;
-
+      
 
         if (timeManager.dateTime.hour + (timeInSeconds / 60) >= 18)
         {
             finishDayCraftingTime = timeManager.dateTime.day + 1;
             finishHourCraftingTime = 6 + timeManager.dateTime.hour + (int)(timeInSeconds / 60) - 18;
-            finishMinutesCraftingTime = (int)timeInSeconds % 60;
+            finishMinutesCraftingTime = timeManager.dateTime.minutes +(int)timeInSeconds % 60;
         }
         else
         {
             finishDayCraftingTime = timeManager.dateTime.day;
             finishHourCraftingTime = timeManager.dateTime.hour + (int)(timeInSeconds / 60);
-            finishMinutesCraftingTime = (int)timeInSeconds % 60;
+            finishMinutesCraftingTime = timeManager.dateTime.minutes +(int)timeInSeconds % 60;
         }
-        Debug.Log("Day : " + finishDayCraftingTime + " Hour : " + finishHourCraftingTime
-        + " Minutes : " + finishMinutesCraftingTime);
+        
+        SaveDayFinishExpenditionInUIEX();
+        // Debug.Log("Day : " + finishDayCraftingTime + " Hour : " + finishHourCraftingTime
+        // + " Minutes : " + finishMinutesCraftingTime);
 
     }
     // Update is called once per frame

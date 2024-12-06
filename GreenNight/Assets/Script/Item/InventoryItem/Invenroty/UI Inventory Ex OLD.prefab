@@ -501,6 +501,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
+  uIInventory: {fileID: 0}
 --- !u!222 &4207892188411947535
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -977,6 +978,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
+  uIInventory: {fileID: 0}
 --- !u!222 &105999661252752902
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1097,6 +1099,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
+  uIInventory: {fileID: 0}
 --- !u!222 &7954116091952819426
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1610,6 +1613,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
+  uIInventory: {fileID: 0}
 --- !u!222 &833361860866266889
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1865,6 +1869,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
+  uIInventory: {fileID: 0}
 --- !u!222 &5506121369622272715
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2228,6 +2233,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
+  uIInventory: {fileID: 0}
 --- !u!222 &6048716732039941734
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3531,6 +3537,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
+  uIInventory: {fileID: 0}
 --- !u!222 &5396103463793791273
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3651,6 +3658,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
+  uIInventory: {fileID: 0}
 --- !u!222 &7792485866792380744
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4116,6 +4124,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
+  uIInventory: {fileID: 0}
 --- !u!222 &794924993133077687
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4370,6 +4379,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
+  uIInventory: {fileID: 0}
 --- !u!222 &4218518127121566231
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4985,6 +4995,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
+  uIInventory: {fileID: 0}
 --- !u!222 &8064671944663202528
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5425,6 +5436,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
+  uIInventory: {fileID: 0}
 --- !u!222 &6933741257887712820
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5762,6 +5774,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
+  uIInventory: {fileID: 0}
 --- !u!222 &8841158215606764094
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6340,6 +6353,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
+  uIInventory: {fileID: 0}
 --- !u!222 &2499788814133695030
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6941,6 +6955,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
+  uIInventory: {fileID: 0}
 --- !u!222 &8903312242263866795
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7061,6 +7076,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
+  uIInventory: {fileID: 0}
 --- !u!222 &7843885413339524095
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7181,6 +7197,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
+  uIInventory: {fileID: 0}
 --- !u!222 &2720657515986540655
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8105,11 +8122,14 @@ MonoBehaviour:
   statAmplifier: {fileID: 0}
   timeScale: 0
   riskValue: 0
-  indexExpendition: 0
+  indexButtonExpendition: 0
   indexSceneExpendition: 0
   isArriveEx: 0
   isArriveHome: 0
   isExpenditon: 0
+  finishDayCraftingTime: 0
+  finishHourCraftingTime: 0
+  finishMinutesCraftingTime: 0
   expenditionManager: {fileID: 0}
   sceneSystem: {fileID: 0}
   uINpcSending: {fileID: 0}
@@ -8666,6 +8686,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
+  uIInventory: {fileID: 0}
 --- !u!222 &3652685523663174218
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9190,6 +9211,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
+  uIInventory: {fileID: 0}
 --- !u!222 &4411095013508420205
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9781,6 +9803,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   maxCountItems: 0
   inventoryItemPresent: {fileID: 0}
+  uIInventory: {fileID: 0}
 --- !u!222 &5966479392131811315
 CanvasRenderer:
   m_ObjectHideFlags: 0

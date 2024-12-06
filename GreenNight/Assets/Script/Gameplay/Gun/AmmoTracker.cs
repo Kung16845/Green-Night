@@ -45,7 +45,7 @@ public class WeaponAmmoTracker : MonoBehaviour
     {
         ammoInventory = new Dictionary<CaliberType, int>();
 
-        foreach (var item in uiInventory.listItemDataInventoryslot)
+        foreach (var item in uiInventory.listItemDataInventorySlot)
         {
 
             if (item.itemtype == Itemtype.Ammo)

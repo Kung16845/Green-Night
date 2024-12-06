@@ -70,12 +70,12 @@ public class NpcMovement : MonoBehaviour
         if (transform.position.x > lastPosition.x)
         {
             // Debug.Log("Moved Right!");
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = new Vector3(0.6f, 0.6f, 1);
         }
         else if (transform.position.x < lastPosition.x)
         {
             // Debug.Log("Moved Left!");
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(-0.6f, 0.6f, 1);
         }
     }
     public void WalkWaypoint()

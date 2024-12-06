@@ -7,6 +7,21 @@ public class UImanger : MonoBehaviour
     public GameObject UpgradeUI;
     public GameObject WorkshopUI;
     public GameObject workshopUpgradeUI;
+    public GameObject ExpiditionUI;
+    private bool isExpiditionUIActive; 
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            ToogleExpiditionUI();
+        }
+    }
+    public void ToogleExpiditionUI()
+    {
+        isExpiditionUIActive = !isExpiditionUIActive;
+        ExpiditionUI.SetActive(isExpiditionUIActive);
+    }
     public void ActiveUpgradeUI()
     {
         UpgradeUI.SetActive(true);

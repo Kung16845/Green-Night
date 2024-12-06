@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 public class MainSpawner : MonoBehaviour
 {
     [Header("Lanes Configuration")]
@@ -26,9 +27,12 @@ public class MainSpawner : MonoBehaviour
 
     private SaveDataDDA saveDataDDA;  // Reference to SaveDataDDA script
     private int currentDeckIndex;
+    public TutorialManager tutorialManager;
     private Coroutine deckCoroutine;
     [Header("UI Elements")]
     public TextMeshProUGUI startDelayText;
+    [Header("Wave Announcement UI")]
+    public Image Waveannoucer; 
 
     [Header("Spawn Timing")]
     public float startDelay = 0f;
@@ -45,46 +49,7 @@ public class MainSpawner : MonoBehaviour
 
     public List<SpawnDeck> remainingDecks = new List<SpawnDeck>(); // Decks yet to be spawned
     public CheckUsingDDA checkUsingDDA;
-    public List<MutationType> GetSelectedMutations(float skillPoint)
-    {
-        foreach (var rule in mutationSelectionRules)
-        {
-            if (skillPoint >= rule.minSkillPoint)
-            {
-                return SelectRandomMutations(rule.availableMutations, rule.mutationsToSelect);
-            }
-        }
-        return new List<MutationType> { MutationType.None };
-    }
-    public List<MutationType> GetRandomMutations(int count)
-    {
-        // Get all possible MutationTypes (excluding None)
-        List<MutationType> allMutations = new List<MutationType>();
-        foreach (MutationType mutation in System.Enum.GetValues(typeof(MutationType)))
-        {
-            if (mutation != MutationType.None)
-            {
-                allMutations.Add(mutation);
-            }
-        }
-
-        return SelectRandomMutations(allMutations, count);
-    }
-    private List<MutationType> SelectRandomMutations(List<MutationType> availableMutations, int count)
-    {
-        List<MutationType> selectedMutations = new List<MutationType>();
-        List<MutationType> pool = new List<MutationType>(availableMutations);
-        System.Random rand = new System.Random();
-
-        for (int i = 0; i < count && pool.Count > 0; i++)
-        {
-            int index = rand.Next(pool.Count);
-            selectedMutations.Add(pool[index]);
-            pool.RemoveAt(index); // Prevent selecting the same mutation multiple times
-        }
-
-        return selectedMutations;
-    }
+    
     private void Awake() {
         checkUsingDDA = FindObjectOfType<CheckUsingDDA>();
         checkUsingDDA.mainSpawner = this;
@@ -103,14 +68,18 @@ public class MainSpawner : MonoBehaviour
             Debug.LogError("SaveDataDDA not found in the scene.");
         }
 
-        // // Calculate decks based on DDA setting
-        CalculateDecks();
-        // AddActiveDeck(601010101);
-        // // Initialize tracking variables
+        if(tutorialManager.isturorialnight)
+        {
+            startDelayText.gameObject.SetActive(false);
+            AddActiveDeck(601010001);// Add infinity spawnDeck
+        }
+        else
+        {
+            CalculateDecks();
+            StartCoroutine(StartSpawningAfterDelay());
+        }
         InitializeTracking();
-
         currentDeckIndex = 0;
-        StartCoroutine(StartSpawningAfterDelay());
     }
 
     private void InitializeSpawnPoints()
@@ -164,9 +133,9 @@ public class MainSpawner : MonoBehaviour
         ActiveSpawnDecks.Clear();
         float totalDuration = 0f;
 
-        if (useDDA && saveDataDDA != null && saveDataDDA.dataCollection != null)
+        if (useDDA && saveDataDDA != null && saveDataDDA.dataDDACollection != null)
         {
-            DataDDA avgData = saveDataDDA.dataCollection.averageData;
+            DataDDA avgData = saveDataDDA.dataDDACollection.averageData;
             desiredDeckTier = CalculateDesiredTier(avgData);
             Debug.Log($"DDA enabled. Desired deck tier: {desiredDeckTier}");
 
@@ -228,6 +197,7 @@ public class MainSpawner : MonoBehaviour
     private void SelectRandomDecks(ref List<SpawnDeck> selectedDecks, float maxDuration, List<SpawnDeck> deckPool)
     {
         selectedDecks.Clear();
+        persistentMutations = GetRandomMutations(2);
         float totalDuration = 0f;
 
         if (deckPool == null || deckPool.Count == 0)
@@ -238,7 +208,6 @@ public class MainSpawner : MonoBehaviour
 
         List<SpawnDeck> availableDecks = new List<SpawnDeck>(deckPool);
         System.Random rand = new System.Random();
-         GetRandomMutations(2);
         while (availableDecks.Count > 0 && totalDuration < maxDuration)
         {
             int index = rand.Next(availableDecks.Count);
@@ -335,7 +304,7 @@ public class MainSpawner : MonoBehaviour
     {
         // // Find the deck with the given deckID in StorageDecks
         SpawnDeck deckToAdd = StorageDecks.Find(deck => deck.deckID == deckID);
-        DataDDA avgData = saveDataDDA.dataCollection.averageData;
+        DataDDA avgData = saveDataDDA.dataDDACollection.averageData;
         float skillpoint = CalculateDDAPoint(avgData.killPerMinute,avgData.accuracy,avgData.barrierDamage,avgData.multiKillCount,avgData.valueFail);
         if (persistentMutations.Count == 0)
         {
@@ -372,12 +341,12 @@ public class MainSpawner : MonoBehaviour
             Debug.LogWarning($"Deck with ID {deckID} not found in StorageDecks.");
         }
     }
-    public bool isCompleteSpawned;
-    private void StartNextDeck()
+    public bool isCompleteSpawned = false;
+    public void StartNextDeck()
     {
-        Debug.Log("StartNextDeck.");
         if (currentDeckIndex < ActiveSpawnDecks.Count)
         {
+            Debug.Log("StartNextDeck.");
             SpawnDeck currentDeck = ActiveSpawnDecks[currentDeckIndex];
             StartCoroutine(ProcessDeck(currentDeck));
         }
@@ -400,7 +369,6 @@ public class MainSpawner : MonoBehaviour
             foreach (var laneConfig in wave.laneSpawnConfigs)
             {
                 SpawnPoint spawnPoint = GetSpawnPointByLaneID(laneConfig.laneID);
-
                 if (spawnPoint != null)
                 {
                     // Use the persistent mutations for all decks
@@ -415,12 +383,11 @@ public class MainSpawner : MonoBehaviour
                     Debug.LogWarning($"No spawn point found for lane ID {laneConfig.laneID}");
                 }
             }
-
             // Wait for the wave's timeUntilNextWave
             Debug.Log($"Waiting for {wave.timeUntilNextWave}s before next wave.");
             yield return new WaitForSeconds(wave.timeUntilNextWave);
+            SoundManager.Instance.PlaySound("ZombieScream");
         }
-
         Debug.Log($"Deck '{deck.deckName}' completed.");
         currentDeckDurationLeft = 0f;
         currentDeckZombiesLeft = 0;
@@ -430,9 +397,28 @@ public class MainSpawner : MonoBehaviour
         // Proceed to the next deck
         StartNextDeck();
     }
+    private IEnumerator FlashWaveAnnouncement(float duration)
+    {
+        float timeElapsed = 0f;
+        bool isVisible = true;
 
+        while (timeElapsed < duration)
+        {
+            if (Waveannoucer != null)
+            {
+                Waveannoucer.gameObject.SetActive(isVisible);
+            }
 
+            isVisible = !isVisible; // Toggle visibility
+            timeElapsed += 0.5f;   // Adjust flashing speed (0.25 seconds per toggle)
+            yield return new WaitForSeconds(0.5f);
+        }
 
+        if (Waveannoucer != null)
+        {
+            Waveannoucer.gameObject.SetActive(false); // Ensure UI is hidden after flashing
+        }
+    }
     private SpawnPoint GetSpawnPointByLaneID(int laneID)
     {
         Lane lane = lanes.Find(l => l.laneID == laneID);
@@ -476,5 +462,45 @@ public class MainSpawner : MonoBehaviour
             totalDurationLeft = Mathf.Max(totalDurationLeft - Time.deltaTime, 0f);
 
         }
+    }
+    public List<MutationType> GetSelectedMutations(float skillPoint)
+    {
+        foreach (var rule in mutationSelectionRules)
+        {
+            if (skillPoint >= rule.minSkillPoint)
+            {
+                return SelectRandomMutations(rule.availableMutations, rule.mutationsToSelect);
+            }
+        }
+        return new List<MutationType> { MutationType.None };
+    }
+    public List<MutationType> GetRandomMutations(int count)
+    {
+        // Get all possible MutationTypes (excluding None)
+        List<MutationType> allMutations = new List<MutationType>();
+        foreach (MutationType mutation in System.Enum.GetValues(typeof(MutationType)))
+        {
+            if (mutation != MutationType.None)
+            {
+                allMutations.Add(mutation);
+            }
+        }
+
+        return SelectRandomMutations(allMutations, count);
+    }
+    private List<MutationType> SelectRandomMutations(List<MutationType> availableMutations, int count)
+    {
+        List<MutationType> selectedMutations = new List<MutationType>();
+        List<MutationType> pool = new List<MutationType>(availableMutations);
+        System.Random rand = new System.Random();
+
+        for (int i = 0; i < count && pool.Count > 0; i++)
+        {
+            int index = rand.Next(pool.Count);
+            selectedMutations.Add(pool[index]);
+            pool.RemoveAt(index); // Prevent selecting the same mutation multiple times
+        }
+
+        return selectedMutations;
     }
 }
