@@ -19970,6 +19970,7 @@ Transform:
   - {fileID: 2063404513}
   - {fileID: 949315568}
   - {fileID: 1256208284}
+  - {fileID: 1398455260}
   - {fileID: 1123376618}
   - {fileID: 958454484}
   - {fileID: 1585357081}
@@ -28999,6 +29000,7 @@ MonoBehaviour:
   imagePlace: {fileID: 1651454848}
   riskValue: 0
   indexSceneExpendition: 0
+  transformParentUIEx: {fileID: 1443833851}
   buttonWalk: {fileID: 970539895}
   buttonCar: {fileID: 1430998055}
 --- !u!1 &1048952862
@@ -36299,6 +36301,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1380848839}
   m_CullTransparentMesh: 1
+--- !u!1 &1398455259
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1398455260}
+  m_Layer: 0
+  m_Name: '-------------------------- '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1398455260
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1398455259}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 741425701}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1401659094
 GameObject:
   m_ObjectHideFlags: 0
@@ -53827,7 +53860,7 @@ MonoBehaviour:
   uIExTwo: {fileID: 0}
   playerObject: {fileID: 0}
   uIInventoryExPrefab: {fileID: 2071801543400052025, guid: 381b86c8a627db54da96fe414c296b11, type: 3}
-  transformsUIEx: {fileID: 1443833851}
+  transformsUIEx: {fileID: 0}
   uIButtonEXOne: {fileID: 0}
   uIButtonEXTwo: {fileID: 0}
   globalstat: {fileID: 0}

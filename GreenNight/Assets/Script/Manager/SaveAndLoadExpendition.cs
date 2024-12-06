@@ -64,12 +64,18 @@ public class SaveAndLoadExpendition : MonoBehaviour
             string json = File.ReadAllText(savePathDataExpendition);
             dataCollentUIEX = JsonUtility.FromJson<DataCollentUIEX>(json);
             Debug.Log($"Data loaded from {savePathDataExpendition}");
+            
+            foreach (DataSaveExpendition dataUIEX in dataCollentUIEX.listdataUIExpemdition)
+            {
+                CreateUIEX(dataUIEX);
+            }
         }
         else
         {
             dataCollentUIEX = new DataCollentUIEX();
             Debug.Log("No data file found. Created new data collection.");
         }
+
     }
     public void CreateUIEX(DataSaveExpendition dataSaveExpendition)
     {

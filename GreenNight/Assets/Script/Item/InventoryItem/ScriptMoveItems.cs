@@ -9,6 +9,7 @@ public class ScriptMoveItems : MonoBehaviour
     public int countItemMove = 1;
     public TextMeshProUGUI countText;
     public ItemClass itemClassMove;
+    public LootingSystem originatingLootSystem;
     public ItemClass itemClassInChild;
     public DraggableItem draggableItemMove;
     public InventoryItemPresent inventoryItemPresent;
@@ -163,6 +164,25 @@ public class ScriptMoveItems : MonoBehaviour
 
             Debug.Log("Not Parant Slot is SlotBoxes");
         }
+        if (slotTypeItemMoveParantBefore == SlotType.SlotLoot && itemClassMove != null)
+        {
+            // Access the originating loot system
+            LootingSystem lootSystem = null;
+            lootSystem = itemClassMove.GetComponent<UIItemData>().originatingLootSystem;
+
+            if (lootSystem != null)
+            {
+                ItemData lootItem = lootSystem.droppedItems.FirstOrDefault(d => d.idItem == itemClassMove.idItem);
+                if (lootItem != null)
+                {
+                    lootItem.count -= countItemMove;
+                    if (lootItem.count <= 0)
+                    {
+                        lootSystem.droppedItems.Remove(lootItem);
+                    }
+                }
+            }
+        }
         bool isBackpackMoved = false;
 
         if (itemClassMove != null && itemClassMove.itemtype == Itemtype.Backpack)
@@ -182,7 +202,6 @@ public class ScriptMoveItems : MonoBehaviour
                 listItemDataBox.Remove(itemData);
             }
         }
-
         if (itemClassMove.quantityItem <= 0)
         {
             Destroy(itemClassMove.gameObject);
