@@ -5,7 +5,6 @@ using UnityEngine;
 public class LootItem
 {
     public ItemData item; // Reference to the item
-    [Range(1, 100)]
     public float dropChance; // Drop chance (1-100)
 }
 

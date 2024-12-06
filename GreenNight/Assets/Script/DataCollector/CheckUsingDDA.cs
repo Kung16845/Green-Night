@@ -19,4 +19,8 @@ public class CheckUsingDDA : MonoBehaviour
     {
         ActiveTutorial = true;
     }
+    public void DisableTutorial()
+    {
+        ActiveTutorial = false;
+    }
 }
