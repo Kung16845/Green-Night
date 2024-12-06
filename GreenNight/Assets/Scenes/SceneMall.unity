@@ -3548,9 +3548,9 @@ RectTransform:
   m_Father: {fileID: 1053637785}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 346, y: -50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &272573000
@@ -3753,9 +3753,9 @@ RectTransform:
   m_Father: {fileID: 1053637785}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 494, y: -50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &288464709
@@ -5713,6 +5713,14 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: -587923211
       objectReference: {fileID: 0}
+    - target: {fileID: 3780009304576836461, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
+      propertyPath: m_Size.y
+      value: 0.56623745
+      objectReference: {fileID: 0}
+    - target: {fileID: 3780009304576836461, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.07829077
+      objectReference: {fileID: 0}
     - target: {fileID: 3898488627849466279, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
       propertyPath: m_SortingLayer
       value: 2
@@ -5774,6 +5782,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
+--- !u!4 &456829727 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 876816314164205647, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
+  m_PrefabInstance: {fileID: 456829726}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &456829728 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3294522616467958221, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
+  m_PrefabInstance: {fileID: 456829726}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7da13b27526812341b2b3f37605bbc9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &473583588
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5784,35 +5808,123 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.size
-      value: 15
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
-      propertyPath: lootItems.Array.data[0].dropChance
-      value: 27
+      propertyPath: lootItems.Array.data[0].maxAmount
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
-      propertyPath: lootItems.Array.data[0].item.count
+      propertyPath: lootItems.Array.data[0].minAmount
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[1].maxAmount
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[1].minAmount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[2].maxAmount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[2].minAmount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[3].maxAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[3].minAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[4].maxAmount
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[4].minAmount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[5].maxAmount
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[5].minAmount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[6].maxAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[6].minAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[7].maxAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[7].minAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[8].maxAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[8].minAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[9].maxAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[9].minAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[0].dropChance
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[0].item.count
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[10].maxAmount
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[10].minAmount
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[1].dropChance
-      value: 17
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[1].item.count
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[2].dropChance
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[2].item.count
-      value: 7
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[3].dropChance
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[3].item.count
@@ -5820,15 +5932,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[4].dropChance
-      value: 3
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[4].item.count
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[5].dropChance
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[5].item.count
@@ -5836,7 +5948,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[6].dropChance
-      value: 3
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[6].item.count
@@ -5844,7 +5956,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[7].dropChance
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[7].item.count
@@ -5860,7 +5972,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[9].dropChance
-      value: 2
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[9].item.count
@@ -5872,7 +5984,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[10].dropChance
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[10].item.count
@@ -5912,43 +6024,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[1].item.idItem
-      value: 1020101
+      value: 1020102
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[2].item.idItem
-      value: 1020101
-      objectReference: {fileID: 0}
-    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
-      propertyPath: lootItems.Array.data[3].item.idItem
-      value: 1020102
-      objectReference: {fileID: 0}
-    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
-      propertyPath: lootItems.Array.data[4].item.idItem
-      value: 1020102
-      objectReference: {fileID: 0}
-    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
-      propertyPath: lootItems.Array.data[5].item.idItem
       value: 1020103
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
-      propertyPath: lootItems.Array.data[6].item.idItem
+      propertyPath: lootItems.Array.data[3].item.idItem
       value: 1020106
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
-      propertyPath: lootItems.Array.data[7].item.idItem
+      propertyPath: lootItems.Array.data[4].item.idItem
       value: 1020110
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
-      propertyPath: lootItems.Array.data[8].item.idItem
-      value: 1020115
+      propertyPath: lootItems.Array.data[5].item.idItem
+      value: 1020119
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
-      propertyPath: lootItems.Array.data[9].item.idItem
+      propertyPath: lootItems.Array.data[6].item.idItem
       value: 1020214
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
-      propertyPath: lootItems.Array.data[10].item.idItem
+      propertyPath: lootItems.Array.data[7].item.idItem
       value: 1020601
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[8].item.idItem
+      value: 1020121
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[9].item.idItem
+      value: 1020120
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[10].item.idItem
+      value: 1020123
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[11].item.idItem
@@ -5984,11 +6096,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[1].item.maxCount
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[1].item.nameItem
-      value: Scrap
+      value: Circuit
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[2].item.itemtype
@@ -5996,11 +6108,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[2].item.maxCount
-      value: 15
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[2].item.nameItem
-      value: Scrap
+      value: Wire
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[3].item.itemtype
@@ -6008,11 +6120,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[3].item.maxCount
-      value: 10
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[3].item.nameItem
-      value: Circuit
+      value: Alcolhal
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[4].item.itemtype
@@ -6024,7 +6136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[4].item.nameItem
-      value: Circuit
+      value: Gunpower
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[5].item.itemtype
@@ -6032,35 +6144,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[5].item.maxCount
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
-      propertyPath: lootItems.Array.data[5].item.nameItem
-      value: Wire
-      objectReference: {fileID: 0}
-    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
-      propertyPath: lootItems.Array.data[6].item.itemtype
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
-      propertyPath: lootItems.Array.data[6].item.maxCount
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
-      propertyPath: lootItems.Array.data[6].item.nameItem
-      value: Alcolhal
-      objectReference: {fileID: 0}
-    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
-      propertyPath: lootItems.Array.data[7].item.itemtype
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
-      propertyPath: lootItems.Array.data[7].item.maxCount
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[5].item.nameItem
+      value: PlantSeed
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[6].item.itemtype
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[6].item.maxCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[6].item.nameItem
+      value: M1911
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[7].item.itemtype
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[7].item.maxCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[7].item.nameItem
-      value: Gunpower
+      value: SmallBackpack
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[8].item.itemtype
@@ -6068,15 +6180,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[8].item.maxCount
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[8].item.nameItem
-      value: Broken Pistol
+      value: Bandage
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[9].item.itemtype
-      value: 0
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[9].item.maxCount
@@ -6084,19 +6196,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[9].item.nameItem
-      value: M1911
+      value: BrokenArmour
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[10].item.itemtype
-      value: 2
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[10].item.maxCount
-      value: 1
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[10].item.nameItem
-      value: SmallBackpack
+      value: BrokenShel
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[11].item.itemtype
@@ -7903,9 +8015,9 @@ RectTransform:
   m_Father: {fileID: 1053637785}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &597390385
@@ -8084,6 +8196,7 @@ GameObject:
   - component: {fileID: 603328369}
   - component: {fileID: 603328368}
   - component: {fileID: 603328370}
+  - component: {fileID: 603328371}
   m_Layer: 0
   m_Name: T1Lootbox
   m_TagString: Untagged
@@ -8175,6 +8288,51 @@ MonoBehaviour:
   inrange: 0
   itemdropped: 0
   lootKey: 102
+--- !u!61 &603328371
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603328367}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.27, y: 1.14}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.19, y: 2.16}
+  m_EdgeRadius: 0
 --- !u!1 &621621393
 GameObject:
   m_ObjectHideFlags: 0
@@ -9773,9 +9931,9 @@ RectTransform:
   m_Father: {fileID: 2088096131}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &730530201
@@ -10114,6 +10272,7 @@ GameObject:
   - component: {fileID: 760634499}
   - component: {fileID: 760634498}
   - component: {fileID: 760634500}
+  - component: {fileID: 760634501}
   m_Layer: 0
   m_Name: T1Lootbox
   m_TagString: Untagged
@@ -10205,6 +10364,51 @@ MonoBehaviour:
   inrange: 0
   itemdropped: 0
   lootKey: 102
+--- !u!61 &760634501
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760634497}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.27, y: 1.14}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.19, y: 2.16}
+  m_EdgeRadius: 0
 --- !u!1 &766470963
 GameObject:
   m_ObjectHideFlags: 0
@@ -13326,6 +13530,7 @@ GameObject:
   - component: {fileID: 1012657715}
   - component: {fileID: 1012657714}
   - component: {fileID: 1012657716}
+  - component: {fileID: 1012657717}
   m_Layer: 0
   m_Name: T1Lootbox
   m_TagString: Untagged
@@ -13417,6 +13622,51 @@ MonoBehaviour:
   inrange: 0
   itemdropped: 0
   lootKey: 102
+--- !u!61 &1012657717
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012657713}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.27, y: 1.14}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.19, y: 2.16}
+  m_EdgeRadius: 0
 --- !u!1 &1021747343
 GameObject:
   m_ObjectHideFlags: 0
@@ -14163,6 +14413,7 @@ GameObject:
   - component: {fileID: 1100135275}
   - component: {fileID: 1100135274}
   - component: {fileID: 1100135276}
+  - component: {fileID: 1100135277}
   m_Layer: 0
   m_Name: T1Lootbox
   m_TagString: Untagged
@@ -14254,6 +14505,51 @@ MonoBehaviour:
   inrange: 0
   itemdropped: 0
   lootKey: 102
+--- !u!61 &1100135277
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100135273}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.27, y: 1.14}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.19, y: 2.16}
+  m_EdgeRadius: 0
 --- !u!1 &1129129263
 GameObject:
   m_ObjectHideFlags: 0
@@ -15598,6 +15894,52 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1270384414
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1270384416}
+  - component: {fileID: 1270384415}
+  m_Layer: 0
+  m_Name: UImanager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1270384415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270384414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 680b22cd6497a464e99c9859b1414fad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InventoryUI: {fileID: 775771100}
+  actionController: {fileID: 456829728}
+--- !u!4 &1270384416
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270384414}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 942.9083, y: 561.5147, z: 2.2650368}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1270475767
 GameObject:
   m_ObjectHideFlags: 0
@@ -16407,6 +16749,7 @@ GameObject:
   - component: {fileID: 1345687690}
   - component: {fileID: 1345687689}
   - component: {fileID: 1345687691}
+  - component: {fileID: 1345687692}
   m_Layer: 0
   m_Name: T1Lootbox
   m_TagString: Untagged
@@ -16498,6 +16841,51 @@ MonoBehaviour:
   inrange: 0
   itemdropped: 0
   lootKey: 102
+--- !u!61 &1345687692
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345687688}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.27, y: 1.14}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.19, y: 2.16}
+  m_EdgeRadius: 0
 --- !u!1 &1346092141
 GameObject:
   m_ObjectHideFlags: 0
@@ -17245,9 +17633,9 @@ RectTransform:
   m_Father: {fileID: 2088096131}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 248.66666, y: -50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1397304799
@@ -17450,9 +17838,9 @@ RectTransform:
   m_Father: {fileID: 1053637785}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 198, y: -50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1425672160
@@ -17861,9 +18249,9 @@ RectTransform:
   m_Father: {fileID: 2088096131}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 447.3333, y: -50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1460212759
@@ -18191,9 +18579,9 @@ RectTransform:
   m_Father: {fileID: 2133406793}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -125}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1481320595
@@ -18960,11 +19348,91 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.size
-      value: 15
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[0].maxAmount
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[0].minAmount
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[1].maxAmount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[1].minAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[2].maxAmount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[2].minAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[3].maxAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[3].minAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[4].maxAmount
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[4].minAmount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[5].maxAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[5].minAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[6].maxAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[6].minAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[7].maxAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[7].minAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[8].maxAmount
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[8].minAmount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[9].maxAmount
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[9].minAmount
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[0].dropChance
-      value: 27
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[0].item.count
@@ -18972,23 +19440,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[1].dropChance
-      value: 17
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[1].item.count
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[2].dropChance
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[2].item.count
-      value: 7
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[3].dropChance
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[3].item.count
@@ -18996,15 +19464,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[4].dropChance
-      value: 3
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[4].item.count
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[5].dropChance
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[5].item.count
@@ -19020,7 +19488,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[7].dropChance
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[7].item.count
@@ -19036,7 +19504,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[9].dropChance
-      value: 2
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[9].item.count
@@ -19048,7 +19516,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[10].dropChance
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[10].item.count
@@ -19056,27 +19524,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[11].dropChance
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[11].item.count
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[12].dropChance
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[12].item.count
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[13].dropChance
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[13].item.count
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[14].dropChance
@@ -19088,51 +19556,51 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[1].item.idItem
-      value: 1020101
+      value: 1020102
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[2].item.idItem
-      value: 1020101
-      objectReference: {fileID: 0}
-    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
-      propertyPath: lootItems.Array.data[3].item.idItem
-      value: 1020102
-      objectReference: {fileID: 0}
-    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
-      propertyPath: lootItems.Array.data[4].item.idItem
-      value: 1020102
-      objectReference: {fileID: 0}
-    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
-      propertyPath: lootItems.Array.data[5].item.idItem
       value: 1020103
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
-      propertyPath: lootItems.Array.data[6].item.idItem
+      propertyPath: lootItems.Array.data[3].item.idItem
       value: 1020106
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
-      propertyPath: lootItems.Array.data[7].item.idItem
+      propertyPath: lootItems.Array.data[4].item.idItem
       value: 1020110
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
-      propertyPath: lootItems.Array.data[8].item.idItem
+      propertyPath: lootItems.Array.data[5].item.idItem
       value: 1020115
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
-      propertyPath: lootItems.Array.data[9].item.idItem
+      propertyPath: lootItems.Array.data[6].item.idItem
       value: 1020214
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
-      propertyPath: lootItems.Array.data[10].item.idItem
+      propertyPath: lootItems.Array.data[7].item.idItem
       value: 1020601
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
-      propertyPath: lootItems.Array.data[11].item.idItem
+      propertyPath: lootItems.Array.data[8].item.idItem
       value: 1020107
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[9].item.idItem
+      value: 1020104
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[10].item.idItem
+      value: 1020104
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
+      propertyPath: lootItems.Array.data[11].item.idItem
+      value: 1020104
+      objectReference: {fileID: 0}
+    - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[12].item.idItem
-      value: 1020107
+      value: 1020104
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[13].item.idItem
@@ -19160,11 +19628,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[1].item.maxCount
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[1].item.nameItem
-      value: Scrap
+      value: Circuit
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[2].item.itemtype
@@ -19172,11 +19640,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[2].item.maxCount
-      value: 15
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[2].item.nameItem
-      value: Scrap
+      value: Wire
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[3].item.itemtype
@@ -19184,11 +19652,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[3].item.maxCount
-      value: 10
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[3].item.nameItem
-      value: Circuit
+      value: Alcolhal
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[4].item.itemtype
@@ -19200,7 +19668,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[4].item.nameItem
-      value: Circuit
+      value: Gunpower
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[5].item.itemtype
@@ -19208,35 +19676,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[5].item.maxCount
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[5].item.nameItem
-      value: Wire
+      value: Broken Pistol
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[6].item.itemtype
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[6].item.maxCount
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[6].item.nameItem
-      value: Alcolhal
+      value: M1911
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[7].item.itemtype
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[7].item.maxCount
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[7].item.nameItem
-      value: Gunpower
+      value: SmallBackpack
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[8].item.itemtype
@@ -19244,35 +19712,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[8].item.maxCount
-      value: 1
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[8].item.nameItem
-      value: Broken Pistol
+      value: Sugar
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[9].item.itemtype
-      value: 0
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[9].item.maxCount
-      value: 1
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[9].item.nameItem
-      value: M1911
+      value: Herb
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[10].item.itemtype
-      value: 2
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[10].item.maxCount
-      value: 1
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[10].item.nameItem
-      value: SmallBackpack
+      value: Herb
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[11].item.itemtype
@@ -19284,7 +19752,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[11].item.nameItem
-      value: Sugar
+      value: Herb
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[12].item.itemtype
@@ -19296,7 +19764,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[12].item.nameItem
-      value: Sugar
+      value: Herb
       objectReference: {fileID: 0}
     - target: {fileID: 979095113464234862, guid: 0df31a451162f904db9a75c82a66c8e9, type: 3}
       propertyPath: lootItems.Array.data[13].item.itemtype
@@ -22127,6 +22595,7 @@ GameObject:
   - component: {fileID: 1727609872}
   - component: {fileID: 1727609871}
   - component: {fileID: 1727609874}
+  - component: {fileID: 1727609875}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -22252,6 +22721,21 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!114 &1727609875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1727609870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b03380f6657f02940b1c057842d0cd60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 456829727}
+  deadZoneSize: {x: 2, y: 2}
+  followSpeed: 5
 --- !u!1 &1729373283
 GameObject:
   m_ObjectHideFlags: 0
@@ -23767,9 +24251,9 @@ RectTransform:
   m_Father: {fileID: 2133406793}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1844457049
@@ -24085,6 +24569,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1880896856}
   - component: {fileID: 1880896855}
+  - component: {fileID: 1880896857}
   m_Layer: 0
   m_Name: T1Lootbox
   m_TagString: Untagged
@@ -24159,6 +24644,51 @@ Transform:
   m_Father: {fileID: 1688320166}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1880896857
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880896854}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -1.4257226}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.27, y: 1.14}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.19, y: 3.7626371}
+  m_EdgeRadius: 0
 --- !u!1 &1882141558
 GameObject:
   m_ObjectHideFlags: 0
@@ -25051,9 +25581,9 @@ RectTransform:
   m_Father: {fileID: 2133406793}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -75}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2007716441
@@ -25201,6 +25731,7 @@ GameObject:
   - component: {fileID: 2011935117}
   - component: {fileID: 2011935116}
   - component: {fileID: 2011935118}
+  - component: {fileID: 2011935119}
   m_Layer: 0
   m_Name: T1Lootbox
   m_TagString: Untagged
@@ -25292,6 +25823,51 @@ MonoBehaviour:
   inrange: 0
   itemdropped: 0
   lootKey: 102
+--- !u!61 &2011935119
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2011935115}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.27, y: 1.14}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.19, y: 2.16}
+  m_EdgeRadius: 0
 --- !u!1 &2028442473
 GameObject:
   m_ObjectHideFlags: 0
@@ -25864,6 +26440,7 @@ GameObject:
   - component: {fileID: 2079421466}
   - component: {fileID: 2079421465}
   - component: {fileID: 2079421467}
+  - component: {fileID: 2079421468}
   m_Layer: 0
   m_Name: T1Lootbox
   m_TagString: Untagged
@@ -25955,6 +26532,51 @@ MonoBehaviour:
   inrange: 0
   itemdropped: 0
   lootKey: 102
+--- !u!61 &2079421468
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2079421464}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.27, y: 1.14}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.19, y: 2.16}
+  m_EdgeRadius: 0
 --- !u!1 &2081151152
 GameObject:
   m_ObjectHideFlags: 0

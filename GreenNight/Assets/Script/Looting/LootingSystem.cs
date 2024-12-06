@@ -13,10 +13,12 @@ public class LootingSystem : MonoBehaviour
 
     public KeyCode lootKey = KeyCode.F;
     private InventoryItemPresent inventoryItemPresent;
+    private ExpenditionManager expenditionManager;
 
     void Start()
     {
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
+        expenditionManager = FindObjectOfType<ExpenditionManager>();
     }
 
     void Update()
@@ -80,7 +82,7 @@ public class LootingSystem : MonoBehaviour
             // Add the chosen quantity of this item to the inventory
             for (int i = 0; i < lootResult.amount; i++)
             {
-                inventoryItemPresent.AddItem(lootResult.item);
+               expenditionManager.AddItemToInventorySlot(lootResult.item);
             }
             inventoryItemPresent.RefreshUIBox();
             itemdropped = true;
