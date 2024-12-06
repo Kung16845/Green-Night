@@ -12,9 +12,13 @@ public class UIExSelectPlace : MonoBehaviour
     public Image imagePlace;
     public float riskValue;
     public int indexSceneExpendition;
+    public Transform transformParentUIEx;
     public Button buttonWalk;
     public Button buttonCar;
-    
+    private void Awake() {
+        ExpenditionManager expenditionManager = FindObjectOfType<ExpenditionManager>();
+        expenditionManager.transformsUIEx = transformParentUIEx;
+    }
     public void SetInfoPlaceSelect(DataExpenditionUI dataExpendition)
     {
         textNamePlace.text = dataExpendition.namePlace;
@@ -37,6 +41,7 @@ public class UIExSelectPlace : MonoBehaviour
     public void AddButtonExpendition(Button button,float timescale)
     {   
         // Debug.Log("Add Button Walk and Car");
+        if(transformParentUIEx.childCount == 2) return;
         ExpenditionManager.Instance.CreateInventorySetExpendition(timescale, riskValue,indexSceneExpendition);
     }   
 }

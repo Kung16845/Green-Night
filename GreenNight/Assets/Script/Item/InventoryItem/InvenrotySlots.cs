@@ -78,7 +78,8 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
             // Debug.Log("UIItemdata In chind Have && slotTypeInventory != SlotType.SlotBoxes && itemClassInChild.quantityItem < itemClassInChild.maxCountItem");
             scriptMoveItems.itemClassMove = itemClassMove;
             scriptMoveItems.itemClassInChild = itemClassInChild;
-
+            scriptMoveItems.draggableItemMove = uIitem.GetComponent<DraggableItem>();
+            
             OpenUIMoveITems(scriptMoveItems);
         }
         else if(slotTypeInventory == SlotType.SlotBoxes)

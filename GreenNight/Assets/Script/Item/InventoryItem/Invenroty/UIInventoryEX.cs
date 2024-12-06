@@ -130,7 +130,8 @@ public class UIInventoryEX : UIInventory
         RefreshUIInventory();
     }
     public void SendNpcExpendition()
-    {
+    {   
+        
         CountdownTimeDay countdownTimeDay = expenditionManager.AddComponent<CountdownTimeDay>();
         countdownTimeDay.timeScale = timeScale;
         countdownTimeDay.uIInventoryEX = this;
@@ -177,7 +178,11 @@ public class UIInventoryEX : UIInventory
         expenditionManager.SetUIExButton(indexButtonExpendition, spriteHeadNpc, textdayFinish);
     }
     public void GoExpendition()
-    {
+    {   
+        expenditionManager.npcSelecying = npcSelecying;
+        expenditionManager.listItemDataInventoryEqicment = listItemDataInventoryEqicment;
+        expenditionManager.listItemDataInventoryslot = listItemDataInventorySlot;
+
         sceneSystem.SwitchScene(indexSceneExpendition);
     }
 
