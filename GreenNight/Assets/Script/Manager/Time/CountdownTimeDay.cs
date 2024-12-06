@@ -33,13 +33,13 @@ public class CountdownTimeDay : MonoBehaviour
         {
             finishDayCraftingTime = timeManager.dateTime.day + 1;
             finishHourCraftingTime = 6 + timeManager.dateTime.hour + (int)(timeInSeconds / 60) - 18;
-            finishMinutesCraftingTime = (int)timeInSeconds % 60;
+            finishMinutesCraftingTime = timeManager.dateTime.minutes +(int)timeInSeconds % 60;
         }
         else
         {
             finishDayCraftingTime = timeManager.dateTime.day;
             finishHourCraftingTime = timeManager.dateTime.hour + (int)(timeInSeconds / 60);
-            finishMinutesCraftingTime = (int)timeInSeconds % 60;
+            finishMinutesCraftingTime = timeManager.dateTime.minutes +(int)timeInSeconds % 60;
         }
         
         SaveDayFinishExpenditionInUIEX();
