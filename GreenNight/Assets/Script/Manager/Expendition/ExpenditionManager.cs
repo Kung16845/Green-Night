@@ -3,11 +3,36 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using System.Linq;
-
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class ExpenditionManager : MonoBehaviour
 {
     public static ExpenditionManager Instance { get; private set; }
+    public GameObject FindGameObjectWithUIExSelectPlace()
+    {
+        // ดึง GameObjects ทั้งหมดในระดับ Root ของฉากปัจจุบัน
+        GameObject[] allGameObjects = SceneManager.GetActiveScene().GetRootGameObjects();
+
+        // วนลูปหา GameObjects และตรวจสอบว่ามี Script UIExSelectPlace หรือไม่
+        foreach (GameObject go in allGameObjects)
+        {
+            // ตรวจสอบใน GameObject และลูกของมัน (รวมถึง Inactive)
+            UIExSelectPlace[] components = go.GetComponentsInChildren<UIExSelectPlace>(true);
+
+            foreach (UIExSelectPlace component in components)
+            {
+                if (component != null)
+                {
+                    Debug.Log($"Found UIExSelectPlace on GameObject: {component.gameObject.name}");
+                    return component.gameObject; // Return ตัว GameObject
+                }
+            }
+        }
+
+        Debug.Log("No GameObject with UIExSelectPlace found.");
+        return null;
+    }
+
     private void Awake()
     {
         if (Instance == null)
@@ -19,6 +44,9 @@ public class ExpenditionManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
+        UIExSelectPlace uIExSelectPlace = FindGameObjectWithUIExSelectPlace().GetComponent<UIExSelectPlace>();
+        transformsUIEx = uIExSelectPlace.transformParentUIEx;
     }
 
     public NpcClass npcSelecying;
