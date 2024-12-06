@@ -55,6 +55,7 @@ public class LootingSystem : MonoBehaviour
             }
         }
     }
+
     void OnTriggerExit2D(Collider2D other)
     {
         inrange = false;
@@ -71,11 +72,19 @@ public class LootingSystem : MonoBehaviour
     {
         if (lootPool == null || lootPool.lootItems.Count == 0) return;
 
-        // Use the loot pool to get a random item
-        ItemData itemToLoot = lootPool.GetRandomItem();
-        inventoryItemPresent.AddItem(itemToLoot);
-        inventoryItemPresent.RefreshUIBox();
-        itemdropped = true;
+        // Use the loot pool to get a random item and amount
+        var lootResult = lootPool.GetRandomLoot();
+
+        if (lootResult.item != null && lootResult.amount > 0)
+        {
+            // Add the chosen quantity of this item to the inventory
+            for (int i = 0; i < lootResult.amount; i++)
+            {
+                inventoryItemPresent.AddItem(lootResult.item);
+            }
+            inventoryItemPresent.RefreshUIBox();
+            itemdropped = true;
+        }
     }
 
     private void UpdateLootProgressUI(float progress)
