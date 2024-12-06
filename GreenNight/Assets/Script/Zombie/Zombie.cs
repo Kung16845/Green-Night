@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 using UnityEngine.UI;
 public enum DamageType
 {
@@ -299,11 +300,24 @@ public class Zombie : MonoBehaviour
 
         // Show the hit marker with the determined color
         ShowHitMarker(hitMarkerColor);
-
+        FlashSpritesRed();
         // Apply damage effects and check for death
         ApplyDamageEffects(damageType);
         CheckForDeath();
-}
+    }
+    private void FlashSpritesRed()
+    {
+        SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer sprite in spriteRenderers)
+        {
+            Color originalColor = sprite.color;
+            sprite.DOColor(Color.red, 0.2f) // Tween to red over 0.2 seconds
+                .OnComplete(() =>
+                {
+                    sprite.DOColor(originalColor, 0.8f); // Return to the original color over 0.8 seconds
+                });
+        }
+    }
     private IEnumerator ArmourBroken()
     {
         canmove = false;
