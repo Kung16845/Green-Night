@@ -82,7 +82,7 @@ public class LootingSystem : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             inrange = true;
-            if (droppedItems.Count == 0)
+            if (droppedItems.Count == 0 && !itemdropped)
             {
                 spriteRenderer.DOColor(Color.green, 0.5f);
             }
@@ -94,10 +94,11 @@ public class LootingSystem : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             inrange = false;
-            if (droppedItems.Count == 0 && itemdropped)
+            if (droppedItems.Count == 0)
             {
                 spriteRenderer.DOColor(Color.white, 0.5f);
-                OnLootUIClosed();
+                if(itemdropped)
+                    OnLootUIClosed();
             }
             else if (droppedItems.Count >= 1)
             {
@@ -118,24 +119,32 @@ public class LootingSystem : MonoBehaviour
     private void GiveLoot()
     {
         if (lootPool == null || lootPool.lootItems.Count == 0) return;
-        var lootResult = lootPool.GetRandomLoot();
-        if (lootResult.item != null && lootResult.amount > 0)
+        List<LootPool.LootResult> lootResults = lootPool.GetRandomLoot();
+        if (lootResults == null || lootResults.Count == 0) return;
+
+        foreach (var lootResult in lootResults)
         {
-            ItemData newItemData = new ItemData
+            if (lootResult.item != null && lootResult.amount > 0)
             {
-                nameItem = lootResult.item.nameItem,
-                idItem = lootResult.item.idItem,
-                count = lootResult.amount,
-                maxCount = lootResult.item.maxCount,
-                itemtype = lootResult.item.itemtype
-            };
+                ItemData newItemData = new ItemData
+                {
+                    nameItem = lootResult.item.nameItem,
+                    idItem = lootResult.item.idItem,
+                    count = lootResult.amount,
+                    maxCount = lootResult.item.maxCount,
+                    itemtype = lootResult.item.itemtype
+                };
 
-            droppedItems.Add(newItemData);
+                droppedItems.Add(newItemData);
+            }
+        }
+
+        if (droppedItems.Count > 0)
+        {
             inventoryItemPresent.RefreshUIBox();
-
             itemdropped = true;
             OpenLootUI();
-            Debug.Log("CheckUI2");
+            Debug.Log("Loot Granted");
         }
     }
 
@@ -150,6 +159,10 @@ public class LootingSystem : MonoBehaviour
 
     public void OpenLootUI()
     {
+        // Prevent multiple UI openings
+        if (Uiisopened) return;
+        Uiisopened = true;
+
         // Clear any existing UI elements
         foreach (Transform child in itemsContainer)
         {
@@ -200,7 +213,6 @@ public class LootingSystem : MonoBehaviour
 
         gameObject.SetActive(true);
     }
-
 
     public void OnLootUIClosed()
     {
