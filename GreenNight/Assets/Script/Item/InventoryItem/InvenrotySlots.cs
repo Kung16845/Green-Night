@@ -4,6 +4,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 public class InvenrotySlots : MonoBehaviour, IDropHandler
 {
     public SlotType slotTypeInventory;
@@ -16,20 +17,32 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
     // Start is called before the first frame update
     void Start()
     {
+        // Find canvas and inventory item presenter in the active scene
         canvas = FindObjectOfType<Canvas>();
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
 
-        ScriptMoveItems[] objectsWithScript = Resources.FindObjectsOfTypeAll<ScriptMoveItems>();
-        foreach (var item in objectsWithScript)
+        // Get all objects of type ScriptMoveItems
+        if(uIMoveItemsBoxesToInventory == null)
         {
-            GameObject obj = item.gameObject;
-            if (!obj.activeInHierarchy)
+            ScriptMoveItems[] objectsWithScript = Resources.FindObjectsOfTypeAll<ScriptMoveItems>();
+
+            // Get the active scene
+            Scene activeScene = SceneManager.GetActiveScene();
+
+            foreach (var item in objectsWithScript)
             {
-                uIMoveItemsBoxesToInventory = obj;
+                GameObject obj = item.gameObject;
+
+                // Ensure the object is in the active scene and is not inactive
+                if (obj.scene == activeScene && !obj.activeInHierarchy)
+                {
+                    uIMoveItemsBoxesToInventory = obj;
+                    break; // Optional: Stop after finding the first match
+                }
             }
         }
     }
-
+    
     public void OnDrop(PointerEventData eventData)
     {
         // GameObject being dragged

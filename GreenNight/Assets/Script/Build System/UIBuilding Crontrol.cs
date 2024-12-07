@@ -9,6 +9,7 @@ public class UIBuildingCrontrol : MonoBehaviour
     public UIBuilding  largeuIBuilding;
     void OnEnable()
     {
+        UIBuilding  largeuIBuilding = FindObjectOfType<UIBuilding >();
         largeuIBuilding.DisableColliders();
     }
     void OnDisable()

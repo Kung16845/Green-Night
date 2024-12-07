@@ -15,7 +15,7 @@ public class LootingSystem : MonoBehaviour
     public float openDuration = 1000f; // 1000 = 1 second
     public Slider lootProgressSlider; 
     private float openProgress = 0f;
-    private bool isLooting = false;
+    public bool isLooting = false;
     public bool inrange;
     public bool itemdropped = false;
     private UIcontrollerExpidition uIcontrollerExpidition;
@@ -23,6 +23,7 @@ public class LootingSystem : MonoBehaviour
     public KeyCode lootKey = KeyCode.F;
     private InventoryItemPresent inventoryItemPresent;
     private ExpenditionManager expenditionManager;
+    private bool Uiisopened;
 
     private SpriteRenderer spriteRenderer;
 
@@ -30,7 +31,6 @@ public class LootingSystem : MonoBehaviour
     public List<ItemData> droppedItems = new List<ItemData>();
 
     // Tracks if we've already shown loot UI once
-    private bool lootUIOpened = false;
 
     void Start()
     {
@@ -39,11 +39,12 @@ public class LootingSystem : MonoBehaviour
         expenditionManager = FindObjectOfType<ExpenditionManager>();
         lootProgressSlider.gameObject.SetActive(false);
         spriteRenderer = GetComponent<SpriteRenderer>();
+        Uiisopened = false;
     }
 
     void Update()
     {
-        if (isLooting && !itemdropped)
+        if (inrange && !itemdropped)
         {
             if (Input.GetKey(lootKey))
             {
@@ -62,32 +63,28 @@ public class LootingSystem : MonoBehaviour
                 ResetLooting();
             }
         }
+        else if (inrange && itemdropped)
+        {
+            if(droppedItems.Count > 0 && (Input.GetKey(lootKey) || Input.GetKeyDown(KeyCode.Tab)))
+            {
+                Debug.Log("CheckUI");
+                if(Input.GetKey(lootKey))
+                {
+                    uIcontrollerExpidition.ToggleMainInventoryUI();
+                }
+                OpenLootUI();
+            }
+        }
     }
 
-    void OnTriggerStay2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             inrange = true;
-
-            // If loot hasn't been opened yet (no dropped items)
-            // turn green when in range and not looted yet:
-            if (droppedItems.Count == 0 && !lootUIOpened)
+            if (droppedItems.Count == 0)
             {
                 spriteRenderer.DOColor(Color.green, 0.5f);
-            }
-            if (!isLooting && (Input.GetKey(lootKey) || Input.GetKeyDown(KeyCode.Tab)))
-            {
-                if (droppedItems.Count > 0)
-                {
-                    // Show existing loot
-                    OpenLootUI();
-                }
-                else
-                {
-                    isLooting = true;
-                    openProgress = 0f;
-                }
             }
         }
     }
@@ -97,13 +94,14 @@ public class LootingSystem : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             inrange = false;
-
-            if (droppedItems.Count == 0)
+            if (droppedItems.Count == 0 && itemdropped)
             {
                 spriteRenderer.DOColor(Color.white, 0.5f);
+                OnLootUIClosed();
             }
-            else if (droppedItems.Count >= 1 && lootUIOpened)
+            else if (droppedItems.Count >= 1)
             {
+                OnLootUIClosed();
                 spriteRenderer.DOColor(Color.yellow, 0.5f);
             }
         }
@@ -120,7 +118,6 @@ public class LootingSystem : MonoBehaviour
     private void GiveLoot()
     {
         if (lootPool == null || lootPool.lootItems.Count == 0) return;
-
         var lootResult = lootPool.GetRandomLoot();
         if (lootResult.item != null && lootResult.amount > 0)
         {
@@ -137,8 +134,8 @@ public class LootingSystem : MonoBehaviour
             inventoryItemPresent.RefreshUIBox();
 
             itemdropped = true;
-            lootUIOpened = true;
             OpenLootUI();
+            Debug.Log("CheckUI2");
         }
     }
 
@@ -158,11 +155,8 @@ public class LootingSystem : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-
         PlayerInventory.SetActive(true);
-        uIcontrollerExpidition.ToggleInventoryUI();
         LootUI.SetActive(true);
-
         foreach (var item in droppedItems)
         {
             UIItemData prefabData = inventoryItemPresent.listUIItemPrefab.FirstOrDefault(prefab => prefab.idItem == item.idItem);
@@ -208,47 +202,11 @@ public class LootingSystem : MonoBehaviour
     }
 
 
-    public void CloseLootUI(bool grabbedAll)
+    public void OnLootUIClosed()
     {
-        OnLootUIClosed(grabbedAll);
-
-        foreach (Transform child in itemsContainer)
-        {
-            Destroy(child.gameObject);
-        }
-
-        gameObject.SetActive(false);
-    }
-
-    public void CollectAllItems()
-    {
-        foreach (var item in droppedItems)
-        {
-            expenditionManager.AddItemToInventorySlot(item);
-        }
-
-        droppedItems.Clear();
-    }
-
-    public void OnLootUIClosed(bool grabbedAll)
-    {
-        if (grabbedAll)
-        {
-            if (droppedItems.Count == 0)
-            {
-                gameObject.SetActive(false);
-            }
-        }
-        else
-        {
-            if (droppedItems.Count > 0)
-            {
-                spriteRenderer.DOColor(Color.yellow, 0.5f);
-            }
-        }
-
+        Debug.Log("CheckUI3");
+        Uiisopened = false;
         LootUI.SetActive(false);
-        uIcontrollerExpidition.ToggleInventoryUI();
         PlayerInventory.SetActive(false);
     }
 }

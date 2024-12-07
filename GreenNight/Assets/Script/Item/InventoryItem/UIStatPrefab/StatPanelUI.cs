@@ -8,4 +8,8 @@ public class StatPanelUI : MonoBehaviour
     public Image itemImage;
     public TextMeshProUGUI itemNameText;
     public Transform statContainer;
+    public void Destroythisobject()
+    {
+        Destroy(this);
+    }
 }
