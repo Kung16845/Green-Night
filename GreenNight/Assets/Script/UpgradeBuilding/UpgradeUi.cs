@@ -133,7 +133,7 @@ public class UpgradeUi : MonoBehaviour
         {
             // Remove the NPC from the available list and add to working list
             npcManager.listNpc.Remove(specialistNpc);
-            npcManager.listNpcWorkingMoreOneDay.Add(specialistNpc);
+            npcManager.listNpcWorking.Add(specialistNpc);
 
             // Store a reference to the NPC in the building
             currentBuildingScript.assignedSpecialistNpc = specialistNpc;

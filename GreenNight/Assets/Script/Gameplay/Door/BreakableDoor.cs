@@ -29,7 +29,7 @@ public class BreakableDoor : MonoBehaviour
     // Map the boolean flags to their respective item IDs
     private Dictionary<int, bool> requiredItems;
     void Awake()
-    {
+    {   
         if(isopen)
         {
             this.gameObject.SetActive(false);

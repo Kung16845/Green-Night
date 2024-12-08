@@ -105,7 +105,39 @@ public class SceneSystem : MonoBehaviour
         // timeManager.dateTime.day++;
         timeManager.dateTime.SetTimeStartDay();
     }
+    public void ReturnToMainSceneFromExpenditionScene()
+    {
+        // Unload all additive scenes
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+            if (scene.buildIndex != mainSceneIndex && scene.isLoaded)
+            {
+                SceneManager.UnloadSceneAsync(scene);
+            }
+        }
 
+        // Show all root GameObjects in the main scene
+        Scene mainScene = SceneManager.GetSceneByBuildIndex(mainSceneIndex);
+        if (mainScene.IsValid() && mainScene.isLoaded)
+        {
+            foreach (GameObject go in mainScene.GetRootGameObjects())
+            {
+                // go.SetActive(true); // Restore main scene objects
+                if (saveObjectActiveMainScene.objectActiveStates.TryGetValue(go, out bool wasActive))
+                {
+                    go.SetActive(wasActive); // Restore the previous active state
+                }
+            }
+        }
+        if(tutorialManager == null)
+        {
+            saveDataDDA.AddData();
+            Debug.Log("SaveData");
+        }
+        // timeManager.dateTime.day++;
+        
+    }
     private void OnEnable()
     {
         timeManager = FindObjectOfType<TimeManager>();

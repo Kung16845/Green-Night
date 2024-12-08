@@ -68,5 +68,6 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         {
             inventoryItemPresent.ResetAmmoHighlighting();
         }
+        inventoryItemPresent.RefreshUIBox();
     }
 }
