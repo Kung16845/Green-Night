@@ -811,7 +811,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2145375251180670092}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5745702691512508597}
+        m_TargetAssemblyTypeName: UIInventoryEX, Assembly-CSharp
+        m_MethodName: Nottogive
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &569686687556215354
 GameObject:
   m_ObjectHideFlags: 0
@@ -3959,6 +3971,10 @@ MonoBehaviour:
   isArriveEx: 0
   isArriveHome: 0
   isExpenditon: 0
+  isuseCar: 0
+  isuseTunnel: 0
+  iswalk: 0
+  istraveling: 0
   finishDayCraftingTime: 0
   finishHourCraftingTime: 0
   finishMinutesCraftingTime: 0
@@ -3968,6 +3984,8 @@ MonoBehaviour:
   uINpcSending: {fileID: 3629969385308090561}
   uINpcArriveEx: {fileID: 2100390227209849265}
   uINpcGoBack: {fileID: 738900825090623597}
+  CloseButton: {fileID: 3946670454471845076}
+  globalstat: {fileID: 0}
   listEvnet:
   - {fileID: 3334378084665253717}
   - {fileID: 715547344578907855}
@@ -7151,10 +7169,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2071801543400052025}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 5745702691512508597}
+        m_TargetAssemblyTypeName: UIInventoryEX, Assembly-CSharp
+        m_MethodName: DeleteObjectAndTransferInventory
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8101,7 +8119,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6221507852947747136}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5745702691512508597}
+        m_TargetAssemblyTypeName: UIInventoryEX, Assembly-CSharp
+        m_MethodName: Nottogive
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4791596406582078324
 GameObject:
   m_ObjectHideFlags: 0
@@ -12733,7 +12763,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5875719363673184322}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5745702691512508597}
+        m_TargetAssemblyTypeName: UIInventoryEX, Assembly-CSharp
+        m_MethodName: Nottogive
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8074840771367530486
 GameObject:
   m_ObjectHideFlags: 0

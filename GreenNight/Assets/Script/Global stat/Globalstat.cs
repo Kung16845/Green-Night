@@ -22,10 +22,12 @@ public class Globalstat : MonoBehaviour
     public float fuelefficiency;
     [Header("Expidition")]
     public float RadioCooldownspeed;
-    public float Outpostrewardspeed;
+    public float OutpostrewardAmp;
     public float expiditionspeed;
     public float expiditionrisk;
-    public float OutpostLimit;
+    public int availablecar;
+    public int OutpostLimit;
+    public bool Tunnelaviable = false;
     [Header("Community Stat")]
     public float illResistance;
     public float Npcchange;
@@ -33,7 +35,8 @@ public class Globalstat : MonoBehaviour
     public int activeCureBed;
     public float Discontent;
     public float Growingspeed;
-
+    [Header("Exipiditionaction")]
+    public bool expiditionactiveeventactive = false;
     private int bedFactor = 0;
     //ActiveBed
     public void AddBedsFromBuilding(int bedContribution)
@@ -79,11 +82,11 @@ public class Globalstat : MonoBehaviour
         Discontent = Discontent + oldContribution - newContribution;
     }
     //OutpostLimit
-    public void IncreaseOutpostlimit(float Outpostcontribution)
+    public void IncreaseOutpostlimit(int Outpostcontribution)
     {
         OutpostLimit += Outpostcontribution;
     }
-    public void UpdateoOutpostContribution(float oldContribution, float newContribution)
+    public void UpdateoOutpostContribution(int oldContribution, int newContribution)
     {
         OutpostLimit = OutpostLimit + newContribution - oldContribution;
     }
@@ -94,16 +97,17 @@ public class Globalstat : MonoBehaviour
     }
     public void UpdateRiskofExipiditionContribution(float oldContribution, float newContribution)
     {
+        Debug.Log("Function Called");
         expiditionrisk = expiditionrisk + oldContribution - newContribution;
     }
     //IncreaseReward speed
     public void IncreaseRewardspeed(float RewardSpeedContribution)
     {
-       Outpostrewardspeed -= RewardSpeedContribution;
+       OutpostrewardAmp -= RewardSpeedContribution;
     }
     public void UpdateRewardSpeedContribution(float oldContribution, float newContribution)
     {
-       Outpostrewardspeed = Outpostrewardspeed + newContribution - oldContribution;
+       OutpostrewardAmp = OutpostrewardAmp + newContribution - oldContribution;
     }
     //IncreaseNpcchage
     public void IncreaseNpcchange(float NpcchangeContribution)

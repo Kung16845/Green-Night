@@ -12,9 +12,12 @@ public class UIExSelectPlace : MonoBehaviour
     public Image imagePlace;
     public float riskValue;
     public int indexSceneExpendition;
+    public Globalstat globalstat;
     public Transform transformParentUIEx;
     public Button buttonWalk;
     public Button buttonCar;
+    public Button Underground;
+
     private void Awake() {
         ExpenditionManager expenditionManager = FindObjectOfType<ExpenditionManager>();
         expenditionManager.transformsUIEx = transformParentUIEx;
@@ -27,21 +30,41 @@ public class UIExSelectPlace : MonoBehaviour
         imagePlace.sprite = dataExpendition.spriteImagePlace;
         riskValue = dataExpendition.riskEvent;
         indexSceneExpendition = dataExpendition.indexSceneExpendition;
-        SetButton(buttonCar,dataExpendition.timescaleCar);
-        SetButton(buttonWalk,dataExpendition.timescaleWalk);
 
+        // Check if cars are available
+        if(globalstat.Tunnelaviable)
+        {
+            Underground.gameObject.SetActive(true);
+            SetButton(Underground, dataExpendition.timescaleWalk, false, false, true); // Tunnel mode
+        }
+        else if(globalstat.Tunnelaviable)
+            Underground.gameObject.SetActive(false);
+        if (globalstat.availablecar > 0)
+        {
+            buttonCar.gameObject.SetActive(true);
+            SetButton(buttonCar, dataExpendition.timescaleCar, true, false, false); // Car mode
+        }
+        if (globalstat.availablecar <= 0)
+            buttonCar.gameObject.SetActive(false);
+        SetButton(buttonWalk, dataExpendition.timescaleWalk, false, true, false); // Walk mode
     }
-    public void SetButton(Button button,float timescale)
-    {   
-      
+
+    public void SetButton(Button button, float timescale, bool isCar, bool isWalk, bool isTunnel)
+    {
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => AddButtonExpendition(button,timescale));
-        
+        button.onClick.AddListener(() => AddButtonExpendition(button, timescale, isCar, isWalk, isTunnel));
     }
-    public void AddButtonExpendition(Button button,float timescale)
-    {   
-        // Debug.Log("Add Button Walk and Car");
-        if(transformParentUIEx.childCount == 2) return;
-        ExpenditionManager.Instance.CreateInventorySetExpendition(timescale, riskValue,indexSceneExpendition);
-    }   
+    public void AddButtonExpendition(Button button, float timescale, bool isCar, bool isWalk, bool isTunnel)
+    {
+        // Debug.Log("Add Button for Car, Walk, or Tunnel");
+        if (transformParentUIEx.childCount == 2) return;
+
+        // Log transport mode for debugging purposes
+        if (isCar) Debug.Log("Selected mode: Car");
+        if (isWalk) Debug.Log("Selected mode: Walk");
+        if (isTunnel) Debug.Log("Selected mode: Tunnel");
+
+        // Pass the transportation mode to the expedition manager
+        ExpenditionManager.Instance.CreateInventorySetExpendition(timescale, riskValue, indexSceneExpendition, isCar, isWalk, isTunnel);
+    }
 }

@@ -52,6 +52,7 @@ public class ExpenditionManager : MonoBehaviour
     public NpcClass npcSelecying;
     public List<ItemData> listItemDataInventoryslot; // Items in the player's inventory (not the box)
     public List<ItemData> listItemDataInventoryEqicment;
+    public List<ItemData> listItemDataCarInventory;
     public GameObject uIExOne;
     public GameObject uIExTwo;
     public GameObject playerObject;
@@ -59,6 +60,10 @@ public class ExpenditionManager : MonoBehaviour
     public Transform transformsUIEx;
     public UIButtonEX uIButtonEXOne;
     public UIButtonEX uIButtonEXTwo;
+    public bool isuseCar;
+    public bool isuseTunnel;
+    public bool iswalk;
+
     public Globalstat globalstat;
     public InventoryItemPresent inventoryItemPresent;
 
@@ -158,7 +163,7 @@ public class ExpenditionManager : MonoBehaviour
         }
     }
 
-    public void CreateInventorySetExpendition(float timeScale, float riskValue, int indexSceneExpendition)
+    public void CreateInventorySetExpendition(float timeScale, float riskValue, int indexSceneExpendition, bool isCar, bool isWalk, bool isTunnel)
     {
         if (uIInventoryExPrefab == null)
         {
@@ -171,11 +176,29 @@ public class ExpenditionManager : MonoBehaviour
         UIInventoryEX uIInventoryEx = uIEx.GetComponent<UIInventoryEX>();
         uIInventoryEx.inventoryItemPresent = inventoryItemPresent;
         uIInventoryEx.timeScale = timeScale;
-        uIInventoryEx.riskValue = riskValue;
+
+        // Adjust riskValue based on global factors and transport mode
+        uIInventoryEx.riskValue = Mathf.Min(riskValue + globalstat.expiditionrisk,90);
+
+        if (isCar)
+        {
+            uIInventoryEx.riskValue = Mathf.Min(uIInventoryEx.riskValue * 2, 90);
+            globalstat.availablecar -= 1;
+        }
+        if (isTunnel)
+        {
+            uIInventoryEx.riskValue = 0; // Tunnel has no risk
+        }
+
         uIInventoryEx.indexSceneExpendition = indexSceneExpendition;
+
+        // Store mode information for UI or logic, if needed
+        uIInventoryEx.isuseCar = isCar;
+        uIInventoryEx.iswalk = isWalk;
+        uIInventoryEx.isuseTunnel = isTunnel;
+
         uIEx.SetActive(true);
     }
-
     public void SetUIExButton(int indexEXUI, Sprite spriteHeadNpc, string textdayFinish)
     {
         if (indexEXUI == 1)
