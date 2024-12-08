@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UIcontrollerExpidition : MonoBehaviour
 {
+    public GameObject MainInventoryUI;
     public GameObject InventoryUI;
     public ActionController actionController;
     private bool isInventoryActive = false;
@@ -15,26 +16,29 @@ public class UIcontrollerExpidition : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            ToggleInventoryUI();
+            ToggleMainInventoryUI();
         }
 
     }
-    void ToggleUI(bool inventoryActive)
+    void ToggleUI(bool maininventoryActive,bool InventoryUIbakcapck)
     {
-        if (InventoryUI != null) InventoryUI.SetActive(inventoryActive);
+        if (MainInventoryUI != null) MainInventoryUI.SetActive(maininventoryActive);
+        if  (InventoryUI != null) InventoryUI.SetActive(InventoryUIbakcapck);
     }
-    public void ToggleInventoryUI()
+    public void ToggleMainInventoryUI()
     {
         isInventoryActive = !isInventoryActive;
         if (isInventoryActive)
         {
+            actionController.canwalk = false;
             actionController.canuseweapon = false;
-            ToggleUI(true);
+            ToggleUI(true,true);
         }
         else
         {
+            actionController.canwalk = true;
             actionController.canuseweapon = true;
-            ToggleUI(false);
+            ToggleUI(false,false);
         }
     }
 }

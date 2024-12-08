@@ -32,6 +32,7 @@ public class BuildManager : MonoBehaviour
     [Header("Building Tracking")]
     public List<BuiltBuildingInfo> builtBuildings = new List<BuiltBuildingInfo>();
     public List<Collider2D> collidersToManage = new List<Collider2D>();
+    private Dictionary<int, System.Action<int>> resourceHandlers;
     public Tile[] tiles;
     private void Awake()
     {
@@ -44,8 +45,28 @@ public class BuildManager : MonoBehaviour
             Instance = this;
         }
         CollectColliders();
+        InitializeResourceHandlers();
     }
-
+    private void InitializeResourceHandlers()
+    {
+        // Map item IDs to their respective resource update logic
+        resourceHandlers = new Dictionary<int, System.Action<int>>
+        {
+            { 1020129, amount => { steel += amount; Debug.Log($"Added {amount} Steel. Total: {steel}"); } },
+            { 1020128, amount => { plank += amount; Debug.Log($"Added {amount} Plank. Total: {plank}"); } },
+            { 1020130, amount => { food += amount; Debug.Log($"Added {amount} Food. Total: {food}"); } },
+            { 1020131, amount => { fuel += amount; Debug.Log($"Added {amount} Fuel. Total: {fuel}"); } },
+            { 1020132, amount => { ammo += amount; Debug.Log($"Added {amount} Ammo. Total: {ammo}"); } }
+        };
+    }
+    public void AddResource(int itemId, int quantity)
+    {
+        if (resourceHandlers.TryGetValue(itemId, out var updateResource))
+        {
+            updateResource(quantity);
+            UpdateResoureDisplay();
+        }
+    }
     public void UpdateResoureDisplay()
     {
         steelDisplay.text = steel.ToString();

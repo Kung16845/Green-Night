@@ -15,20 +15,24 @@ public class SaveAndLoadExpendition : MonoBehaviour
     [SerializeField] private string savePathDataExpendition;
     private void Awake()
     {
-        transformParentUIEx = gameManager.expenditionManager.transformsUIEx;
+        
         savePathDataExpendition = Path.Combine(Application.dataPath, "dataExpendition.json");
     }
     public void SaveUIExpemdition()
     {
-
+        transformParentUIEx = gameManager.expenditionManager.transformsUIEx;
+        AddDataBeforeSaveToJaon();
         string json = JsonUtility.ToJson(dataCollentUIEX, true);
         File.WriteAllText(savePathDataExpendition, json);
     }
     public void AddDataBeforeSaveToJaon()
     {
-        if (transformParentUIEx.childCount == 0) return;
+        if (transformParentUIEx.childCount == 0) {
+            Debug.Log("Child count = 0");
+            return;
+        }
 
-        UIInventoryEX[] listUIEX = transformParentUIEx.GetComponentsInChildren<UIInventoryEX>();
+        UIInventoryEX[] listUIEX = transformParentUIEx.GetComponentsInChildren<UIInventoryEX>(true);
 
         foreach (UIInventoryEX uIEx in listUIEX)
         {
@@ -64,12 +68,18 @@ public class SaveAndLoadExpendition : MonoBehaviour
             string json = File.ReadAllText(savePathDataExpendition);
             dataCollentUIEX = JsonUtility.FromJson<DataCollentUIEX>(json);
             Debug.Log($"Data loaded from {savePathDataExpendition}");
+            
+            foreach (DataSaveExpendition dataUIEX in dataCollentUIEX.listdataUIExpemdition)
+            {
+                CreateUIEX(dataUIEX);
+            }
         }
         else
         {
             dataCollentUIEX = new DataCollentUIEX();
             Debug.Log("No data file found. Created new data collection.");
         }
+
     }
     public void CreateUIEX(DataSaveExpendition dataSaveExpendition)
     {
@@ -77,7 +87,14 @@ public class SaveAndLoadExpendition : MonoBehaviour
         GameObject uIEx = Instantiate(expenditionManager.uIInventoryExPrefab, transformParentUIEx);
         UIInventoryEX newUIInventoryEX = uIEx.GetComponent<UIInventoryEX>();
 
-        newUIInventoryEX.npcSelecying = gameManager.npcManager.listNpc.FirstOrDefault(npc => npc.idnpc == dataSaveExpendition.idNPCExpendition);
+        NpcClass npcSentEx = gameManager.npcManager.listNpcWorkingWIthInOneDay.FirstOrDefault(npc => npc.idnpc == dataSaveExpendition.idNPCExpendition);
+
+        if(npcSentEx == null)
+        {
+            npcSentEx = gameManager.npcManager.listNpcWorkingMoreOneDay.FirstOrDefault(npc => npc.idnpc == dataSaveExpendition.idNPCExpendition);
+        }
+        
+        newUIInventoryEX.npcSelecying = npcSentEx;
 
         newUIInventoryEX.listItemDataInventoryEqicment = dataSaveExpendition.listItemDataInventoryEqicment;
         newUIInventoryEX.listItemDataInventorySlot = dataSaveExpendition.listItemDataInventorySlot;

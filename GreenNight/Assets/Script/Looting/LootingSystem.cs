@@ -11,12 +11,11 @@ public class LootingSystem : MonoBehaviour
     [SerializeField] private GameObject lootItemUIPrefab;
     [SerializeField] private GameObject LootUI;
     [SerializeField] private GameObject PlayerInventory;
-    private LootingSystem currentLootSystem;
     public LootPool lootPool; 
     public float openDuration = 1000f; // 1000 = 1 second
     public Slider lootProgressSlider; 
     private float openProgress = 0f;
-    private bool isLooting = false;
+    public bool isLooting = false;
     public bool inrange;
     public bool itemdropped = false;
     private UIcontrollerExpidition uIcontrollerExpidition;
@@ -24,6 +23,8 @@ public class LootingSystem : MonoBehaviour
     public KeyCode lootKey = KeyCode.F;
     private InventoryItemPresent inventoryItemPresent;
     private ExpenditionManager expenditionManager;
+    private ActionController actionController;
+    private bool Uiisopened;
 
     private SpriteRenderer spriteRenderer;
 
@@ -31,33 +32,32 @@ public class LootingSystem : MonoBehaviour
     public List<ItemData> droppedItems = new List<ItemData>();
 
     // Tracks if we've already shown loot UI once
-    private bool lootUIOpened = false;
 
     void Start()
     {
+        actionController = FindObjectOfType<ActionController>();
         uIcontrollerExpidition = FindObjectOfType<UIcontrollerExpidition>();
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
         expenditionManager = FindObjectOfType<ExpenditionManager>();
         lootProgressSlider.gameObject.SetActive(false);
         spriteRenderer = GetComponent<SpriteRenderer>();
+        Uiisopened = false;
     }
 
     void Update()
     {
-        if (isLooting && !itemdropped)
+        if (inrange && !itemdropped)
         {
             if (Input.GetKey(lootKey))
             {
                 openProgress += (100f / (openDuration / 1000f)) * Time.deltaTime;
                 openProgress = Mathf.Clamp(openProgress, 0f, 100f);
                 UpdateLootProgressUI(openProgress);
-
+                actionController.canwalk = false;
                 if (openProgress >= 100f)
                 {
                     GiveLoot();
                     ResetLooting();
-                    // At this point, the loot UI should be shown to the player, 
-                    // do not disable the game object yet.
                 }
             }
             else if (Input.GetKeyUp(lootKey))
@@ -65,36 +65,28 @@ public class LootingSystem : MonoBehaviour
                 ResetLooting();
             }
         }
+        else if (inrange && itemdropped)
+        {
+            if(droppedItems.Count > 0 && (Input.GetKey(lootKey) || Input.GetKeyDown(KeyCode.Tab)))
+            {
+                Debug.Log("CheckUI");
+                if(Input.GetKey(lootKey))
+                {
+                    uIcontrollerExpidition.ToggleMainInventoryUI();
+                }
+                OpenLootUI();
+            }
+        }
     }
 
-    void OnTriggerStay2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             inrange = true;
-
-            // If loot hasn't been opened yet (no dropped items)
-            // turn green when in range and not looted yet:
-            if (droppedItems.Count == 0 && !lootUIOpened)
+            if (droppedItems.Count == 0 && !itemdropped)
             {
                 spriteRenderer.DOColor(Color.green, 0.5f);
-            }
-
-            // If player presses loot key and loot isn't currently being opened:
-            if (!isLooting && Input.GetKey(lootKey))
-            {
-                // If items are already dropped (previously opened),
-                // just show loot UI again without progress:
-                if (droppedItems.Count > 0)
-                {
-                    // Show existing loot
-                    OpenLootUI(this);
-                }
-                else
-                {
-                    isLooting = true;
-                    openProgress = 0f;
-                }
             }
         }
     }
@@ -104,11 +96,16 @@ public class LootingSystem : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             inrange = false;
-
-            // Revert color when out of range, unless partially looted:
             if (droppedItems.Count == 0)
             {
                 spriteRenderer.DOColor(Color.white, 0.5f);
+                if(itemdropped)
+                    OnLootUIClosed();
+            }
+            else if (droppedItems.Count >= 1)
+            {
+                OnLootUIClosed();
+                spriteRenderer.DOColor(Color.yellow, 0.5f);
             }
         }
     }
@@ -118,32 +115,39 @@ public class LootingSystem : MonoBehaviour
         isLooting = false;
         openProgress = 0f;
         UpdateLootProgressUI(openProgress);
+        actionController.canwalk = true;
         lootProgressSlider.gameObject.SetActive(false);
     }
 
     private void GiveLoot()
     {
         if (lootPool == null || lootPool.lootItems.Count == 0) return;
+        List<LootPool.LootResult> lootResults = lootPool.GetRandomLoot();
+        if (lootResults == null || lootResults.Count == 0) return;
 
-        var lootResult = lootPool.GetRandomLoot();
-        if (lootResult.item != null && lootResult.amount > 0)
+        foreach (var lootResult in lootResults)
         {
-            // Instead of directly adding to inventory, store them in droppedItems
-            ItemData newItemData = new ItemData
+            if (lootResult.item != null && lootResult.amount > 0)
             {
-                nameItem = lootResult.item.nameItem,
-                idItem = lootResult.item.idItem,
-                count = lootResult.amount,
-                maxCount = lootResult.item.maxCount,
-                itemtype = lootResult.item.itemtype
-            };
+                ItemData newItemData = new ItemData
+                {
+                    nameItem = lootResult.item.nameItem,
+                    idItem = lootResult.item.idItem,
+                    count = lootResult.amount,
+                    maxCount = lootResult.item.maxCount,
+                    itemtype = lootResult.item.itemtype
+                };
 
-            droppedItems.Add(newItemData);
+                droppedItems.Add(newItemData);
+            }
+        }
+
+        if (droppedItems.Count > 0)
+        {
             inventoryItemPresent.RefreshUIBox();
-
             itemdropped = true;
-            lootUIOpened = true;
-            OpenLootUI(this);
+            OpenLootUI();
+            Debug.Log("Loot Granted");
         }
     }
 
@@ -156,10 +160,11 @@ public class LootingSystem : MonoBehaviour
         }
     }
 
-    // Called after loot is generated or when the player re-interacts with a partially looted container:
-    public void OpenLootUI(LootingSystem lootSystem)
+    public void OpenLootUI()
     {
-        currentLootSystem = lootSystem;
+        // Prevent multiple UI openings
+        if (Uiisopened) return;
+        Uiisopened = true;
 
         // Clear any existing UI elements
         foreach (Transform child in itemsContainer)
@@ -167,47 +172,41 @@ public class LootingSystem : MonoBehaviour
             Destroy(child.gameObject);
         }
         PlayerInventory.SetActive(true);
-        uIcontrollerExpidition.ToggleInventoryUI();
         LootUI.SetActive(true);
-        List<ItemData> droppedItems = currentLootSystem.GetDroppedItems(); 
         foreach (var item in droppedItems)
         {
-            UIItemData prefabData = inventoryItemPresent.listUIItemPrefab
-            .FirstOrDefault(prefab => prefab.idItem == item.idItem);
+            UIItemData prefabData = inventoryItemPresent.listUIItemPrefab.FirstOrDefault(prefab => prefab.idItem == item.idItem);
 
             if (prefabData != null)
             {
-                // Instantiate the UI element for this item
-                GameObject itemUI = Instantiate(prefabData.gameObject, itemsContainer);
+                // Instantiate the UI item and get the necessary components
+                GameObject newItemUI = Instantiate(prefabData.gameObject, itemsContainer);
+                UIItemData uiItemData = newItemUI.GetComponent<UIItemData>();
+                uiItemData.originatingLootSystem = this;
 
-                // Get the UIItemData and ItemClass components from the instantiated object
-                UIItemData uIItemData = itemUI.GetComponent<UIItemData>();
-                ItemClass itemClass = itemUI.GetComponent<ItemClass>();
+                ItemClass itemClass = newItemUI.GetComponent<ItemClass>();
 
-                // Set itemClass fields based on the ItemData 'item'
+                // Set up the itemClass properties from the item data
                 itemClass.nameItem = item.nameItem;
                 itemClass.idItem = item.idItem;
                 itemClass.quantityItem = item.count;
                 itemClass.maxCountItem = item.maxCount;
                 itemClass.itemtype = item.itemtype;
 
-                // Set UIItemData fields
-                uIItemData.idItem = item.idItem;
-                uIItemData.nameItem = item.nameItem;
-                // Set the parent slot type if you know it, for example:
-                uIItemData.slotTypeParent = SlotType.SlotBoxes;
+                // Set up the UIItemData properties
+                uiItemData.idItem = item.idItem;
+                uiItemData.nameItem = item.nameItem;
+                uiItemData.slotTypeParent = SlotType.SlotBoxes;
 
-                // Get the icon from InventoryItemPresent
+                // Assign the item icon if available
                 Sprite icon = inventoryItemPresent.GetItemIconByID(item.idItem);
                 if (icon != null)
                 {
-                    // itemClass.IconSprite is an Image, so let's link it to uIItemData.itemIconImage
-                    itemClass.IconSprite = uIItemData.itemIconImage;
-                    itemClass.IconSprite.sprite = icon;
+                    uiItemData.itemIconImage.sprite = icon;
                 }
 
-                // Update the UI to reflect this item's data
-                uIItemData.UpdateDataUI(itemClass);
+                // Update the UI with the new item data
+                uiItemData.UpdateDataUI(itemClass);
             }
             else
             {
@@ -215,67 +214,14 @@ public class LootingSystem : MonoBehaviour
             }
         }
 
-        // Show the UI panel
         gameObject.SetActive(true);
     }
 
-    // This method should be called by your UI once the player is done interacting:
-    // grabbedAll: true if player took all items, false if left some behind.
-    public void CloseLootUI(bool grabbedAll)
+    public void OnLootUIClosed()
     {
-        if (currentLootSystem != null)
-        {
-            // Notify the LootingSystem that the UI is closing
-            currentLootSystem.OnLootUIClosed(grabbedAll);
-        }
-
-        // Clear the UI container
-        foreach (Transform child in itemsContainer)
-        {
-            Destroy(child.gameObject);
-        }
-
-        // Hide the UI
-        gameObject.SetActive(false);
-        currentLootSystem = null;
-    }
-    
-    public List<ItemData> GetDroppedItems()
-    {
-        // Return the droppedItems list (assuming droppedItems is a List<ItemData>)
-        return droppedItems;
-    }
-
-    // Called when the player chooses to grab all items from the UI.
-    public void CollectAllItems()
-    {
-        
-        foreach (var item in droppedItems)
-        {
-            expenditionManager.AddItemToInventorySlot(item);
-        }
-
-        droppedItems.Clear();
-    }
-    public void OnLootUIClosed(bool grabbedAll)
-    {
-        if (grabbedAll)
-        {
-            // Player took all items
-            if (droppedItems.Count == 0)
-            {
-                gameObject.SetActive(false);
-            }
-        }
-        else
-        {
-            if (droppedItems.Count > 0)
-            {
-                spriteRenderer.DOColor(Color.yellow, 0.5f);
-            }
-        }
+        Debug.Log("CheckUI3");
+        Uiisopened = false;
         LootUI.SetActive(false);
-        uIcontrollerExpidition.ToggleInventoryUI();
         PlayerInventory.SetActive(false);
     }
 }
