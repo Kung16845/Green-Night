@@ -66,10 +66,6 @@ public class BuildManager : MonoBehaviour
             updateResource(quantity);
             UpdateResoureDisplay();
         }
-        else
-        {
-            Debug.LogWarning($"No resource handler found for Item ID: {itemId}");
-        }
     }
     public void UpdateResoureDisplay()
     {

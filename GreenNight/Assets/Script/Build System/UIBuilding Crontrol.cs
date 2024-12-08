@@ -7,9 +7,12 @@ using UnityEngine.UI;
 public class UIBuildingCrontrol : MonoBehaviour
 {
     public UIBuilding  largeuIBuilding;
+    void Start()
+    {
+       largeuIBuilding = FindObjectOfType<UIBuilding >();
+    }
     void OnEnable()
     {
-        UIBuilding  largeuIBuilding = FindObjectOfType<UIBuilding >();
         largeuIBuilding.DisableColliders();
     }
     void OnDisable()

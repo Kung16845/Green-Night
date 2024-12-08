@@ -23,6 +23,7 @@ public class LootingSystem : MonoBehaviour
     public KeyCode lootKey = KeyCode.F;
     private InventoryItemPresent inventoryItemPresent;
     private ExpenditionManager expenditionManager;
+    private ActionController actionController;
     private bool Uiisopened;
 
     private SpriteRenderer spriteRenderer;
@@ -34,6 +35,7 @@ public class LootingSystem : MonoBehaviour
 
     void Start()
     {
+        actionController = FindObjectOfType<ActionController>();
         uIcontrollerExpidition = FindObjectOfType<UIcontrollerExpidition>();
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
         expenditionManager = FindObjectOfType<ExpenditionManager>();
@@ -51,7 +53,7 @@ public class LootingSystem : MonoBehaviour
                 openProgress += (100f / (openDuration / 1000f)) * Time.deltaTime;
                 openProgress = Mathf.Clamp(openProgress, 0f, 100f);
                 UpdateLootProgressUI(openProgress);
-
+                actionController.canwalk = false;
                 if (openProgress >= 100f)
                 {
                     GiveLoot();
@@ -113,6 +115,7 @@ public class LootingSystem : MonoBehaviour
         isLooting = false;
         openProgress = 0f;
         UpdateLootProgressUI(openProgress);
+        actionController.canwalk = true;
         lootProgressSlider.gameObject.SetActive(false);
     }
 

@@ -324,12 +324,7 @@ public class UIInventory : MonoBehaviour
                 {
                     BuildManager.Instance.AddResource(itemData.idItem, itemData.count);
                 }
-                else
-                {
-                    // For items that are not resources, add to inventory
-                    inventoryItemPresent.AddItem(itemData);
-                }
-
+                inventoryItemPresent.AddItem(itemData);
                 // Destroy the item GameObject
                 Destroy(itemClass.gameObject);
             }

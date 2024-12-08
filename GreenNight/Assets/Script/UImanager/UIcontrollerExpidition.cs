@@ -30,11 +30,13 @@ public class UIcontrollerExpidition : MonoBehaviour
         isInventoryActive = !isInventoryActive;
         if (isInventoryActive)
         {
+            actionController.canwalk = false;
             actionController.canuseweapon = false;
             ToggleUI(true,true);
         }
         else
         {
+            actionController.canwalk = true;
             actionController.canuseweapon = true;
             ToggleUI(false,false);
         }
