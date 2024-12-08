@@ -87,12 +87,8 @@ public class SaveAndLoadExpendition : MonoBehaviour
         GameObject uIEx = Instantiate(expenditionManager.uIInventoryExPrefab, transformParentUIEx);
         UIInventoryEX newUIInventoryEX = uIEx.GetComponent<UIInventoryEX>();
 
-        NpcClass npcSentEx = gameManager.npcManager.listNpcWorkingWIthInOneDay.FirstOrDefault(npc => npc.idnpc == dataSaveExpendition.idNPCExpendition);
+        NpcClass npcSentEx = gameManager.npcManager.listNpcWorking.FirstOrDefault(npc => npc.idnpc == dataSaveExpendition.idNPCExpendition);
 
-        if(npcSentEx == null)
-        {
-            npcSentEx = gameManager.npcManager.listNpcWorkingMoreOneDay.FirstOrDefault(npc => npc.idnpc == dataSaveExpendition.idNPCExpendition);
-        }
         
         newUIInventoryEX.npcSelecying = npcSentEx;
 

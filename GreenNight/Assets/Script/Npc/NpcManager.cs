@@ -16,8 +16,8 @@ public class NpcManager : MonoBehaviour
     public List<FeedCoutume> listFeedCoutume = new List<FeedCoutume>();
     [Header("Npc")]
     public List<NpcClass> listNpc = new List<NpcClass>();
-    public List<NpcClass> listNpcWorkingWIthInOneDay = new List<NpcClass>();
-    public List<NpcClass> listNpcWorkingMoreOneDay = new List<NpcClass>();
+    public List<NpcClass> listNpcWorking = new List<NpcClass>();
+    // public List<NpcClass> listNpcWorkingMoreOneDay = new List<NpcClass>();
     public TMP_Dropdown dropdown;
     public UIInventory uIInventory;
     public InventoryItemPresent inventoryItemPresent;
@@ -119,14 +119,14 @@ public class NpcManager : MonoBehaviour
     {
         NpcClass npcWorking = listNpc.FirstOrDefault(npc => npc.idnpc == idNpc);
 
-        if (isWithinDay)
-            listNpcWorkingWIthInOneDay.Add(npcWorking);
-        else
-            listNpcWorkingMoreOneDay.Add(npcWorking);
+        // if (isWithinDay)
+        //     listNpcWorking.Add(npcWorking);
+        // else
+        //     listNpcWorkingMoreOneDay.Add(npcWorking);
 
         listNpc.Remove(npcWorking);
 
-        listNpcWorkingWIthInOneDay.Add(npcWorking);
+        listNpcWorking.Add(npcWorking);
     }
     
     public void OnDropdownValueChanged(int selectedValue)

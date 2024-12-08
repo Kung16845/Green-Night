@@ -18,6 +18,7 @@ public class ScriptMoveItems : MonoBehaviour
     private void OnEnable()
     {
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
+        uIInventory = FindObjectOfType<UIInventory>();
         // Debug.Log("Open UI ScriptMoveItens");
     }
     void Start()
@@ -28,7 +29,7 @@ public class ScriptMoveItems : MonoBehaviour
         countText.text = countItemMove.ToString();
 
     }
-   public void IncreateCountItem(int count)
+    public void IncreateCountItem(int count)
     {
         countItemMove += count;
         SlotType slotTypeItemMove = itemClassMove.gameObject.GetComponentInParent<InvenrotySlots>().slotTypeInventory;
@@ -300,6 +301,7 @@ public class ScriptMoveItems : MonoBehaviour
         itemClassInChild = null;
         itemClassMove = null;
         inventoryItemPresent.RefreshUIBox();
+        uIInventory.RefreshUIBoxCategory(uIInventory.currentNumCategory);
         gameObject.SetActive(false);
     }
 
@@ -316,7 +318,8 @@ public class ScriptMoveItems : MonoBehaviour
         DraggableItem draggableItemMove = itemClassMove.gameObject.GetComponent<DraggableItem>();
         draggableItemMove.transform.SetParent(draggableItemMove.parentBeforeDray);
         draggableItemMove.parentAfterDray = draggableItemMove.parentBeforeDray;
-        if(draggableItemMove.parentBeforeDray == inventoryItemPresent.transformsBoxes){
+        if (draggableItemMove.parentBeforeDray == inventoryItemPresent.transformsBoxes)
+        {
             Destroy(draggableItemMove.gameObject);
         }
         inventoryItemPresent.ResetAmmoHighlighting();

@@ -1262,8 +1262,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2099143348481684460}
   - {fileID: 609621076839158412}
+  - {fileID: 2099143348481684460}
   m_Father: {fileID: 5949073556862808389}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3950,6 +3950,7 @@ MonoBehaviour:
   levelSpeedText: {fileID: 5956220844217750374}
   specialistNpcText: {fileID: 5626171593054155737}
   nameNpcText: {fileID: 0}
+  currentNumCategory: 0
   statAmplifier: {fileID: 0}
   timeScale: 0
   riskValue: 0
@@ -3963,6 +3964,7 @@ MonoBehaviour:
   finishMinutesCraftingTime: 0
   expenditionManager: {fileID: 0}
   sceneSystem: {fileID: 0}
+  uIBoxesInventory: {fileID: 8775721117732611842}
   uINpcSending: {fileID: 3629969385308090561}
   uINpcArriveEx: {fileID: 2100390227209849265}
   uINpcGoBack: {fileID: 738900825090623597}
@@ -4553,13 +4555,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 84987115330498787}
   - {fileID: 3997947531994299449}
   - {fileID: 6988413331295341122}
   - {fileID: 2250203498044748199}
   - {fileID: 3225591555837462230}
   - {fileID: 9102791190894196038}
   - {fileID: 2462496724422657897}
-  - {fileID: 84987115330498787}
   - {fileID: 6622171571614917645}
   m_Father: {fileID: 7702649177730323507}
   m_RootOrder: -1
@@ -6249,8 +6251,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 409774018532933289}
   - {fileID: 2814166732348721955}
+  - {fileID: 409774018532933289}
   m_Father: {fileID: 5949073556862808389}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7303,7 +7305,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Pill
+  m_text: All  Items
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 64f3897734609dc44a9aa8832895f590, type: 2}
   m_sharedMaterial: {fileID: 7306825576259480810, guid: 64f3897734609dc44a9aa8832895f590, type: 2}
@@ -10702,8 +10704,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8058679557623153784}
   - {fileID: 5847122601732459357}
+  - {fileID: 8058679557623153784}
   m_Father: {fileID: 5949073556862808389}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12854,7 +12856,7 @@ GameObject:
   - component: {fileID: 9006012201165124150}
   - component: {fileID: 2446724756574287886}
   m_Layer: 5
-  m_Name: 'Pill Button '
+  m_Name: 'ALL Button '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12965,8 +12967,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5745702691512508597}
         m_TargetAssemblyTypeName: UIInventory, Assembly-CSharp
-        m_MethodName: RefreshUIBoxCategory
-        m_Mode: 3
+        m_MethodName: CallRefreshBoxesAllItem
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

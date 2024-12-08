@@ -96,7 +96,7 @@ public class UpgradeBuilding : MonoBehaviour
             if (assignedSpecialistNpc != null)
             {
                 NpcManager npcManager = FindObjectOfType<NpcManager>();
-                npcManager.listNpcWorkingMoreOneDay.Remove(assignedSpecialistNpc);
+                npcManager.listNpcWorking.Remove(assignedSpecialistNpc);
                 npcManager.listNpc.Add(assignedSpecialistNpc);
                 assignedSpecialistNpc = null;
             }

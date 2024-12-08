@@ -57,7 +57,7 @@ public class InventoryItemPresent : MonoBehaviour
         {
             CreateUIItemInBoxes(itemData);
         }
-
+        
     }
     public void CreateUIItemInBoxes(ItemData itemData)
     {

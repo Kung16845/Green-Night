@@ -27,7 +27,7 @@ public class UIInventory : MonoBehaviour
     public TextMeshProUGUI levelSpeedText;
     public TextMeshProUGUI specialistNpcText;
     public TextMeshProUGUI nameNpcText;
-
+    public int currentNumCategory;
     public void RemoveItemData(ItemClass itemClass)
     {
         ItemData itemData = new ItemData();
@@ -146,12 +146,16 @@ public class UIInventory : MonoBehaviour
         if(transformBoxes != null)
             inventoryItemPresent.transformsBoxes = transformBoxes;
     }
+    public void CallRefreshBoxesAllItem()
+    {
+        inventoryItemPresent.RefreshUIBox();
+    }
     public void RefreshUIBoxCategory(int numCategory)
     {
         inventoryItemPresent.ClearUIBoxes();
 
         Itemtype itemtypeCategory = (Itemtype)numCategory;
-
+        currentNumCategory = numCategory;
         foreach (ItemData itemData in inventoryItemPresent.listItemsDataBox)
         {
             if (itemData.itemtype == itemtypeCategory)
@@ -303,8 +307,8 @@ public class UIInventory : MonoBehaviour
             weapon.OnStatsChanged();
         }
         npcManager.listNpc.Remove(npcSelecying);
-        npcManager.listNpcWorkingMoreOneDay.Remove(npcSelecying);
-        npcManager.listNpcWorkingWIthInOneDay.Remove(npcSelecying);
+        // npcManager.listNpcWorkingMoreOneDay.Remove(npcSelecying);
+        npcManager.listNpcWorking.Remove(npcSelecying);
         SetCostumeNpcExpentdition(npcSelecying, player.gameObject);
     }
     public void ClearItemDataInAllInventorySlotToListDataBoxes()

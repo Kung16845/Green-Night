@@ -142,15 +142,15 @@ public class UIInventoryEX : UIInventory
 
         DateTime dateTime = countdownTimeDay.timeManager.dateTime;
 
-        if (dateTime.day <= countdownTimeDay.finishDayCraftingTime)
-        {
-            npcManager.listNpcWorkingWIthInOneDay.Add(npcSelecying);
-        }
-        else
-        {
-            npcManager.listNpcWorkingMoreOneDay.Add(npcSelecying);
-        }
-
+        // if (dateTime.day <= countdownTimeDay.finishDayCraftingTime)
+        // {
+        //     npcManager.listNpcWorking.Add(npcSelecying);
+        // }
+        // else
+        // {
+        //     npcManager.listNpcWorkingMoreOneDay.Add(npcSelecying);
+        // }
+        npcManager.listNpcWorking.Add(npcSelecying);
         SetUIExButton(countdownTimeDay);
 
         uINpcSending.SetActive(true);
@@ -323,8 +323,8 @@ public class UIInventoryEX : UIInventory
         ClearItemDataInAllInventorySlotToListDataBoxes();
 
         npcManager.listNpc.Add(npcSelecying);
-        npcManager.listNpcWorkingMoreOneDay.Remove(npcSelecying);
-        npcManager.listNpcWorkingWIthInOneDay.Remove(npcSelecying);
+        // npcManager.listNpcWorking.Remove(npcSelecying);
+        npcManager.listNpcWorking.Remove(npcSelecying);
         expenditionManager.listItemDataInventoryEqicment.Clear();
         expenditionManager.listItemDataInventoryslot.Clear();
     }
