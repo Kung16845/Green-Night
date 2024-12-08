@@ -29,8 +29,8 @@ public class UIInventoryBP : UIInventory
         ClearItemDataInAllInventorySlotToListDataBoxes();
 
         npcManager.listNpc.Add(npcSelecying);
-        npcManager.listNpcWorkingMoreOneDay.Remove(npcSelecying);
-        npcManager.listNpcWorkingWIthInOneDay.Remove(npcSelecying);
+        // npcManager.listNpcWorkingMoreOneDay.Remove(npcSelecying);
+        npcManager.listNpcWorking.Remove(npcSelecying);
         
         
     }

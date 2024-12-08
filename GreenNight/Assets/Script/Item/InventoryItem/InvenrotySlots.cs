@@ -15,6 +15,12 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
     public InventoryItemPresent inventoryItemPresent;
     public UIInventory uIInventory;
     // Start is called before the first frame update
+    private void OnEnable()
+    {
+
+        ScriptMoveItems scriptMoveItems = uIMoveItemsBoxesToInventory.GetComponent<ScriptMoveItems>();
+        scriptMoveItems.uIInventory = uIInventory;
+    }
     void Start()
     {
         // Find canvas and inventory item presenter in the active scene
@@ -22,7 +28,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
 
         // Get all objects of type ScriptMoveItems
-        if(uIMoveItemsBoxesToInventory == null)
+        if (uIMoveItemsBoxesToInventory == null)
         {
             ScriptMoveItems[] objectsWithScript = Resources.FindObjectsOfTypeAll<ScriptMoveItems>();
 
@@ -37,12 +43,13 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
                 if (obj.scene == activeScene && !obj.activeInHierarchy)
                 {
                     uIMoveItemsBoxesToInventory = obj;
+
                     break; // Optional: Stop after finding the first match
                 }
             }
         }
     }
-    
+
     public void OnDrop(PointerEventData eventData)
     {
         // GameObject being dragged
@@ -60,6 +67,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
 
         if (slotTypeInventory == SlotType.SlotLock)
         {
+
             return; // Can't drop into a locked slot
         }
 
@@ -154,6 +162,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
         // Refresh the UI after changes
         inventoryItemPresent.RefreshUIBox();
         inventoryItemPresent.RefreshUIBox();
+
     }
 
 
