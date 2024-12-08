@@ -67,6 +67,7 @@ public class ActionController : MonoBehaviour
         isStuck = true;
         canwalk = false;
         canuseweapon = false;
+        canopeninventory = false;
         stuckProgress = 0f;
         releasedvalue = 10f;
 
@@ -115,7 +116,7 @@ public class ActionController : MonoBehaviour
         isStuck = false;
         canwalk = true;
         canuseweapon = true;
-
+        canopeninventory = true;
         // Disable the stuck UI
         if (stuckSlider != null)
         {
