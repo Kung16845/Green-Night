@@ -291,8 +291,8 @@ public class Weapon : MonoBehaviour
         // Set bullet velocity in the direction of the mouse
         rb.velocity = bulletDirection * 70f;
 
-        // Notify DDA system
-        DDAdataCollector.Instance.OnBulletFired(bulletScript.bulletID);
+        if(DDAdataCollector.Instance != null)
+            DDAdataCollector.Instance.OnBulletFired(bulletScript.bulletID);
     }
 
 
@@ -326,7 +326,10 @@ public class Weapon : MonoBehaviour
 
         // Set bullet velocity in the calculated direction
         rb.velocity = directionWithSpread * 70f;
-         DDAdataCollector.Instance.OnBulletFired(bulletScript.bulletID);
+        if(DDAdataCollector.Instance != null)
+        {
+            DDAdataCollector.Instance.OnBulletFired(bulletScript.bulletID);
+        }
     }
 
     private float GetAccuracyFactor()

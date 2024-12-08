@@ -13288,6 +13288,30 @@ MonoBehaviour:
     maxCount: 1
     itemtype: 2
     parantslotType: 3
+  - nameItem: BoltCutter
+    idItem: 1020501
+    count: 1
+    maxCount: 1
+    itemtype: 3
+    parantslotType: 2
+  - nameItem: Crownbar
+    idItem: 1020502
+    count: 1
+    maxCount: 1
+    itemtype: 3
+    parantslotType: 2
+  - nameItem: Shovel
+    idItem: 1020503
+    count: 1
+    maxCount: 1
+    itemtype: 3
+    parantslotType: 2
+  - nameItem: Chainsaw
+    idItem: 1020504
+    count: 1
+    maxCount: 1
+    itemtype: 3
+    parantslotType: 2
   listUIItemPrefab:
   - {fileID: 1291614654634707552, guid: db11bae3d5fad0d48b59cbceb79084a2, type: 3}
   - {fileID: 1291614654634707552, guid: cd562875a0cb310419d3713bc1d310b2, type: 3}
@@ -13356,6 +13380,8 @@ MonoBehaviour:
   - {fileID: 1291614654634707552, guid: 09e540539a3e2004e9c048a9ede30a6b, type: 3}
   - {fileID: 1291614654634707552, guid: 7cc5133bfa63bb548889142643b4750c, type: 3}
   - {fileID: 1291614654634707552, guid: 1ad7cf5ce8f5d7247b9327ac10bcc34d, type: 3}
+  - {fileID: 1291614654634707552, guid: 3162bc5c0b37fcc48b205020fdeb0036, type: 3}
+  - {fileID: 1291614654634707552, guid: f21c0412527ad884c9ddcbd9fee13e23, type: 3}
   listInvenrotySlots: []
   invenrotySlotSpecialMilitaryLock: {fileID: 0}
   invenrotySlotSpecialScavengerLock: {fileID: 0}
@@ -34993,6 +35019,7 @@ MonoBehaviour:
   countItemMove: 1
   countText: {fileID: 2066970282}
   itemClassMove: {fileID: 0}
+  originatingLootSystem: {fileID: 0}
   itemClassInChild: {fileID: 0}
   draggableItemMove: {fileID: 0}
   inventoryItemPresent: {fileID: 0}
@@ -49459,6 +49486,7 @@ MonoBehaviour:
   UpgradeUI: {fileID: 1429049396}
   WorkshopUI: {fileID: 366983574}
   workshopUpgradeUI: {fileID: 1528801720}
+  ExpiditionUI: {fileID: 1799568113}
 --- !u!4 &1817374009
 Transform:
   m_ObjectHideFlags: 0

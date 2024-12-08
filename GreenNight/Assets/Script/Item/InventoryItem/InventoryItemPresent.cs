@@ -53,7 +53,7 @@ public class InventoryItemPresent : MonoBehaviour
     public void RefreshUIBox()
     {
         ClearUIBoxes();
-        foreach (ItemData itemData in listItemsDataBox)
+        foreach (ItemData itemData in listItemsDataBox.OrderBy(item => item.idItem))
         {
             CreateUIItemInBoxes(itemData);
         }
@@ -135,7 +135,13 @@ public class InventoryItemPresent : MonoBehaviour
         {   
             // Debug.Log("ItenDataInlist Not null");
             // Debug.Log("itemDataAdd count : " + itemDataAdd.count);
-            itemDataInList.count = itemDataInList.count + itemDataAdd.count;
+            int[] excludedItemIds = { 1020129, 1020130, 1020128, 1020131, 1020132 };
+            if (excludedItemIds.Contains(itemDataAdd.idItem))
+            {
+                return;
+            }
+            else
+                itemDataInList.count = itemDataInList.count + itemDataAdd.count;
             // if (itemCount <= itemDataInList.maxCount)
             // {
             //     itemDataInList.count += itemDataAdd.count;
@@ -159,6 +165,11 @@ public class InventoryItemPresent : MonoBehaviour
         }
         else
         {
+            int[] excludedItemIds = { 1020129, 1020130, 1020128, 1020131, 1020132 };
+            if (excludedItemIds.Contains(itemDataAdd.idItem))
+            {
+                return;
+            }
             listItemsDataBox.Add(itemDataAdd);
         }
 

@@ -22,7 +22,7 @@ public class TutorialManager : MonoBehaviour
     public GameObject overlayPanel; // Optional: Panel to dim the background
     public GameObject uIBacktoMainScene;
     public MainSpawner mainSpawner;
-
+    public TimeManager  timeManager;
     private int currentStepIndex = 0;
 
     // New variable to control if tutorial can proceed
@@ -37,9 +37,14 @@ public class TutorialManager : MonoBehaviour
     public float buttonTimeout = 5f; 
     void Awake()
     {
+        timeManager = FindObjectOfType<TimeManager>();
         checkUsingDDA = FindObjectOfType<CheckUsingDDA>();
         if(checkUsingDDA.ActiveTutorial)
+        {
+            timeManager.currentTickSeconedIncrease = 0;
+            timeManager.currentTimeBetweenTricks = 0;
             isturorialnight = true;
+        }
         else
             isturorialnight = false;
     }
@@ -147,6 +152,8 @@ public class TutorialManager : MonoBehaviour
     private void EndTutorial()
     {
         checkUsingDDA.ActiveTutorial = false;
+        timeManager.currentTickSeconedIncrease = 1;
+        timeManager.currentTimeBetweenTricks = 0;
         mainSpawner.StartNextDeck();
         mainSpawner.startDelayText.gameObject.SetActive(false);
         if (Confirmbutton != null)

@@ -143,8 +143,8 @@ public class UIInventory : MonoBehaviour
         {
             inventoryItemPresent.listInvenrotySlots.Add(listInvenrotySlotsUI.ElementAt(i));
         }
-
-        inventoryItemPresent.transformsBoxes = transformBoxes;
+        if(transformBoxes != null)
+            inventoryItemPresent.transformsBoxes = transformBoxes;
     }
     public void RefreshUIBoxCategory(int numCategory)
     {
@@ -309,22 +309,28 @@ public class UIInventory : MonoBehaviour
     }
     public void ClearItemDataInAllInventorySlotToListDataBoxes()
     {
-
-
         Debug.Log("ClearItemDataInAllInventorySlotToListDataBoxes");
+
         foreach (InvenrotySlots slotsItem in listInvenrotySlotsUI)
         {
             ItemClass itemClass = slotsItem.GetComponentInChildren<ItemClass>();
             if (itemClass != null)
             {
-                // Debug.Log("item count : "+itemClass.quantityItem);
+                // Convert ItemClass to ItemData
                 ItemData itemData = inventoryItemPresent.ConventItemClassToItemData(itemClass);
-                inventoryItemPresent.AddItem(itemData);
 
+                // Check if the item ID maps to a resource
+                if (BuildManager.Instance != null)
+                {
+                    BuildManager.Instance.AddResource(itemData.idItem, itemData.count);
+                }
+                inventoryItemPresent.AddItem(itemData);
+                // Destroy the item GameObject
                 Destroy(itemClass.gameObject);
             }
         }
     }
+
     public void ClearAllChildInvenrotySlot()
     {
         foreach (InvenrotySlots slotsItem in listInvenrotySlotsUI)
