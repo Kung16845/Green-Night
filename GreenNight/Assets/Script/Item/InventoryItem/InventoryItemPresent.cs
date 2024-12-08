@@ -53,7 +53,7 @@ public class InventoryItemPresent : MonoBehaviour
     public void RefreshUIBox()
     {
         ClearUIBoxes();
-        foreach (ItemData itemData in listItemsDataBox)
+        foreach (ItemData itemData in listItemsDataBox.OrderBy(item => item.idItem))
         {
             CreateUIItemInBoxes(itemData);
         }

@@ -1,3 +1,4 @@
+// ItemStatDisplay.cs
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
@@ -15,10 +16,11 @@ public class ItemStatDisplay : MonoBehaviour
     public Transform statPanelParent;
     private GameObject statPanelInstance;
     private StatPanelUI statPanelUI;
+    private UIInventory uIInventory;
 
     private void Start()
     {
-        // If the item reference is not set, try to get it from the GameObject
+        uIInventory = FindObjectOfType<UIInventory>();
         if (item == null)
         {
             item = GetComponent<ItemClass>();
@@ -54,58 +56,69 @@ public class ItemStatDisplay : MonoBehaviour
     }
 
     private void ShowStatPanel()
-{
-    // Check if the statPanelParent is set, default to the root of the canvas
-    if (statPanelParent == null)
     {
-        statPanelParent = FindObjectOfType<Canvas>().transform;
+        // Check if the statPanelParent is set, default to the root of the canvas
         if (statPanelParent == null)
         {
-            Debug.LogError("No Canvas found in the scene. Please assign a parent for the stat panel.");
+            Canvas canvas = FindObjectOfType<Canvas>();
+            if (canvas != null)
+            {
+                statPanelParent = canvas.transform;
+            }
+            else
+            {
+                Debug.LogError("No Canvas found in the scene. Please assign a parent for the stat panel.");
+                return;
+            }
+        }
+
+        // Instantiate the stat panel as a child of the specified parent
+        statPanelInstance = Instantiate(statPanelPrefab, statPanelParent);
+
+        // Get the StatPanelUI component
+        statPanelUI = statPanelInstance.GetComponent<StatPanelUI>();
+        if (statPanelUI == null)
+        {
+            Debug.LogError("StatPanelUI script not found on the stat panel prefab.");
             return;
         }
-    }
 
-    // Instantiate the stat panel as a child of the specified parent
-    statPanelInstance = Instantiate(statPanelPrefab, statPanelParent);
+        // Assign this ItemStatDisplay to the StatPanelUI
+        // If you made the field public
+        statPanelUI.itemStatDisplay = this;
 
-    // The rest of your ShowStatPanel code remains unchanged
-    statPanelUI = statPanelInstance.GetComponent<StatPanelUI>();
-    if (statPanelUI == null)
-    {
-        Debug.LogError("StatPanelUI script not found on the stat panel prefab.");
-        return;
-    }
+        // If you provided a setter method
+        // statPanelUI.SetItemStatDisplay(this);
 
-    statPanelUI.itemImage.sprite = item.itemIcon;  // Use item.itemIcon
-    statPanelUI.itemNameText.text = item.nameItem;
+        // Populate the UI elements
+        statPanelUI.itemImage.sprite = item.itemIcon;  // Use item.itemIcon
+        statPanelUI.itemNameText.text = item.nameItem;
 
-    Dictionary<string, float> itemStats = item.GetStats();
-    Dictionary<string, float> maxStatValues = item.GetMaxStatValues();
+        Dictionary<string, float> itemStats = item.GetStats();
+        Dictionary<string, float> maxStatValues = item.GetMaxStatValues();
 
-    foreach (var stat in itemStats)
-    {
-        string statName = stat.Key;
-        float statValueFloat = stat.Value;
-        float maxStatValue = maxStatValues.ContainsKey(statName) ? maxStatValues[statName] : 100f;
-
-        GameObject statElementInstance = Instantiate(statElementPrefab, statPanelUI.statContainer);
-
-        StatElementUI statElementUI = statElementInstance.GetComponent<StatElementUI>();
-        if (statElementUI == null)
+        foreach (var stat in itemStats)
         {
-            Debug.LogError("StatElementUI script not found on the stat element prefab.");
-            continue;
+            string statName = stat.Key;
+            float statValueFloat = stat.Value;
+            float maxStatValue = maxStatValues.ContainsKey(statName) ? maxStatValues[statName] : 100f;
+
+            GameObject statElementInstance = Instantiate(statElementPrefab, statPanelUI.statContainer);
+
+            StatElementUI statElementUI = statElementInstance.GetComponent<StatElementUI>();
+            if (statElementUI == null)
+            {
+                Debug.LogError("StatElementUI script not found on the stat element prefab.");
+                continue;
+            }
+
+            statElementUI.statText.text = $"{statName}: {statValueFloat}";
+            statElementUI.statSlider.maxValue = maxStatValue;
+            statElementUI.statSlider.value = Mathf.Clamp(statValueFloat, 0, maxStatValue);
         }
 
-        statElementUI.statText.text = $"{statName}: {statValueFloat}";
-        statElementUI.statSlider.maxValue = maxStatValue;
-        statElementUI.statSlider.value = Mathf.Clamp(statValueFloat, 0, maxStatValue);
+        // StartCoroutine(DetectOutsideClick());
     }
-
-    StartCoroutine(DetectOutsideClick());
-}
-
 
     private void CloseStatPanel()
     {
@@ -115,6 +128,11 @@ public class ItemStatDisplay : MonoBehaviour
             statPanelInstance = null;
             statPanelUI = null;
         }
+    }
+
+    void OnDisable()
+    {
+        CloseStatPanel();
     }
 
     private IEnumerator DetectOutsideClick()
@@ -137,6 +155,18 @@ public class ItemStatDisplay : MonoBehaviour
                 }
             }
             yield return null;
+        }
+    }
+
+    public void DeletethisItem()
+    {
+        if(uIInventory != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Debug.LogWarning("UIInventory reference is missing.");
         }
     }
 }

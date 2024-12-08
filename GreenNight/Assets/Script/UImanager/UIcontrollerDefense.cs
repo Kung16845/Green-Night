@@ -103,23 +103,23 @@ public class UIcontrollerDefense : MonoBehaviour
 
         if (isBoxActive)
         {
-            actionController.canuseweapon = false;
             ActiveBoxUI();
         }
         else
         {
-            actionController.canuseweapon = true;
             DisableBoxUI();
         }
     }
 
     void ActiveBoxUI()
     {
+        actionController.canuseweapon = false;
         ToggleUI(true, true, false, false, true);
     }
 
     void DisableBoxUI()
     {
+        actionController.canuseweapon = true;
         ToggleUI(false, false, true, true, false);
     }
 

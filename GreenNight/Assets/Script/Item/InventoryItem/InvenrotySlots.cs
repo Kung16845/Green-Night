@@ -88,25 +88,27 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
         }
         else if (slotTypeInventory == SlotType.SlotBoxes)
         {
-            // Moving item back into boxes
+
+            // Ensure proper checks for origin and destination slots
             InvenrotySlots originSlot = draggableItem.parentBeforeDray.GetComponentInParent<InvenrotySlots>();
             List<ItemData> listItemDataBoxes = inventoryItemPresent.listItemsDataBox;
             ItemData itemData = listItemDataBoxes.FirstOrDefault(item => item.idItem == itemClassMove.idItem);
 
-            if (itemData != null)
+            if (itemData != null && originSlot.slotTypeInventory != SlotType.SlotBoxes)
             {
-                // Increment box item count
+                // Increment count only when moving from non-box to box
                 itemData.count += itemClassMove.quantityItem;
             }
-            else
+            else if (itemData == null)
             {
-                // Add new item data to box
                 ItemData newItemData = inventoryItemPresent.ConventItemClassToItemData(itemClassMove);
                 inventoryItemPresent.AddItem(newItemData);
             }
 
+            // Destroy the dragged item's GameObject only after handling its data
             Destroy(itemClassMove.gameObject);
         }
+
         else if (slotTypeInventory == SlotType.SlotLoot)
         {
             // Dropping into another loot slot
@@ -116,6 +118,10 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
                 // Item moved from one loot slot to another loot slot, do nothing special
                 return;
             }
+        }
+        else if (slotTypeInventory == null)
+        {
+            inventoryItemPresent.RefreshUIBox();
         }
 
         // At this point, we've handled the main cases. Now handle the scenario:
@@ -133,6 +139,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
                     {
                         // Reduce the count based on how many were moved
                         lootItem.count -= itemClassMove.quantityItem;
+                        inventoryItemPresent.RefreshUIBox();
                         if (lootItem.count <= 0)
                         {
                             lootSystem.droppedItems.Remove(lootItem);
