@@ -21,6 +21,7 @@ public class UIInventoryEX : UIInventory
     public int finishMinutesCraftingTime;
     public ExpenditionManager expenditionManager;
     public SceneSystem sceneSystem;
+    public GameObject uIBoxesInventory;
     public GameObject uINpcSending;
     public GameObject uINpcArriveEx;
     public GameObject uINpcGoBack;
