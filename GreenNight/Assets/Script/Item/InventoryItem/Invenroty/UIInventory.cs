@@ -172,7 +172,7 @@ public class UIInventory : MonoBehaviour
         }
 
     }
-    public void RefreshUIInventory()
+    public virtual void RefreshUIInventory()
     {   
         ClearAllChildInvenrotySlot();
         inventoryItemPresent.UnlockSlotInventory(npcSelecying.countInventorySlot, npcSelecying.roleNpc, listItemDataInventoryEqicment);
@@ -352,7 +352,7 @@ public class UIInventory : MonoBehaviour
             }
         }
     }
-    public void ConventAllUIItemInListInventorySlotToListItemData(List<ItemData> listSlotItemDatas)
+    public virtual void ConventAllUIItemInListInventorySlotToListItemData(List<ItemData> listSlotItemDatas)
     {
         for (int i = 0; i < 12; i++)
         {
@@ -367,7 +367,7 @@ public class UIInventory : MonoBehaviour
             }
         }
     }
-    public void ConventAllUIItemInListInventorySlotToListEqicmentItemData(List<ItemData> listEqicmentItemDatas)
+    public virtual void ConventAllUIItemInListInventorySlotToListEqicmentItemData(List<ItemData> listEqicmentItemDatas)
     {
         for (int i = 12; i < 19; i++)
         {
@@ -379,7 +379,7 @@ public class UIInventory : MonoBehaviour
             }
         }
     }
-    public void ConventDataUIToItemData()
+    public virtual void ConventDataUIToItemData()
     {
         listItemDataInventorySlot.Clear();
         listItemDataInventoryEqicment.Clear();

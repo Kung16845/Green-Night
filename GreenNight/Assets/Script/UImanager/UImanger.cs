@@ -8,11 +8,12 @@ public class UImanger : MonoBehaviour
     public GameObject WorkshopUI;
     public GameObject workshopUpgradeUI;
     public GameObject ExpiditionUI;
+    public Globalstat globalstat;
     private bool isExpiditionUIActive; 
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.M) && !globalstat.expiditionactiveeventactive)
         {
             ToogleExpiditionUI();
         }
