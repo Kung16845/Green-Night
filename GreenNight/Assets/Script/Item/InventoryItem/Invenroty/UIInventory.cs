@@ -151,11 +151,17 @@ public class UIInventory : MonoBehaviour
         inventoryItemPresent.RefreshUIBox();
     }
     public void RefreshUIBoxCategory(int numCategory)
-    {
-        inventoryItemPresent.ClearUIBoxes();
-
-        Itemtype itemtypeCategory = (Itemtype)numCategory;
+    {    
         currentNumCategory = numCategory;
+        if(numCategory == -1)
+        {
+            inventoryItemPresent.RefreshUIBox();
+            return;
+        }
+        inventoryItemPresent.ClearUIBoxes();
+        
+        Itemtype itemtypeCategory = (Itemtype)numCategory;
+        
         foreach (ItemData itemData in inventoryItemPresent.listItemsDataBox)
         {
             if (itemData.itemtype == itemtypeCategory)
