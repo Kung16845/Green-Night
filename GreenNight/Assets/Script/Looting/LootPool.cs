@@ -5,7 +5,6 @@ using UnityEngine;
 public class LootItem
 {
     public ItemData item; // Reference to the item
-    [Range(0f, 100f)]
     public float dropChance; // Drop chance percentage (0-100)
     public int minAmount = 1; // Minimum quantity of this item
     public int maxAmount = 1; // Maximum quantity of this item
