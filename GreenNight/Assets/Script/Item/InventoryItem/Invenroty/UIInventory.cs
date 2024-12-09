@@ -27,6 +27,7 @@ public class UIInventory : MonoBehaviour
     public TextMeshProUGUI levelSpeedText;
     public TextMeshProUGUI specialistNpcText;
     public TextMeshProUGUI nameNpcText;
+    public int SlotHasincreased;
     public int currentNumCategory;
     public void RemoveItemData(ItemClass itemClass)
     {
@@ -145,9 +146,9 @@ public class UIInventory : MonoBehaviour
 
         dropdown.onValueChanged.AddListener(npcManager.OnDropdownValueChanged);
 
+        Debug.Log("This run");
         npcManager.SetOptionDropDown();
         npcManager.OnDropdownValueChanged(0);
-
         inventoryItemPresent.RefreshUIBox();
     }
     public void SetSlotToInventory()
@@ -462,6 +463,8 @@ public class UIInventory : MonoBehaviour
             if (uiItemData != null)
             {
                 ItemBackpack itemBackpack = uiItemData.GetComponent<ItemBackpack>();
+                npcSelecying.countInventorySlot += itemBackpack.slotIncreasing;
+                SlotHasincreased = itemBackpack.slotIncreasing;
                 OnBackpackChanged?.Invoke(itemBackpack);
             }
             else

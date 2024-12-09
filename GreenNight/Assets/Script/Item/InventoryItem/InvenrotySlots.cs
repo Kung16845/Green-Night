@@ -73,8 +73,14 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
             draggableItem.parentAfterDray = transform;
             scriptMoveItems.itemClassMove = itemClassMove;
             scriptMoveItems.draggableItemMove = uIitem.GetComponent<DraggableItem>();
-
             InvenrotySlots originSlot = draggableItem.parentBeforeDray.GetComponentInParent<InvenrotySlots>();
+            if(itemClassMove.itemtype == Itemtype.Backpack)
+            {
+                uIInventory.npcSelecying.countInventorySlot -= uIInventory.SlotHasincreased;
+                uIInventory.SlotHasincreased = 0;
+                uIInventory.RemoveItemData(itemClassMove);
+                uIInventory.RefreshUIInventory();
+            }
             if (originSlot.slotTypeInventory == SlotType.SlotBoxes || originSlot.slotTypeInventory == SlotType.SlotLoot)
             {
                 OpenUIMoveITems(scriptMoveItems);
@@ -131,6 +137,13 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
             if (itemData != null && originSlot.slotTypeInventory != SlotType.SlotBoxes)
             {
                 // Increment count only when moving from non-box to box
+                if(itemClassMove.itemtype == Itemtype.Backpack)
+                {
+                    uIInventory.npcSelecying.countInventorySlot -= uIInventory.SlotHasincreased;
+                    uIInventory.SlotHasincreased = 0;
+                    uIInventory.RemoveItemData(itemClassMove);
+                    uIInventory.RefreshUIInventory();
+                }
                 itemData.count += itemClassMove.quantityItem;
             }
             else if (itemData == null)
@@ -138,7 +151,6 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
                 ItemData newItemData = inventoryItemPresent.ConventItemClassToItemData(itemClassMove);
                 inventoryItemPresent.AddItem(newItemData);
             }
-
             // Destroy the dragged item's GameObject only after handling its data
             Destroy(itemClassMove.gameObject);
         }
@@ -157,7 +169,20 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
         {
             inventoryItemPresent.RefreshUIBox();
         }
-
+        if(slotTypeInventory == SlotType.SlotBackpack)
+        {
+            InvenrotySlots originSlot = draggableItem.parentBeforeDray.GetComponentInParent<InvenrotySlots>();
+            if(originSlot.slotTypeInventory == SlotType.SlotBag || originSlot.slotTypeInventory == SlotType.SlotCar
+             || originSlot.slotTypeInventory == SlotType.SlotLoot)
+            {
+                ItemBackpack itemClassbackpack = uIitem.GetComponent<ItemBackpack>();
+                uIInventory.npcSelecying.countInventorySlot += itemClassbackpack.slotIncreasing;
+                uIInventory.SlotHasincreased = itemClassbackpack.slotIncreasing;
+                uIInventory.RemoveItemData(itemClassMove);
+                uIInventory.RefreshUIInventory();
+                Debug.Log("This case run");
+            }
+        }
         // At this point, we've handled the main cases. Now handle the scenario:
         // If the item originated from a SlotLoot and is now placed in a non-loot slot, remove it from droppedItems.
         {
@@ -184,8 +209,6 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
         }
 
         uIItemDataDrag.slotTypeParent = slotTypeInventory;
-
-        // Refresh the UI after changes
         inventoryItemPresent.RefreshUIBox();
         inventoryItemPresent.RefreshUIBox();
 

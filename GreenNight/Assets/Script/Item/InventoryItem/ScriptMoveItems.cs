@@ -266,7 +266,6 @@ public class ScriptMoveItems : MonoBehaviour
                 Destroy(itemClassMove.gameObject);
             }
         }
-
         bool isBackpackMoved = false;
 
         if (itemClassMove != null && itemClassMove.itemtype == Itemtype.Backpack)
