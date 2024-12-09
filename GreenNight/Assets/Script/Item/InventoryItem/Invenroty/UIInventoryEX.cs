@@ -29,6 +29,7 @@ public class UIInventoryEX : UIInventory
     public SceneSystem sceneSystem;
     public GameObject uIBoxesInventory;
     public GameObject UICarInventory;
+    public GameObject UIBOxInventory;
     public GameObject uINpcSending;
     public GameObject uINpcArriveEx;
     public GameObject uINpcGoBack;
@@ -42,7 +43,7 @@ public class UIInventoryEX : UIInventory
     }
     public void Start()
     {
-        if(isuseCar)
+        if(isuseCar && UICarInventory != null)
             UICarInventory.SetActive(true);
         globalstat = FindObjectOfType<Globalstat>();
         sceneSystem = FindObjectOfType<SceneSystem>();
@@ -429,7 +430,11 @@ public class UIInventoryEX : UIInventory
     private void OnEnable()
     {
         RefreshUIInventory();
-
+        if(istraveling)
+        {
+            UICarInventory.SetActive(false);
+            UIBOxInventory.SetActive(false);
+        }
         if (isArriveEx && !isArriveHome)
         {
             SetDataMoveSceneForEventExpendition();
@@ -482,6 +487,7 @@ public class UIInventoryEX : UIInventory
         ResetSlotUIEx();
         expenditionManager.SetUIExButton(indexButtonExpendition, null, null);
         ClearItemDataInAllInventorySlotToListDataBoxes();
+        ClearItemDataInAllInventoryCarSlotToListDataBoxes();
 
         npcManager.listNpc.Add(npcSelecying);
         // npcManager.listNpcWorking.Remove(npcSelecying);
@@ -494,6 +500,7 @@ public class UIInventoryEX : UIInventory
 
         Debug.Log(" EndSceneExpendition");
         ClearItemDataInAllInventorySlotToListDataBoxes();
+        ClearItemDataInAllInventoryCarSlotToListDataBoxes();
         // SetDataMoveSceneForEventExpendition();
         expenditionManager.listItemDataInventoryEqicment.Clear();
         expenditionManager.listItemDataInventoryslot.Clear();
@@ -515,5 +522,28 @@ public class UIInventoryEX : UIInventory
         }
         else 
             this.gameObject.SetActive(false);
+    }
+     public void ClearItemDataInAllInventoryCarSlotToListDataBoxes()
+    {
+        Debug.Log("ClearItemDataInAllInventoryCarSlotToListDataBoxes");
+
+        foreach (InvenrotySlots slotsItem in listInvenrotyCarSlotsUI)
+        {
+            ItemClass itemClass = slotsItem.GetComponentInChildren<ItemClass>();
+            if (itemClass != null)
+            {
+                // Convert ItemClass to ItemData
+                ItemData itemData = inventoryItemPresent.ConventItemClassToItemData(itemClass);
+
+                // Check if the item ID maps to a resource
+                if (BuildManager.Instance != null)
+                {
+                    BuildManager.Instance.AddResource(itemData.idItem, itemData.count);
+                }
+                inventoryItemPresent.AddItem(itemData);
+                // Destroy the item GameObject
+                Destroy(itemClass.gameObject);
+            }
+        }
     }
 }

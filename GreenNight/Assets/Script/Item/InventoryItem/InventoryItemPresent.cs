@@ -181,50 +181,24 @@ public class InventoryItemPresent : MonoBehaviour
     public void AddItem(ItemData itemDataAdd)
     {
         ItemData itemDataInList = this.listItemsDataBox.FirstOrDefault(item => item.idItem == itemDataAdd.idItem && item.count != item.maxCount);
-
+        int[] excludedItemIds = { 1020129, 1020130, 1020128, 1020131, 1020132 };
         if (itemDataInList != null)
         {   
-            // Debug.Log("ItenDataInlist Not null");
-            // Debug.Log("itemDataAdd count : " + itemDataAdd.count);
-            int[] excludedItemIds = { 1020129, 1020130, 1020128, 1020131, 1020132 };
             if (excludedItemIds.Contains(itemDataAdd.idItem))
             {
                 return;
             }
             else
                 itemDataInList.count = itemDataInList.count + itemDataAdd.count;
-            // if (itemCount <= itemDataInList.maxCount)
-            // {
-            //     itemDataInList.count += itemDataAdd.count;
-            // }
-            // else if (itemCount >= itemDataInList.maxCount)
-            // {
-            //     Debug.Log("ITem new create count : " + itemDataAdd.count);
-
-            //     ItemData newItemData = new ItemData();
-            //     newItemData.nameItem = itemDataInList.nameItem;
-            //     newItemData.idItem = itemDataInList.idItem;
-            //     newItemData.count = itemCount - itemDataInList.maxCount;
-            //     newItemData.maxCount = itemDataInList.maxCount;
-            //     newItemData.itemtype = itemDataInList.itemtype;
-
-            //     listItemsDataBox.Add(newItemData);
-
-            //     itemDataInList.count = itemDataInList.maxCount;
-
-            // }
         }
-        else
+        else if(itemDataInList == null)
         {
-            int[] excludedItemIds = { 1020129, 1020130, 1020128, 1020131, 1020132 };
             if (excludedItemIds.Contains(itemDataAdd.idItem))
             {
                 return;
             }
             listItemsDataBox.Add(itemDataAdd);
         }
-
-        // RefreshUIBox();
     }
     public void RemoveItem(ItemData itemDataRemove)
     {
