@@ -126,6 +126,57 @@ public class InventoryItemPresent : MonoBehaviour
     }
 
 
+    public void RefreshCarInventory()
+    {
+        // Ensure all car slots are cleared
+        foreach (var slot in listInvenrotySlots.Where(s => s.slotTypeInventory == SlotType.SlotCar))
+        {
+            ClearSlot(slot);
+        }
+
+        // Populate car inventory slots
+        foreach (var itemData in listItemsDataBox) // Assuming `listItemsDataBox` is the correct field
+        {
+            var carSlot = listInvenrotySlots.FirstOrDefault(s => s.slotTypeInventory == SlotType.SlotCar && s.transform.childCount == 0);
+            if (carSlot != null)
+            {
+                CreateUIItemInSlot(itemData, carSlot);
+            }
+        }
+    }
+
+    // Clear all child elements from a slot
+    private void ClearSlot(InvenrotySlots slot)
+    {
+        foreach (Transform child in slot.transform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
+    // Create a UI item in a specified slot
+    private void CreateUIItemInSlot(ItemData itemData, InvenrotySlots slot)
+    {
+        var uiItemPrefab = listUIItemPrefab.FirstOrDefault(p => p.idItem == itemData.idItem)?.gameObject;
+        if (uiItemPrefab != null)
+        {
+            var uiItem = Instantiate(uiItemPrefab, slot.transform);
+            var itemClass = uiItem.GetComponent<ItemClass>();
+            if (itemClass != null)
+            {
+                itemClass.quantityItem = itemData.count;
+                itemClass.maxCountItem = itemData.maxCount;
+            }
+
+            var uiItemData = uiItem.GetComponent<UIItemData>();
+            if (uiItemData != null)
+            {
+                uiItemData.slotTypeParent = slot.slotTypeInventory;
+                uiItemData.UpdateDataUI(itemClass);
+            }
+        }
+    }
+
 
     public void AddItem(ItemData itemDataAdd)
     {

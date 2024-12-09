@@ -80,6 +80,36 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
                 OpenUIMoveITems(scriptMoveItems);
             }
         }
+        else if (slotTypeInventory == SlotType.SlotCar)
+        {
+            if (transform.childCount == 0) // Slot is empty
+            {
+                draggableItem.parentAfterDray = transform;
+                scriptMoveItems.itemClassMove = itemClassMove;
+                scriptMoveItems.draggableItemMove = uIitem.GetComponent<DraggableItem>();
+
+                // Check if the item is being moved from another car slot
+                InvenrotySlots originSlot = draggableItem.parentBeforeDray.GetComponentInParent<InvenrotySlots>();
+                if (originSlot.slotTypeInventory == SlotType.SlotCar)
+                {
+                    // Handle moving items within car slots (no special handling required here)
+                    return;
+                }
+
+                // Open UI for managing item transfer if coming from another inventory
+                OpenUIMoveITems(scriptMoveItems);
+            }
+            else if (itemClassInChild != null && uIItemDataDrag.idItem == uIItemDataInChild.idItem)
+            {
+                // Stacking items in the same car slot
+                scriptMoveItems.itemClassMove = itemClassMove;
+                scriptMoveItems.itemClassInChild = itemClassInChild;
+                scriptMoveItems.draggableItemMove = uIitem.GetComponent<DraggableItem>();
+
+                OpenUIMoveITems(scriptMoveItems);
+            }
+            return; // End processing for car slot
+        }
         else if (itemClassInChild != null && uIItemDataDrag.idItem == uIItemDataInChild.idItem && slotTypeInventory != SlotType.SlotBoxes
                 && itemClassInChild.quantityItem < itemClassInChild.maxCountItem)
         {
@@ -191,5 +221,6 @@ public enum SlotType
     SlotBag,
     SlotLock,
     SlotBoxes,
-    SlotLoot
+    SlotLoot,
+    SlotCar
 }

@@ -129,6 +129,63 @@ public class ExpenditionManager : MonoBehaviour
         }
     }
 
+        public void ManageCarInventory(ItemData itemData, bool isAdd)
+    {
+        if (isAdd)
+        {
+            AddItemToCarInventory(itemData);
+        }
+        else
+        {
+            RemoveItemFromCarInventory(itemData);
+        }
+    }
+
+    private void AddItemToCarInventory(ItemData itemData)
+    {
+        var existingItem = listItemDataCarInventory.FirstOrDefault(i => i.idItem == itemData.idItem && i.count < i.maxCount);
+
+        if (existingItem != null)
+        {
+            int spaceAvailable = existingItem.maxCount - existingItem.count;
+            int toAdd = Mathf.Min(spaceAvailable, itemData.count);
+            existingItem.count += toAdd;
+            itemData.count -= toAdd;
+        }
+
+        if (itemData.count > 0)
+        {
+            listItemDataCarInventory.Add(new ItemData
+            {
+                nameItem = itemData.nameItem,
+                idItem = itemData.idItem,
+                count = itemData.count,
+                maxCount = itemData.maxCount,
+                itemtype = itemData.itemtype
+            });
+        }
+    }
+
+    private void RemoveItemFromCarInventory(ItemData itemData)
+    {
+        var existingItem = listItemDataCarInventory.FirstOrDefault(i => i.idItem == itemData.idItem);
+
+        if (existingItem != null)
+        {
+            if (existingItem.count >= itemData.count)
+            {
+                existingItem.count -= itemData.count;
+                if (existingItem.count == 0)
+                {
+                    listItemDataCarInventory.Remove(existingItem);
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Not enough items in the car inventory.");
+            }
+        }
+    }
 
     // Alternate "RemoveItem" method for the player's inventory slots
     public void RemoveItemFromInventorySlot(ItemData itemDataRemove)

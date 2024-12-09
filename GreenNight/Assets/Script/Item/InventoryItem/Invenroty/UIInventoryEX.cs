@@ -76,7 +76,7 @@ public class UIInventoryEX : UIInventory
             inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
             expenditionManager.playerObject = FindObjectOfType<PlayerMovement>().gameObject;
             statAmplifier = FindObjectOfType<StatAmplifier>();
-
+            listItemDataCarInventorySlot = expenditionManager.listItemDataCarInventory;
             GameObject npcPlayer = expenditionManager.playerObject;
 
             npcSelecying = expenditionManager.npcSelecying;
@@ -126,55 +126,59 @@ public class UIInventoryEX : UIInventory
     public override void RefreshUIInventory()
     {
         base.RefreshUIInventory(); // Refresh normal slots and equipment from the parent class logic
-
-        // Clear all car slots first
+        if (listItemDataCarInventorySlot != null)
+        {
+            LoadCarSlotsFromData();
+        }
+        if(listItemDataCarInventorySlot.Count >= 1)
+        {
+            RefreshCarInventorySlots();
+        }
+    }
+     private void RefreshCarInventorySlots()
+    {
         ClearAllChildInvenrotyCarSlot();
 
-        // Now fill car slots with data from listItemDataCarInventorySlot
-        HashSet<InvenrotySlots> usedCarSlots = new HashSet<InvenrotySlots>();
-
-        for (int i = listItemDataCarInventorySlot.Count - 1; i >= 0; i--)
+        foreach (var itemData in listItemDataCarInventorySlot)
         {
-            ItemData itemData = listItemDataCarInventorySlot.ElementAt(i);
-
-            if (itemData.count == 0)
+            var availableSlot = listInvenrotyCarSlotsUI.FirstOrDefault(slot => slot.transform.childCount == 0);
+            if (availableSlot != null)
             {
-                listItemDataCarInventorySlot.RemoveAt(i); // Remove item with count 0
-            }
-            else
-            {
-                // Find the next available car slot
-                InvenrotySlots carSlot = listInvenrotyCarSlotsUI.FirstOrDefault(slot => !usedCarSlots.Contains(slot));
-                if (carSlot != null)
-                {
-                    usedCarSlots.Add(carSlot);
-                    CreateUIItem(itemData, carSlot);
-                }
-                else
-                {
-                    // No available car slots
-                    // Handle accordingly if needed
-                }
+                CreateUIItem(itemData, availableSlot);
             }
         }
     }
+
     public void ClearAllChildInvenrotyCarSlot()
     {
-        foreach (InvenrotySlots carSlot in listInvenrotyCarSlotsUI)
+        foreach (var carSlot in listInvenrotyCarSlotsUI)
         {
-            ItemClass itemClass = carSlot.GetComponentInChildren<ItemClass>();
-            if (itemClass != null)
+            // Check if the car slot is valid and has children
+            if (carSlot != null && carSlot.transform.childCount > 0)
             {
-                Destroy(itemClass.gameObject);
+                foreach (Transform child in carSlot.transform)
+                {
+                    Destroy(child.gameObject); // Safely destroy each child
+                }
             }
         }
     }
     public override void ConventDataUIToItemData()
     {
         base.ConventDataUIToItemData(); // Convert normal and equipment slots
-
-        // Now convert car inventory slots
-        ConventAllUIItemInListCarInventorySlotToListItemData(listItemDataCarInventorySlot);
+        SyncCarSlotsToItemData();
+    }
+    private void SyncCarSlotsToItemData()
+    {
+        listItemDataCarInventorySlot.Clear();
+        foreach (var slot in listInvenrotyCarSlotsUI)
+        {
+            var itemClass = slot.GetComponentInChildren<ItemClass>();
+            if (itemClass != null)
+            {
+                listItemDataCarInventorySlot.Add(inventoryItemPresent.ConventItemClassToItemData(itemClass));
+            }
+        }
     }
     public void LoadCarSlotsFromData()
     {
