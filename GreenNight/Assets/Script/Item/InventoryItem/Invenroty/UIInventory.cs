@@ -99,6 +99,24 @@ public class UIInventory : MonoBehaviour
                 return;
         }
     }
+    public void BindInventorySlotsToData()
+    {
+        // Step 1: Clear all children in the inventory slots UI
+        ClearAllChildInvenrotySlot();
+
+        // Step 2: Ensure that the number of UI slots matches the inventory data
+        for (int i = 0; i < listInvenrotySlotsUI.Count; i++)
+        {
+            // If there's a corresponding item in the inventory data, bind it
+            if (i < listItemDataInventorySlot.Count)
+            {
+                var itemData = listItemDataInventorySlot[i];
+                CreateUIItem(itemData, listInvenrotySlotsUI[i]);
+            }
+        }
+
+        Debug.Log($"Inventory slots and data bound successfully. Total slots: {listInvenrotySlotsUI.Count}, Total items: {listItemDataInventorySlot.Count}");
+    }
     public void SetCostumeNpcExpentdition(NpcClass npcClass, GameObject npcOBJ)
     {
         HeadCoutume headCoutume = npcManager.listHeadCoutume.FirstOrDefault(coutume => coutume.idHead == npcClass.idHead);
@@ -457,23 +475,40 @@ public class UIInventory : MonoBehaviour
         }
     }
     public GameObject CreateUIItem(ItemData itemData, InvenrotySlots invenrotySlots)
-
     {
-        // List<UIItemData> listUIItemPrefab = ;
-        GameObject itemUI = inventoryItemPresent.listUIItemPrefab.FirstOrDefault(idItem => idItem.idItem == itemData.idItem).gameObject;
-        GameObject itemUICreate = Instantiate(itemUI, invenrotySlots.transform, true);
+        // Get the UI prefab matching the item's ID
+        GameObject itemUIPrefab = inventoryItemPresent.listUIItemPrefab
+            .FirstOrDefault(idItem => idItem.idItem == itemData.idItem)?.gameObject;
 
+        if (itemUIPrefab == null)
+        {
+            Debug.LogWarning($"UI prefab not found for item ID: {itemData.idItem}");
+            return null;
+        }
+
+        // Instantiate the UI item as a child of the given slot
+        GameObject itemUICreate = Instantiate(itemUIPrefab, invenrotySlots.transform, true);
+
+        // Set up item class and data
         UIItemData uIItemData = itemUICreate.GetComponent<UIItemData>();
         ItemClass itemClass = itemUICreate.GetComponent<ItemClass>();
 
-        itemClass.quantityItem = itemData.count;
-        itemClass.maxCountItem = itemData.maxCount;
+        if (itemClass != null)
+        {
+            itemClass.quantityItem = itemData.count;
+            itemClass.maxCountItem = itemData.maxCount;
+        }
 
-        uIItemData.slotTypeParent = invenrotySlots.slotTypeInventory;
-        uIItemData.UpdateDataUI(itemClass);
+        if (uIItemData != null)
+        {
+            uIItemData.slotTypeParent = invenrotySlots.slotTypeInventory;
+            uIItemData.UpdateDataUI(itemClass);
+        }
 
-        return itemUI;
+        // Return the created UI object
+        return itemUICreate;
     }
+
     private void InstallNpcCostumeOnPlayer(GameObject playerObject, NpcClass npcClass)
     {
         // Get the NpcCoutume component from the player

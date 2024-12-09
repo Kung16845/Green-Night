@@ -5,6 +5,7 @@ using UnityEngine;
 public class ResizeUIInventory : MonoBehaviour
 {
     public GameObject RightBookInventoryUI;
+    public GameObject CarInventoryUI;
     public RectTransform rectTransformUIInventory;
 
 
@@ -12,7 +13,7 @@ public class ResizeUIInventory : MonoBehaviour
     void Update()
     {
 
-        if (RightBookInventoryUI.activeSelf)
+        if (RightBookInventoryUI.activeSelf || CarInventoryUI.activeSelf) 
         {
             Vector2 size = rectTransformUIInventory.sizeDelta;
             size.x = 1600;

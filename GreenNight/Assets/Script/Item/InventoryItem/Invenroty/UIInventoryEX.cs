@@ -28,6 +28,7 @@ public class UIInventoryEX : UIInventory
     public ExpenditionManager expenditionManager;
     public SceneSystem sceneSystem;
     public GameObject uIBoxesInventory;
+    public GameObject UICarInventory;
     public GameObject uINpcSending;
     public GameObject uINpcArriveEx;
     public GameObject uINpcGoBack;
@@ -41,6 +42,8 @@ public class UIInventoryEX : UIInventory
     }
     public void Start()
     {
+        if(isuseCar)
+            UICarInventory.SetActive(true);
         globalstat = FindObjectOfType<Globalstat>();
         sceneSystem = FindObjectOfType<SceneSystem>();
         SetPlayerExpendition();
@@ -116,6 +119,8 @@ public class UIInventoryEX : UIInventory
                 statAmplifier.specialistRole = npcSelecying.roleNpc;
                 statAmplifier.InitializeAmplifiers();
             }
+            if(isuseCar)
+                UICarInventory.SetActive(true);
 
             // Load car slot data into UI
             LoadCarSlotsFromData();
@@ -126,20 +131,24 @@ public class UIInventoryEX : UIInventory
     public override void RefreshUIInventory()
     {
         base.RefreshUIInventory(); // Refresh normal slots and equipment from the parent class logic
-        if (listItemDataCarInventorySlot != null)
-        {
-            LoadCarSlotsFromData();
-        }
         if(listItemDataCarInventorySlot.Count >= 1)
         {
+            Debug.Log($"Before Refresh: {listItemDataCarInventorySlot.Count} items");
             RefreshCarInventorySlots();
+            Debug.Log($"After Refresh: {listItemDataCarInventorySlot.Count} items");
         }
+        BindCarSlotsToData();
     }
-     private void RefreshCarInventorySlots()
+   private void RefreshCarInventorySlots()
     {
+        // Step 1: Clear all children from slots
         ClearAllChildInvenrotyCarSlot();
 
-        foreach (var itemData in listItemDataCarInventorySlot)
+        // Step 2: Sort and update data
+        var orderedItems = listItemDataCarInventorySlot.OrderBy(item => item.idItem).ToList();
+
+        // Step 3: Sync UI with data
+        foreach (var itemData in orderedItems)
         {
             var availableSlot = listInvenrotyCarSlotsUI.FirstOrDefault(slot => slot.transform.childCount == 0);
             if (availableSlot != null)
@@ -147,22 +156,27 @@ public class UIInventoryEX : UIInventory
                 CreateUIItem(itemData, availableSlot);
             }
         }
+
+        // Step 4: Sync data back to ensure consistency
+        SyncCarSlotsToItemData();
     }
 
-    public void ClearAllChildInvenrotyCarSlot()
+
+   public void ClearAllChildInvenrotyCarSlot()
     {
         foreach (var carSlot in listInvenrotyCarSlotsUI)
         {
-            // Check if the car slot is valid and has children
             if (carSlot != null && carSlot.transform.childCount > 0)
             {
                 foreach (Transform child in carSlot.transform)
                 {
-                    Destroy(child.gameObject); // Safely destroy each child
+                    Debug.Log($"Destroying child {child.name} in slot {carSlot.name}");
+                    Destroy(child.gameObject); // Destroy each child
                 }
             }
         }
     }
+
     public override void ConventDataUIToItemData()
     {
         base.ConventDataUIToItemData(); // Convert normal and equipment slots
@@ -170,30 +184,58 @@ public class UIInventoryEX : UIInventory
     }
     private void SyncCarSlotsToItemData()
     {
-        listItemDataCarInventorySlot.Clear();
+        listItemDataCarInventorySlot.Clear(); // Clear once here
         foreach (var slot in listInvenrotyCarSlotsUI)
         {
             var itemClass = slot.GetComponentInChildren<ItemClass>();
             if (itemClass != null)
             {
-                listItemDataCarInventorySlot.Add(inventoryItemPresent.ConventItemClassToItemData(itemClass));
+                var itemData = inventoryItemPresent.ConventItemClassToItemData(itemClass);
+
+                // Avoid duplicates
+                if (!listItemDataCarInventorySlot.Any(item => item.idItem == itemData.idItem && item.count == itemData.count))
+                {
+                    listItemDataCarInventorySlot.Add(itemData);
+                }
             }
         }
     }
-    public void LoadCarSlotsFromData()
+    public void BindCarSlotsToData()
+    {
+        // Step 1: Clear all children in the car slots
+        ClearAllChildInvenrotyCarSlot();
+
+        // Step 2: Loop through both lists and bind each slot to the corresponding data
+        for (int i = 0; i < listInvenrotyCarSlotsUI.Count; i++)
+        {
+            // Ensure the data list has enough items for the slot
+            if (i < listItemDataCarInventorySlot.Count)
+            {
+                // Get the corresponding item data
+                var itemData = listItemDataCarInventorySlot[i];
+
+                // Create a UI item in the slot
+                CreateUIItem(itemData, listInvenrotyCarSlotsUI[i]);
+            }
+        }
+
+        // Debugging to ensure alignment
+        Debug.Log($"Car slots and inventory data bound successfully. Total slots: {listInvenrotyCarSlotsUI.Count}, Total items: {listItemDataCarInventorySlot.Count}");
+    }
+
+   public void LoadCarSlotsFromData()
     {
         ClearAllChildInvenrotyCarSlot();
 
-        for (int i = 0; i < listItemDataCarInventorySlot.Count; i++)
+        // Ensure data is ordered by ID
+        var orderedItems = listItemDataCarInventorySlot.OrderBy(item => item.idItem).ToList();
+
+        foreach (var itemData in orderedItems)
         {
-            ItemData itemData = listItemDataCarInventorySlot[i];
-            if (i < listInvenrotyCarSlotsUI.Count)
+            var availableSlot = listInvenrotyCarSlotsUI.FirstOrDefault(slot => slot.transform.childCount == 0);
+            if (availableSlot != null)
             {
-                InvenrotySlots carSlot = listInvenrotyCarSlotsUI[i];
-                if (itemData.count > 0)
-                {
-                    CreateUIItem(itemData, carSlot);
-                }
+                CreateUIItem(itemData, availableSlot);
             }
         }
     }
@@ -386,7 +428,6 @@ public class UIInventoryEX : UIInventory
     }
     private void OnEnable()
     {
-        ConventAllUIItemInListCarInventorySlotToListItemData(listItemDataCarInventorySlot);
         RefreshUIInventory();
 
         if (isArriveEx && !isArriveHome)

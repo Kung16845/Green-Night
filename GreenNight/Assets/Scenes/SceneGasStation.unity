@@ -23774,7 +23774,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1514357653
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23791,10 +23791,10 @@ RectTransform:
   m_Father: {fileID: 2003202284}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 950}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1200, y: -475}
+  m_SizeDelta: {x: 800, y: 950}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1514357654
 MonoBehaviour:
@@ -30833,6 +30833,7 @@ MonoBehaviour:
   expenditionManager: {fileID: 0}
   sceneSystem: {fileID: 0}
   uIBoxesInventory: {fileID: 0}
+  UICarInventory: {fileID: 1514357652}
   uINpcSending: {fileID: 0}
   uINpcArriveEx: {fileID: 0}
   uINpcGoBack: {fileID: 0}
@@ -30852,6 +30853,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RightBookInventoryUI: {fileID: 1282036437}
+  CarInventoryUI: {fileID: 1514357652}
   rectTransformUIInventory: {fileID: 2003202284}
 --- !u!114 &2003202283
 MonoBehaviour:
@@ -30893,8 +30895,8 @@ RectTransform:
   m_Children:
   - {fileID: 2056744078}
   - {fileID: 1282036440}
-  - {fileID: 517655606}
   - {fileID: 1514357653}
+  - {fileID: 517655606}
   m_Father: {fileID: 1579827073}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
