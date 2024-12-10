@@ -93,6 +93,9 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
             case SlotType.SlotLoot:
                 // Handle SlotLoot separately if needed
                 break;
+            case SlotType.SlotLock:
+                return;
+                break;
         }
         if ((destinationSlotType == SlotType.SlotWeapon || 
         destinationSlotType == SlotType.SlotVest || 

@@ -547,4 +547,5 @@ public class UIInventoryEX : UIInventory
             }
         }
     }
+    
 }

@@ -30,6 +30,7 @@ public class UIInventory : MonoBehaviour
     public int SlotHasincreased;
     public int currentNumCategory;
     public LootingSystem currentLootingSystem;
+    
     public void RemoveItemData(ItemClass itemClass, SlotType slotType)
     {
         ItemData itemData = null;
@@ -217,10 +218,10 @@ public class UIInventory : MonoBehaviour
 
     }
     public virtual void RefreshUIInventory()
-    {
+    {   
+        
         // 1. Clear all existing UI items
         ClearAllChildInvenrotySlot();
-
         // 2. Combine items with the same idItem in listItemDataInventorySlot
         listItemDataInventorySlot = CombineAndSplitItems(listItemDataInventorySlot);
         listItemDataInventoryEqicment = CombineAndSplitItems(listItemDataInventoryEqicment);
@@ -323,7 +324,6 @@ public class UIInventory : MonoBehaviour
                 CreateUIItem(listItemDataInventorySlot[i], listInvenrotySlotsUI[i]);
             }
         }
-
         // 8. If this is UIInventoryEX, also bind car slots directly from listItemDataCarInventorySlot
         UIInventoryEX exUI = this as UIInventoryEX;
         if (exUI != null && exUI.listItemDataCarInventorySlot != null && exUI.listInvenrotyCarSlotsUI != null)
@@ -331,7 +331,6 @@ public class UIInventory : MonoBehaviour
             exUI.BindCarSlotsToData(); // Ensures car slots are also updated
         }
     }
-
     private List<ItemData> CombineAndSplitItems(List<ItemData> items)
     {
         Dictionary<int, int> itemCountMap = new Dictionary<int, int>();
