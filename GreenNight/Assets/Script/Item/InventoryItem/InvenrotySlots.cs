@@ -68,8 +68,13 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
 
         // Check if there's an existing item in the destination slot
         ItemClass itemClassInChild = GetComponentInChildren<ItemClass>();
-        if (destinationSlotType == SlotType.SlotLock || itemClassInChild.itemtype != destinationSlotType.slotType)
+        if (destinationSlotType == SlotType.SlotLock || 
+            (destinationSlotType != SlotType.SlotBag && 
+            destinationSlotType != SlotType.SlotCar &&
+            destinationSlotType != SlotType.SlotBoxes && 
+            destinationSlotType != uIItemDataDrag.slotType))
         {
+            // If the destination slot is locked or doesn't match the item type, return
             return;
         }
         List<ItemData> targetDataList = null;
