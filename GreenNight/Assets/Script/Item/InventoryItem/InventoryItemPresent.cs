@@ -32,6 +32,7 @@ public class InventoryItemPresent : MonoBehaviour
     public GameObject targetObject; // Drag and drop the GameObject to toggle
     private float toggleCooldown = 0.5f; // Set cooldown interval
     private float nextToggleTime = 0f;
+
     private void Start()
     {
         canvas = FindAnyObjectByType<Canvas>();

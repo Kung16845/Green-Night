@@ -35,6 +35,7 @@ public class UIInventoryEX : UIInventory
     public GameObject uINpcGoBack;
     public GameObject CloseButton;
     public Globalstat globalstat;
+
     public List<GameObject> listEvnet;
     private void Awake()
     {
@@ -140,7 +141,7 @@ public class UIInventoryEX : UIInventory
         }
         BindCarSlotsToData();
     }
-   private void RefreshCarInventorySlots()
+   public void RefreshCarInventorySlots()
     {
         // Step 1: Clear all children from slots
         ClearAllChildInvenrotyCarSlot();
