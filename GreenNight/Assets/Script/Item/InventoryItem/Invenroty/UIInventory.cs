@@ -223,8 +223,8 @@ public class UIInventory : MonoBehaviour
         // 1. Clear all existing UI items
         ClearAllChildInvenrotySlot();
         // 2. Combine items with the same idItem in listItemDataInventorySlot
-        listItemDataInventorySlot = CombineAndSplitItems(listItemDataInventorySlot);
-        listItemDataInventoryEqicment = CombineAndSplitItems(listItemDataInventoryEqicment);
+        CombineAndSplitItems(listItemDataInventorySlot);
+        CombineAndSplitItems(listItemDataInventoryEqicment);
 
         // 3. Default inventory slots based on NPC (no backpack)
         npcSelecying.countInventorySlot = 6; // Default inventory slots
@@ -331,10 +331,10 @@ public class UIInventory : MonoBehaviour
             exUI.BindCarSlotsToData(); // Ensures car slots are also updated
         }
     }
-    private List<ItemData> CombineAndSplitItems(List<ItemData> items)
+    private void CombineAndSplitItems(List<ItemData> items)
     {
         Dictionary<int, int> itemCountMap = new Dictionary<int, int>();
-        List<ItemData> result = new List<ItemData>();
+        List<ItemData> updatedItems = new List<ItemData>();
 
         // Combine items by idItem
         foreach (var item in items)
@@ -361,7 +361,7 @@ public class UIInventory : MonoBehaviour
             while (totalQuantity > 0)
             {
                 int splitCount = Mathf.Min(totalQuantity, templateItem.maxCount);
-                result.Add(new ItemData
+                updatedItems.Add(new ItemData
                 {
                     idItem = templateItem.idItem,
                     nameItem = templateItem.nameItem,
@@ -374,9 +374,10 @@ public class UIInventory : MonoBehaviour
             }
         }
 
-        return result;
+        // Update the original list in place
+        items.Clear();
+        items.AddRange(updatedItems);
     }
-
 
     private SlotType GetSlotTypeForItemType(Itemtype itemType)
     {
