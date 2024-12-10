@@ -68,7 +68,8 @@ public class ExpenditionManager : MonoBehaviour
     public InventoryItemPresent inventoryItemPresent;
 
     private void Start()
-    {
+    {   
+       
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
         globalstat = FindObjectOfType<Globalstat>();
     }

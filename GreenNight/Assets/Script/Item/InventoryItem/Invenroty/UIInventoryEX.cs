@@ -39,11 +39,8 @@ public class UIInventoryEX : UIInventory
         SetValuableUIInventory();
         expenditionManager = FindObjectOfType<ExpenditionManager>();
     }
-    public void Start()
+    public void SetUIExGameObjectInExScript()
     {
-        globalstat = FindObjectOfType<Globalstat>();
-        sceneSystem = FindObjectOfType<SceneSystem>();
-        SetPlayerExpendition();
         if (indexButtonExpendition == 1)
         {
             expenditionManager.uIExOne = this.gameObject;
@@ -53,7 +50,14 @@ public class UIInventoryEX : UIInventory
             expenditionManager.uIExTwo = this.gameObject;
         }
     }
-     public void ConventAllUIItemInListCarInventorySlotToListItemData(List<ItemData> listSlotItemDatas)
+    public void Start()
+    {
+        globalstat = FindObjectOfType<Globalstat>();
+        sceneSystem = FindObjectOfType<SceneSystem>();
+        SetPlayerExpendition();
+        SetUIExGameObjectInExScript();
+    }
+    public void ConventAllUIItemInListCarInventorySlotToListItemData(List<ItemData> listSlotItemDatas)
     {
         listSlotItemDatas.Clear(); // Clear old data
         for (int i = 0; i < listInvenrotyCarSlotsUI.Count; i++)
@@ -225,7 +229,7 @@ public class UIInventoryEX : UIInventory
         RefreshUIInventory();
     }
     public void SendNpcExpendition()
-    {   
+    {
         istraveling = true;
         CountdownTimeDay countdownTimeDay = expenditionManager.AddComponent<CountdownTimeDay>();
         countdownTimeDay.timeScale = timeScale;
@@ -273,7 +277,7 @@ public class UIInventoryEX : UIInventory
         expenditionManager.SetUIExButton(indexButtonExpendition, spriteHeadNpc, textdayFinish);
     }
     public void GoExpendition()
-    {   
+    {
         expenditionManager.npcSelecying = npcSelecying;
         expenditionManager.listItemDataInventoryEqicment = listItemDataInventoryEqicment;
         expenditionManager.listItemDataInventoryslot = listItemDataInventorySlot;
@@ -341,7 +345,7 @@ public class UIInventoryEX : UIInventory
     }
     public void Nottogive()
     {
-        if(IsEventTriggered())
+        if (IsEventTriggered())
         {
             listItemDataInventorySlot.Clear();
             listItemDataCarInventorySlot.Clear();
@@ -352,7 +356,7 @@ public class UIInventoryEX : UIInventory
     }
     public void ChoiceGiveThemHalfourSupplies()
     {
-        if(isuseCar)
+        if (isuseCar)
         {
             foreach (ItemData item in listItemDataCarInventorySlot)
             {
@@ -461,14 +465,14 @@ public class UIInventoryEX : UIInventory
     {
         Debug.Log("Deleting object and transferring inventory data to data box");
 
-        if(!istraveling)
+        if (!istraveling)
         {
             ClearItemDataInAllInventorySlotToListDataBoxes();
-            if(isuseCar)
+            if (isuseCar)
                 globalstat.availablecar += 1;
             Destroy(this.gameObject);
         }
-        else 
+        else
             this.gameObject.SetActive(false);
     }
 }

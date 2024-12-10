@@ -13,17 +13,25 @@ public class GameManager : MonoBehaviour
     public NpcManager npcManager;
     
     [Header ("Script Save and Load Game")]
+    public SaveAndLoadListNpc saveAndLoadListNpc;
     public SaveAndLoadExpendition saveAndLoadExpendition;
     public SaveDataDDA saveDataDDA;
-    private void Awake() {
-        npcManager = GetComponent<NpcManager>();
+    private void Awake() 
+    {
+        npcManager = FindObjectOfType<NpcManager>();
     }
     public void NewGame()
     {
         npcManager.StartGameCreateGropNpx();
     }
-    public void LoadGane()
+    public void SaveGame()
     {
-        
+        saveAndLoadListNpc.SaveListNpc();
+        saveAndLoadExpendition.SaveUIExpemdition();
+    }
+    public void LoadGane()
+    {        
+        saveAndLoadListNpc.LoadDataListNpc();
+        saveAndLoadExpendition.LoadDataUIExFromJsonToScriptData();
     }
 }
