@@ -54,12 +54,44 @@ public class InventoryItemPresent : MonoBehaviour
     public void RefreshUIBox()
     {
         ClearUIBoxes();
+        CombineItemsNoSplit(listItemsDataBox);
         foreach (ItemData itemData in listItemsDataBox.OrderBy(item => item.idItem))
         {
             CreateUIItemInBoxes(itemData);
         }
         
     }
+    private void CombineItemsNoSplit(List<ItemData> items)
+    {
+        Dictionary<int, ItemData> itemMap = new Dictionary<int, ItemData>();
+
+        // Combine items by idItem
+        foreach (var item in items)
+        {
+            if (itemMap.ContainsKey(item.idItem))
+            {
+                // Update the count in the existing item
+                itemMap[item.idItem].count += item.count;
+            }
+            else
+            {
+                // Add a new item to the map (copying properties)
+                itemMap[item.idItem] = new ItemData
+                {
+                    idItem = item.idItem,
+                    nameItem = item.nameItem,
+                    count = item.count,
+                    maxCount = item.maxCount,
+                    itemtype = item.itemtype
+                };
+            }
+        }
+
+        // Update the original list in place
+        items.Clear();
+        items.AddRange(itemMap.Values);
+    }
+
     public void CreateUIItemInBoxes(ItemData itemData)
     {
 

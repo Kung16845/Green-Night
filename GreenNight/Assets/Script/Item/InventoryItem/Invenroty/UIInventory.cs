@@ -331,7 +331,7 @@ public class UIInventory : MonoBehaviour
             exUI.BindCarSlotsToData(); // Ensures car slots are also updated
         }
     }
-    private void CombineAndSplitItems(List<ItemData> items)
+    public void CombineAndSplitItems(List<ItemData> items)
     {
         Dictionary<int, int> itemCountMap = new Dictionary<int, int>();
         List<ItemData> updatedItems = new List<ItemData>();

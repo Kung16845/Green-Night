@@ -220,9 +220,15 @@ public class ScriptMoveItems : MonoBehaviour
             itemClassMove.quantityItem -= actualQuantityToMove;
             UpdateUIItemMove();
         }
+        if (targetSlotType == SlotType.SlotCar)
+        {
+            ((UIInventoryEX)uIInventory).RefreshUIInventory();
+        }
+        else
+        {
+            uIInventory.RefreshUIInventory();
+        }
 
-        // Refresh UI
-        uIInventory.RefreshUIInventory();
         inventoryItemPresent.RefreshUIBox();
         Debug.Log($"Moving {actualQuantityToMove} of {sourceItemData.nameItem} from {sourceSlotType} to {targetSlotType}");
         // Close the move UI
@@ -232,7 +238,7 @@ public class ScriptMoveItems : MonoBehaviour
     private void AddOrUpdateItemDataInList(List<ItemData> list, ItemData sourceItem, int quantity)
     {
         // Check if the item already exists in the target list
-        var existingItem = list.FirstOrDefault(item => item.idItem == sourceItem.idItem && item.itemtype == sourceItem.itemtype);
+        var existingItem = list.FirstOrDefault(item => item.idItem == sourceItem.idItem);
 
         if (existingItem != null)
         {
