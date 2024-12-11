@@ -15,9 +15,10 @@ public class ScriptMoveItems : MonoBehaviour
     public SlotType sourceSlotType;
     public SlotType targetSlotType;
     public InventoryItemPresent inventoryItemPresent;
-    public TradesystemScript tradeSystem;
+    public TradesystemScript tradeSystem; // This will be set dynamically
     public UIInventory uIInventory;
     // Start is called before the first frame update
+
     private void OnEnable()
     {
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
@@ -157,7 +158,7 @@ public class ScriptMoveItems : MonoBehaviour
         ItemData sourceItemData = inventoryItemPresent.ConventItemClassToItemData(itemClassMove);
 
         List<ItemData> targetList = null;
-        TradesystemScript tradesystemScript = TradesystemScript.Instance; // Ensure singleton instance is used
+        TradesystemScript tradesystemScript = TradesystemScript.GetActiveTrade(); // Use activeTrade
 
         if (targetSlotType == SlotType.SlotBag)
         {
@@ -177,17 +178,14 @@ public class ScriptMoveItems : MonoBehaviour
         {
             targetList = uIInventory.listItemDataInventoryEqicment;
         }
-        else if (targetSlotType == SlotType.SlotNpcTrade || targetSlotType == SlotType.SlotPlayerTrade ||targetSlotType == SlotType.SlotNpcItem)
+        else if (targetSlotType == SlotType.SlotNpcTrade || targetSlotType == SlotType.SlotPlayerTrade)
         {
             if (tradesystemScript != null)
             {
                 if(targetSlotType == SlotType.SlotPlayerTrade)
-                    targetList = tradeSystem.listPlayerItemWaitforTrade;
-                else if(targetSlotType == SlotType.SlotNpcItem)
-                    targetList = tradeSystem.listInvenrotyNpcItem;
+                    targetList = tradesystemScript.listPlayerItemWaitforTrade;
                 else
-                    targetList = tradeSystem.listNpcItemWaitforTrade;
-                // tradesystemScript.UpdateTradeLists(targetSlotType, sourceItemData, actualQuantityToMove);
+                    targetList = tradesystemScript.listNpcItemWaitforTrade;
             }
         }
         if (targetList == null) return;
@@ -317,24 +315,24 @@ public class ScriptMoveItems : MonoBehaviour
     private void RemoveItemDataFromOrigin(SlotType originSlotType, ItemData sourceItem, int quantity)
     {
         List<ItemData> originList = null;
-        TradesystemScript tradesystemScript = TradesystemScript.Instance;
-        // Determine which list to remove the item from based on the origin slot type
+        TradesystemScript tradesystemScript = TradesystemScript.GetActiveTrade();
+        // Determine the appropriate source list based on the origin slot type
         if (originSlotType == SlotType.SlotBag)
             originList = uIInventory.listItemDataInventorySlot;
         else if (originSlotType == SlotType.SlotCar)
             originList = ((UIInventoryEX)uIInventory).listItemDataCarInventorySlot;
         else if (originSlotType == SlotType.SlotBoxes)
             originList = uIInventory.inventoryItemPresent.listItemsDataBox;
-        else if (originSlotType == SlotType.SlotWeapon || originSlotType == SlotType.SlotVest || 
+        else if (originSlotType == SlotType.SlotWeapon || originSlotType == SlotType.SlotVest ||
                 originSlotType == SlotType.SlotTool || originSlotType == SlotType.SlotBackpack || 
                 originSlotType == SlotType.SlotGrenade)
             originList = uIInventory.listItemDataInventoryEqicment;
-        else if (originSlotType == SlotType.SlotNpcItem) // Fixed access to SlotNpcItem
-            originList = tradesystemScript.listInvenrotyNpcItem;
-        else if (originSlotType == SlotType.SlotPlayerTrade) // Fixed access to SlotNpcItem
-            originList = tradesystemScript.listPlayerItemWaitforTrade;
-        else if (originSlotType == SlotType.SlotNpcTrade) // Fixed access to SlotNpcItem
-            originList = tradesystemScript.listNpcItemWaitforTrade;
+        else if (originSlotType == SlotType.SlotNpcItem)
+            originList = tradesystemScript?.listInvenrotyNpcItem;
+        else if (originSlotType == SlotType.SlotPlayerTrade)
+            originList = tradesystemScript?.listPlayerItemWaitforTrade;
+        else if (originSlotType == SlotType.SlotNpcTrade)
+            originList = tradesystemScript?.listNpcItemWaitforTrade;
 
         if (originList == null) return;
 

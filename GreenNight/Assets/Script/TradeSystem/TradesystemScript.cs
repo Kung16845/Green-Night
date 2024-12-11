@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -23,35 +22,22 @@ public class TradesystemScript : MonoBehaviour
     public GameObject TradeUI;
     public TextMeshProUGUI statusTrade;
     private bool inrange;
-    private static TradesystemScript _instance;
 
-    public static TradesystemScript Instance
+    // Static list to keep track of all active trades
+    private static List<TradesystemScript> activeTrades = new List<TradesystemScript>();
+
+    // Static reference to the currently active trade
+    private static TradesystemScript activeTrade;
+
+    /// <summary>
+    /// Retrieves the currently active TradesystemScript instance.
+    /// Returns null if no trade is active.
+    /// </summary>
+    public static TradesystemScript GetActiveTrade()
     {
-        get
-        {
-            if (_instance == null)
-            {
-                // Look for an existing TradesystemScript in the scene
-                _instance = FindObjectOfType<TradesystemScript>();
-
-                if (_instance == null)
-                {
-                    Debug.LogError("No TradesystemScript instance found in the scene!");
-                }
-            }
-
-            return _instance;
-        }
+        return activeTrade;
     }
 
-    private void Awake()
-    {
-        // Ensure only one instance exists
-        if (_instance == null)
-        {
-            _instance = this;
-        }
-    }
     private void Start()
     {
         actionController = FindObjectOfType<ActionController>();
@@ -66,6 +52,7 @@ public class TradesystemScript : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             inrange = true;
+            activeTrades.Add(this);
         }
     }
 
@@ -74,19 +61,39 @@ public class TradesystemScript : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             inrange = false;
+            activeTrades.Remove(this);
+            // If this was the active trade, close it
+            if (activeTrade == this)
+            {
+                CloseTradeUI();
+            }
         }
     }
 
     private void Update()
     {
-       if (inrange && Input.GetKeyDown(KeyCode.Tab))
+        // Only proceed if this is the closest active trade
+        TradesystemScript closestTrade = GetClosestActiveTrade();
+        if (activeTrade != null && activeTrade != this)
+            return;
+
+        if (inrange && Input.GetKeyDown(KeyCode.Tab))
         {
             if (TradeUI.activeSelf)
             {
                 CloseTradeUI();
+                if (activeTrade == this)
+                    activeTrade = null;
             }
             else
             {
+                // If another trade is active, close it first
+                if (activeTrade != null && activeTrade != this)
+                {
+                    activeTrade.CloseTradeUI();
+                }
+
+                activeTrade = this;
                 TradeUI.SetActive(true);
                 scriptMoveItems.tradeSystem = this;
                 InitializeTradeUI();
@@ -95,8 +102,21 @@ public class TradesystemScript : MonoBehaviour
         else if (!inrange && TradeUI.activeSelf)
         {
             CloseTradeUI();
+            if (activeTrade == this)
+                activeTrade = null;
         }
     }
+
+    private TradesystemScript GetClosestActiveTrade()
+    {
+        // Assuming you have a PlayerController with a Transform
+        ActionController player = FindObjectOfType<ActionController>();
+        if (player == null)
+            return null;
+
+        return activeTrades.OrderBy(trade => Vector2.Distance(trade.transform.position, player.transform.position)).FirstOrDefault();
+    }
+
     private void CloseTradeUI()
     {
         // Return items to the player's inventory
@@ -105,6 +125,12 @@ public class TradesystemScript : MonoBehaviour
         // Clear UI and deactivate TradeUI
         ClearAllTradeUI();
         TradeUI.SetActive(false);
+
+        // Clear the active trade if this is the active one
+        if (activeTrade == this)
+        {
+            activeTrade = null;
+        }
     }
 
     private void ReturnItemsToPlayer()
@@ -147,6 +173,7 @@ public class TradesystemScript : MonoBehaviour
             });
         }
     }
+
     private void InitializeTradeUI()
     {
         ClearAllTradeUI();
@@ -184,6 +211,7 @@ public class TradesystemScript : MonoBehaviour
             }
         }
     }
+
     public void RefreshTrade()
     {
         // Step 1: Clear all child objects in NPC trade UI slots
@@ -209,8 +237,10 @@ public class TradesystemScript : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+
         uIInventoryEX.CombineAndSplitItems(listNpcItemWaitforTrade);
         uIInventoryEX.CombineAndSplitItems(listPlayerItemWaitforTrade);
+
         // Step 4: Populate the NPC inventory UI with items from `listInvenrotyNpcItem`
         foreach (var item in listInvenrotyNpcItem)
         {
@@ -298,9 +328,6 @@ public class TradesystemScript : MonoBehaviour
         {
             uIItemData.slotTypeParent = invenrotySlots.slotTypeInventory;
             uIItemData.UpdateDataUI(itemClass);
-
-            // Optionally display trade value in the UI if needed
-            // For example, you can update the item's text or tooltip to show the trade value
         }
 
         // Return the created UI object
@@ -346,7 +373,7 @@ public class TradesystemScript : MonoBehaviour
         }
     }
 
-   private void UpdateTradeStatus()
+    private void UpdateTradeStatus()
     {
         float npcTradeValue = 0;
         float playerTradeValue = 0;
@@ -446,6 +473,7 @@ public class TradesystemScript : MonoBehaviour
         listNpcItemWaitforTrade.Clear();
         listPlayerItemWaitforTrade.Clear();
     }
+
     public void Confirmtrade()
     {
         // Clear NPC trade slots
@@ -469,7 +497,7 @@ public class TradesystemScript : MonoBehaviour
         // Transfer NPC trade items to player's inventory
         foreach (var itemData in listNpcItemWaitforTrade)
         {
-           uIInventoryEX.listItemDataInventorySlot.Add(itemData);
+            uIInventoryEX.listItemDataInventorySlot.Add(itemData);
         }
 
         // Clear the trade lists
@@ -479,5 +507,8 @@ public class TradesystemScript : MonoBehaviour
         uIInventoryEX.RefreshUIInventory();
         RefreshTrade();
         Debug.Log("Trade Confirmed!");
+
+        // Optionally, close the Trade UI after confirmation
+        CloseTradeUI();
     }
 }
