@@ -134,7 +134,7 @@ public class SaveAndLoadExpendition : MonoBehaviour
         countdownTimeDay.finishMinutesCraftingTime = newUIInventoryEX.finishMinutesCraftingTime;
 
         newUIInventoryEX.SetUIExButton(countdownTimeDay);
-        newUIInventoryEX.SetUIExGameObjectInExScript();
+        // newUIInventoryEX.SetUIExGameObjectInExScript();
     }
 }
 [Serializable]
