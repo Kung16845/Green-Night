@@ -72,14 +72,28 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
             (destinationSlotType != SlotType.SlotBag && 
             destinationSlotType != SlotType.SlotCar &&
             destinationSlotType != SlotType.SlotBoxes && 
+            destinationSlotType != SlotType.SlotNpcTrade &&
+            destinationSlotType != SlotType.SlotPlayerTrade &&
             destinationSlotType != uIItemDataDrag.slotType))
         {
             // If the destination slot is locked or doesn't match the item type, return
             return;
         }
+        TradesystemScript tradesystemScript = TradesystemScript.Instance;
+            if (tradesystemScript == null)
+            {
+                Debug.LogError("TradesystemScript instance is not available.");
+            }
         List<ItemData> targetDataList = null;
+
         switch (destinationSlotType)
         {
+            case SlotType.SlotNpcTrade:
+                targetDataList = tradesystemScript.listNpcItemWaitforTrade;
+                break;
+            case SlotType.SlotPlayerTrade:
+                targetDataList = tradesystemScript.listPlayerItemWaitforTrade;
+                break;
             case SlotType.SlotBag:
                 targetDataList = uIInventory.listItemDataInventorySlot;
                 break;
@@ -96,7 +110,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
             case SlotType.SlotBoxes:
                 // Boxes use inventoryItemPresent.listItemsDataBox
                 targetDataList = uIInventory.inventoryItemPresent.listItemsDataBox;
-                break;
+                break; 
             case SlotType.SlotLoot:
                 // Handle SlotLoot separately if needed
                 break;
@@ -104,6 +118,8 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
                 return;
                 break;
         }
+        if(tradesystemScript == null)
+             Debug.Log("Slot null");
         if ((destinationSlotType == SlotType.SlotWeapon || 
         destinationSlotType == SlotType.SlotVest || 
         destinationSlotType == SlotType.SlotTool || 
@@ -134,9 +150,12 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
             // Open UI for deciding the quantity if moving to non-boxes with multiple items
             openUI = true;
         }
-        if (destinationSlotType == SlotType.SlotBag && originSlot.slotTypeInventory == SlotType.SlotBag)
+        if ((destinationSlotType == SlotType.SlotNpcTrade && originSlot.slotTypeInventory != SlotType.SlotNpcItem) ||
+            (destinationSlotType == SlotType.SlotPlayerTrade && originSlot.slotTypeInventory == SlotType.SlotNpcItem) ||
+            (destinationSlotType == SlotType.SlotBag && originSlot.slotTypeInventory == SlotType.SlotNpcItem))
         {
-            openUI = false;
+            Debug.Log("return");
+            return;
         }
 
         if (destinationSlotType == SlotType.SlotBoxes)
@@ -170,9 +189,11 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
             // Do not proceed with the transfer yet
             return;
         }
-
-        // If not opening UI, proceed with immediate transfer
         TransferItems(itemClassMove, quantityToMove, originSlot, destinationSlotType, itemClassInChild, targetDataList);
+        if(tradesystemScript != null)
+        {
+            tradesystemScript.RefreshTrade();
+        }
     }
 
     private void TransferItems(ItemClass itemClassMove, int quantityToMove, InvenrotySlots originSlot, SlotType destinationSlotType, ItemClass itemClassInChild, List<ItemData> targetDataList)
@@ -246,6 +267,31 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
 
     private void AddOrUpdateItemDataInList(List<ItemData> list, ItemData sourceItem, int quantity)
     {
+        if (list == null)
+        {
+            Debug.LogError("The 'list' parameter is null.");
+        }
+        else
+        {
+            Debug.Log($"The 'list' parameter contains {list.Count} items.");
+        }
+        if (sourceItem == null)
+        {
+            Debug.LogError("The 'sourceItem' parameter is null.");
+        }
+        else
+        {
+            Debug.Log($"The 'sourceItem' parameter has id {sourceItem.idItem} and name {sourceItem.nameItem}.");
+        }
+
+        if (quantity <= 0)
+        {
+            Debug.LogError($"The 'quantity' parameter is invalid: {quantity}. It should be greater than 0.");
+        }
+        else
+        {
+            Debug.Log($"The 'quantity' parameter is valid: {quantity}.");
+        }
         var existingItem = list.FirstOrDefault(i => i.idItem == sourceItem.idItem && i.itemtype == sourceItem.itemtype);
         if (existingItem != null)
         {
@@ -341,5 +387,8 @@ public enum SlotType
     SlotLock,
     SlotBoxes,
     SlotLoot,
+    SlotPlayerTrade,
+    SlotNpcItem,
+    SlotNpcTrade,
     SlotCar
 }

@@ -30,6 +30,7 @@ public class UIInventory : MonoBehaviour
     public int SlotHasincreased;
     public int currentNumCategory;
     public LootingSystem currentLootingSystem;
+    public TradesystemScript currentTradesystem;
     
     public void RemoveItemData(ItemClass itemClass, SlotType slotType)
     {

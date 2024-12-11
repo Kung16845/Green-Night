@@ -11,6 +11,7 @@ public class ItemData
     public int idItem;
     public int count;
     public int maxCount;
+    public float tradeValueItem;
     public Itemtype itemtype;
     public SlotType parantslotType;
     

@@ -15,6 +15,7 @@ public class ScriptMoveItems : MonoBehaviour
     public SlotType sourceSlotType;
     public SlotType targetSlotType;
     public InventoryItemPresent inventoryItemPresent;
+    public TradesystemScript tradeSystem;
     public UIInventory uIInventory;
     // Start is called before the first frame update
     private void OnEnable()
@@ -152,32 +153,44 @@ public class ScriptMoveItems : MonoBehaviour
     {
         if (itemClassMove == null || draggableItemMove == null) return;
 
-        // Determine the actual quantity to move
         int actualQuantityToMove = countItemMove;
-
-        // Get the source slot type
-
-        // Convert ItemClass to ItemData
         ItemData sourceItemData = inventoryItemPresent.ConventItemClassToItemData(itemClassMove);
 
-        // Determine the target slot
-
-        // Determine the target list based on the destination slot type
         List<ItemData> targetList = null;
-        if (targetSlotType == SlotType.SlotBag)
-            targetList = uIInventory.listItemDataInventorySlot;
-        else if (targetSlotType == SlotType.SlotCar)
-            targetList = ((UIInventoryEX)uIInventory).listItemDataCarInventorySlot;
-        else if (targetSlotType == SlotType.SlotBoxes)
-            targetList = uIInventory.inventoryItemPresent.listItemsDataBox;
-        else if (targetSlotType == SlotType.SlotWeapon || targetSlotType == SlotType.SlotVest || 
-                targetSlotType == SlotType.SlotTool || targetSlotType == SlotType.SlotBackpack || 
-                targetSlotType == SlotType.SlotGrenade)
-            targetList = uIInventory.listItemDataInventoryEqicment;
+        TradesystemScript tradesystemScript = TradesystemScript.Instance; // Ensure singleton instance is used
 
+        if (targetSlotType == SlotType.SlotBag)
+        {
+            targetList = uIInventory.listItemDataInventorySlot;
+        }
+        else if (targetSlotType == SlotType.SlotCar)
+        {
+            targetList = ((UIInventoryEX)uIInventory).listItemDataCarInventorySlot;
+        }
+        else if (targetSlotType == SlotType.SlotBoxes)
+        {
+            targetList = uIInventory.inventoryItemPresent.listItemsDataBox;
+        }
+        else if (targetSlotType == SlotType.SlotWeapon || targetSlotType == SlotType.SlotVest ||
+                targetSlotType == SlotType.SlotTool || targetSlotType == SlotType.SlotBackpack ||
+                targetSlotType == SlotType.SlotGrenade)
+        {
+            targetList = uIInventory.listItemDataInventoryEqicment;
+        }
+        else if (targetSlotType == SlotType.SlotNpcTrade || targetSlotType == SlotType.SlotPlayerTrade)
+        {
+            if (tradesystemScript != null)
+            {
+                if(targetSlotType == SlotType.SlotPlayerTrade)
+                    targetList = tradeSystem.listPlayerItemWaitforTrade;
+                else
+                    targetList = tradeSystem.listNpcItemWaitforTrade;
+                // tradesystemScript.UpdateTradeLists(targetSlotType, sourceItemData, actualQuantityToMove);
+            }
+        }
         if (targetList == null) return;
 
-         if (sourceSlotType == SlotType.SlotLoot)
+        if (sourceSlotType == SlotType.SlotLoot)
         {
             LootingSystem currentLootSystem = uIInventory.currentLootingSystem;
 
@@ -186,6 +199,7 @@ public class ScriptMoveItems : MonoBehaviour
                 currentLootSystem.RemoveItemFromLootList(sourceItemData.idItem, actualQuantityToMove);
             }
         }
+
         if (itemClassMove.itemtype == Itemtype.Backpack)
         {
             if (sourceSlotType != SlotType.SlotBoxes && targetSlotType != SlotType.SlotBoxes)
@@ -220,20 +234,23 @@ public class ScriptMoveItems : MonoBehaviour
             itemClassMove.quantityItem -= actualQuantityToMove;
             UpdateUIItemMove();
         }
+
         if (targetSlotType == SlotType.SlotCar)
         {
             ((UIInventoryEX)uIInventory).RefreshUIInventory();
         }
-        else
+        if(tradesystemScript != null)
         {
-            uIInventory.RefreshUIInventory();
+            tradesystemScript.RefreshTrade();
         }
-
+        uIInventory.RefreshUIInventory();
         inventoryItemPresent.RefreshUIBox();
-        Debug.Log($"Moving {actualQuantityToMove} of {sourceItemData.nameItem} from {sourceSlotType} to {targetSlotType}");
+        Debug.Log($"Moved {actualQuantityToMove} of {sourceItemData.nameItem} from {sourceSlotType} to {targetSlotType}");
+
         // Close the move UI
         gameObject.SetActive(false);
     }
+
 
     private void AddOrUpdateItemDataInList(List<ItemData> list, ItemData sourceItem, int quantity)
     {
@@ -298,7 +315,7 @@ public class ScriptMoveItems : MonoBehaviour
     private void RemoveItemDataFromOrigin(SlotType originSlotType, ItemData sourceItem, int quantity)
     {
         List<ItemData> originList = null;
-
+        TradesystemScript tradesystemScript = TradesystemScript.Instance;
         // Determine which list to remove the item from based on the origin slot type
         if (originSlotType == SlotType.SlotBag)
             originList = uIInventory.listItemDataInventorySlot;
@@ -310,6 +327,12 @@ public class ScriptMoveItems : MonoBehaviour
                 originSlotType == SlotType.SlotTool || originSlotType == SlotType.SlotBackpack || 
                 originSlotType == SlotType.SlotGrenade)
             originList = uIInventory.listItemDataInventoryEqicment;
+        else if (originSlotType == SlotType.SlotNpcItem) // Fixed access to SlotNpcItem
+            originList = tradesystemScript.listInvenrotyNpcItem;
+        else if (originSlotType == SlotType.SlotPlayerTrade) // Fixed access to SlotNpcItem
+            originList = tradesystemScript.listPlayerItemWaitforTrade;
+        else if (originSlotType == SlotType.SlotNpcTrade) // Fixed access to SlotNpcItem
+            originList = tradesystemScript.listNpcItemWaitforTrade;
 
         if (originList == null) return;
 
@@ -323,6 +346,7 @@ public class ScriptMoveItems : MonoBehaviour
             {
                 // Remove the item from the list if the count drops to zero
                 originList.Remove(originItem);
+                Debug.Log("Remove Item");
             }
         }
     }

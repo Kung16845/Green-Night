@@ -15,7 +15,7 @@ public class ItemClass : MonoBehaviour
     public Itemtype itemtype;
     [Header("Item value")]
     public int rarityItem;
-    public int tradeValueItem;
+    public float tradeValueItem;
     public bool carftableItem;
     public int disassembleItem;
     public int idItem;
