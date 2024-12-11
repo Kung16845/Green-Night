@@ -30,7 +30,7 @@ public class NpcManager : MonoBehaviour
     public TextMeshProUGUI specialistNpcText;
     private void Awake()
     {
-        StartGameCreateGropNpx();
+        // StartGameCreateGropNpx();
     }
     private void Start()
     {
@@ -144,6 +144,7 @@ public class NpcManager : MonoBehaviour
         inventoryItemPresent.UnlockSlotInventory(npcClassSelest.countInventorySlot, npcClassSelest.roleNpc,uIInventory.listItemDataInventoryEqicment);
 
         SetText(npcClassSelest);
+
         HandleSpecialistNpcChange(selectedValue);
     }
     public void SetText(NpcClass npcClass)
