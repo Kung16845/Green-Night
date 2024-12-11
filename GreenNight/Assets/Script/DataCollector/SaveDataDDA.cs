@@ -34,7 +34,7 @@ public class SaveDataDDA : MonoBehaviour
         // LoadDataFromDataJsonToScriptData();
     }
 
-    public void AddData()
+    public void AddDataDDAAndSave()
     {
         // ดึงข้อมูลปัจจุบันจากตัวเก็บข้อมูล
         var newRecord = new DataDDA
@@ -99,6 +99,7 @@ public class SaveDataDDA : MonoBehaviour
         {
             string json = File.ReadAllText(savePathDataDDA);
             dataDDACollection = JsonUtility.FromJson<DataDDACollection>(json);
+            
             Debug.Log($"Data loaded from {savePathDataDDA}");
         }
         else
@@ -108,7 +109,7 @@ public class SaveDataDDA : MonoBehaviour
         }
     }
 
-    public void ResetData()
+    public void ResetDataDDA()
     {
         dataDDACollection = new DataDDACollection();
         SaveDataDDATOJSON();

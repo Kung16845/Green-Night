@@ -20629,18 +20629,19 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1195708213}
-  - {fileID: 334400778}
+  - {fileID: 1720518019}
+  - {fileID: 949315568}
+  - {fileID: 1256208284}
+  - {fileID: 273439450}
+  - {fileID: 1637875196}
+  - {fileID: 1553585330}
   - {fileID: 725400159}
   - {fileID: 1890103466}
   - {fileID: 483800079}
   - {fileID: 1960134153}
   - {fileID: 1484128884}
   - {fileID: 2063404513}
-  - {fileID: 1553585330}
-  - {fileID: 949315568}
-  - {fileID: 1256208284}
-  - {fileID: 273439450}
-  - {fileID: 1637875196}
+  - {fileID: 334400778}
   - {fileID: 1398455260}
   - {fileID: 1123376618}
   - {fileID: 958454484}
@@ -26884,8 +26885,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 949315568}
+  - component: {fileID: 949315569}
   m_Layer: 0
-  m_Name: SaveManager
+  m_Name: SaveListItemsDataBoxes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26906,6 +26908,23 @@ Transform:
   m_Father: {fileID: 741425701}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &949315569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949315567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01a236955bc50644cb8e9eb1e2dba5b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataCollentListItemsBoxes:
+    listItemBoxes: []
+  gameManager: {fileID: 0}
+  inventoryItemPresent: {fileID: 0}
+  savePathDataListItemsBoxes: 
 --- !u!1 &952860721
 GameObject:
   m_ObjectHideFlags: 0
@@ -35410,6 +35429,8 @@ MonoBehaviour:
   originatingLootSystem: {fileID: 0}
   itemClassInChild: {fileID: 0}
   draggableItemMove: {fileID: 0}
+  sourceSlotType: 0
+  targetSlotType: 0
   inventoryItemPresent: {fileID: 0}
   uIInventory: {fileID: 0}
 --- !u!114 &1337113244
@@ -42445,6 +42466,8 @@ MonoBehaviour:
   expenditionManager: {fileID: 1960134154}
   globalstat: {fileID: 1484128885}
   npcManager: {fileID: 2063404514}
+  saveAndLoadTimemanager: {fileID: 1720518020}
+  saveAndLoadLIstItemsDataBoxes: {fileID: 949315569}
   saveAndLoadListNpc: {fileID: 273439451}
   saveAndLoadExpendition: {fileID: 1637875197}
   saveDataDDA: {fileID: 1256208285}
@@ -46676,6 +46699,61 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1713224278}
   m_CullTransparentMesh: 1
+--- !u!1 &1720518018
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1720518019}
+  - component: {fileID: 1720518020}
+  m_Layer: 0
+  m_Name: SaveTimeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1720518019
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720518018}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 741425701}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1720518020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720518018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1163fc8c19b506b4eb8e1714529539c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 1553585331}
+  timeManager: {fileID: 725400160}
+  dataCollentTime:
+    dateTime:
+      day: 0
+      hour: 0
+      minutes: 0
+      isDayNight: 0
+      sceneSystem: {fileID: 0}
+      saveDataDDA: {fileID: 0}
+  savePathDataTime: 
 --- !u!1 &1723035686
 GameObject:
   m_ObjectHideFlags: 0
