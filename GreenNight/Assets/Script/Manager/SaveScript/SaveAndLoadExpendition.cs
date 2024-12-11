@@ -51,6 +51,9 @@ public class SaveAndLoadExpendition : MonoBehaviour
             dataExpenditionSave.indexButtonExpendition = uIEx.indexButtonExpendition;
             dataExpenditionSave.indexSceneExpendition = uIEx.indexSceneExpendition;
 
+            dataExpenditionSave.isUseTunnel =  uIEx.isuseTunnel;
+            dataExpenditionSave.isUseCar = uIEx.isuseCar;
+            dataExpenditionSave.isWalk = uIEx.iswalk;
             dataExpenditionSave.istraveling = uIEx.istraveling;
             dataExpenditionSave.isArriveEx = uIEx.isArriveEx;       
             dataExpenditionSave.isArriveHome = uIEx.isArriveHome;
@@ -111,6 +114,9 @@ public class SaveAndLoadExpendition : MonoBehaviour
         newUIInventoryEX.indexButtonExpendition = dataSaveExpendition.indexButtonExpendition;
         newUIInventoryEX.indexSceneExpendition = dataSaveExpendition.indexSceneExpendition;
 
+        newUIInventoryEX.isuseCar = dataSaveExpendition.isUseCar;
+        newUIInventoryEX.isuseTunnel = dataSaveExpendition.isUseTunnel;
+        newUIInventoryEX.iswalk = dataSaveExpendition.isWalk;
         newUIInventoryEX.istraveling = dataSaveExpendition.istraveling;
         newUIInventoryEX.isArriveEx = dataSaveExpendition.isArriveEx;
         newUIInventoryEX.isArriveHome = dataSaveExpendition.isArriveHome;
@@ -136,6 +142,12 @@ public class SaveAndLoadExpendition : MonoBehaviour
         newUIInventoryEX.SetUIExButton(countdownTimeDay);
         // newUIInventoryEX.SetUIExGameObjectInExScript();
     }
+    public void ResetDataUIEX()
+    {
+        dataCollentUIEX = new DataCollentUIEX();
+        string json = JsonUtility.ToJson(dataCollentUIEX, true);
+        File.WriteAllText(savePathDataExpendition, json);
+    }
 }
 [Serializable]
 public class DataCollentUIEX
@@ -153,6 +165,9 @@ public class DataSaveExpendition
     public float riskEventValue;
     public int indexButtonExpendition;
     public int indexSceneExpendition;
+    public bool isUseCar;
+    public bool isUseTunnel;
+    public bool isWalk;
     public bool istraveling;
     public bool isArriveEx;
     public bool isArriveHome;

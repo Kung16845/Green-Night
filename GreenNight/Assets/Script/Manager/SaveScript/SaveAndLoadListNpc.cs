@@ -110,6 +110,12 @@ public class SaveAndLoadListNpc : MonoBehaviour
         npcCoutume.SetCostume(headCoutume, bodyCoutume, feedCoutume);
 
     }
+    public void ResetDataListNpc()
+    {
+        DataCollentListItemsBoxes dataCollentListItemsBoxes = new DataCollentListItemsBoxes();
+        string json = JsonUtility.ToJson(dataCollentListNpc, true);
+        File.WriteAllText(savePathDataListNpc, json);
+    }
 }
 
 [Serializable]
