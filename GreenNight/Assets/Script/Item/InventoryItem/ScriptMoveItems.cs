@@ -12,6 +12,8 @@ public class ScriptMoveItems : MonoBehaviour
     public LootingSystem originatingLootSystem;
     public ItemClass itemClassInChild;
     public DraggableItem draggableItemMove;
+    public SlotType sourceSlotType;
+    public SlotType targetSlotType;
     public InventoryItemPresent inventoryItemPresent;
     public UIInventory uIInventory;
     // Start is called before the first frame update
@@ -148,162 +150,177 @@ public class ScriptMoveItems : MonoBehaviour
     }
     public void MoveItem()
     {
-        // Move Item from boxes to inventory slot
-        List<ItemData> listItemDataBox = inventoryItemPresent.listItemsDataBox;
-        ItemData itemData = listItemDataBox.FirstOrDefault(item => item.idItem == itemClassMove.idItem);
-        SlotType slotTypeItemMoveParantBefore = draggableItemMove.parentBeforeDray.GetComponent<InvenrotySlots>().slotTypeInventory;
+        if (itemClassMove == null || draggableItemMove == null) return;
 
-        if (slotTypeItemMoveParantBefore == SlotType.SlotBoxes && itemClassInChild == null)
-        {
-            itemData.count -= countItemMove;
-            itemClassMove.quantityItem = countItemMove;
-            UpdateUIItemMove();
-        }
-        else if (slotTypeItemMoveParantBefore == SlotType.SlotLoot && itemClassMove != null && itemClassInChild == null)
-        {
-            // Access the loot system from the item's originating data
-            LootingSystem lootSystem = itemClassMove.GetComponent<UIItemData>().originatingLootSystem;
+        // Determine the actual quantity to move
+        int actualQuantityToMove = countItemMove;
 
-            if (lootSystem != null)
+        // Get the source slot type
+
+        // Convert ItemClass to ItemData
+        ItemData sourceItemData = inventoryItemPresent.ConventItemClassToItemData(itemClassMove);
+
+        // Determine the target slot
+
+        // Determine the target list based on the destination slot type
+        List<ItemData> targetList = null;
+        if (targetSlotType == SlotType.SlotBag)
+            targetList = uIInventory.listItemDataInventorySlot;
+        else if (targetSlotType == SlotType.SlotCar)
+            targetList = ((UIInventoryEX)uIInventory).listItemDataCarInventorySlot;
+        else if (targetSlotType == SlotType.SlotBoxes)
+            targetList = uIInventory.inventoryItemPresent.listItemsDataBox;
+        else if (targetSlotType == SlotType.SlotWeapon || targetSlotType == SlotType.SlotVest || 
+                targetSlotType == SlotType.SlotTool || targetSlotType == SlotType.SlotBackpack || 
+                targetSlotType == SlotType.SlotGrenade)
+            targetList = uIInventory.listItemDataInventoryEqicment;
+
+        if (targetList == null) return;
+
+         if (sourceSlotType == SlotType.SlotLoot)
+        {
+            LootingSystem currentLootSystem = uIInventory.currentLootingSystem;
+
+            if (currentLootSystem != null)
             {
-                // Find the item in the loot system
-                ItemData lootItem = lootSystem.droppedItems.FirstOrDefault(d => d.idItem == itemClassMove.idItem);
-                if (lootItem != null)
-                {
-                    // Ensure only countItemMove amount is moved
-                    if (lootItem.count >= countItemMove)
-                    {
-                        lootItem.count -= countItemMove; // Reduce count in the loot system
-                        itemClassMove.quantityItem = countItemMove; // Set the moved item's quantity
-                    }
-                    else
-                    {
-                        // Move the remaining quantity if less than countItemMove
-                        itemClassMove.quantityItem = lootItem.count;
-                        lootItem.count = 0;
-                    }
-
-                    Debug.Log($"Moved {itemClassMove.quantityItem} items from loot. Remaining in loot: {lootItem.count}");
-
-                    // Remove the item from loot if its count is zero
-                    if (lootItem.count <= 0)
-                    {
-                        lootSystem.droppedItems.Remove(lootItem);
-                    }
-                }
-            }
-
-            // Update the UI to reflect the new item count
-            UpdateUIItemMove();
-        }
-
-        else if (slotTypeItemMoveParantBefore == SlotType.SlotLoot && itemClassInChild != null)
-        {
-            // Access the originating loot system
-            LootingSystem lootSystem = itemClassMove.GetComponent<UIItemData>().originatingLootSystem;
-
-            if (lootSystem != null)
-            {
-                // Find the item in the loot system
-                ItemData lootItem = lootSystem.droppedItems.FirstOrDefault(d => d.idItem == itemClassMove.idItem);
-                if (lootItem != null)
-                {
-                    // Calculate the actual amount that can be moved based on the loot and child slot capacity
-                    int availableToMove = Mathf.Min(countItemMove, lootItem.count);
-                    int availableSpaceInChild = itemClassInChild.maxCountItem - itemClassInChild.quantityItem;
-                    int actualMoveAmount = Mathf.Min(availableToMove, availableSpaceInChild);
-
-                    // Reduce the count in the loot system and transfer the actual move amount
-                    lootItem.count -= actualMoveAmount;
-                    itemClassMove.quantityItem -= actualMoveAmount;
-                    itemClassInChild.quantityItem += actualMoveAmount;
-
-                    // Update loot system if the item's count reaches zero
-                    if (lootItem.count <= 0)
-                    {
-                        lootSystem.droppedItems.Remove(lootItem);
-                    }
-
-                    // Update the child item's UI
-                    GameObject uIItemInChildObject = itemClassInChild.gameObject;
-                    UIItemData uIItemDataInChild = uIItemInChildObject.GetComponent<UIItemData>();
-                    uIItemDataInChild.UpdateDataUI(itemClassInChild);
-
-                    // Update the moving item's UI or destroy it if its quantity is now zero
-                    if (itemClassMove.quantityItem > 0)
-                    {
-                        UpdateUIItemMove();
-                    }
-                    else
-                    {
-                        Destroy(itemClassMove.gameObject);
-                    }
-
-                    Debug.Log($"Moved {actualMoveAmount} items to child. Remaining in loot: {lootItem.count}, Remaining in move: {itemClassMove.quantityItem}");
-                }
+                currentLootSystem.RemoveItemFromLootList(sourceItemData.idItem, actualQuantityToMove);
             }
         }
-        else if (itemClassInChild != null)
+        if (itemClassMove.itemtype == Itemtype.Backpack)
         {
-            itemClassMove.quantityItem -= countItemMove;
-            itemClassInChild.quantityItem += countItemMove;
-
-            if (itemClassMove.gameObject.GetComponentInParent<InvenrotySlots>().slotTypeInventory == SlotType.SlotBoxes)
+            if (sourceSlotType != SlotType.SlotBoxes && targetSlotType != SlotType.SlotBoxes)
             {
-                itemData.count -= countItemMove;
+                // Remove backpack effect from source slot
+                uIInventory.npcSelecying.countInventorySlot -= uIInventory.SlotHasincreased;
+                uIInventory.SlotHasincreased = 0;
             }
 
-            GameObject uIItemInChildObject = itemClassInChild.gameObject;
-            UIItemData uIItemDataInChild = uIItemInChildObject.GetComponent<UIItemData>();
-            uIItemDataInChild.UpdateDataUI(itemClassInChild);
-
-            if (itemClassMove.quantityItem > 0)
+            if (targetSlotType == SlotType.SlotBag)
             {
-                UpdateUIItemMove();
-            }
-            else
-            {
-                Destroy(itemClassMove.gameObject);
+                // Add backpack effect to target slot
+                ItemBackpack backpack = itemClassMove.GetComponent<ItemBackpack>();
+                uIInventory.npcSelecying.countInventorySlot += backpack.slotIncreasing;
+                uIInventory.SlotHasincreased = backpack.slotIncreasing;
             }
         }
 
-        bool isBackpackMoved = false;
+        // Add the item to the target list
+        AddOrUpdateItemDataInList(targetList, sourceItemData, actualQuantityToMove);
 
-        if (itemClassMove != null && itemClassMove.itemtype == Itemtype.Backpack)
-        {
-            isBackpackMoved = true;
-        }
-        else if (itemClassInChild != null && itemClassInChild.itemtype == Itemtype.Backpack)
-        {
-            isBackpackMoved = true;
-        }
+        // Remove the item from the source list
+        RemoveItemDataFromOrigin(sourceSlotType, sourceItemData, actualQuantityToMove);
 
-        uIInventory.ConventDataUIToItemData();
-
-        if (itemData != null)
-        {
-            if (itemData.count <= 0)
-            {
-                listItemDataBox.Remove(itemData);
-            }
-        }
-
-        if (itemClassMove.quantityItem <= 0)
+        // Update UI or destroy item if quantity reaches zero
+        if (actualQuantityToMove == itemClassMove.quantityItem)
         {
             Destroy(itemClassMove.gameObject);
         }
-
-        if (isBackpackMoved)
+        else
         {
-            uIInventory.RefreshUIInventory();
+            itemClassMove.quantityItem -= actualQuantityToMove;
+            UpdateUIItemMove();
         }
 
-        itemClassInChild = null;
-        itemClassMove = null;
+        // Refresh UI
+        uIInventory.RefreshUIInventory();
         inventoryItemPresent.RefreshUIBox();
-        uIInventory.RefreshUIBoxCategory(uIInventory.currentNumCategory);
+        Debug.Log($"Moving {actualQuantityToMove} of {sourceItemData.nameItem} from {sourceSlotType} to {targetSlotType}");
+        // Close the move UI
         gameObject.SetActive(false);
     }
+
+    private void AddOrUpdateItemDataInList(List<ItemData> list, ItemData sourceItem, int quantity)
+    {
+        // Check if the item already exists in the target list
+        var existingItem = list.FirstOrDefault(item => item.idItem == sourceItem.idItem && item.itemtype == sourceItem.itemtype);
+
+        if (existingItem != null)
+        {
+            int totalQuantity = existingItem.count + quantity;
+
+            if (totalQuantity <= existingItem.maxCount)
+            {
+                // Fits within the same slot
+                existingItem.count = totalQuantity;
+            }
+            else
+            {
+                // Exceeds maxCount, split the excess
+                existingItem.count = existingItem.maxCount;
+                int excess = totalQuantity - existingItem.maxCount;
+
+                // Create new entries for the excess
+                while (excess > 0)
+                {
+                    int newSlotQuantity = Mathf.Min(excess, sourceItem.maxCount);
+                    ItemData newItem = new ItemData
+                    {
+                        idItem = sourceItem.idItem,
+                        nameItem = sourceItem.nameItem,
+                        count = newSlotQuantity,
+                        maxCount = sourceItem.maxCount,
+                        itemtype = sourceItem.itemtype
+                    };
+
+                    list.Add(newItem);
+                    excess -= newSlotQuantity;
+                }
+            }
+        }
+        else
+        {
+            // No existing entry, add a new one
+            while (quantity > 0)
+            {
+                int newSlotQuantity = Mathf.Min(quantity, sourceItem.maxCount);
+                ItemData newItem = new ItemData
+                {
+                    idItem = sourceItem.idItem,
+                    nameItem = sourceItem.nameItem,
+                    count = newSlotQuantity,
+                    maxCount = sourceItem.maxCount,
+                    itemtype = sourceItem.itemtype
+                };
+
+                list.Add(newItem);
+                quantity -= newSlotQuantity;
+            }
+        }
+    }
+
+
+    private void RemoveItemDataFromOrigin(SlotType originSlotType, ItemData sourceItem, int quantity)
+    {
+        List<ItemData> originList = null;
+
+        // Determine which list to remove the item from based on the origin slot type
+        if (originSlotType == SlotType.SlotBag)
+            originList = uIInventory.listItemDataInventorySlot;
+        else if (originSlotType == SlotType.SlotCar)
+            originList = ((UIInventoryEX)uIInventory).listItemDataCarInventorySlot;
+        else if (originSlotType == SlotType.SlotBoxes)
+            originList = uIInventory.inventoryItemPresent.listItemsDataBox;
+        else if (originSlotType == SlotType.SlotWeapon || originSlotType == SlotType.SlotVest || 
+                originSlotType == SlotType.SlotTool || originSlotType == SlotType.SlotBackpack || 
+                originSlotType == SlotType.SlotGrenade)
+            originList = uIInventory.listItemDataInventoryEqicment;
+
+        if (originList == null) return;
+
+        // Find the item in the origin list
+        var originItem = originList.FirstOrDefault(item => item.idItem == sourceItem.idItem && item.itemtype == sourceItem.itemtype);
+        if (originItem != null)
+        {
+            // Decrease the count of the item
+            originItem.count -= quantity;
+            if (originItem.count <= 0)
+            {
+                // Remove the item from the list if the count drops to zero
+                originList.Remove(originItem);
+            }
+        }
+    }
+
 
     public void UpdateUIItemMove()
     {

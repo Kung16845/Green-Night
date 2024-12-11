@@ -32,6 +32,7 @@ public class InventoryItemPresent : MonoBehaviour
     public GameObject targetObject; // Drag and drop the GameObject to toggle
     private float toggleCooldown = 0.5f; // Set cooldown interval
     private float nextToggleTime = 0f;
+
     private void Start()
     {
         canvas = FindAnyObjectByType<Canvas>();
@@ -126,54 +127,79 @@ public class InventoryItemPresent : MonoBehaviour
     }
 
 
+    public void RefreshCarInventory()
+    {
+        // Ensure all car slots are cleared
+        foreach (var slot in listInvenrotySlots.Where(s => s.slotTypeInventory == SlotType.SlotCar))
+        {
+            ClearSlot(slot);
+        }
+
+        // Populate car inventory slots
+        foreach (var itemData in listItemsDataBox) // Assuming `listItemsDataBox` is the correct field
+        {
+            var carSlot = listInvenrotySlots.FirstOrDefault(s => s.slotTypeInventory == SlotType.SlotCar && s.transform.childCount == 0);
+            if (carSlot != null)
+            {
+                CreateUIItemInSlot(itemData, carSlot);
+            }
+        }
+    }
+
+    // Clear all child elements from a slot
+    private void ClearSlot(InvenrotySlots slot)
+    {
+        foreach (Transform child in slot.transform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
+    // Create a UI item in a specified slot
+    private void CreateUIItemInSlot(ItemData itemData, InvenrotySlots slot)
+    {
+        var uiItemPrefab = listUIItemPrefab.FirstOrDefault(p => p.idItem == itemData.idItem)?.gameObject;
+        if (uiItemPrefab != null)
+        {
+            var uiItem = Instantiate(uiItemPrefab, slot.transform);
+            var itemClass = uiItem.GetComponent<ItemClass>();
+            if (itemClass != null)
+            {
+                itemClass.quantityItem = itemData.count;
+                itemClass.maxCountItem = itemData.maxCount;
+            }
+
+            var uiItemData = uiItem.GetComponent<UIItemData>();
+            if (uiItemData != null)
+            {
+                uiItemData.slotTypeParent = slot.slotTypeInventory;
+                uiItemData.UpdateDataUI(itemClass);
+            }
+        }
+    }
+
 
     public void AddItem(ItemData itemDataAdd)
     {
         ItemData itemDataInList = this.listItemsDataBox.FirstOrDefault(item => item.idItem == itemDataAdd.idItem && item.count != item.maxCount);
-
+        int[] excludedItemIds = { 1020129, 1020130, 1020128, 1020131, 1020132 };
         if (itemDataInList != null)
         {   
-            // Debug.Log("ItenDataInlist Not null");
-            // Debug.Log("itemDataAdd count : " + itemDataAdd.count);
-            int[] excludedItemIds = { 1020129, 1020130, 1020128, 1020131, 1020132 };
             if (excludedItemIds.Contains(itemDataAdd.idItem))
             {
                 return;
             }
             else
                 itemDataInList.count = itemDataInList.count + itemDataAdd.count;
-            // if (itemCount <= itemDataInList.maxCount)
-            // {
-            //     itemDataInList.count += itemDataAdd.count;
-            // }
-            // else if (itemCount >= itemDataInList.maxCount)
-            // {
-            //     Debug.Log("ITem new create count : " + itemDataAdd.count);
-
-            //     ItemData newItemData = new ItemData();
-            //     newItemData.nameItem = itemDataInList.nameItem;
-            //     newItemData.idItem = itemDataInList.idItem;
-            //     newItemData.count = itemCount - itemDataInList.maxCount;
-            //     newItemData.maxCount = itemDataInList.maxCount;
-            //     newItemData.itemtype = itemDataInList.itemtype;
-
-            //     listItemsDataBox.Add(newItemData);
-
-            //     itemDataInList.count = itemDataInList.maxCount;
-
-            // }
         }
-        else
+        else if(itemDataInList == null)
         {
-            int[] excludedItemIds = { 1020129, 1020130, 1020128, 1020131, 1020132 };
             if (excludedItemIds.Contains(itemDataAdd.idItem))
             {
                 return;
             }
             listItemsDataBox.Add(itemDataAdd);
         }
-
-        // RefreshUIBox();
     }
     public void RemoveItem(ItemData itemDataRemove)
     {

@@ -27,77 +27,122 @@ public class UIInventory : MonoBehaviour
     public TextMeshProUGUI levelSpeedText;
     public TextMeshProUGUI specialistNpcText;
     public TextMeshProUGUI nameNpcText;
+    public int SlotHasincreased;
     public int currentNumCategory;
-    public void RemoveItemData(ItemClass itemClass)
+    public LootingSystem currentLootingSystem;
+    
+    public void RemoveItemData(ItemClass itemClass, SlotType slotType)
     {
-        ItemData itemData = new ItemData();
+        ItemData itemData = null;
 
-        if (itemClass.itemtype == Itemtype.Ammo || itemClass.itemtype == Itemtype.General)
+        if (slotType == SlotType.SlotBag || slotType == SlotType.SlotBoxes)
         {
-            itemData = listItemDataInventorySlot.FirstOrDefault(itemnpc => itemnpc.idItem == itemClass.idItem);
-        }
-        else
-        {
-            itemData = listItemDataInventoryEqicment.FirstOrDefault(itemnpc => itemnpc.idItem == itemClass.idItem);
+            // Remove from inventory list
+            itemData = listItemDataInventorySlot.FirstOrDefault(item => item.idItem == itemClass.idItem);
 
-        }
-
-        if (itemData != null)
-        {
-            itemData.count--;
-            if (itemData.count == 0)
+            if (itemData != null)
             {
-                if (itemClass.itemtype == Itemtype.Ammo || itemClass.itemtype == Itemtype.General)
+                itemData.count--;
+                if (itemData.count <= 0)
                 {
                     listItemDataInventorySlot.Remove(itemData);
                 }
-
-                else
-                {
-                    listItemDataInventoryEqicment.Remove(itemData);
-                }
-
             }
         }
         else
         {
-            return;
+            // Remove from equipment list
+            itemData = listItemDataInventoryEqicment.FirstOrDefault(item => item.idItem == itemClass.idItem);
+
+            if (itemData != null)
+            {
+                itemData.count--;
+                if (itemData.count <= 0)
+                {
+                    listItemDataInventoryEqicment.Remove(itemData);
+                }
+            }
         }
     }
 
+
     public void AddITemlistInvenrotySlots(ItemClass itemClass)
     {
+        // Find an existing entry for this item
         ItemData itemData = listItemDataInventorySlot.FirstOrDefault(item => item.idItem == itemClass.idItem);
+
         if (listItemDataInventorySlot.Count < npcSelecying.countInventorySlot)
         {
             if (itemData != null)
             {
-                if (itemData.count + itemClass.quantityItem <= itemData.maxCount)
+                int totalQuantity = itemData.count + itemClass.quantityItem;
+
+                if (totalQuantity <= itemData.maxCount)
                 {
-                    itemData.count += itemClass.quantityItem;
+                    // Fits in the same slot
+                    itemData.count = totalQuantity;
                 }
                 else
                 {
-                    ItemData newitemData = itemData;
-                    newitemData.count = itemClass.quantityItem - (itemData.maxCount - itemData.count);
-                    listItemDataInventorySlot.Add(newitemData);
+                    // Exceeds maxCount, split the excess
                     itemData.count = itemData.maxCount;
+                    int excess = totalQuantity - itemData.maxCount;
+
+                    // Create a new entry for the excess
+                    while (excess > 0)
+                    {
+                        int newSlotQuantity = Math.Min(excess, itemData.maxCount);
+                        ItemData newItemData = new ItemData
+                        {
+                            idItem = itemClass.idItem,
+                            nameItem = itemClass.nameItem,
+                            count = newSlotQuantity,
+                            maxCount = itemData.maxCount,
+                            itemtype = itemData.itemtype
+                        };
+
+                        listItemDataInventorySlot.Add(newItemData);
+                        excess -= newSlotQuantity;
+                    }
                 }
             }
             else
             {
-                listItemDataInventorySlot.Add(itemData);
+                // No existing entry, add a new one
+                listItemDataInventorySlot.Add(new ItemData
+                {
+                    idItem = itemClass.idItem,
+                    nameItem = itemClass.nameItem,
+                    count = itemClass.quantityItem,
+                    maxCount = itemClass.maxCountItem,
+                    itemtype = itemClass.itemtype
+                });
             }
         }
         else
         {
-            if (itemData != null)
-            {
-                itemData.count = itemClass.maxCountItem;
-            }
-            else
-                return;
+            Debug.LogWarning("Inventory is full. Cannot add more items.");
         }
+    }
+
+
+    public void BindInventorySlotsToData()
+    {
+        // Step 1: Clear all children in the inventory slots UI
+        ClearAllChildInvenrotySlot();
+
+        // Step 2: Ensure that the number of UI slots matches the inventory data
+        for (int i = 0; i < listInvenrotySlotsUI.Count; i++)
+        {
+            // If there's a corresponding item in the inventory data, bind it
+            if (i < listItemDataInventorySlot.Count)
+            {
+                var itemData = listItemDataInventorySlot[i];
+                CreateUIItem(itemData, listInvenrotySlotsUI[i]);
+            }
+        }
+
+        Debug.Log($"Inventory slots and data bound successfully. Total slots: {listInvenrotySlotsUI.Count}, Total items: {listItemDataInventorySlot.Count}");
     }
     public void SetCostumeNpcExpentdition(NpcClass npcClass, GameObject npcOBJ)
     {
@@ -127,9 +172,9 @@ public class UIInventory : MonoBehaviour
 
         dropdown.onValueChanged.AddListener(npcManager.OnDropdownValueChanged);
 
+        Debug.Log("This run");
         npcManager.SetOptionDropDown();
         npcManager.OnDropdownValueChanged(0);
-
         inventoryItemPresent.RefreshUIBox();
     }
     public void SetSlotToInventory()
@@ -174,96 +219,166 @@ public class UIInventory : MonoBehaviour
     }
     public virtual void RefreshUIInventory()
     {   
+        
+        // 1. Clear all existing UI items
         ClearAllChildInvenrotySlot();
+        // 2. Combine items with the same idItem in listItemDataInventorySlot
+        CombineAndSplitItems(listItemDataInventorySlot);
+        CombineAndSplitItems(listItemDataInventoryEqicment);
+
+        // 3. Default inventory slots based on NPC (no backpack)
+        npcSelecying.countInventorySlot = 6; // Default inventory slots
+
+        // 4. Handle equipment items, including backpacks, weapons, and tools
+        for (int i = 12; i < listInvenrotySlotsUI.Count; i++)
+        {
+            InvenrotySlots eqSlot = listInvenrotySlotsUI[i];
+            SlotType slotType = eqSlot.slotTypeInventory;
+
+            // Identify items based on the slot type
+            if (slotType == SlotType.SlotWeapon || slotType == SlotType.SlotTool)
+            {
+                // Find corresponding items
+                var matchingItems = listItemDataInventoryEqicment
+                    .Where(item => GetSlotTypeForItemType(item.itemtype) == slotType)
+                    .ToList();
+
+                // Assign items to the correct slot
+                if (slotType == SlotType.SlotWeapon)
+                {
+                    if (matchingItems.Count > 0)
+                    {
+                        if (i == 12 && matchingItems.Count >= 1)
+                        {
+                            CreateUIItem(matchingItems[0], eqSlot); // Primary Weapon Slot
+                        }
+                        else if (i == 13 && matchingItems.Count >= 2)
+                        {
+                            CreateUIItem(matchingItems[1], eqSlot); // Secondary Weapon Slot
+                        }
+                    }
+                }
+                else if (slotType == SlotType.SlotTool)
+                {
+                    if (matchingItems.Count > 0)
+                    {
+                        if (i == 15 && matchingItems.Count >= 1)
+                        {
+                            CreateUIItem(matchingItems[0], eqSlot); // Primary Tool Slot
+                        }
+                        else if (i == 16 && matchingItems.Count >= 2)
+                        {
+                            CreateUIItem(matchingItems[1], eqSlot); // Secondary Tool Slot
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // Find other equipment items (e.g., backpack)
+                ItemData eqItem = listItemDataInventoryEqicment.FirstOrDefault(item => GetSlotTypeForItemType(item.itemtype) == slotType);
+                if (eqItem != null)
+                {
+                    CreateUIItem(eqItem, eqSlot);
+
+                    // Adjust inventory slots for backpacks
+                    if (eqItem.itemtype == Itemtype.Backpack)
+                    {
+                        ItemBackpack backpack = inventoryItemPresent.listUIItemPrefab
+                            .First(ui => ui.idItem == eqItem.idItem)
+                            .GetComponent<ItemBackpack>();
+
+                        if (backpack != null)
+                        {
+                            npcSelecying.countInventorySlot += backpack.slotIncreasing;
+                            SlotHasincreased = backpack.slotIncreasing;
+                        }
+                    }
+                }
+            }
+        }
+
+        // 5. Remove items beyond the allowed slots
+        if (listItemDataInventorySlot.Count > npcSelecying.countInventorySlot)
+        {
+            int excessItemCount = listItemDataInventorySlot.Count - npcSelecying.countInventorySlot;
+
+            // Remove excess items starting from the last slot
+            for (int i = listItemDataInventorySlot.Count - 1; i >= npcSelecying.countInventorySlot; i--)
+            {
+                Debug.Log($"Removing item {listItemDataInventorySlot[i].nameItem} from slot {i} due to slot constraints.");
+                listItemDataInventorySlot.RemoveAt(i);
+            }
+        }
+
+        // 6. Unlock and adjust slots based on the current inventory slot count
         inventoryItemPresent.UnlockSlotInventory(npcSelecying.countInventorySlot, npcSelecying.roleNpc, listItemDataInventoryEqicment);
 
-        // Build a dictionary mapping SlotType to list of available slots
-        Dictionary<SlotType, List<InvenrotySlots>> slotsByType = new Dictionary<SlotType, List<InvenrotySlots>>();
-
-        // Initialize the dictionary
-        foreach (SlotType slotType in Enum.GetValues(typeof(SlotType)))
+        // 7. Bind inventory items to UI slots
+        int maxBagSlots = 12;
+        for (int i = 0; i < maxBagSlots; i++)
         {
-            slotsByType[slotType] = new List<InvenrotySlots>();
-        }
-
-        foreach (InvenrotySlots slot in listInvenrotySlotsUI)
-        {
-            slotsByType[slot.slotTypeInventory].Add(slot);
-        }
-
-        // Keep track of which slots have been used
-        HashSet<InvenrotySlots> usedSlots = new HashSet<InvenrotySlots>();
-
-        // Iterate through inventory slots (for items in listItemDataInventoryslot)
-        for (int i = listItemDataInventorySlot.Count - 1; i >= 0; i--)
-        {
-            ItemData itemData = listItemDataInventorySlot.ElementAt(i);
-
-            if (itemData.count == 0)
+            if (i < listItemDataInventorySlot.Count)
             {
-                listItemDataInventorySlot.RemoveAt(i); // Remove item with count 0
-            }
-            else
-            {
-                // Find the next available slot for inventory items (Assuming these are general slots)
-                // Assuming inventory slots are of type SlotBag
-                List<InvenrotySlots> bagSlots = slotsByType[SlotType.SlotBag];
-
-                // Find the next unused slot
-                InvenrotySlots inventortSlot = bagSlots.FirstOrDefault(slot => !usedSlots.Contains(slot));
-
-                if (inventortSlot != null)
-                {
-                    usedSlots.Add(inventortSlot);
-                    GameObject uIItem = CreateUIItem(itemData, inventortSlot);
-                }
-                else
-                {
-
-                }
+                // Place this item in slot i
+                CreateUIItem(listItemDataInventorySlot[i], listInvenrotySlotsUI[i]);
             }
         }
-
-        // Iterate through equipment items
-        for (int i = listItemDataInventoryEqicment.Count - 1; i >= 0; i--)
+        // 8. If this is UIInventoryEX, also bind car slots directly from listItemDataCarInventorySlot
+        UIInventoryEX exUI = this as UIInventoryEX;
+        if (exUI != null && exUI.listItemDataCarInventorySlot != null && exUI.listInvenrotyCarSlotsUI != null)
         {
-            ItemData itemData = listItemDataInventoryEqicment.ElementAt(i);
-
-            if (itemData.count == 0)
-            {
-                listItemDataInventoryEqicment.RemoveAt(i); // Remove item with count 0
-            }
-            else
-            {
-                // Determine the SlotType based on itemData.itemtype
-                SlotType requiredSlotType = GetSlotTypeForItemType(itemData.itemtype);
-
-                if (requiredSlotType != SlotType.SlotLock)
-                {
-                    List<InvenrotySlots> slotsOfType = slotsByType[requiredSlotType];
-
-                    // Find the next unused slot of this type
-                    InvenrotySlots inventortEqicment = slotsOfType.LastOrDefault(slot => !usedSlots.Contains(slot));
-
-                    if (inventortEqicment != null)
-                    {
-                        usedSlots.Add(inventortEqicment);
-                        GameObject uIItemEqicment = CreateUIItem(itemData, inventortEqicment);
-                    }
-                    else
-                    {
-                        // No available slots of this type
-                        // Handle this case if needed
-                    }
-                }
-                else
-                {
-                    // No valid slot type for this item
-                    // Handle this case if needed
-                }
-            }
+            exUI.BindCarSlotsToData(); // Ensures car slots are also updated
         }
     }
+    private void CombineAndSplitItems(List<ItemData> items)
+    {
+        Dictionary<int, int> itemCountMap = new Dictionary<int, int>();
+        List<ItemData> updatedItems = new List<ItemData>();
+
+        // Combine items by idItem
+        foreach (var item in items)
+        {
+            if (itemCountMap.ContainsKey(item.idItem))
+            {
+                itemCountMap[item.idItem] += item.count;
+            }
+            else
+            {
+                itemCountMap[item.idItem] = item.count;
+            }
+        }
+
+        // Split items if count exceeds maxCount
+        foreach (var kvp in itemCountMap)
+        {
+            int itemId = kvp.Key;
+            int totalQuantity = kvp.Value;
+
+            // Get the template item to copy other properties
+            ItemData templateItem = items.First(item => item.idItem == itemId);
+
+            while (totalQuantity > 0)
+            {
+                int splitCount = Mathf.Min(totalQuantity, templateItem.maxCount);
+                updatedItems.Add(new ItemData
+                {
+                    idItem = templateItem.idItem,
+                    nameItem = templateItem.nameItem,
+                    count = splitCount,
+                    maxCount = templateItem.maxCount,
+                    itemtype = templateItem.itemtype
+                });
+
+                totalQuantity -= splitCount;
+            }
+        }
+
+        // Update the original list in place
+        items.Clear();
+        items.AddRange(updatedItems);
+    }
+
     private SlotType GetSlotTypeForItemType(Itemtype itemType)
     {
         switch (itemType)
@@ -345,13 +460,22 @@ public class UIInventory : MonoBehaviour
     {
         foreach (InvenrotySlots slotsItem in listInvenrotySlotsUI)
         {
-            ItemClass itemClass = slotsItem.GetComponentInChildren<ItemClass>();
-            if (itemClass != null)
+            // Create a temporary list of children to avoid modifying the collection while iterating.
+            List<GameObject> children = new List<GameObject>();
+            foreach (Transform child in slotsItem.transform)
             {
-                Destroy(itemClass.gameObject);
+                children.Add(child.gameObject);
+            }
+
+            // Destroy all children game objects
+            foreach (GameObject child in children)
+            {
+                Debug.Log("Clearing item: " + child.name);
+                Destroy(child);
             }
         }
     }
+
     public virtual void ConventAllUIItemInListInventorySlotToListItemData(List<ItemData> listSlotItemDatas)
     {
         for (int i = 0; i < 12; i++)
@@ -444,6 +568,8 @@ public class UIInventory : MonoBehaviour
             if (uiItemData != null)
             {
                 ItemBackpack itemBackpack = uiItemData.GetComponent<ItemBackpack>();
+                npcSelecying.countInventorySlot += itemBackpack.slotIncreasing;
+                SlotHasincreased = itemBackpack.slotIncreasing;
                 OnBackpackChanged?.Invoke(itemBackpack);
             }
             else
@@ -457,23 +583,40 @@ public class UIInventory : MonoBehaviour
         }
     }
     public GameObject CreateUIItem(ItemData itemData, InvenrotySlots invenrotySlots)
-
     {
-        // List<UIItemData> listUIItemPrefab = ;
-        GameObject itemUI = inventoryItemPresent.listUIItemPrefab.FirstOrDefault(idItem => idItem.idItem == itemData.idItem).gameObject;
-        GameObject itemUICreate = Instantiate(itemUI, invenrotySlots.transform, true);
+        // Get the UI prefab matching the item's ID
+        GameObject itemUIPrefab = inventoryItemPresent.listUIItemPrefab
+            .FirstOrDefault(idItem => idItem.idItem == itemData.idItem)?.gameObject;
 
+        if (itemUIPrefab == null)
+        {
+            Debug.LogWarning($"UI prefab not found for item ID: {itemData.idItem}");
+            return null;
+        }
+
+        // Instantiate the UI item as a child of the given slot
+        GameObject itemUICreate = Instantiate(itemUIPrefab, invenrotySlots.transform, true);
+
+        // Set up item class and data
         UIItemData uIItemData = itemUICreate.GetComponent<UIItemData>();
         ItemClass itemClass = itemUICreate.GetComponent<ItemClass>();
 
-        itemClass.quantityItem = itemData.count;
-        itemClass.maxCountItem = itemData.maxCount;
+        if (itemClass != null)
+        {
+            itemClass.quantityItem = itemData.count;
+            itemClass.maxCountItem = itemData.maxCount;
+        }
 
-        uIItemData.slotTypeParent = invenrotySlots.slotTypeInventory;
-        uIItemData.UpdateDataUI(itemClass);
+        if (uIItemData != null)
+        {
+            uIItemData.slotTypeParent = invenrotySlots.slotTypeInventory;
+            uIItemData.UpdateDataUI(itemClass);
+        }
 
-        return itemUI;
+        // Return the created UI object
+        return itemUICreate;
     }
+
     private void InstallNpcCostumeOnPlayer(GameObject playerObject, NpcClass npcClass)
     {
         // Get the NpcCoutume component from the player
@@ -501,4 +644,3 @@ public class UIInventory : MonoBehaviour
     }
 
 }
-
