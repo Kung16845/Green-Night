@@ -51,7 +51,8 @@ public class SaveAndLoadExpendition : MonoBehaviour
             dataExpenditionSave.indexButtonExpendition = uIEx.indexButtonExpendition;
             dataExpenditionSave.indexSceneExpendition = uIEx.indexSceneExpendition;
 
-            dataExpenditionSave.isArriveEx = uIEx.isArriveEx;
+            dataExpenditionSave.istraveling = uIEx.istraveling;
+            dataExpenditionSave.isArriveEx = uIEx.isArriveEx;       
             dataExpenditionSave.isArriveHome = uIEx.isArriveHome;
             dataExpenditionSave.isExpenditon = uIEx.isExpenditon;
 
@@ -110,6 +111,7 @@ public class SaveAndLoadExpendition : MonoBehaviour
         newUIInventoryEX.indexButtonExpendition = dataSaveExpendition.indexButtonExpendition;
         newUIInventoryEX.indexSceneExpendition = dataSaveExpendition.indexSceneExpendition;
 
+        newUIInventoryEX.istraveling = dataSaveExpendition.istraveling;
         newUIInventoryEX.isArriveEx = dataSaveExpendition.isArriveEx;
         newUIInventoryEX.isArriveHome = dataSaveExpendition.isArriveHome;
         newUIInventoryEX.isExpenditon = dataSaveExpendition.isExpenditon;
@@ -151,6 +153,7 @@ public class DataSaveExpendition
     public float riskEventValue;
     public int indexButtonExpendition;
     public int indexSceneExpendition;
+    public bool istraveling;
     public bool isArriveEx;
     public bool isArriveHome;
     public bool isExpenditon;
