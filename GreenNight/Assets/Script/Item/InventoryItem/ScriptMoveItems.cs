@@ -177,12 +177,14 @@ public class ScriptMoveItems : MonoBehaviour
         {
             targetList = uIInventory.listItemDataInventoryEqicment;
         }
-        else if (targetSlotType == SlotType.SlotNpcTrade || targetSlotType == SlotType.SlotPlayerTrade)
+        else if (targetSlotType == SlotType.SlotNpcTrade || targetSlotType == SlotType.SlotPlayerTrade ||targetSlotType == SlotType.SlotNpcItem)
         {
             if (tradesystemScript != null)
             {
                 if(targetSlotType == SlotType.SlotPlayerTrade)
                     targetList = tradeSystem.listPlayerItemWaitforTrade;
+                else if(targetSlotType == SlotType.SlotNpcItem)
+                    targetList = tradeSystem.listInvenrotyNpcItem;
                 else
                     targetList = tradeSystem.listNpcItemWaitforTrade;
                 // tradesystemScript.UpdateTradeLists(targetSlotType, sourceItemData, actualQuantityToMove);
@@ -282,7 +284,7 @@ public class ScriptMoveItems : MonoBehaviour
                         nameItem = sourceItem.nameItem,
                         count = newSlotQuantity,
                         maxCount = sourceItem.maxCount,
-                        itemtype = sourceItem.itemtype
+                        itemtype = sourceItem.itemtype,
                     };
 
                     list.Add(newItem);
@@ -302,7 +304,7 @@ public class ScriptMoveItems : MonoBehaviour
                     nameItem = sourceItem.nameItem,
                     count = newSlotQuantity,
                     maxCount = sourceItem.maxCount,
-                    itemtype = sourceItem.itemtype
+                    itemtype = sourceItem.itemtype,
                 };
 
                 list.Add(newItem);

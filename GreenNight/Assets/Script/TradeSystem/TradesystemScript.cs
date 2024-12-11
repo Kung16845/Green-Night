@@ -18,7 +18,8 @@ public class TradesystemScript : MonoBehaviour
     private ActionController actionController;
     public UIInventory uIInventoryEX;
     public ScriptMoveItems scriptMoveItems;
-    public GameObject ConfirmButton;
+    public GameObject Confirmobject;
+    public Button ConfirmButton;
     public GameObject TradeUI;
     public TextMeshProUGUI statusTrade;
     private bool inrange;
@@ -50,18 +51,13 @@ public class TradesystemScript : MonoBehaviour
         {
             _instance = this;
         }
-        else if (_instance != this)
-        {
-            Debug.LogWarning("Multiple TradesystemScript instances found! Destroying duplicate.");
-            Destroy(gameObject);
-        }
     }
     private void Start()
     {
         actionController = FindObjectOfType<ActionController>();
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
         uIInventoryEX = FindObjectOfType<UIInventory>();
-        ConfirmButton.SetActive(false);
+        Confirmobject.SetActive(false);
         statusTrade.text = "What is your offer?";
     }
 
@@ -83,19 +79,74 @@ public class TradesystemScript : MonoBehaviour
 
     private void Update()
     {
-        if (inrange && Input.GetKeyDown(KeyCode.Tab))
+       if (inrange && Input.GetKeyDown(KeyCode.Tab))
         {
-            TradeUI.SetActive(true);
-            scriptMoveItems.tradeSystem = this;
-            InitializeTradeUI();
+            if (TradeUI.activeSelf)
+            {
+                CloseTradeUI();
+            }
+            else
+            {
+                TradeUI.SetActive(true);
+                scriptMoveItems.tradeSystem = this;
+                InitializeTradeUI();
+            }
         }
-        else if (!inrange)
+        else if (!inrange && TradeUI.activeSelf)
         {
-            ClearAllTradeUI();
-            TradeUI.SetActive(false);
+            CloseTradeUI();
         }
     }
+    private void CloseTradeUI()
+    {
+        // Return items to the player's inventory
+        ReturnItemsToPlayer();
 
+        // Clear UI and deactivate TradeUI
+        ClearAllTradeUI();
+        TradeUI.SetActive(false);
+    }
+
+    private void ReturnItemsToPlayer()
+    {
+        // Return NPC items in the trade slots back to their inventory
+        foreach (var itemData in listNpcItemWaitforTrade)
+        {
+            AddOrUpdateItemDataInList(listInvenrotyNpcItem, itemData);
+        }
+
+        // Return Player items in the trade slots back to the player's inventory
+        foreach (var itemData in listPlayerItemWaitforTrade)
+        {
+            uIInventoryEX.listItemDataInventorySlot.Add(itemData);
+        }
+
+        // Clear the trade lists
+        listNpcItemWaitforTrade.Clear();
+        listPlayerItemWaitforTrade.Clear();
+
+        Debug.Log("Items returned to respective inventories.");
+    }
+
+    private void AddOrUpdateItemDataInList(List<ItemData> itemList, ItemData itemData)
+    {
+        var existingItem = itemList.FirstOrDefault(item => item.idItem == itemData.idItem);
+        if (existingItem != null)
+        {
+            existingItem.count += itemData.count;
+        }
+        else
+        {
+            itemList.Add(new ItemData
+            {
+                idItem = itemData.idItem,
+                nameItem = itemData.nameItem,
+                count = itemData.count,
+                maxCount = itemData.maxCount,
+                itemtype = itemData.itemtype,
+            });
+        }
+    }
     private void InitializeTradeUI()
     {
         ClearAllTradeUI();
@@ -114,7 +165,6 @@ public class TradesystemScript : MonoBehaviour
                 itemClass.quantityItem = item.count;
                 itemClass.maxCountItem = item.maxCount;
                 itemClass.itemtype = item.itemtype;
-                itemClass.tradeValueItem = item.tradeValueItem;
 
                 uiItemData.idItem = item.idItem;
                 uiItemData.nameItem = item.nameItem;
@@ -133,8 +183,6 @@ public class TradesystemScript : MonoBehaviour
                 Debug.LogWarning($"No matching UI prefab found for item ID: {item.idItem}");
             }
         }
-
-        UpdateTradeStatus();
     }
     public void RefreshTrade()
     {
@@ -179,7 +227,6 @@ public class TradesystemScript : MonoBehaviour
                 itemClass.quantityItem = item.count;
                 itemClass.maxCountItem = item.maxCount;
                 itemClass.itemtype = item.itemtype;
-                itemClass.tradeValueItem = item.tradeValueItem;
 
                 uiItemData.idItem = item.idItem;
                 uiItemData.nameItem = item.nameItem;
@@ -218,6 +265,8 @@ public class TradesystemScript : MonoBehaviour
                 CreateUIItem(listPlayerItemWaitforTrade[i], listPlayerItemWaitforTradeUI[i]);
             }
         }
+        UpdateTradeStatus();
+        ConfirmButton.onClick.AddListener(Confirmtrade);
     }
 
     public GameObject CreateUIItem(ItemData itemData, InvenrotySlots invenrotySlots)
@@ -243,7 +292,6 @@ public class TradesystemScript : MonoBehaviour
         {
             itemClass.quantityItem = itemData.count;
             itemClass.maxCountItem = itemData.maxCount;
-            itemClass.tradeValueItem = itemData.tradeValueItem; // Set trade value
         }
 
         if (uIItemData != null)
@@ -270,7 +318,6 @@ public class TradesystemScript : MonoBehaviour
             ModifyTradeList(listPlayerItemWaitforTrade, itemData, quantity);
         }
         RefreshTrade();
-        UpdateTradeStatus();
     }
 
     private void ModifyTradeList(List<ItemData> tradeList, ItemData itemData, int quantity)
@@ -295,19 +342,63 @@ public class TradesystemScript : MonoBehaviour
                 count = quantity,
                 maxCount = itemData.maxCount,
                 itemtype = itemData.itemtype,
-                tradeValueItem = itemData.tradeValueItem
             });
         }
     }
 
-    private void UpdateTradeStatus()
+   private void UpdateTradeStatus()
     {
-        float npcTradeValue = listNpcItemWaitforTrade.Sum(item => item.tradeValueItem);
-        float playerTradeValue = listPlayerItemWaitforTrade.Sum(item => item.tradeValueItem) / 2;
+        float npcTradeValue = 0;
+        float playerTradeValue = 0;
 
+        // Calculate trade value for NPC slots
+        foreach (var slot in listNpcItemWaitforTradeUI)
+        {
+            if (slot.transform.childCount > 0)
+            {
+                // Get the first child in the slot
+                Transform firstChild = slot.transform.GetChild(0);
+                ItemClass itemClass = firstChild.GetComponent<ItemClass>();
+                if (itemClass != null)
+                {
+                    npcTradeValue += itemClass.tradeValueItem * itemClass.quantityItem;
+                    Debug.Log($"NPC Slot Trade Value: {itemClass.tradeValueItem} * {itemClass.quantityItem} = {itemClass.tradeValueItem * itemClass.quantityItem}");
+                }
+            }
+        }
+
+        // Calculate trade value for Player slots
+        foreach (var slot in listPlayerItemWaitforTradeUI)
+        {
+            if (slot.transform.childCount > 0)
+            {
+                // Get the first child in the slot
+                Transform firstChild = slot.transform.GetChild(0);
+                ItemClass itemClass = firstChild.GetComponent<ItemClass>();
+                if (itemClass != null)
+                {
+                    playerTradeValue += itemClass.tradeValueItem * itemClass.quantityItem;
+                    Debug.Log($"Player Slot Trade Value: {itemClass.tradeValueItem} * {itemClass.quantityItem} = {itemClass.tradeValueItem * itemClass.quantityItem}");
+                }
+            }
+        }
+
+        // Divide player trade value by 2 as per the original logic
+        playerTradeValue /= 2;
+        Debug.Log($"Total NPC Trade Value: {npcTradeValue}, Total Player Trade Value: {playerTradeValue}");
+
+        // Default text handling when no items are present
+        if (playerTradeValue == 0 && npcTradeValue == 0)
+        {
+            statusTrade.text = "What can you offer me?";
+            Confirmobject.SetActive(false);
+            return;
+        }
+
+        // Update status and confirm button
         if (playerTradeValue >= npcTradeValue)
         {
-            ConfirmButton.SetActive(true);
+            Confirmobject.SetActive(true);
             statusTrade.text = playerTradeValue >= 2 * npcTradeValue
                 ? "You're too generous. I like that!"
                 : playerTradeValue >= 1.5 * npcTradeValue
@@ -316,7 +407,7 @@ public class TradesystemScript : MonoBehaviour
         }
         else
         {
-            ConfirmButton.SetActive(false);
+            Confirmobject.SetActive(false);
             statusTrade.text = playerTradeValue >= 1.1 * npcTradeValue
                 ? "A little more, please."
                 : playerTradeValue >= 0.75 * npcTradeValue
@@ -324,6 +415,7 @@ public class TradesystemScript : MonoBehaviour
                 : "Are you kidding? Give me more!";
         }
     }
+
     private void ClearAllTradeUI()
     {
         // Clear NPC trade slots
@@ -354,5 +446,38 @@ public class TradesystemScript : MonoBehaviour
         listNpcItemWaitforTrade.Clear();
         listPlayerItemWaitforTrade.Clear();
     }
+    public void Confirmtrade()
+    {
+        // Clear NPC trade slots
+        foreach (var slot in listNpcItemWaitforTradeUI)
+        {
+            foreach (Transform child in slot.transform)
+            {
+                Destroy(child.gameObject);
+            }
+        }
 
+        // Clear Player trade slots
+        foreach (var slot in listPlayerItemWaitforTradeUI)
+        {
+            foreach (Transform child in slot.transform)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+
+        // Transfer NPC trade items to player's inventory
+        foreach (var itemData in listNpcItemWaitforTrade)
+        {
+           uIInventoryEX.listItemDataInventorySlot.Add(itemData);
+        }
+
+        // Clear the trade lists
+        listNpcItemWaitforTrade.Clear();
+        listPlayerItemWaitforTrade.Clear();
+
+        uIInventoryEX.RefreshUIInventory();
+        RefreshTrade();
+        Debug.Log("Trade Confirmed!");
+    }
 }

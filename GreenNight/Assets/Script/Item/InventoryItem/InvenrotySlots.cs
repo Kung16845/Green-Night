@@ -74,9 +74,10 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
             destinationSlotType != SlotType.SlotBoxes && 
             destinationSlotType != SlotType.SlotNpcTrade &&
             destinationSlotType != SlotType.SlotPlayerTrade &&
+            destinationSlotType != SlotType.SlotNpcItem &&
             destinationSlotType != uIItemDataDrag.slotType))
         {
-            // If the destination slot is locked or doesn't match the item type, return
+            Debug.Log("leave here8");
             return;
         }
         TradesystemScript tradesystemScript = TradesystemScript.Instance;
@@ -88,6 +89,10 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
 
         switch (destinationSlotType)
         {
+
+            case SlotType.SlotNpcItem:
+                targetDataList = tradesystemScript.listNpcItemWaitforTrade;
+                break;
             case SlotType.SlotNpcTrade:
                 targetDataList = tradesystemScript.listNpcItemWaitforTrade;
                 break;
@@ -118,19 +123,20 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
                 return;
                 break;
         }
-        if(tradesystemScript == null)
-             Debug.Log("Slot null");
         if ((destinationSlotType == SlotType.SlotWeapon || 
-        destinationSlotType == SlotType.SlotVest || 
-        destinationSlotType == SlotType.SlotTool || 
-        destinationSlotType == SlotType.SlotBackpack || 
-        destinationSlotType == SlotType.SlotGrenade) && 
-        itemClassInChild != null)
+            destinationSlotType == SlotType.SlotVest || 
+            destinationSlotType == SlotType.SlotTool || 
+            destinationSlotType == SlotType.SlotBackpack || 
+            destinationSlotType == SlotType.SlotGrenade) && 
+            itemClassInChild != null && 
+            destinationSlotType != SlotType.SlotNpcItem)
         {
             // Item already exists in this equipment slot, cancel the transfer
             Debug.Log("Slot already occupied. Cannot move item.");
+            Debug.Log("leave here");
             return;
         }
+
         // Determine if UI should be opened
         bool openUI = false;
         int quantityToMove = itemClassMove.quantityItem;
@@ -152,9 +158,10 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
         }
         if ((destinationSlotType == SlotType.SlotNpcTrade && originSlot.slotTypeInventory != SlotType.SlotNpcItem) ||
             (destinationSlotType == SlotType.SlotPlayerTrade && originSlot.slotTypeInventory == SlotType.SlotNpcItem) ||
-            (destinationSlotType == SlotType.SlotBag && originSlot.slotTypeInventory == SlotType.SlotNpcItem))
+            (destinationSlotType == SlotType.SlotBag && originSlot.slotTypeInventory == SlotType.SlotNpcItem)||
+            (destinationSlotType == SlotType.SlotBag && originSlot.slotTypeInventory == SlotType.SlotNpcTrade))
         {
-            Debug.Log("return");
+            Debug.Log("leave here 2");
             return;
         }
 
@@ -186,7 +193,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
                 out mousePos);
             uIMoveItemsBoxesToInventory.GetComponent<RectTransform>().anchoredPosition = mousePos;
 
-            // Do not proceed with the transfer yet
+            Debug.Log("leave here 3");
             return;
         }
         TransferItems(itemClassMove, quantityToMove, originSlot, destinationSlotType, itemClassInChild, targetDataList);
@@ -267,31 +274,6 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
 
     private void AddOrUpdateItemDataInList(List<ItemData> list, ItemData sourceItem, int quantity)
     {
-        if (list == null)
-        {
-            Debug.LogError("The 'list' parameter is null.");
-        }
-        else
-        {
-            Debug.Log($"The 'list' parameter contains {list.Count} items.");
-        }
-        if (sourceItem == null)
-        {
-            Debug.LogError("The 'sourceItem' parameter is null.");
-        }
-        else
-        {
-            Debug.Log($"The 'sourceItem' parameter has id {sourceItem.idItem} and name {sourceItem.nameItem}.");
-        }
-
-        if (quantity <= 0)
-        {
-            Debug.LogError($"The 'quantity' parameter is invalid: {quantity}. It should be greater than 0.");
-        }
-        else
-        {
-            Debug.Log($"The 'quantity' parameter is valid: {quantity}.");
-        }
         var existingItem = list.FirstOrDefault(i => i.idItem == sourceItem.idItem && i.itemtype == sourceItem.itemtype);
         if (existingItem != null)
         {
@@ -307,7 +289,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
                 nameItem = sourceItem.nameItem,
                 count = quantity,
                 maxCount = sourceItem.maxCount,
-                itemtype = sourceItem.itemtype
+                itemtype = sourceItem.itemtype,
             };
             list.Add(newItem);
         }
@@ -315,7 +297,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
     private void RemoveItemDataFromOrigin(SlotType originSlotType, ItemData sourceItem, int quantity)
     {
         List<ItemData> originList = null;
-
+        TradesystemScript tradesystemScript = TradesystemScript.Instance;
         // Determine the appropriate source list based on the origin slot type
         if (originSlotType == SlotType.SlotBag)
             originList = uIInventory.listItemDataInventorySlot;
@@ -343,6 +325,12 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
             }
             return;
         }
+        else if (originSlotType == SlotType.SlotNpcItem) // Fixed access to SlotNpcItem
+            originList = tradesystemScript.listInvenrotyNpcItem;
+        else if (originSlotType == SlotType.SlotPlayerTrade) // Fixed access to SlotNpcItem
+            originList = tradesystemScript.listPlayerItemWaitforTrade;
+        else if (originSlotType == SlotType.SlotNpcTrade) // Fixed access to SlotNpcItem
+            originList = tradesystemScript.listNpcItemWaitforTrade;
 
         if (originList == null) return;
 

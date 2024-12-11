@@ -82,7 +82,7 @@ public class InventoryItemPresent : MonoBehaviour
                     nameItem = item.nameItem,
                     count = item.count,
                     maxCount = item.maxCount,
-                    itemtype = item.itemtype
+                    itemtype = item.itemtype,
                 };
             }
         }
