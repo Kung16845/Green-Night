@@ -30,6 +30,7 @@ public class UIInventory : MonoBehaviour
     public int SlotHasincreased;
     public int currentNumCategory;
     public LootingSystem currentLootingSystem;
+    public TradesystemScript currentTradesystem;
     
     public void RemoveItemData(ItemClass itemClass, SlotType slotType)
     {
@@ -331,7 +332,7 @@ public class UIInventory : MonoBehaviour
             exUI.BindCarSlotsToData(); // Ensures car slots are also updated
         }
     }
-    private void CombineAndSplitItems(List<ItemData> items)
+    public void CombineAndSplitItems(List<ItemData> items)
     {
         Dictionary<int, int> itemCountMap = new Dictionary<int, int>();
         List<ItemData> updatedItems = new List<ItemData>();

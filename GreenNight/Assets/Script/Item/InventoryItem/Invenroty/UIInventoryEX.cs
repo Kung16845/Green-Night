@@ -136,10 +136,11 @@ public class UIInventoryEX : UIInventory
         if(listItemDataCarInventorySlot.Count >= 1)
         {
             Debug.Log($"Before Refresh: {listItemDataCarInventorySlot.Count} items");
+            CombineAndSplitItems(listItemDataCarInventorySlot);
             RefreshCarInventorySlots();
             Debug.Log($"After Refresh: {listItemDataCarInventorySlot.Count} items");
         }
-        BindCarSlotsToData();
+        // BindCarSlotsToData();
     }
    public void RefreshCarInventorySlots()
     {
@@ -150,17 +151,14 @@ public class UIInventoryEX : UIInventory
         var orderedItems = listItemDataCarInventorySlot.OrderBy(item => item.idItem).ToList();
 
         // Step 3: Sync UI with data
-        foreach (var itemData in orderedItems)
+        for (int i = 0; i < 12; i++)
         {
-            var availableSlot = listInvenrotyCarSlotsUI.FirstOrDefault(slot => slot.transform.childCount == 0);
-            if (availableSlot != null)
+            if (i < listItemDataCarInventorySlot.Count)
             {
-                CreateUIItem(itemData, availableSlot);
+                // Place this item in slot i
+                CreateUIItem(listItemDataCarInventorySlot[i], listInvenrotyCarSlotsUI[i]);
             }
         }
-
-        // Step 4: Sync data back to ensure consistency
-        SyncCarSlotsToItemData();
     }
 
 

@@ -9,6 +9,7 @@ public class UIItemData : MonoBehaviour
     public string nameItem;
     public SlotType slotType;
     public LootingSystem originatingLootSystem;
+    public TradesystemScript originatingTradesystem;
     public SlotType slotTypeParent;
     public Image itemIconImage; // Keep this as Image because it's a UI element
 

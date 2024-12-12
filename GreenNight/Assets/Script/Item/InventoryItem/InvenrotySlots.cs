@@ -1,21 +1,18 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+
 public class InvenrotySlots : MonoBehaviour, IDropHandler
 {
     public SlotType slotTypeInventory;
     public GameObject uIMoveItemsBoxesToInventory;
-    // public GameObject uIInventoryBoxes;
     public Canvas canvas;
     public int maxCountItems;
     public InventoryItemPresent inventoryItemPresent;
     public UIInventory uIInventory;
-    // Start is called before the first frame update
-  
+
     void Start()
     {
         // Find canvas and inventory item presenter in the active scene
@@ -45,6 +42,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
             }
         }
     }
+
     public void OnDrop(PointerEventData eventData)
     {
         GameObject uIitem = eventData.pointerDrag;
@@ -70,16 +68,36 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
         ItemClass itemClassInChild = GetComponentInChildren<ItemClass>();
         if (destinationSlotType == SlotType.SlotLock || 
             (destinationSlotType != SlotType.SlotBag && 
-            destinationSlotType != SlotType.SlotCar &&
-            destinationSlotType != SlotType.SlotBoxes && 
-            destinationSlotType != uIItemDataDrag.slotType))
+             destinationSlotType != SlotType.SlotCar &&
+             destinationSlotType != SlotType.SlotBoxes && 
+             destinationSlotType != SlotType.SlotNpcTrade &&
+             destinationSlotType != SlotType.SlotPlayerTrade &&
+             destinationSlotType != SlotType.SlotNpcItem &&
+             destinationSlotType != uIItemDataDrag.slotType))
         {
-            // If the destination slot is locked or doesn't match the item type, return
+            Debug.Log("Invalid drop target.");
             return;
         }
+
+        TradesystemScript tradesystemScript = TradesystemScript.GetActiveTrade();
+        if (tradesystemScript == null)
+        {
+            Debug.Log("No active TradesystemScript instance available. Proceeding without trade.");
+        }
+
         List<ItemData> targetDataList = null;
+
         switch (destinationSlotType)
         {
+            case SlotType.SlotNpcItem:
+                targetDataList = tradesystemScript?.listNpcItemWaitforTrade;
+                break;
+            case SlotType.SlotNpcTrade:
+                targetDataList = tradesystemScript?.listNpcItemWaitforTrade;
+                break;
+            case SlotType.SlotPlayerTrade:
+                targetDataList = tradesystemScript?.listPlayerItemWaitforTrade;
+                break;
             case SlotType.SlotBag:
                 targetDataList = uIInventory.listItemDataInventorySlot;
                 break;
@@ -96,25 +114,27 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
             case SlotType.SlotBoxes:
                 // Boxes use inventoryItemPresent.listItemsDataBox
                 targetDataList = uIInventory.inventoryItemPresent.listItemsDataBox;
-                break;
+                break; 
             case SlotType.SlotLoot:
                 // Handle SlotLoot separately if needed
                 break;
             case SlotType.SlotLock:
                 return;
-                break;
         }
+
         if ((destinationSlotType == SlotType.SlotWeapon || 
-        destinationSlotType == SlotType.SlotVest || 
-        destinationSlotType == SlotType.SlotTool || 
-        destinationSlotType == SlotType.SlotBackpack || 
-        destinationSlotType == SlotType.SlotGrenade) && 
-        itemClassInChild != null)
+             destinationSlotType == SlotType.SlotVest || 
+             destinationSlotType == SlotType.SlotTool || 
+             destinationSlotType == SlotType.SlotBackpack || 
+             destinationSlotType == SlotType.SlotGrenade) && 
+            itemClassInChild != null && 
+            destinationSlotType != SlotType.SlotNpcItem)
         {
             // Item already exists in this equipment slot, cancel the transfer
             Debug.Log("Slot already occupied. Cannot move item.");
             return;
         }
+
         // Determine if UI should be opened
         bool openUI = false;
         int quantityToMove = itemClassMove.quantityItem;
@@ -134,9 +154,15 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
             // Open UI for deciding the quantity if moving to non-boxes with multiple items
             openUI = true;
         }
-        if (destinationSlotType == SlotType.SlotBag && originSlot.slotTypeInventory == SlotType.SlotBag)
+
+        // Prevent invalid trade interactions
+        if ((destinationSlotType == SlotType.SlotNpcTrade && originSlot.slotTypeInventory != SlotType.SlotNpcItem) ||
+            (destinationSlotType == SlotType.SlotPlayerTrade && originSlot.slotTypeInventory == SlotType.SlotNpcItem) ||
+            (destinationSlotType == SlotType.SlotBag && originSlot.slotTypeInventory == SlotType.SlotNpcItem)||
+            (destinationSlotType == SlotType.SlotBag && originSlot.slotTypeInventory == SlotType.SlotNpcTrade))
         {
-            openUI = false;
+            Debug.Log("Invalid trade interaction.");
+            return;
         }
 
         if (destinationSlotType == SlotType.SlotBoxes)
@@ -167,34 +193,33 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
                 out mousePos);
             uIMoveItemsBoxesToInventory.GetComponent<RectTransform>().anchoredPosition = mousePos;
 
-            // Do not proceed with the transfer yet
+            Debug.Log("Opened Move Items UI.");
             return;
         }
 
-        // If not opening UI, proceed with immediate transfer
+        if (targetDataList == null && (destinationSlotType == SlotType.SlotNpcTrade || destinationSlotType == SlotType.SlotPlayerTrade))
+        {
+            Debug.LogError("Trade target list is null. Cannot proceed with the trade.");
+            return;
+        }
+
         TransferItems(itemClassMove, quantityToMove, originSlot, destinationSlotType, itemClassInChild, targetDataList);
+        if(tradesystemScript != null)
+        {
+            tradesystemScript.RefreshTrade();
+        }
     }
 
     private void TransferItems(ItemClass itemClassMove, int quantityToMove, InvenrotySlots originSlot, SlotType destinationSlotType, ItemClass itemClassInChild, List<ItemData> targetDataList)
     {
         // Convert ItemClass to ItemData
-        ItemData sourceItemData = uIInventory.inventoryItemPresent.ConventItemClassToItemData(itemClassMove);
+        ItemData sourceItemData = inventoryItemPresent.ConventItemClassToItemData(itemClassMove);
         if (originSlot.slotTypeInventory == SlotType.SlotLoot)
         {
             LootingSystem lootSystem = itemClassMove.GetComponent<UIItemData>()?.originatingLootSystem;
             if (lootSystem != null)
             {
-                var lootItem = lootSystem.droppedItems.FirstOrDefault(d => d.idItem == sourceItemData.idItem);
-                if (lootItem != null)
-                {
-                    lootItem.count -= quantityToMove;
-
-                    // Remove from loot list if count drops to zero
-                    if (lootItem.count <= 0)
-                    {
-                        lootSystem.droppedItems.Remove(lootItem);
-                    }
-                }
+                lootSystem.RemoveItemFromLootList(sourceItemData.idItem, quantityToMove);
             }
         }
         // Handle SlotBoxes separately to transfer full quantity
@@ -261,15 +286,16 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
                 nameItem = sourceItem.nameItem,
                 count = quantity,
                 maxCount = sourceItem.maxCount,
-                itemtype = sourceItem.itemtype
+                itemtype = sourceItem.itemtype,
             };
             list.Add(newItem);
         }
     }
+
     private void RemoveItemDataFromOrigin(SlotType originSlotType, ItemData sourceItem, int quantity)
     {
         List<ItemData> originList = null;
-
+        TradesystemScript tradesystemScript = TradesystemScript.GetActiveTrade();
         // Determine the appropriate source list based on the origin slot type
         if (originSlotType == SlotType.SlotBag)
             originList = uIInventory.listItemDataInventorySlot;
@@ -281,22 +307,12 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
                 originSlotType == SlotType.SlotTool || originSlotType == SlotType.SlotBackpack || 
                 originSlotType == SlotType.SlotGrenade)
             originList = uIInventory.listItemDataInventoryEqicment;
-        else if (originSlotType == SlotType.SlotLoot)
-        {
-            // Handle LootingSystem
-            LootingSystem lootSystem = FindObjectOfType<LootingSystem>();
-            if (lootSystem != null)
-            {
-                var lootItem = lootSystem.droppedItems.FirstOrDefault(d => d.idItem == sourceItem.idItem);
-                if (lootItem != null)
-                {
-                    lootItem.count -= quantity;
-                    if (lootItem.count <= 0)
-                        lootSystem.droppedItems.Remove(lootItem);
-                }
-            }
-            return;
-        }
+        else if (originSlotType == SlotType.SlotNpcItem)
+            originList = tradesystemScript?.listInvenrotyNpcItem;
+        else if (originSlotType == SlotType.SlotPlayerTrade)
+            originList = tradesystemScript?.listPlayerItemWaitforTrade;
+        else if (originSlotType == SlotType.SlotNpcTrade)
+            originList = tradesystemScript?.listNpcItemWaitforTrade;
 
         if (originList == null) return;
 
@@ -309,27 +325,8 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
                 originList.Remove(originItem);
         }
     }
-
-
-    public void OpenUIMoveITems(ScriptMoveItems scriptMoveItems)
-    {
-        Debug.Log("OpenUIMoveITems");
-        scriptMoveItems.countItemMove = 1;
-        scriptMoveItems.countText.text = "1";
-        uIMoveItemsBoxesToInventory.SetActive(true);
-        uIMoveItemsBoxesToInventory.SetActive(true);
-
-        Vector2 mousePos;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            canvas.transform as RectTransform,
-            Input.mousePosition,
-            canvas.worldCamera, // กล้องที่ใช้ใน Canvas (ถ้าเป็น World Space)
-            out mousePos);
-
-        uIMoveItemsBoxesToInventory.GetComponent<RectTransform>().anchoredPosition = mousePos;
-
-    }
 }
+
 public enum SlotType
 {
     SlotWeapon,
@@ -341,5 +338,8 @@ public enum SlotType
     SlotLock,
     SlotBoxes,
     SlotLoot,
+    SlotPlayerTrade,
+    SlotNpcItem,
+    SlotNpcTrade,
     SlotCar
 }
