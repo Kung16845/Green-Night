@@ -487,7 +487,8 @@ public class UIInventoryEX : UIInventory
         expenditionManager.SetUIExButton(indexButtonExpendition, null, null);
         ClearItemDataInAllInventorySlotToListDataBoxes();
         ClearItemDataInAllInventoryCarSlotToListDataBoxes();
-
+        if(isuseCar)
+            globalstat.UnaviableCar += 1;
         npcManager.listNpc.Add(npcSelecying);
         // npcManager.listNpcWorking.Remove(npcSelecying);
         npcManager.listNpcWorking.Remove(npcSelecying);

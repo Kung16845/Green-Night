@@ -6,6 +6,8 @@ public class UImanger : MonoBehaviour
 {
     public GameObject UpgradeUI;
     public GameObject WorkshopUI;
+    public GameObject CarWorkshopUI;
+    public GameObject CarUpgradeWorkshopUI;
     public GameObject workshopUpgradeUI;
     public GameObject ExpiditionUI;
     public Globalstat globalstat;
@@ -30,6 +32,19 @@ public class UImanger : MonoBehaviour
     public void DisableUpgradeUI()
     {
         UpgradeUI.SetActive(false);
+    }
+     public void ActiveCarWorkshopUI()
+    {
+        CarWorkshopUI.SetActive(true);
+    }
+    public void DisableCarWorkshopUI()
+    {
+        CarWorkshopUI.SetActive(false);
+    }
+    public void DisableCarUpgradeWorkshopUI()
+    {
+        CarUpgradeWorkshopUI.SetActive(false);
+        Debug.Log("Disable");
     }
     public void ActiveWorkshopUI()
     {
