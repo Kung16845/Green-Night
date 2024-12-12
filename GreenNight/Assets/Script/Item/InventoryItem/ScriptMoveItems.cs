@@ -184,6 +184,8 @@ public class ScriptMoveItems : MonoBehaviour
             {
                 if(targetSlotType == SlotType.SlotPlayerTrade)
                     targetList = tradesystemScript.listPlayerItemWaitforTrade;
+                else if(targetSlotType == SlotType.SlotNpcItem)
+                    targetList = tradesystemScript.listInvenrotyNpcItem;
                 else
                     targetList = tradesystemScript.listNpcItemWaitforTrade;
             }

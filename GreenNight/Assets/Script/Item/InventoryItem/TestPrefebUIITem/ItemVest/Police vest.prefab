@@ -270,6 +270,7 @@ MonoBehaviour:
   parentAfterDray: {fileID: 0}
   parentBeforeDray: {fileID: 0}
   imageItem: {fileID: 5222524482886833746}
+  itemClass: {fileID: 0}
 --- !u!114 &1291614654634707552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,6 +287,8 @@ MonoBehaviour:
   idItem: 1020402
   nameItem: Police vest
   slotType: 1
+  originatingLootSystem: {fileID: 0}
+  originatingTradesystem: {fileID: 0}
   slotTypeParent: 1
   itemIconImage: {fileID: 5222524482886833746}
 --- !u!114 &941940762069134744
@@ -301,13 +304,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameItem: Police vest
+  Describetion: 
   quantityItem: 0
   maxCountItem: 1
   itemtype: 1
   rarityItem: 3
-  tradeValueItem: 25
+  tradeValueItem: 40
   carftableItem: 0
-  disassembleItem: 15
+  disassembleItem: 10
   idItem: 1020402
   pointType: items
   point: 15

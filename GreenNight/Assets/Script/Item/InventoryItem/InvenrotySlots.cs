@@ -168,6 +168,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
         if (destinationSlotType == SlotType.SlotBoxes || destinationSlotType == SlotType.SlotNpcItem)
         {
             // For SlotBoxes, always transfer the full quantity without opening UI
+            openUI = false;
             quantityToMove = itemClassMove.quantityItem;
         }
 

@@ -6256,11 +6256,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 876816314164205647, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.54
+      value: -12.08
       objectReference: {fileID: 0}
     - target: {fileID: 876816314164205647, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 6.19
       objectReference: {fileID: 0}
     - target: {fileID: 876816314164205647, guid: 1b5f2c1b3928bf045ab47c58c58d1843, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8716,7 +8716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99bb453f01814b478b0abb2b7528b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotTypeInventory: 9
+  slotTypeInventory: 12
   uIMoveItemsBoxesToInventory: {fileID: 1095339505}
   canvas: {fileID: 0}
   maxCountItems: 0
@@ -9950,7 +9950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99bb453f01814b478b0abb2b7528b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotTypeInventory: 9
+  slotTypeInventory: 12
   uIMoveItemsBoxesToInventory: {fileID: 1095339505}
   canvas: {fileID: 0}
   maxCountItems: 0
@@ -12641,6 +12641,7 @@ MonoBehaviour:
   SlotHasincreased: 0
   currentNumCategory: 0
   currentLootingSystem: {fileID: 0}
+  currentTradesystem: {fileID: 0}
   statAmplifier: {fileID: 0}
   listInvenrotyCarSlotsUI:
   - {fileID: 1402536381}
@@ -12860,7 +12861,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99bb453f01814b478b0abb2b7528b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotTypeInventory: 9
+  slotTypeInventory: 12
   uIMoveItemsBoxesToInventory: {fileID: 1095339505}
   canvas: {fileID: 0}
   maxCountItems: 0
@@ -15943,7 +15944,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99bb453f01814b478b0abb2b7528b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotTypeInventory: 9
+  slotTypeInventory: 12
   uIMoveItemsBoxesToInventory: {fileID: 1095339505}
   canvas: {fileID: 0}
   maxCountItems: 0
@@ -16597,7 +16598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99bb453f01814b478b0abb2b7528b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotTypeInventory: 9
+  slotTypeInventory: 12
   uIMoveItemsBoxesToInventory: {fileID: 1095339505}
   canvas: {fileID: 0}
   maxCountItems: 0
@@ -17713,6 +17714,7 @@ MonoBehaviour:
   sourceSlotType: 0
   targetSlotType: 0
   inventoryItemPresent: {fileID: 0}
+  tradeSystem: {fileID: 0}
   uIInventory: {fileID: 0}
 --- !u!114 &1095339507
 MonoBehaviour:
@@ -18818,7 +18820,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99bb453f01814b478b0abb2b7528b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotTypeInventory: 9
+  slotTypeInventory: 12
   uIMoveItemsBoxesToInventory: {fileID: 1095339505}
   canvas: {fileID: 0}
   maxCountItems: 0
@@ -19969,7 +19971,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99bb453f01814b478b0abb2b7528b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotTypeInventory: 9
+  slotTypeInventory: 12
   uIMoveItemsBoxesToInventory: {fileID: 1095339505}
   canvas: {fileID: 0}
   maxCountItems: 0
@@ -20555,7 +20557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99bb453f01814b478b0abb2b7528b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotTypeInventory: 9
+  slotTypeInventory: 12
   uIMoveItemsBoxesToInventory: {fileID: 1095339505}
   canvas: {fileID: 0}
   maxCountItems: 0
@@ -21186,7 +21188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99bb453f01814b478b0abb2b7528b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotTypeInventory: 9
+  slotTypeInventory: 12
   uIMoveItemsBoxesToInventory: {fileID: 1095339505}
   canvas: {fileID: 0}
   maxCountItems: 0
@@ -22438,7 +22440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99bb453f01814b478b0abb2b7528b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotTypeInventory: 9
+  slotTypeInventory: 12
   uIMoveItemsBoxesToInventory: {fileID: 1095339505}
   canvas: {fileID: 0}
   maxCountItems: 0
@@ -22762,7 +22764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99bb453f01814b478b0abb2b7528b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotTypeInventory: 9
+  slotTypeInventory: 12
   uIMoveItemsBoxesToInventory: {fileID: 1095339505}
   canvas: {fileID: 0}
   maxCountItems: 0
@@ -23330,7 +23332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99bb453f01814b478b0abb2b7528b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotTypeInventory: 9
+  slotTypeInventory: 12
   uIMoveItemsBoxesToInventory: {fileID: 1095339505}
   canvas: {fileID: 0}
   maxCountItems: 0
@@ -23605,6 +23607,7 @@ MonoBehaviour:
   IsuseChainsaw: 0
   IsuseBoltCutter: 0
   IsuseShovel: 0
+  IsuseNothing: 0
   isopen: 0
   inrange: 0
   openDuration: 15000
@@ -24699,6 +24702,7 @@ MonoBehaviour:
   IsuseChainsaw: 0
   IsuseBoltCutter: 1
   IsuseShovel: 0
+  IsuseNothing: 0
   isopen: 0
   inrange: 0
   openDuration: 15000
