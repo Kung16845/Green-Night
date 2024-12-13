@@ -14,7 +14,9 @@ public class UImanger : MonoBehaviour
         TunnelUI,
         ClearingTunnelUI,
         WorkshopUpgradeUI,
-        ExpeditionUI
+        ExpeditionUI,
+        BeaconUI,
+        BeaconUpgradeUI
     }
 
     [System.Serializable]

@@ -241,6 +241,43 @@ public class BuildManager : MonoBehaviour
             }
         }
     }
+    public void AddSupply(string supplyType, int amount)
+    {
+        switch (supplyType.ToLower())
+        {
+            case "steel":
+                steel += amount;
+                Debug.Log($"Added {amount} Steel. Total: {steel}");
+                break;
+            case "plank":
+                plank += amount;
+                Debug.Log($"Added {amount} Plank. Total: {plank}");
+                break;
+            case "food":
+                food += amount;
+                Debug.Log($"Added {amount} Food. Total: {food}");
+                break;
+            case "fuel":
+                fuel += amount;
+                Debug.Log($"Added {amount} Fuel. Total: {fuel}");
+                break;
+            case "ammo":
+                ammo += amount;
+                Debug.Log($"Added {amount} Ammo. Total: {ammo}");
+                break;
+            case "npc":
+                npc += amount;
+                Debug.Log($"Added {amount} NPCs. Total: {npc}");
+                break;
+            default:
+                Debug.LogWarning($"Supply type '{supplyType}' is not recognized.");
+                break;
+        }
+
+        // Update the resource display after adding supply
+        UpdateResoureDisplay();
+    }
+
     public void DisableColliders()
     {
         foreach (Collider2D collider in collidersToManage)
