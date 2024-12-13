@@ -210,6 +210,7 @@ public class TradesystemScript : MonoBehaviour
                 Debug.LogWarning($"No matching UI prefab found for item ID: {item.idItem}");
             }
         }
+        UpdateTradeStatus();
     }
 
     public void RefreshTrade()
@@ -423,9 +424,9 @@ public class TradesystemScript : MonoBehaviour
         }
        if (playerTradeValue == 0 && npcTradeValue >= 1)
         {
-            statusTrade.text = npcTradeValue >= 30 
+            statusTrade.text = npcTradeValue >= 50 
                 ? "You're asking for a fortune for nothing. Be serious." 
-                : npcTradeValue >= 15
+                : npcTradeValue >= 30
                 ? "That's quite an ask for nothing. Add something." 
                 : "Nothing is free, you know. Bring something to the table.";
             Confirmobject.SetActive(false);
@@ -433,9 +434,9 @@ public class TradesystemScript : MonoBehaviour
         }
         else if (playerTradeValue >= 1 && npcTradeValue == 0)
         {
-            statusTrade.text = playerTradeValue >= 30 
+            statusTrade.text = playerTradeValue >= 45 
                 ? "This is really interesting—what exactly are you looking for in return?"
-                : playerTradeValue >= 15
+                : playerTradeValue >= 30
                 ? "This is a generous offer, I can give you alot from that"
                 : "Well, what are you looking for in return for that?";
             Confirmobject.SetActive(true);

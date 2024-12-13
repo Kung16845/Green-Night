@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CraftingController : MonoBehaviour
+public class ChemCraftingController : MonoBehaviour
 {
-    public Workshop workshop;
-    public WorkshopUI workshopUI; // Reference to WorkshopUI
+    public ChemcicalLab  chemcicalLab;
+    public ChemicalUi chemicalUi; // Reference to chemicalUi
     public InventoryItemPresent inventoryItemPresent; // Reference to inventory
     public Transform craftingSlotsParent; // Parent object containing crafting slots
     public GameObject craftingSlotPrefab; // Prefab for crafting slot
@@ -28,17 +28,18 @@ public class CraftingController : MonoBehaviour
 
     void OnConfirmCraftingButtonClicked()
     {
-        workshop = FindObjectOfType<Workshop>();
-        if (workshopUI.selectedCraftingItem == null)
+        chemcicalLab = FindObjectOfType<ChemcicalLab>();
+        if (chemicalUi.selectedCraftingItem == null)
         {
             Debug.LogWarning("No crafting item selected.");
             return;
         }
 
-        CraftingItem selectedItem = workshopUI.selectedCraftingItem;
-        workshopUI.DisplaySelectedItemDetails(selectedItem);
-        // Try to add the crafting job to the workshop
-        CraftingResult result = workshop.AddCraftingJob(selectedItem);
+        CraftingItem selectedItem = chemicalUi.selectedCraftingItem;
+
+        // Try to add the crafting job to the chemcicalLab
+        CraftingResult result = chemcicalLab.AddCraftingJob(selectedItem);
+        chemicalUi.DisplaySelectedItemDetails(selectedItem);
         switch (result)
         {
             case CraftingResult.Success:

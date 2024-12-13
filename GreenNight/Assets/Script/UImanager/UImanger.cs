@@ -7,6 +7,8 @@ public class UImanger : MonoBehaviour
     {
         UpgradeUI,
         WorkshopUI,
+        ChemcicalLabWorkshopUI,
+        ChemcicalLabButtonUpgradeUI,
         CarWorkshopUI,
         CarUpgradeWorkshopUI,
         TunnelUI,

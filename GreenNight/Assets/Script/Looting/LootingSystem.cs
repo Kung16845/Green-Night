@@ -149,7 +149,6 @@ public class LootingSystem : MonoBehaviour
 
         if (droppedItems.Count > 0)
         {
-            inventoryItemPresent.RefreshUIBox();
             itemdropped = true;
             OpenLootUI();
             Debug.Log("Loot Granted");

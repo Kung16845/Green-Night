@@ -316,7 +316,8 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
             originList = tradesystemScript?.listNpcItemWaitforTrade;
 
         if (originList == null) return;
-
+        
+        tradesystemScript?.RefreshTrade();
         // Find and update or remove the item in the source list
         var originItem = originList.FirstOrDefault(i => i.idItem == sourceItem.idItem && i.itemtype == sourceItem.itemtype);
         if (originItem != null)

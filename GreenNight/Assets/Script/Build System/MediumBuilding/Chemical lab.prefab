@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8357784383793407381}
   - component: {fileID: 6959813218692478253}
   - component: {fileID: -7432886337451798822}
+  - component: {fileID: 3610902329390974327}
   m_Layer: 0
   m_Name: Chemical lab
   m_TagString: Untagged
@@ -120,6 +121,7 @@ MonoBehaviour:
     minutes: 0
     isDayNight: 0
     sceneSystem: {fileID: 0}
+    saveDataDDA: {fileID: 0}
   spriteRenderer: {fileID: 0}
   OriginalSprite: {fileID: 21300000, guid: 2c5c76faf7c87644aa9a0c688d1f7c1b, type: 3}
   Constructhreshold: {fileID: 21300000, guid: 4bd3ef4be4d8b2b44b5a870ae317e3c9, type: 3}
@@ -207,6 +209,7 @@ MonoBehaviour:
     minutes: 0
     isDayNight: 0
     sceneSystem: {fileID: 0}
+    saveDataDDA: {fileID: 0}
   spriteRenderer: {fileID: 0}
   ConstructSprite: {fileID: 21300000, guid: 4bd3ef4be4d8b2b44b5a870ae317e3c9, type: 3}
   buildManager: {fileID: 0}
@@ -235,3 +238,285 @@ MonoBehaviour:
     level: 0
     tile: {fileID: 0}
   finishDayBuildingTime: 0
+--- !u!114 &3610902329390974327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6365253814989702133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d8d96985174134439c92087dc2ef194, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeManager: {fileID: 0}
+  dateTime:
+    day: 0
+    hour: 0
+    minutes: 0
+    isDayNight: 0
+    sceneSystem: {fileID: 0}
+    saveDataDDA: {fileID: 0}
+  buildManager: {fileID: 0}
+  currentDay: 0
+  building: {fileID: 0}
+  upgradeUi: {fileID: 0}
+  upgradeBuilding: {fileID: 0}
+  uImanger: {fileID: 0}
+  globalstat: {fileID: 0}
+  Craftingslot: 0
+  Isapplyspeed: 0
+  craftingItemsLevel1:
+  - itemID: 1020301
+    craftingTime: 3000
+    recipeItems:
+    - itemID: 1020101
+      amountNeeded: 15
+      itemName: 
+      itemIcon: {fileID: 0}
+    - itemID: 1020110
+      amountNeeded: 15
+      itemName: 
+      itemIcon: {fileID: 0}
+    Ammoneeded: 0
+    Fuelneeded: 0
+    Steelneeded: 0
+    Plankneeded: 0
+    Foodneeded: 0
+    amountProduced: 3
+    itemName: 
+    itemIcon: {fileID: 0}
+    rarity: 0
+  - itemID: 1020304
+    craftingTime: 2000
+    recipeItems:
+    - itemID: 1020101
+      amountNeeded: 10
+      itemName: 
+      itemIcon: {fileID: 0}
+    - itemID: 1020110
+      amountNeeded: 50
+      itemName: 
+      itemIcon: {fileID: 0}
+    Ammoneeded: 0
+    Fuelneeded: 0
+    Steelneeded: 0
+    Plankneeded: 0
+    Foodneeded: 0
+    amountProduced: 2
+    itemName: 
+    itemIcon: {fileID: 0}
+    rarity: 0
+  - itemID: 1020306
+    craftingTime: 1000
+    recipeItems:
+    - itemID: 1020106
+      amountNeeded: 1
+      itemName: 
+      itemIcon: {fileID: 0}
+    - itemID: 1020121
+      amountNeeded: 1
+      itemName: 
+      itemIcon: {fileID: 0}
+    Ammoneeded: 0
+    Fuelneeded: 0
+    Steelneeded: 0
+    Plankneeded: 0
+    Foodneeded: 0
+    amountProduced: 1
+    itemName: 
+    itemIcon: {fileID: 0}
+    rarity: 0
+  - itemID: 1020117
+    craftingTime: 3000
+    recipeItems:
+    - itemID: 1020108
+      amountNeeded: 15
+      itemName: 
+      itemIcon: {fileID: 0}
+    - itemID: 1020106
+      amountNeeded: 1
+      itemName: 
+      itemIcon: {fileID: 0}
+    - itemID: 1020107
+      amountNeeded: 3
+      itemName: 
+      itemIcon: {fileID: 0}
+    Ammoneeded: 0
+    Fuelneeded: 0
+    Steelneeded: 0
+    Plankneeded: 0
+    Foodneeded: 0
+    amountProduced: 1
+    itemName: 
+    itemIcon: {fileID: 0}
+    rarity: 0
+  - itemID: 1020131
+    craftingTime: 5000
+    recipeItems:
+    - itemID: 1020108
+      amountNeeded: 30
+      itemName: 
+      itemIcon: {fileID: 0}
+    Ammoneeded: 0
+    Fuelneeded: 0
+    Steelneeded: 0
+    Plankneeded: 0
+    Foodneeded: 0
+    amountProduced: 1
+    itemName: 
+    itemIcon: {fileID: 0}
+    rarity: 0
+  craftingItemsLevel2:
+  - itemID: 1020305
+    craftingTime: 2000
+    recipeItems:
+    - itemID: 1020111
+      amountNeeded: 5
+      itemName: 
+      itemIcon: {fileID: 0}
+    - itemID: 1020117
+      amountNeeded: 1
+      itemName: 
+      itemIcon: {fileID: 0}
+    - itemID: 1020101
+      amountNeeded: 5
+      itemName: 
+      itemIcon: {fileID: 0}
+    Ammoneeded: 0
+    Fuelneeded: 0
+    Steelneeded: 0
+    Plankneeded: 0
+    Foodneeded: 0
+    amountProduced: 1
+    itemName: 
+    itemIcon: {fileID: 0}
+    rarity: 0
+  - itemID: 1020305
+    craftingTime: 3000
+    recipeItems:
+    - itemID: 1020111
+      amountNeeded: 15
+      itemName: 
+      itemIcon: {fileID: 0}
+    - itemID: 1020118
+      amountNeeded: 1
+      itemName: 
+      itemIcon: {fileID: 0}
+    - itemID: 1020101
+      amountNeeded: 15
+      itemName: 
+      itemIcon: {fileID: 0}
+    Ammoneeded: 0
+    Fuelneeded: 0
+    Steelneeded: 0
+    Plankneeded: 0
+    Foodneeded: 0
+    amountProduced: 3
+    itemName: 
+    itemIcon: {fileID: 0}
+    rarity: 0
+  - itemID: 1020307
+    craftingTime: 2000
+    recipeItems:
+    - itemID: 1020101
+      amountNeeded: 7
+      itemName: 
+      itemIcon: {fileID: 0}
+    - itemID: 1020117
+      amountNeeded: 1
+      itemName: 
+      itemIcon: {fileID: 0}
+    Ammoneeded: 0
+    Fuelneeded: 2
+    Steelneeded: 0
+    Plankneeded: 0
+    Foodneeded: 0
+    amountProduced: 1
+    itemName: 
+    itemIcon: {fileID: 0}
+    rarity: 0
+  - itemID: 1020307
+    craftingTime: 3500
+    recipeItems:
+    - itemID: 1020101
+      amountNeeded: 14
+      itemName: 
+      itemIcon: {fileID: 0}
+    - itemID: 1020118
+      amountNeeded: 1
+      itemName: 
+      itemIcon: {fileID: 0}
+    Ammoneeded: 0
+    Fuelneeded: 3
+    Steelneeded: 0
+    Plankneeded: 0
+    Foodneeded: 0
+    amountProduced: 3
+    itemName: 
+    itemIcon: {fileID: 0}
+    rarity: 0
+  - itemID: 1020308
+    craftingTime: 3000
+    recipeItems:
+    - itemID: 1020101
+      amountNeeded: 10
+      itemName: 
+      itemIcon: {fileID: 0}
+    - itemID: 1020102
+      amountNeeded: 1
+      itemName: 
+      itemIcon: {fileID: 0}
+    - itemID: 1020103
+      amountNeeded: 1
+      itemName: 
+      itemIcon: {fileID: 0}
+    - itemID: 1020117
+      amountNeeded: 1
+      itemName: 
+      itemIcon: {fileID: 0}
+    Ammoneeded: 0
+    Fuelneeded: 0
+    Steelneeded: 0
+    Plankneeded: 0
+    Foodneeded: 0
+    amountProduced: 3
+    itemName: 
+    itemIcon: {fileID: 0}
+    rarity: 0
+  - itemID: 1020309
+    craftingTime: 3000
+    recipeItems:
+    - itemID: 1020108
+      amountNeeded: 10
+      itemName: 
+      itemIcon: {fileID: 0}
+    - itemID: 1020101
+      amountNeeded: 15
+      itemName: 
+      itemIcon: {fileID: 0}
+    - itemID: 1020102
+      amountNeeded: 1
+      itemName: 
+      itemIcon: {fileID: 0}
+    - itemID: 1020117
+      amountNeeded: 1
+      itemName: 
+      itemIcon: {fileID: 0}
+    - itemID: 1020110
+      amountNeeded: 5
+      itemName: 
+      itemIcon: {fileID: 0}
+    Ammoneeded: 0
+    Fuelneeded: 0
+    Steelneeded: 0
+    Plankneeded: 0
+    Foodneeded: 0
+    amountProduced: 2
+    itemName: 
+    itemIcon: {fileID: 0}
+    rarity: 0
+  maxCraftingSlots: 3
+  activeCraftingJobs: []
+  inventoryItemPresent: {fileID: 0}

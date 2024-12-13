@@ -241,6 +241,28 @@ public class BuildManager : MonoBehaviour
             }
         }
     }
+    public void DisableColliders()
+    {
+        foreach (Collider2D collider in collidersToManage)
+        {
+            if (collider != null)
+            {
+                collider.enabled = false;
+            }
+        }
+        Debug.Log("All colliders have been disabled.");
+    }
+    public void EnableColliders()
+    {
+        foreach (Collider2D collider in collidersToManage)
+        {
+            if (collider != null)
+            {
+                collider.enabled = true;
+            }
+        }
+        Debug.Log("All colliders have been enabled.");
+    }
 }
 [System.Serializable]
 public class BuiltBuildingInfo
