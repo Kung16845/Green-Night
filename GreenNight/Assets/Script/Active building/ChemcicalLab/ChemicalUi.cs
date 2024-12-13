@@ -61,7 +61,10 @@ public class ChemicalUi : MonoBehaviour
             AutoAssignCraftingItemProperties(craftingItem);
         }
     }
-
+    public void InitializeUpgradeData()
+    {
+        chemcicalLab.AssignUpgradeData();
+    }
     void AutoAssignCraftingItemProperties(CraftingItem craftingItem)
     {
         // Assign properties from InventoryItemPresent or UIItemData
@@ -243,7 +246,6 @@ public class ChemicalUi : MonoBehaviour
         if (selectedItemFoodneeded != null)
             selectedItemFoodneeded.text = "0";
     }
-
     public void DisplayActiveCraftingJobs()
     {
         // Clear existing crafting job UI elements

@@ -6,13 +6,17 @@ using UnityEngine.UI;
 
 public class UIBuildingCrontrol : MonoBehaviour
 {
-    public UIBuilding  largeuIBuilding;
+    public BuildManager  buildManager;
+    void Start()
+    {
+        buildManager = FindObjectOfType<BuildManager>();
+    }
     void OnEnable()
     {
-        largeuIBuilding.DisableColliders();
+        buildManager.DisableColliders();
     }
     void OnDisable()
     {
-        largeuIBuilding.EnableColliders();
+        buildManager.EnableColliders();
     }
 }

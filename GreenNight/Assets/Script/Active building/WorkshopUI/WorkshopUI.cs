@@ -62,7 +62,10 @@ public class WorkshopUI : MonoBehaviour
             AutoAssignCraftingItemProperties(craftingItem);
         }
     }
-
+    public void InitializeUpgradeData()
+    {
+        workshop.AssignUpgradeData();
+    }
     void AutoAssignCraftingItemProperties(CraftingItem craftingItem)
     {
         // Assign properties from InventoryItemPresent or UIItemData

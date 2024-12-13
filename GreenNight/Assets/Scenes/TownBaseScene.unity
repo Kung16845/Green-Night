@@ -7472,7 +7472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 920adbb8c04b3934eb3ad033b60ebd3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  largeuIBuilding: {fileID: 290088995}
+  buildManager: {fileID: 0}
 --- !u!1 &254078589
 GameObject:
   m_ObjectHideFlags: 0
@@ -10544,7 +10544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 920adbb8c04b3934eb3ad033b60ebd3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  largeuIBuilding: {fileID: 290088995}
+  buildManager: {fileID: 0}
 --- !u!1 &369924068
 GameObject:
   m_ObjectHideFlags: 0
@@ -11963,7 +11963,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 920adbb8c04b3934eb3ad033b60ebd3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  largeuIBuilding: {fileID: 290088995}
+  buildManager: {fileID: 0}
 --- !u!4 &441919409 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7064756249141912353, guid: d0e00d62679e836459bc8eedcde277f4, type: 3}
@@ -15606,7 +15606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 920adbb8c04b3934eb3ad033b60ebd3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  largeuIBuilding: {fileID: 290088995}
+  buildManager: {fileID: 0}
 --- !u!1 &548728514
 GameObject:
   m_ObjectHideFlags: 0
@@ -21297,7 +21297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 920adbb8c04b3934eb3ad033b60ebd3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  largeuIBuilding: {fileID: 290088995}
+  buildManager: {fileID: 0}
 --- !u!1 &775641792
 GameObject:
   m_ObjectHideFlags: 0
@@ -39061,7 +39061,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 920adbb8c04b3934eb3ad033b60ebd3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  largeuIBuilding: {fileID: 290088995}
+  buildManager: {fileID: 0}
 --- !u!1 &1411503693
 GameObject:
   m_ObjectHideFlags: 0
@@ -39384,7 +39384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 920adbb8c04b3934eb3ad033b60ebd3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  largeuIBuilding: {fileID: 290088995}
+  buildManager: {fileID: 0}
 --- !u!1 &1430998053
 GameObject:
   m_ObjectHideFlags: 0
@@ -50624,7 +50624,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 920adbb8c04b3934eb3ad033b60ebd3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  largeuIBuilding: {fileID: 290088995}
+  buildManager: {fileID: 0}
 --- !u!114 &1799568118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51221,24 +51221,20 @@ MonoBehaviour:
     panelObject: {fileID: 1429049396}
   - panelType: 1
     panelObject: {fileID: 366983574}
-  - panelType: 2
+  - panelType: 8
+    panelObject: {fileID: 1789176413}
+  - panelType: 4
     panelObject: {fileID: 2107354283}
-  - panelType: 3
-    panelObject: {fileID: 1789176413}
-  - panelType: 4
-    panelObject: {fileID: 1789176413}
-  - panelType: 6
-    panelObject: {fileID: 1528801720}
-  - panelType: 7
-    panelObject: {fileID: 1799568113}
-  - panelType: 4
-    panelObject: {fileID: 775423284}
   - panelType: 5
-    panelObject: {fileID: 548728514}
+    panelObject: {fileID: 1789176413}
   - panelType: 2
     panelObject: {fileID: 1956858460}
   - panelType: 3
     panelObject: {fileID: 1443707406}
+  - panelType: 6
+    panelObject: {fileID: 775423284}
+  - panelType: 7
+    panelObject: {fileID: 548728514}
   - panelType: 9
     panelObject: {fileID: 1799568113}
   globalstat: {fileID: 1484128885}
@@ -52334,6 +52330,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 2107354288}
+        m_TargetAssemblyTypeName: CarWorkshopUi, Assembly-CSharp
+        m_MethodName: InitializeUpgradeData
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 2107354283}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
@@ -54835,7 +54843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 920adbb8c04b3934eb3ad033b60ebd3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  largeuIBuilding: {fileID: 290088995}
+  buildManager: {fileID: 0}
 --- !u!1 &1914504256
 GameObject:
   m_ObjectHideFlags: 0
@@ -56542,7 +56550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 920adbb8c04b3934eb3ad033b60ebd3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  largeuIBuilding: {fileID: 290088995}
+  buildManager: {fileID: 0}
 --- !u!4 &1957331221 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6631885192449490074, guid: 72c48b7d0e13d9a44a3d437be9c01565, type: 3}
@@ -61579,7 +61587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 920adbb8c04b3934eb3ad033b60ebd3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  largeuIBuilding: {fileID: 290088995}
+  buildManager: {fileID: 0}
 --- !u!1 &2111540507
 GameObject:
   m_ObjectHideFlags: 0

@@ -54,15 +54,12 @@ public class ChemcicalLab : MonoBehaviour
             {
                 uImanger.DisableUIPanel(UImanger.UIPanel.ChemcicalLabButtonUpgradeUI);
             }
-            AssignUpgradeData();
         }
     }
-    private void AssignUpgradeData()
+    public void AssignUpgradeData()
     {
-        uImanger.ToggleUIPanel(UImanger.UIPanel.UpgradeUI);
         upgradeUi = FindObjectOfType<UpgradeUi>();
         upgradeUi.Initialize(upgradeBuilding);
-        uImanger.DisableUIPanel(UImanger.UIPanel.UpgradeUI);
     }
     void IsElectricActive()
     {
