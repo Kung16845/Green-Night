@@ -135,8 +135,7 @@ public class SceneSystem : MonoBehaviour
             saveDataDDA.AddDataDDAAndSave();
             Debug.Log("SaveData");
         }
-        // timeManager.dateTime.day++;
-        
+        timeManager.TimeStop();
     }
     private void OnEnable()
     {
