@@ -44,11 +44,11 @@ public class CarWorkshop : MonoBehaviour
     {
         if (building.isfinsih && !upgradeBuilding.isBuilding)
         {
-            uImanger.ActiveCarWorkshopUI();
+            uImanger.ToggleUIPanel(UImanger.UIPanel.CarWorkshopUI);
             
             if (upgradeBuilding.currentLevel == upgradeBuilding.maxLevel && !hasUpgradeApplied)
             {
-                uImanger.DisableCarUpgradeWorkshopUI();
+                uImanger.DisableUIPanel(UImanger.UIPanel.CarUpgradeWorkshopUI);
                 globalstat.availablecar += 1; // Increment available cars
                 StandardFuelcost = 3;
 
@@ -60,10 +60,10 @@ public class CarWorkshop : MonoBehaviour
     }
     private void AssignUpgradeData()
     {
-        uImanger.ActiveUpgradeUI();
+        uImanger.ToggleUIPanel(UImanger.UIPanel.UpgradeUI);
         upgradeUi = FindObjectOfType<UpgradeUi>();
         upgradeUi.Initialize(upgradeBuilding);
-        uImanger.DisableUpgradeUI();
+        uImanger.ToggleUIPanel(UImanger.UIPanel.UpgradeUI);
     }
     void IsElectricActive()
     {

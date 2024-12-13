@@ -1,61 +1,82 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UImanger : MonoBehaviour
 {
-    public GameObject UpgradeUI;
-    public GameObject WorkshopUI;
-    public GameObject CarWorkshopUI;
-    public GameObject CarUpgradeWorkshopUI;
-    public GameObject workshopUpgradeUI;
-    public GameObject ExpiditionUI;
+    public enum UIPanel
+    {
+        UpgradeUI,
+        WorkshopUI,
+        CarWorkshopUI,
+        CarUpgradeWorkshopUI,
+        TunnelUI,
+        ClearingTunnelUI,
+        WorkshopUpgradeUI,
+        ExpeditionUI
+    }
+
+    [System.Serializable]
+    public struct UIPanelMapping
+    {
+        public UIPanel panelType;
+        public GameObject panelObject;
+    }
+
+    public UIPanelMapping[] uiPanelMappings;
+    private Dictionary<UIPanel, GameObject> uiPanels;
+
     public Globalstat globalstat;
-    private bool isExpiditionUIActive; 
+    private bool isExpeditionUIActive;
+
+    void Awake()
+    {
+        // Initialize the dictionary
+        uiPanels = new Dictionary<UIPanel, GameObject>();
+        foreach (var mapping in uiPanelMappings)
+        {
+            uiPanels[mapping.panelType] = mapping.panelObject;
+        }
+    }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.M) && !globalstat.expiditionactiveeventactive)
         {
-            ToogleExpiditionUI();
+            ToggleUIPanel(UIPanel.ExpeditionUI);
         }
     }
-    public void ToogleExpiditionUI()
+
+    public void ToggleUIPanel(UIPanel panel)
     {
-        isExpiditionUIActive = !isExpiditionUIActive;
-        ExpiditionUI.SetActive(isExpiditionUIActive);
+        if (uiPanels.ContainsKey(panel))
+        {
+            bool isActive = uiPanels[panel].activeSelf;
+            uiPanels[panel].SetActive(!isActive);
+
+            if (panel == UIPanel.ExpeditionUI)
+            {
+                isExpeditionUIActive = !isExpeditionUIActive;
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"UIPanel {panel} not found in dictionary!");
+        }
     }
-    public void ActiveUpgradeUI()
+
+    public void ActivateUIPanel(UIPanel panel)
     {
-        UpgradeUI.SetActive(true);
+        if (uiPanels.ContainsKey(panel))
+        {
+            uiPanels[panel].SetActive(true);
+        }
     }
-    public void DisableUpgradeUI()
+
+    public void DisableUIPanel(UIPanel panel)
     {
-        UpgradeUI.SetActive(false);
-    }
-     public void ActiveCarWorkshopUI()
-    {
-        CarWorkshopUI.SetActive(true);
-    }
-    public void DisableCarWorkshopUI()
-    {
-        CarWorkshopUI.SetActive(false);
-    }
-    public void DisableCarUpgradeWorkshopUI()
-    {
-        CarUpgradeWorkshopUI.SetActive(false);
-        Debug.Log("Disable");
-    }
-    public void ActiveWorkshopUI()
-    {
-        WorkshopUI.SetActive(true);
-    }
-    public void DisableWorkshopUI()
-    {
-        WorkshopUI.SetActive(false);
-    }
-    public void DisableUpgradeworkshopButton()
-    {
-        workshopUpgradeUI.SetActive(false);
+        if (uiPanels.ContainsKey(panel))
+        {
+            uiPanels[panel].SetActive(false);
+        }
     }
 }

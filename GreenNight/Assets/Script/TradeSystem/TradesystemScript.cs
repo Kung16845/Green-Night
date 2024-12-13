@@ -42,7 +42,6 @@ public class TradesystemScript : MonoBehaviour
     {
         actionController = FindObjectOfType<ActionController>();
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
-        uIInventoryEX = FindObjectOfType<UIInventory>();
         Confirmobject.SetActive(false);
         statusTrade.text = "What is your offer?";
     }
@@ -53,6 +52,7 @@ public class TradesystemScript : MonoBehaviour
         {
             inrange = true;
             activeTrades.Add(this);
+            activeTrade = this;
         }
     }
 
@@ -73,7 +73,6 @@ public class TradesystemScript : MonoBehaviour
     private void Update()
     {
         // Only proceed if this is the closest active trade
-        TradesystemScript closestTrade = GetClosestActiveTrade();
         if (activeTrade != null && activeTrade != this)
             return;
 
@@ -101,7 +100,6 @@ public class TradesystemScript : MonoBehaviour
         }
         else if (!inrange && TradeUI.activeSelf)
         {
-            CloseTradeUI();
             if (activeTrade == this)
                 activeTrade = null;
         }
@@ -142,9 +140,11 @@ public class TradesystemScript : MonoBehaviour
         }
 
         // Return Player items in the trade slots back to the player's inventory
-        foreach (var itemData in listPlayerItemWaitforTrade)
+        foreach (var itemData in this.listPlayerItemWaitforTrade)
         {
             uIInventoryEX.listItemDataInventorySlot.Add(itemData);
+            uIInventoryEX.RefreshUIInventory();
+            Debug.Log($"Items {itemData.nameItem} to inventories.{uIInventoryEX.name}");
         }
 
         // Clear the trade lists
@@ -421,24 +421,24 @@ public class TradesystemScript : MonoBehaviour
             Confirmobject.SetActive(false);
             return;
         }
-        if (playerTradeValue == 0 && npcTradeValue >= 1)
+       if (playerTradeValue == 0 && npcTradeValue >= 1)
         {
-            statusTrade.text = playerTradeValue >= 1.1 * npcTradeValue
-                ? "You're asking for a lot for nothing. Add more to the offer."
-                : playerTradeValue >= 0.75 * npcTradeValue
-                ? "This isn't close to fair. Give me something decent."
+            statusTrade.text = npcTradeValue >= 30 
+                ? "You're asking for a fortune for nothing. Be serious." 
+                : npcTradeValue >= 15
+                ? "That's quite an ask for nothing. Add something." 
                 : "Nothing is free, you know. Bring something to the table.";
             Confirmobject.SetActive(false);
             return;
         }
         else if (playerTradeValue >= 1 && npcTradeValue == 0)
         {
-            statusTrade.text = playerTradeValue >= 1.1 * npcTradeValue
-                ? "You’re offering quite a bit for nothing. Are you sure about this?"
-                : playerTradeValue >= 0.75 * npcTradeValue
-                ? "You're being generous, but I don't have anything to give."
-                : "I can’t give you something for nothing, no matter how generous you are.";
-            Confirmobject.SetActive(false);
+            statusTrade.text = playerTradeValue >= 30 
+                ? "This is really interesting—what exactly are you looking for in return?"
+                : playerTradeValue >= 15
+                ? "This is a generous offer, I can give you alot from that"
+                : "Well, what are you looking for in return for that?";
+            Confirmobject.SetActive(true);
             return;
         }
 
@@ -446,21 +446,22 @@ public class TradesystemScript : MonoBehaviour
         if (playerTradeValue >= npcTradeValue)
         {
             Confirmobject.SetActive(true);
-            statusTrade.text = playerTradeValue >= 2 * npcTradeValue
-                ? "Wow, you're giving me a lot! This is almost too generous!"
-                : playerTradeValue >= 1.5 * npcTradeValue
-                ? "You're offering more than fair. I appreciate that!"
+            statusTrade.text = playerTradeValue - npcTradeValue >= 30 
+                ? "This is unbelievably generous. Are you sure about this?" 
+                : playerTradeValue - npcTradeValue >= 15
+                ? "You're offering a lot. I really appreciate it!" 
                 : "This works for me. Let's make the trade.";
         }
         else
         {
             Confirmobject.SetActive(false);
-            statusTrade.text = playerTradeValue >= 1.1 * npcTradeValue
-                ? "You're close, but I need a little more to make this fair."
-                : playerTradeValue >= 0.75 * npcTradeValue
-                ? "This isn't quite enough. You need to add something more."
-                : "Seriously? This offer is way off. You’ll need to do much better.";
+            statusTrade.text = npcTradeValue - playerTradeValue  >= 30 
+                ? "Your offer is way too low for what I'm asking. Be realistic."
+                : npcTradeValue - playerTradeValue  >= 15
+                ? "You’re asking quite a bit, and your offer doesn’t match up."
+                : "You're close, but I need a little more to make this fair.";
         }
+
 
     }
 

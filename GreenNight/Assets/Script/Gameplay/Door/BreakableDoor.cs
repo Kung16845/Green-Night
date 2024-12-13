@@ -17,7 +17,7 @@ public class BreakableDoor : MonoBehaviour
     public bool inrange = false;
 
     [Tooltip("Time to open the door in milliseconds. For example, 5000 = 5 seconds.")]
-    public float openDuration = 5000f; // Time to open the door in milliseconds.
+    public float openDuration; // Time to open the door in milliseconds.
     private float openProgress = 0f;
     private ActionController actionController;
 
@@ -98,9 +98,6 @@ public class BreakableDoor : MonoBehaviour
 
                     // Increment the progress based on the time elapsed.
                     openProgress += Time.deltaTime * 1000f; // Convert seconds to milliseconds.
-
-                    // Clamp the progress to not exceed openDuration.
-                    openProgress = Mathf.Min(openProgress, openDuration);
 
                     // Update slider value.
                     OpenProgressSlider.value = openProgress;

@@ -273,6 +273,10 @@ public class InventoryItemPresent : MonoBehaviour
             return null;
         }
     }
+    public bool HasItem(int itemID)
+    {
+        return listItemsDataBox.Any(item => item.idItem == itemID);
+    }
 
     public ItemData ConventItemClassToItemData(ItemClass itemClass)
     {
