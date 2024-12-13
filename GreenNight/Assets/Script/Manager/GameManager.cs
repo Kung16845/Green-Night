@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public ExpenditionManager expenditionManager;
     public Globalstat globalstat;
     public NpcManager npcManager;
+    public ManagerSceneEX managerSceneEX;
     
     [Header ("Script Save and Load Game")]
     public SaveAndLoadTimemanager saveAndLoadTimemanager;
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour
         expenditionManager = FindObjectOfType<ExpenditionManager>();
         globalstat = FindObjectOfType<Globalstat>(); 
         npcManager = FindObjectOfType<NpcManager>();
+        managerSceneEX = FindObjectOfType<ManagerSceneEX>();
     }
     public void NewGame()
     {   
