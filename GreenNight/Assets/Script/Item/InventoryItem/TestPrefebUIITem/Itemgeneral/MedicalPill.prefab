@@ -268,6 +268,7 @@ MonoBehaviour:
   parentAfterDray: {fileID: 0}
   parentBeforeDray: {fileID: 0}
   imageItem: {fileID: 5222524482886833746}
+  itemClass: {fileID: 0}
 --- !u!114 &1291614654634707552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,9 +282,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   count: {fileID: 7534671795205046289}
-  idItem: 1020118
+  idItem: 1020122
   nameItem: Medicalpill
   slotType: 3
+  originatingLootSystem: {fileID: 0}
+  originatingTradesystem: {fileID: 0}
   slotTypeParent: 3
   itemIconImage: {fileID: 5222524482886833746}
 --- !u!114 &-1681350862212605489
@@ -299,11 +302,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameItem: Medicalpills
+  Describetion: 
   quantityItem: 0
   maxCountItem: 2
   itemtype: 7
   rarityItem: 3
-  tradeValueItem: 55
+  tradeValueItem: 100
   carftableItem: 1
   disassembleItem: 7
   idItem: 1020122

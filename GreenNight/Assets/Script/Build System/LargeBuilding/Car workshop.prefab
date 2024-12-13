@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5302322754830735688}
   - component: {fileID: 9052139273560429677}
   - component: {fileID: -9078002244565238600}
+  - component: {fileID: 382137248366481971}
   m_Layer: 0
   m_Name: Car workshop
   m_TagString: Untagged
@@ -120,6 +121,7 @@ MonoBehaviour:
     minutes: 0
     isDayNight: 0
     sceneSystem: {fileID: 0}
+    saveDataDDA: {fileID: 0}
   spriteRenderer: {fileID: 0}
   OriginalSprite: {fileID: 21300000, guid: 32c5929182218814bb9b9d39fee17391, type: 3}
   Constructhreshold: {fileID: 21300000, guid: 86de18d64ecddb940b59f1224df6a387, type: 3}
@@ -162,6 +164,7 @@ MonoBehaviour:
     minutes: 0
     isDayNight: 0
     sceneSystem: {fileID: 0}
+    saveDataDDA: {fileID: 0}
   spriteRenderer: {fileID: 0}
   ConstructSprite: {fileID: 21300000, guid: 86de18d64ecddb940b59f1224df6a387, type: 3}
   buildManager: {fileID: 0}
@@ -235,3 +238,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4, y: 4}
   m_EdgeRadius: 0
+--- !u!114 &382137248366481971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4828145842393980435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bf3904449891044784d95d7459de7c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  availableCar: 0
+  UnaviableCar: 0
+  FuelRefillRate: 0
+  timeManager: {fileID: 0}
+  dateTime:
+    day: 0
+    hour: 0
+    minutes: 0
+    isDayNight: 0
+    sceneSystem: {fileID: 0}
+    saveDataDDA: {fileID: 0}
+  buildManager: {fileID: 0}
+  currentDay: 0
+  building: {fileID: 0}
+  upgradeUi: {fileID: 0}
+  upgradeBuilding: {fileID: 0}
+  uImanger: {fileID: 0}
+  globalstat: {fileID: 0}

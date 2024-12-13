@@ -56,20 +56,20 @@ public class Workshop : MonoBehaviour
     {
         if (building.isfinsih && !upgradeBuilding.isBuilding)
         {
-            uImanger.ActiveWorkshopUI();
+            uImanger.ToggleUIPanel(UImanger.UIPanel.WorkshopUI);
             if(upgradeBuilding.currentLevel == upgradeBuilding.maxLevel)
             {
-                uImanger.DisableUpgradeworkshopButton();
+                uImanger.DisableUIPanel(UImanger.UIPanel.WorkshopUpgradeUI);
             }
             AssignUpgradeData();
         }
     }
     private void AssignUpgradeData()
     {
-        uImanger.ActiveUpgradeUI();
+        uImanger.ToggleUIPanel(UImanger.UIPanel.UpgradeUI);
         upgradeUi = FindObjectOfType<UpgradeUi>();
         upgradeUi.Initialize(upgradeBuilding);
-        uImanger.DisableUpgradeUI();
+        uImanger.DisableUIPanel(UImanger.UIPanel.UpgradeUI);
     }
     void IsElectricActive()
     {

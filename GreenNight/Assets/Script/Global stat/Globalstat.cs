@@ -26,6 +26,7 @@ public class Globalstat : MonoBehaviour
     public float expiditionspeed;
     public float expiditionrisk;
     public int availablecar;
+    public int UnaviableCar;
     public int OutpostLimit;
     public bool Tunnelaviable = false;
     [Header("Community Stat")]
@@ -39,6 +40,17 @@ public class Globalstat : MonoBehaviour
     public bool expiditionactiveeventactive = false;
     private int bedFactor = 0;
     //ActiveBed
+    void Start()
+    {
+        Tunnel tunnel = FindObjectOfType<Tunnel>();
+        if(tunnel != null)
+        {
+            if(tunnel.tuneelisopen)
+                Tunnelaviable = true;
+            else
+                Tunnelaviable = false;
+        }
+    }
     public void AddBedsFromBuilding(int bedContribution)
     {
         bedFactor += bedContribution;

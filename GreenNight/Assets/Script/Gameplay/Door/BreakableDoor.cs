@@ -11,12 +11,13 @@ public class BreakableDoor : MonoBehaviour
     public bool IsuseChainsaw;
     public bool IsuseBoltCutter;
     public bool IsuseShovel;
+    public bool IsuseNothing; // New condition
 
     public bool isopen = false;
     public bool inrange = false;
 
     [Tooltip("Time to open the door in milliseconds. For example, 5000 = 5 seconds.")]
-    public float openDuration = 5000f; // Time to open the door in milliseconds.
+    public float openDuration; // Time to open the door in milliseconds.
     private float openProgress = 0f;
     private ActionController actionController;
 
@@ -28,9 +29,10 @@ public class BreakableDoor : MonoBehaviour
 
     // Map the boolean flags to their respective item IDs
     private Dictionary<int, bool> requiredItems;
+
     void Awake()
-    {   
-        if(isopen)
+    {
+        if (isopen)
         {
             this.gameObject.SetActive(false);
         }
@@ -52,6 +54,7 @@ public class BreakableDoor : MonoBehaviour
             { 1020501, IsuseBoltCutter },
             { 1020503, IsuseShovel }
         };
+
         OpenProgressSlider.minValue = 0f;
         OpenProgressSlider.maxValue = openDuration;
         OpenProgressSlider.value = 0f;
@@ -78,35 +81,41 @@ public class BreakableDoor : MonoBehaviour
 
     void Update()
     {
-        if (inrange && !isopen && Input.GetKey(KeyCode.F))
+        if (inrange && !isopen)
         {
-
+            // Check if the player has required items or is using nothing
             if (PlayerHasRequiredItem())
             {
-                OpenProgressSlider.gameObject.SetActive(true);
-                actionController.canwalk =  false;
-                // Increment the progress based on the time elapsed.
-                openProgress += Time.deltaTime * 1000f;  // Convert seconds to milliseconds.
-
-                // Clamp the progress to not exceed openDuration.
-                openProgress = Mathf.Min(openProgress, openDuration);
-
-                // Update slider value.
-                OpenProgressSlider.value = openProgress;
-
-                if (openProgress >= openDuration)
+                if (IsuseNothing && Input.GetKey(KeyCode.F))
                 {
+                    // Open the door instantly if "use nothing" condition is active
                     OpenDoor();
+                }
+                else if (Input.GetKey(KeyCode.F))
+                {
+                    OpenProgressSlider.gameObject.SetActive(true);
+                    actionController.canwalk = false;
+
+                    // Increment the progress based on the time elapsed.
+                    openProgress += Time.deltaTime * 1000f; // Convert seconds to milliseconds.
+
+                    // Update slider value.
+                    OpenProgressSlider.value = openProgress;
+
+                    if (openProgress >= openDuration)
+                    {
+                        OpenDoor();
+                    }
+                }
+                else
+                {
+                    ResetProgress();
                 }
             }
             else
             {
-                ResetProgress(); // Optionally reset progress if items are missing.
+                ResetProgress();
             }
-        }
-        else if (inrange && !isopen && !Input.GetKey(KeyCode.F))
-        {
-            ResetProgress();
         }
     }
 
@@ -114,7 +123,7 @@ public class BreakableDoor : MonoBehaviour
     {
         isopen = true;
         OpenProgressSlider.gameObject.SetActive(false);
-        actionController.canwalk =  true;
+        actionController.canwalk = true;
         this.gameObject.SetActive(false);
         // Add further logic here, such as removing the door or allowing player to pass.
     }
@@ -138,16 +147,23 @@ public class BreakableDoor : MonoBehaviour
         bool hasRequiredItem = inventory.listItemDataInventoryEqicment
             .Any(item => activeRequirements.Contains(item.idItem));
 
+        // Check the "use nothing" condition
+        if (IsuseNothing)
+        {
+            spriteRenderer.DOColor(Color.green, 0.5f);
+            return true; // "Use nothing" always allows access
+        }
+
+        // Update color based on item possession
         if (!hasRequiredItem)
         {
             spriteRenderer.DOColor(Color.red, 0.5f);
         }
-        if (hasRequiredItem)
+        else
         {
             spriteRenderer.DOColor(Color.green, 0.5f);
         }
 
         return hasRequiredItem;
     }
-
 }

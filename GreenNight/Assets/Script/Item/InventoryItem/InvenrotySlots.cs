@@ -90,7 +90,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
         switch (destinationSlotType)
         {
             case SlotType.SlotNpcItem:
-                targetDataList = tradesystemScript?.listNpcItemWaitforTrade;
+                targetDataList = tradesystemScript?.listInvenrotyNpcItem;
                 break;
             case SlotType.SlotNpcTrade:
                 targetDataList = tradesystemScript?.listNpcItemWaitforTrade;
@@ -165,9 +165,10 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
             return;
         }
 
-        if (destinationSlotType == SlotType.SlotBoxes)
+        if (destinationSlotType == SlotType.SlotBoxes || destinationSlotType == SlotType.SlotNpcItem)
         {
             // For SlotBoxes, always transfer the full quantity without opening UI
+            openUI = false;
             quantityToMove = itemClassMove.quantityItem;
         }
 
