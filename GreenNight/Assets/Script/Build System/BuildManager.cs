@@ -30,6 +30,7 @@ public class BuildManager : MonoBehaviour
     public GameObject uIBuilding;
     public GameObject buttonBuild;
     [Header("Building Tracking")]
+    public List<GameObject> listALLBuilding = new List<GameObject>();
     public List<BuiltBuildingInfo> builtBuildings = new List<BuiltBuildingInfo>();
     public List<Collider2D> collidersToManage = new List<Collider2D>();
     private Dictionary<int, System.Action<int>> resourceHandlers;
