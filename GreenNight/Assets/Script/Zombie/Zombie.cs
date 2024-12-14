@@ -301,12 +301,17 @@ public class Zombie : MonoBehaviour
         // Show the hit marker with the determined color
         ShowHitMarker(hitMarkerColor);
         FlashSpritesRed();
-        // Apply damage effects and check for death
         ApplyDamageEffects(damageType);
         CheckForDeath();
     }
+    private bool isFlashing = false; 
+    private float flashCooldown = 0.5f; 
     private void FlashSpritesRed()
     {
+        if (isFlashing) return; // Prevent multiple calls during cooldown
+
+        isFlashing = true;
+
         SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         foreach (SpriteRenderer sprite in spriteRenderers)
         {
@@ -314,9 +319,18 @@ public class Zombie : MonoBehaviour
             sprite.DOColor(Color.red, 0.2f) // Tween to red over 0.2 seconds
                 .OnComplete(() =>
                 {
-                    sprite.DOColor(originalColor, 0.8f); // Return to the original color over 0.8 seconds
+                    sprite.DOColor(originalColor, 0.2f); // Return to the original color over 0.8 seconds
                 });
         }
+
+        // Set a delay to reset the cooldown flag
+        StartCoroutine(ResetFlashingCooldown());
+    }
+
+    private IEnumerator ResetFlashingCooldown()
+    {
+        yield return new WaitForSeconds(flashCooldown); // Wait for cooldown duration
+        isFlashing = false; // Allow the function to be called again
     }
     private IEnumerator ArmourBroken()
     {

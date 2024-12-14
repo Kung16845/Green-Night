@@ -7,12 +7,16 @@ public class UImanger : MonoBehaviour
     {
         UpgradeUI,
         WorkshopUI,
+        ChemcicalLabWorkshopUI,
+        ChemcicalLabButtonUpgradeUI,
         CarWorkshopUI,
         CarUpgradeWorkshopUI,
         TunnelUI,
         ClearingTunnelUI,
         WorkshopUpgradeUI,
-        ExpeditionUI
+        ExpeditionUI,
+        BeaconUI,
+        BeaconUpgradeUI
     }
 
     [System.Serializable]

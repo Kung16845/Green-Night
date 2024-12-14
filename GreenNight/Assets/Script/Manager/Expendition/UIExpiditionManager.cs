@@ -14,7 +14,6 @@ public class UIExpiditionManager : MonoBehaviour
 
     void Start()
     {
-        uIInventoryEX = FindAnyObjectByType<UIInventoryEX>();
         spriteRenderer = GetComponent<SpriteRenderer>(); // Ensure a SpriteRenderer is on the GameObject
         if(uIInventoryEX.isuseCar)
         {

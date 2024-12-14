@@ -4,9 +4,10 @@ using UnityEngine.UI;
 using TMPro;
 using System.Linq;
 
-public class WorkshopUI : MonoBehaviour
+
+public class ChemicalUi : MonoBehaviour
 {
-    public Workshop workshop;
+    public ChemcicalLab chemcicalLab;
     public TextMeshProUGUI Craftingslot;
     public TextMeshProUGUI ActionSpeed;
 
@@ -36,35 +37,33 @@ public class WorkshopUI : MonoBehaviour
 
     void Start()
     {
-        workshop = FindObjectOfType<Workshop>();
+        chemcicalLab = FindObjectOfType<ChemcicalLab>();
         AssignActionSpeedAndSlot();
         AutoAssignCraftingItemData();
     }
 
     void AssignActionSpeedAndSlot()
     {
-        float actionSpeedIncreasePercent = workshop.Actionspeedincrease * 100f;
-        ActionSpeed.text = "Action Speed: +" + actionSpeedIncreasePercent.ToString("F0") + "%";
-        int Slotincrease = workshop.Craftingslot;
+        int Slotincrease = chemcicalLab.Craftingslot;
         Craftingslot.text = "Crafting slot: +" + Slotincrease.ToString("F0");
     }
     void AutoAssignCraftingItemData()
     {
         // For Level 1 Items
-        foreach (CraftingItem craftingItem in workshop.craftingItemsLevel1)
+        foreach (CraftingItem craftingItem in chemcicalLab.craftingItemsLevel1)
         {
             AutoAssignCraftingItemProperties(craftingItem);
         }
 
         // For Level 2 Items
-        foreach (CraftingItem craftingItem in workshop.craftingItemsLevel2)
+        foreach (CraftingItem craftingItem in chemcicalLab.craftingItemsLevel2)
         {
             AutoAssignCraftingItemProperties(craftingItem);
         }
     }
     public void InitializeUpgradeData()
     {
-        workshop.AssignUpgradeData();
+        chemcicalLab.AssignUpgradeData();
     }
     void AutoAssignCraftingItemProperties(CraftingItem craftingItem)
     {
@@ -109,7 +108,7 @@ public class WorkshopUI : MonoBehaviour
             Debug.LogWarning($"UIItemData not found for itemID: {recipeItem.itemID}");
         }
     }
-   void DisplayCraftingItems()
+   public void DisplayCraftingItems()
     {
         // Clear existing crafting item UI elements
         foreach (Transform child in craftingItemsParent)
@@ -117,19 +116,19 @@ public class WorkshopUI : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        // Get the workshop's current level
-        int workshopLevel = workshop.upgradeBuilding.currentLevel;
+        // Get the chemcicalLab's current level
+        int chemcicalLabLevel = chemcicalLab.upgradeBuilding.currentLevel;
 
         // Get the crafting items based on the level
         List<CraftingItem> availableCraftingItems = new List<CraftingItem>();
 
         // Level 1 items are always included
-        availableCraftingItems.AddRange(workshop.craftingItemsLevel1);
+        availableCraftingItems.AddRange(chemcicalLab.craftingItemsLevel1);
 
         // If level >= 2, include level 2 items
-        if (workshopLevel >= 2)
+        if (chemcicalLabLevel >= 2)
         {
-            availableCraftingItems.AddRange(workshop.craftingItemsLevel2);
+            availableCraftingItems.AddRange(chemcicalLab.craftingItemsLevel2);
         }
 
         // Order the list by rarity and then by name
@@ -141,14 +140,14 @@ public class WorkshopUI : MonoBehaviour
         foreach (CraftingItem craftingItem in orderedCraftingItems)
         {
             GameObject newCraftingItemUI = Instantiate(craftingItemUIPrefab, craftingItemsParent);
-            CraftingItemUI craftingItemUIScript = newCraftingItemUI.GetComponent<CraftingItemUI>();
-            if (craftingItemUIScript != null)
+            ChemicalItemUI chemicalUi = newCraftingItemUI.GetComponent<ChemicalItemUI>();
+            if (chemicalUi != null)
             {
-                craftingItemUIScript.Initialize(craftingItem, this);
+                chemicalUi.Initialize(craftingItem, this);
             }
         }
     }
-        public void DisplaySelectedItemDetails(CraftingItem selectedItem)
+    public void DisplaySelectedItemDetails(CraftingItem selectedItem)
     {
         selectedCraftingItem = selectedItem;
 
@@ -256,7 +255,7 @@ public class WorkshopUI : MonoBehaviour
         }
 
         // Display current crafting jobs
-        foreach (CraftingJob job in workshop.activeCraftingJobs)
+        foreach (CraftingJob job in chemcicalLab.activeCraftingJobs)
         {
             GameObject jobUIObject = Instantiate(craftingJobUIPrefab, craftingJobsParent);
             CraftingJobUI jobUIScript = jobUIObject.GetComponent<CraftingJobUI>();

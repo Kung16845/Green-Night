@@ -74,8 +74,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -587923211
+  m_SortingLayer: 2
   m_SortingOrder: 11
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 0.9315591, b: 0, a: 1}
@@ -129,6 +129,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   caliberType: 0
+  dropOffThreshold: 0
+  dropOffMultiplier: 0.4
   bulletID: 0
 --- !u!58 &-8845518651428123823
 CircleCollider2D:

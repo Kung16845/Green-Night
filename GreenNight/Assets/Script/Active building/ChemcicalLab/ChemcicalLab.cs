@@ -1,16 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public enum CraftingResult
+using TMPro;
+using System.Linq;
+
+public class ChemcicalLab : MonoBehaviour
 {
-    Success,
-    NotEnoughItems,
-    NoAvailableSlots
-}
-public class Workshop : MonoBehaviour
-{
-    public float Actionspeedincrease;
     public TimeManager timeManager;
     public DateTime dateTime;
     public BuildManager buildManager;
@@ -40,9 +35,7 @@ public class Workshop : MonoBehaviour
         upgradeBuilding = GetComponent<UpgradeBuilding>();
         dateTime = timeManager.dateTime;
         currentDay = dateTime.day;
-        Actionspeedincrease = 0.25f;
         Craftingslot = 3;
-        Isapplyspeed = false;
     }
 
     void Update()
@@ -56,12 +49,11 @@ public class Workshop : MonoBehaviour
     {
         if (building.isfinsih && !upgradeBuilding.isBuilding)
         {
-            uImanger.ToggleUIPanel(UImanger.UIPanel.WorkshopUI);
+            uImanger.ToggleUIPanel(UImanger.UIPanel.ChemcicalLabWorkshopUI);
             if(upgradeBuilding.currentLevel == upgradeBuilding.maxLevel)
             {
-                uImanger.DisableUIPanel(UImanger.UIPanel.WorkshopUpgradeUI);
+                uImanger.DisableUIPanel(UImanger.UIPanel.ChemcicalLabButtonUpgradeUI);
             }
-            AssignUpgradeData();
         }
     }
     public void AssignUpgradeData()
@@ -73,12 +65,6 @@ public class Workshop : MonoBehaviour
     {
         if (building.isfinsih && buildManager.iselecticitiesactive)
         {
-            float IncreaseActionSpeed = 0.25f;
-            if (!Isapplyspeed)
-            {
-                globalstat.CalculateActionSpeed(IncreaseActionSpeed);
-                Isapplyspeed = true;
-            }
         }
     }
 
@@ -86,12 +72,6 @@ public class Workshop : MonoBehaviour
     {
         if (building.isfinsih && !buildManager.iselecticitiesactive)
         {
-            float DecreaseActionSpeed = 0.25f;
-            if (Isapplyspeed)
-            {
-                globalstat.CalculateActionSpeed(-DecreaseActionSpeed);
-                Isapplyspeed = false;
-            }
         }
     }
     public CraftingResult AddCraftingJob(CraftingItem craftingItem)

@@ -3,27 +3,27 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
-public class CraftingItemUI : MonoBehaviour
+public class ChemicalItemUI : MonoBehaviour
 {
-    public Image itemIconImage;
+     public Image itemIconImage;
     public TextMeshProUGUI itemNameText;
     public TextMeshProUGUI craftingTimeText;
 
     private CraftingItem craftingItemData;
-    private WorkshopUI workshopUI;
+    private ChemicalUi chemicalUi;
 
     public Button buttonComponent; // Assign this in the Inspector
 
-    public void Initialize(CraftingItem itemData, WorkshopUI parentUI)
+    public void Initialize(CraftingItem itemData, ChemicalUi parentUI)
     {
         craftingItemData = itemData;
-        workshopUI = parentUI;
+        chemicalUi = parentUI;
 
         if (itemIconImage != null)
             itemIconImage.sprite = itemData.itemIcon;
 
         if (itemNameText != null)
-            itemNameText.text = $"{itemData.itemName} X {itemData.amountProduced}";
+            itemNameText.text = $"{itemData.itemName} X {itemData.amountProduced }";
 
         if (craftingTimeText != null)
             craftingTimeText.text =  (itemData.craftingTime / 1000f).ToString("F1") + " hr";
@@ -37,9 +37,9 @@ public class CraftingItemUI : MonoBehaviour
 
     private void OnClick()
     {
-        if (workshopUI != null)
+        if (chemicalUi != null)
         {
-            workshopUI.DisplaySelectedItemDetails(craftingItemData);
+            chemicalUi.DisplaySelectedItemDetails(craftingItemData);
         }
     }
 
@@ -51,4 +51,3 @@ public class CraftingItemUI : MonoBehaviour
         }
     }
 }
-

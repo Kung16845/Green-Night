@@ -54,16 +54,13 @@ public class CarWorkshop : MonoBehaviour
 
                 hasUpgradeApplied = true; // Set the flag to true to prevent reapplying the upgrade logic
             }
-            
-            AssignUpgradeData();
+
         }
     }
-    private void AssignUpgradeData()
+    public void AssignUpgradeData()
     {
-        uImanger.ToggleUIPanel(UImanger.UIPanel.UpgradeUI);
         upgradeUi = FindObjectOfType<UpgradeUi>();
         upgradeUi.Initialize(upgradeBuilding);
-        uImanger.ToggleUIPanel(UImanger.UIPanel.UpgradeUI);
     }
     void IsElectricActive()
     {

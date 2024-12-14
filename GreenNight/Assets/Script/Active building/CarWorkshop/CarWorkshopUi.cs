@@ -64,7 +64,10 @@ public class CarWorkshopUi : MonoBehaviour
             });
         }
     }
-
+    public void InitializeUpgradeData()
+    {
+        carWorkshop.AssignUpgradeData();
+    }
     private void TryRefillCar(GameObject carSlotObj, Slider fuelSlider, TMP_Text fuelText, int requiredFuel)
     {
         int currentFuel = Mathf.FloorToInt(carWorkshop.buildManager.fuel); // Ensure fuel is an int
