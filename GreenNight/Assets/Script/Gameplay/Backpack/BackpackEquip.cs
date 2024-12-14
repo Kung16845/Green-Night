@@ -15,17 +15,11 @@ public class BackpackEquip : MonoBehaviour
         if (uiInventory != null)
         {
             uiInventory.OnBackpackChanged += OnBackpackChanged;
-            defaultInventorySlotCount = 6;
         }
     }
 
     void OnBackpackChanged(ItemBackpack backpack)
     {
-        currentBackpack = backpack;
-        // Update inventory slots
-        int slotIncreaseAmount = currentBackpack != null ? currentBackpack.slotIncreasing : 0;
-        uiInventory.npcSelecying.countInventorySlot = defaultInventorySlotCount + slotIncreaseAmount;
-
         statManager.OnBackpackStatsChanged();
     }
 

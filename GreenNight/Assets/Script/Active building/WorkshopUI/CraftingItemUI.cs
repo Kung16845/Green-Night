@@ -23,7 +23,7 @@ public class CraftingItemUI : MonoBehaviour
             itemIconImage.sprite = itemData.itemIcon;
 
         if (itemNameText != null)
-            itemNameText.text = itemData.itemName;
+            itemNameText.text = $"{itemData.itemName} X {itemData.amountProduced}";
 
         if (craftingTimeText != null)
             craftingTimeText.text =  (itemData.craftingTime / 1000f).ToString("F1") + " hr";

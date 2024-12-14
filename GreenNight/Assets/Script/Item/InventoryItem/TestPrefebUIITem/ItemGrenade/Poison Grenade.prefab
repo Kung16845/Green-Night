@@ -270,6 +270,7 @@ MonoBehaviour:
   parentAfterDray: {fileID: 0}
   parentBeforeDray: {fileID: 0}
   imageItem: {fileID: 5222524482886833746}
+  itemClass: {fileID: 0}
 --- !u!114 &1291614654634707552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,6 +287,8 @@ MonoBehaviour:
   idItem: 1020305
   nameItem: Poison Grenade
   slotType: 4
+  originatingLootSystem: {fileID: 0}
+  originatingTradesystem: {fileID: 0}
   slotTypeParent: 4
   itemIconImage: {fileID: 5222524482886833746}
 --- !u!114 &8096311375643354424
@@ -301,11 +304,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameItem: Poison Grenade
+  Describetion: 
   quantityItem: 0
   maxCountItem: 3
   itemtype: 4
   rarityItem: 2
-  tradeValueItem: 15
+  tradeValueItem: 35
   carftableItem: 1
   disassembleItem: 10
   idItem: 1020305

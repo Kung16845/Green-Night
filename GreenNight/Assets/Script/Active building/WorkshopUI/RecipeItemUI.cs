@@ -17,7 +17,20 @@ public class RecipeItemUI : MonoBehaviour
             itemNameText.text = recipeItemData.itemName;
 
         if (amountText != null)
+        {
             amountText.text = $" {amountHave} / {recipeItemData.amountNeeded}";
+
+            // Change color dynamically based on whether the player has enough items
+            if (amountHave < recipeItemData.amountNeeded)
+            {
+                amountText.color = Color.yellow; // Not enough items
+            }
+            else
+            {
+                amountText.color = Color.white; // Sufficient items
+            }
+        }
     }
+
 }
 

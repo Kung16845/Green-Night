@@ -36,7 +36,7 @@ public class CraftingController : MonoBehaviour
         }
 
         CraftingItem selectedItem = workshopUI.selectedCraftingItem;
-
+        workshopUI.DisplaySelectedItemDetails(selectedItem);
         // Try to add the crafting job to the workshop
         CraftingResult result = workshop.AddCraftingJob(selectedItem);
         switch (result)

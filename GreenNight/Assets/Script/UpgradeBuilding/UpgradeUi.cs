@@ -177,7 +177,7 @@ public class UpgradeUi : MonoBehaviour
                 currentBuildingScript.isBuilding = true;
                 currentBuildingScript.finishDayBuildingTime = dateTime.day + nextLevel.dayCost;
 
-                uImanger.DisableUpgradeUI();
+                this.gameObject.SetActive(false);
             }
             else
             {

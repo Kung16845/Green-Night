@@ -12,8 +12,8 @@ public class ResizeUIInventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (RightBookInventoryUI.activeSelf || CarInventoryUI.activeSelf) 
+        
+        if (RightBookInventoryUI.activeSelf || (CarInventoryUI != null && CarInventoryUI.activeSelf)) 
         {
             Vector2 size = rectTransformUIInventory.sizeDelta;
             size.x = 1600;

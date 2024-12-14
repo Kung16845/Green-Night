@@ -62,7 +62,10 @@ public class WorkshopUI : MonoBehaviour
             AutoAssignCraftingItemProperties(craftingItem);
         }
     }
-
+    public void InitializeUpgradeData()
+    {
+        workshop.AssignUpgradeData();
+    }
     void AutoAssignCraftingItemProperties(CraftingItem craftingItem)
     {
         // Assign properties from InventoryItemPresent or UIItemData
@@ -155,92 +158,29 @@ public class WorkshopUI : MonoBehaviour
                 selectedItemImage.sprite = selectedItem.itemIcon;
 
             if (selectedItemNameText != null)
-                selectedItemNameText.text = selectedItem.itemName;
+                selectedItemNameText.text = $"{selectedItem.itemName} X {selectedItem.amountProduced}";
 
             if (selectedItemCraftingTimeText != null)
                 selectedItemCraftingTimeText.text = $"{(selectedItem.craftingTime / 1000f):F1} hr";
 
             // Ammo Needed
-            if (selectedItemammoneeded != null)
-            {
-                if (selectedItem.Ammoneeded >= 0)
-                {
-                    selectedItemammoneeded.text = $"{selectedItem.Ammoneeded}/{buildManager.ammo}";
-                }
-            }
+            UpdateTextWithColor(selectedItemammoneeded, selectedItem.Ammoneeded, buildManager.ammo);
 
             // Plank Needed
-            if (selectedItemPlankneeded != null)
-            {
-                if (selectedItem.Plankneeded >= 0)
-                {
-                    selectedItemPlankneeded.text = $"{selectedItem.Plankneeded}/{buildManager.plank}";
-                }
-            }
+            UpdateTextWithColor(selectedItemPlankneeded, selectedItem.Plankneeded, buildManager.plank);
 
             // Steel Needed
-            if (selectedItemSteelneeded != null)
-            {
-                if (selectedItem.Steelneeded >= 0)
-                {
-                    selectedItemSteelneeded.text = $"{selectedItem.Steelneeded}/{buildManager.steel}";
-                }
-            }
+            UpdateTextWithColor(selectedItemSteelneeded, selectedItem.Steelneeded, buildManager.steel);
 
             // Fuel Needed
-            if (selectedItemFuelneeded != null)
-            {
-                if (selectedItem.Fuelneeded >= 0)
-                {
-                    selectedItemFuelneeded.text = $"{selectedItem.Fuelneeded}/{buildManager.fuel}";
-                }
-            }
+            UpdateTextWithColor(selectedItemFuelneeded, selectedItem.Fuelneeded, buildManager.fuel);
 
             // Food Needed
-            if (selectedItemFoodneeded != null)
-            {
-                if (selectedItem.Foodneeded >= 0)
-                {
-                    selectedItemFoodneeded.text = $"{selectedItem.Foodneeded}/{buildManager.food} ";
-                }
-            }
+            UpdateTextWithColor(selectedItemFoodneeded, selectedItem.Foodneeded, buildManager.food);
         }
         else
         {
-            // Clear UI elements when no item is selected
-            if (selectedItemImage != null)
-                selectedItemImage.sprite = null;
-
-            if (selectedItemNameText != null)
-                selectedItemNameText.text = "";
-
-            if (selectedItemCraftingTimeText != null)
-                selectedItemCraftingTimeText.text = "";
-
-            if (selectedItemammoneeded != null)
-            {
-                selectedItemammoneeded.text = "0";
-            }
-
-            if (selectedItemPlankneeded != null)
-            {
-                selectedItemPlankneeded.text = "0";
-            }
-
-            if (selectedItemSteelneeded != null)
-            {
-                selectedItemSteelneeded.text = "0";
-            }
-
-            if (selectedItemFuelneeded != null)
-            {
-                selectedItemFuelneeded.text = "0";
-            }
-
-            if (selectedItemFoodneeded != null)
-            {
-                selectedItemFoodneeded.text = "0";
-            }
+            ClearUIElements();
         }
 
         // Clear existing recipe items
@@ -262,6 +202,50 @@ public class WorkshopUI : MonoBehaviour
                 recipeItemUIScript.Initialize(recipeItem, amountHave);
             }
         }
+    }
+
+    private void UpdateTextWithColor(TextMeshProUGUI textElement, int neededAmount, int availableAmount)
+    {
+        if (textElement != null)
+        {
+            textElement.text = $"{neededAmount}/{availableAmount}";
+
+            // Change color: Yellow if the player doesn't have enough, default (white) if sufficient
+            if (availableAmount < neededAmount)
+            {
+                textElement.color = Color.yellow; // Not enough resources
+            }
+            else
+            {
+                textElement.color = Color.white; // Sufficient resources
+            }
+        }
+    }
+    private void ClearUIElements()
+    {
+        if (selectedItemImage != null)
+            selectedItemImage.sprite = null;
+
+        if (selectedItemNameText != null)
+            selectedItemNameText.text = "";
+
+        if (selectedItemCraftingTimeText != null)
+            selectedItemCraftingTimeText.text = "";
+
+        if (selectedItemammoneeded != null)
+            selectedItemammoneeded.text = "0";
+
+        if (selectedItemPlankneeded != null)
+            selectedItemPlankneeded.text = "0";
+
+        if (selectedItemSteelneeded != null)
+            selectedItemSteelneeded.text = "0";
+
+        if (selectedItemFuelneeded != null)
+            selectedItemFuelneeded.text = "0";
+
+        if (selectedItemFoodneeded != null)
+            selectedItemFoodneeded.text = "0";
     }
     public void DisplayActiveCraftingJobs()
     {

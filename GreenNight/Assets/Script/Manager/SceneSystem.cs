@@ -99,7 +99,7 @@ public class SceneSystem : MonoBehaviour
         }
         if(tutorialManager == null)
         {
-            saveDataDDA.AddData();
+            saveDataDDA.AddDataDDAAndSave();
             Debug.Log("SaveData");
         }
         // timeManager.dateTime.day++;
@@ -132,11 +132,10 @@ public class SceneSystem : MonoBehaviour
         }
         if(tutorialManager == null)
         {
-            saveDataDDA.AddData();
+            saveDataDDA.AddDataDDAAndSave();
             Debug.Log("SaveData");
         }
-        // timeManager.dateTime.day++;
-        
+        timeManager.TimeStop();
     }
     private void OnEnable()
     {

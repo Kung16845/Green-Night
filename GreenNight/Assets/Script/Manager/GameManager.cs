@@ -11,19 +11,47 @@ public class GameManager : MonoBehaviour
     public ExpenditionManager expenditionManager;
     public Globalstat globalstat;
     public NpcManager npcManager;
+    public ManagerSceneEX managerSceneEX;
     
     [Header ("Script Save and Load Game")]
+    public SaveAndLoadTimemanager saveAndLoadTimemanager;
+    public SaveAndLoadLIstItemsDataBoxes saveAndLoadLIstItemsDataBoxes;
+    public SaveAndLoadListNpc saveAndLoadListNpc;
     public SaveAndLoadExpendition saveAndLoadExpendition;
     public SaveDataDDA saveDataDDA;
-    private void Awake() {
-        npcManager = GetComponent<NpcManager>();
+    private void Awake() 
+    {  
+        timeManager = FindObjectOfType<TimeManager>();
+        buildManager = FindObjectOfType<BuildManager>();
+        inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
+        expenditionManager = FindObjectOfType<ExpenditionManager>();
+        globalstat = FindObjectOfType<Globalstat>(); 
+        npcManager = FindObjectOfType<NpcManager>();
+        managerSceneEX = FindObjectOfType<ManagerSceneEX>();
     }
     public void NewGame()
-    {
+    {   
+        saveAndLoadExpendition.ResetDataUIEX();
+        saveAndLoadListNpc.ResetDataListNpc();
+        saveAndLoadLIstItemsDataBoxes.ResetDataListItemBoxes();
+        saveDataDDA.ResetDataDDA();
+        saveAndLoadTimemanager.ResetDataTime();
         npcManager.StartGameCreateGropNpx();
     }
-    public void LoadGane()
+    public void SaveGame()
     {
-        
+        saveAndLoadListNpc.SaveListNpc();
+        saveAndLoadLIstItemsDataBoxes.SaveListItemsDataBoxes();
+        saveAndLoadExpendition.SaveUIExpemdition();
+        // saveDataDDA.AddDataDDAAndSave();
+        saveAndLoadTimemanager.SaveDataTime();
+    }
+    public void LoadGane()
+    {        
+        saveAndLoadListNpc.LoadDataListNpc();
+        saveAndLoadLIstItemsDataBoxes.LoadDataListItemDataBoxes();
+        saveAndLoadExpendition.LoadDataUIExFromJsonToScriptData();
+        saveDataDDA.LoadDataDDAFromJsonToScriptData();
+        saveAndLoadTimemanager.LoadDataTime();
     }
 }

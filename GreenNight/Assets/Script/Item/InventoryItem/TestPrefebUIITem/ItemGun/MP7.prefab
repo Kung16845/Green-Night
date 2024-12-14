@@ -270,6 +270,7 @@ MonoBehaviour:
   parentAfterDray: {fileID: 0}
   parentBeforeDray: {fileID: 0}
   imageItem: {fileID: 5222524482886833746}
+  itemClass: {fileID: 0}
 --- !u!114 &1291614654634707552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,6 +287,8 @@ MonoBehaviour:
   idItem: 1020206
   nameItem: MP7
   slotType: 0
+  originatingLootSystem: {fileID: 0}
+  originatingTradesystem: {fileID: 0}
   slotTypeParent: 0
   itemIconImage: {fileID: 5222524482886833746}
 --- !u!114 &7881988712087668296
@@ -301,11 +304,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameItem: MP7
+  Describetion: 
   quantityItem: 0
   maxCountItem: 1
   itemtype: 0
   rarityItem: 3
-  tradeValueItem: 40
+  tradeValueItem: 60
   carftableItem: 0
   disassembleItem: 25
   idItem: 1020206

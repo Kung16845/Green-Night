@@ -15,8 +15,8 @@ public class SaveAndLoadExpendition : MonoBehaviour
     [SerializeField] private string savePathDataExpendition;
     private void Awake()
     {
-        
         savePathDataExpendition = Path.Combine(Application.dataPath, "dataExpendition.json");
+        gameManager = FindObjectOfType<GameManager>();
     }
     public void SaveUIExpemdition()
     {
@@ -27,7 +27,8 @@ public class SaveAndLoadExpendition : MonoBehaviour
     }
     public void AddDataBeforeSaveToJaon()
     {
-        if (transformParentUIEx.childCount == 0) {
+        if (transformParentUIEx.childCount == 0)
+        {
             Debug.Log("Child count = 0");
             return;
         }
@@ -42,6 +43,7 @@ public class SaveAndLoadExpendition : MonoBehaviour
 
             dataExpenditionSave.listItemDataInventoryEqicment = uIEx.listItemDataInventoryEqicment;
             dataExpenditionSave.listItemDataInventorySlot = uIEx.listItemDataInventorySlot;
+            dataExpenditionSave.listItemDataInventoryCar = uIEx.listItemDataCarInventorySlot;
 
             dataExpenditionSave.timeScale = uIEx.timeScale;
             dataExpenditionSave.riskEventValue = uIEx.riskValue;
@@ -49,7 +51,11 @@ public class SaveAndLoadExpendition : MonoBehaviour
             dataExpenditionSave.indexButtonExpendition = uIEx.indexButtonExpendition;
             dataExpenditionSave.indexSceneExpendition = uIEx.indexSceneExpendition;
 
-            dataExpenditionSave.isArriveEx = uIEx.isArriveEx;
+            dataExpenditionSave.isUseTunnel =  uIEx.isuseTunnel;
+            dataExpenditionSave.isUseCar = uIEx.isuseCar;
+            dataExpenditionSave.isWalk = uIEx.iswalk;
+            dataExpenditionSave.istraveling = uIEx.istraveling;
+            dataExpenditionSave.isArriveEx = uIEx.isArriveEx;       
             dataExpenditionSave.isArriveHome = uIEx.isArriveHome;
             dataExpenditionSave.isExpenditon = uIEx.isExpenditon;
 
@@ -63,12 +69,13 @@ public class SaveAndLoadExpendition : MonoBehaviour
     }
     public void LoadDataUIExFromJsonToScriptData()
     {
+        transformParentUIEx = gameManager.expenditionManager.transformsUIEx;
         if (File.Exists(savePathDataExpendition))
         {
             string json = File.ReadAllText(savePathDataExpendition);
             dataCollentUIEX = JsonUtility.FromJson<DataCollentUIEX>(json);
             Debug.Log($"Data loaded from {savePathDataExpendition}");
-            
+
             foreach (DataSaveExpendition dataUIEX in dataCollentUIEX.listdataUIExpemdition)
             {
                 CreateUIEX(dataUIEX);
@@ -84,16 +91,22 @@ public class SaveAndLoadExpendition : MonoBehaviour
     public void CreateUIEX(DataSaveExpendition dataSaveExpendition)
     {
         ExpenditionManager expenditionManager = gameManager.expenditionManager;
+        NpcManager npcManager = gameManager.npcManager;
+
         GameObject uIEx = Instantiate(expenditionManager.uIInventoryExPrefab, transformParentUIEx);
+
         UIInventoryEX newUIInventoryEX = uIEx.GetComponent<UIInventoryEX>();
+        newUIInventoryEX.uIBoxesInventory.SetActive(false);
+        newUIInventoryEX.uINpcSending.SetActive(true);
+        newUIInventoryEX.gameObject.SetActive(false);
 
-        NpcClass npcSentEx = gameManager.npcManager.listNpcWorking.FirstOrDefault(npc => npc.idnpc == dataSaveExpendition.idNPCExpendition);
+        NpcClass npcSentEx = npcManager.listNpcWorking.FirstOrDefault(npc => npc.idnpc == dataSaveExpendition.idNPCExpendition);
 
-        
         newUIInventoryEX.npcSelecying = npcSentEx;
 
         newUIInventoryEX.listItemDataInventoryEqicment = dataSaveExpendition.listItemDataInventoryEqicment;
         newUIInventoryEX.listItemDataInventorySlot = dataSaveExpendition.listItemDataInventorySlot;
+        newUIInventoryEX.listItemDataCarInventorySlot = dataSaveExpendition.listItemDataInventoryCar;
 
         newUIInventoryEX.timeScale = dataSaveExpendition.timeScale;
         newUIInventoryEX.riskValue = dataSaveExpendition.riskEventValue;
@@ -101,6 +114,10 @@ public class SaveAndLoadExpendition : MonoBehaviour
         newUIInventoryEX.indexButtonExpendition = dataSaveExpendition.indexButtonExpendition;
         newUIInventoryEX.indexSceneExpendition = dataSaveExpendition.indexSceneExpendition;
 
+        newUIInventoryEX.isuseCar = dataSaveExpendition.isUseCar;
+        newUIInventoryEX.isuseTunnel = dataSaveExpendition.isUseTunnel;
+        newUIInventoryEX.iswalk = dataSaveExpendition.isWalk;
+        newUIInventoryEX.istraveling = dataSaveExpendition.istraveling;
         newUIInventoryEX.isArriveEx = dataSaveExpendition.isArriveEx;
         newUIInventoryEX.isArriveHome = dataSaveExpendition.isArriveHome;
         newUIInventoryEX.isExpenditon = dataSaveExpendition.isExpenditon;
@@ -109,13 +126,27 @@ public class SaveAndLoadExpendition : MonoBehaviour
         newUIInventoryEX.finishHourCraftingTime = dataSaveExpendition.finishHourCraftingTime;
         newUIInventoryEX.finishMinutesCraftingTime = dataSaveExpendition.finishMinutesCraftingTime;
 
+        newUIInventoryEX.npcManager = npcManager;
+        newUIInventoryEX.expenditionManager = expenditionManager;
+        newUIInventoryEX.globalstat = gameManager.globalstat;
+        newUIInventoryEX.sceneSystem = FindObjectOfType<SceneSystem>();
+
         CountdownTimeDay countdownTimeDay = expenditionManager.AddComponent<CountdownTimeDay>();
         countdownTimeDay.timeScale = newUIInventoryEX.timeScale;
         countdownTimeDay.uIInventoryEX = newUIInventoryEX;
+        countdownTimeDay.timeManager = gameManager.timeManager;
         countdownTimeDay.finishDayCraftingTime = newUIInventoryEX.finishDayCraftingTime;
         countdownTimeDay.finishHourCraftingTime = newUIInventoryEX.finishHourCraftingTime;
         countdownTimeDay.finishMinutesCraftingTime = newUIInventoryEX.finishMinutesCraftingTime;
 
+        newUIInventoryEX.SetUIExButton(countdownTimeDay);
+        // newUIInventoryEX.SetUIExGameObjectInExScript();
+    }
+    public void ResetDataUIEX()
+    {
+        dataCollentUIEX = new DataCollentUIEX();
+        string json = JsonUtility.ToJson(dataCollentUIEX, true);
+        File.WriteAllText(savePathDataExpendition, json);
     }
 }
 [Serializable]
@@ -129,10 +160,15 @@ public class DataSaveExpendition
     public int idNPCExpendition;
     public List<ItemData> listItemDataInventoryEqicment;
     public List<ItemData> listItemDataInventorySlot;
+    public List<ItemData> listItemDataInventoryCar;
     public float timeScale;
     public float riskEventValue;
     public int indexButtonExpendition;
     public int indexSceneExpendition;
+    public bool isUseCar;
+    public bool isUseTunnel;
+    public bool isWalk;
+    public bool istraveling;
     public bool isArriveEx;
     public bool isArriveHome;
     public bool isExpenditon;
