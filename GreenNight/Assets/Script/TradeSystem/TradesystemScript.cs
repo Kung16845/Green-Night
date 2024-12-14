@@ -28,11 +28,6 @@ public class TradesystemScript : MonoBehaviour
 
     // Static reference to the currently active trade
     private static TradesystemScript activeTrade;
-
-    /// <summary>
-    /// Retrieves the currently active TradesystemScript instance.
-    /// Returns null if no trade is active.
-    /// </summary>
     public static TradesystemScript GetActiveTrade()
     {
         return activeTrade;

@@ -39,7 +39,6 @@ public class LootingSystem : MonoBehaviour
         uIcontrollerExpidition = FindObjectOfType<UIcontrollerExpidition>();
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
         expenditionManager = FindObjectOfType<ExpenditionManager>();
-        uIInventoryEX = FindObjectOfType<UIInventory>();
         lootProgressSlider.gameObject.SetActive(false);
         spriteRenderer = GetComponent<SpriteRenderer>();
         Uiisopened = false;

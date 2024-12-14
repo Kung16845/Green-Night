@@ -6,13 +6,15 @@ using DG.Tweening;
 public class Outpostup : MonoBehaviour
 {
     public bool issetUpOutpost;
+    public  Location  Location;
     public GameObject ActivOutsetUpUi;
     private OutpostSystem outpostSystem;
     private SpriteRenderer spriteRenderer;
-    private bool inrange;
+    [SerializeField]private bool inrange;
     void Start()
     {
         outpostSystem = FindObjectOfType<OutpostSystem>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
      void OnTriggerEnter2D(Collider2D other)
     {
@@ -48,12 +50,12 @@ public class Outpostup : MonoBehaviour
     }
     public void AddOutpost()
     {
-        outpostSystem.AddOutpostReward(Location.Mall, 10);
+        outpostSystem.AddOutpostReward(Location, 10);
         issetUpOutpost = true;
     }
     public void RemoveOutpost()
     {
-        outpostSystem.RemoveOutpostReward(Location.Mall);
+        outpostSystem.RemoveOutpostReward(Location);
         issetUpOutpost = false;
     }
 }

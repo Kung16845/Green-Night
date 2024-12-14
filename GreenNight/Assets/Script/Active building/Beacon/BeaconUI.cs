@@ -59,8 +59,8 @@ public class BeaconUI : MonoBehaviour
         foreach (var reward in outpostSystem.outpostRewards)
         {
             GameObject outpostEntry = Instantiate(outpostPrefab, outpostListContent);
-            TextMeshProUGUI nameText = outpostEntry.GetComponent<TextMeshProUGUI>();
-            UnityEngine.UI.Image iconImage = outpostEntry.transform.GetComponent<UnityEngine.UI.Image>();
+            TextMeshProUGUI nameText = outpostEntry.GetComponentInChildren<TextMeshProUGUI>();
+            UnityEngine.UI.Image iconImage = outpostEntry.transform.GetComponentInChildren<UnityEngine.UI.Image>();
 
             nameText.text = reward.location.ToString();
             iconImage.sprite = reward.locationIcon;
