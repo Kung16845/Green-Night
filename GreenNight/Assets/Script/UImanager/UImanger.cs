@@ -16,7 +16,10 @@ public class UImanger : MonoBehaviour
         WorkshopUpgradeUI,
         ExpeditionUI,
         BeaconUI,
-        BeaconUpgradeUI
+        BeaconUpgradeUI,
+        SmallGardenUI,
+        SmallGardenUpgradeButton
+
     }
 
     [System.Serializable]
