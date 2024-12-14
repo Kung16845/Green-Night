@@ -26,7 +26,11 @@ public class TimeManager : MonoBehaviour
         currentTickSeconedIncrease = tickSeconedIncrease;
 
     }
-
+    public void SkipDayTime()
+    {
+        dateTime.hour = 17;
+        dateTime.minutes = 59;
+    } 
     public void AccelerateTime(int speed)
     {
         speedGame = speed;

@@ -247,6 +247,7 @@ public class ScriptMoveItems : MonoBehaviour
         }
         uIInventory.RefreshUIInventory();
         inventoryItemPresent.RefreshUIBox();
+        uIInventory.RefreshUIBoxCategory(uIInventory.currentNumCategory);
         Debug.Log($"Moved {actualQuantityToMove} of {sourceItemData.nameItem} from {sourceSlotType} to {targetSlotType}");
 
         // Close the move UI

@@ -209,7 +209,30 @@ public class InventoryItemPresent : MonoBehaviour
             }
         }
     }
+    public void AddItemByID(int itemID, int count) 
+    {
+        // Find the UIItemData associated with the given itemID
+        UIItemData uiItemData = listUIItemPrefab.FirstOrDefault(item => item.idItem == itemID);
+        ItemClass itemClass = uiItemData.GetComponent<ItemClass>();
+        if (uiItemData == null)
+        {
+            Debug.LogWarning($"No UIItemData found for itemID: {itemID}");
+            return;
+        }
 
+        // Construct a new ItemData object based on the UIItemData template
+        ItemData newItemData = new ItemData
+        {
+            nameItem = uiItemData.nameItem,
+            idItem = uiItemData.idItem,
+            count = count,
+            maxCount = itemClass.maxCountItem,
+            itemtype = itemClass.itemtype,
+        };
+
+        // Use the existing AddItem method to handle addition logic
+        AddItem(newItemData);
+    }
 
     public void AddItem(ItemData itemDataAdd)
     {
