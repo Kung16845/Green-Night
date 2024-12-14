@@ -154,7 +154,11 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
             // Open UI for deciding the quantity if moving to non-boxes with multiple items
             openUI = true;
         }
-
+        if (itemClassMove.itemtype == Itemtype.Ammo) 
+        {
+            openUI = false;
+            quantityToMove = itemClassMove.maxCountItem;
+        }
         // Prevent invalid trade interactions
         if ((destinationSlotType == SlotType.SlotNpcTrade && originSlot.slotTypeInventory != SlotType.SlotNpcItem) ||
             (destinationSlotType == SlotType.SlotPlayerTrade && originSlot.slotTypeInventory == SlotType.SlotNpcItem) ||
@@ -247,6 +251,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
             // Refresh UI
             inventoryItemPresent.RefreshUIBox();
             uIInventory.RefreshUIInventory();
+            uIInventory.RefreshUIBoxCategory(uIInventory.currentNumCategory);
             return;
         }
 
@@ -267,6 +272,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
         // Refresh UI
         inventoryItemPresent.RefreshUIBox();
         uIInventory.RefreshUIInventory();
+        uIInventory.RefreshUIBoxCategory(uIInventory.currentNumCategory);
     }
 
 
