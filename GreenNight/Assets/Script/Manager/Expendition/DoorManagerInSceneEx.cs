@@ -6,6 +6,7 @@ public class DoorManagerInSceneEx : MonoBehaviour
 {   
     public int indexSceneExpendition;
     public ManagerSceneEX managerSceneEX;
+    public Outpostup outpostup;
     public List<BreakableDoor> listDoors = new List<BreakableDoor>();
     private void Awake()
     {

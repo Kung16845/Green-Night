@@ -30,5 +30,4 @@ public class DoorsSceneEx
 {
     public int idSceneEx;
     public List<bool> listUnLockDoorInSceneEx;
-    public bool isOutPost;
 }

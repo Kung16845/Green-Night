@@ -15,17 +15,17 @@ public class SaveAndLoadListDoorStatusSceneEX : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         managerSceneEX = gameManager.managerSceneEX;
     }
-    public void SaveDataTime()
+    public void SaveDataListDoorStatus()
     {
-        AddDataColletTime();
+        AddDataColletListDoorStatus();
         string json = JsonUtility.ToJson(dataCollentDoorsOpenScneeEx, true);
         File.WriteAllText(savePathDataDoorsUnlock, json);
     }
-    public void AddDataColletTime()
+    public void AddDataColletListDoorStatus()
     {
         dataCollentDoorsOpenScneeEx.listDoorStatusInSceneExes = managerSceneEX.listDoorSceneExes;
     }
-    public void LoadDataTime()
+    public void LoadDataListDoorStatus()
     {
         if (File.Exists(savePathDataDoorsUnlock))
         {
@@ -37,9 +37,8 @@ public class SaveAndLoadListDoorStatusSceneEX : MonoBehaviour
         {
             dataCollentDoorsOpenScneeEx = new DataCollentListDoorStatus();
         }
-
     }
-    public void ResetDataTime()
+    public void ResetDataListDoorStatus()
     {
         dataCollentDoorsOpenScneeEx.listDoorStatusInSceneExes = managerSceneEX.listDoorSceneExes;
 
