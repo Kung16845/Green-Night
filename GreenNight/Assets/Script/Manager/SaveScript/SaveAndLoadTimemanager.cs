@@ -31,7 +31,11 @@ public class SaveAndLoadTimemanager : MonoBehaviour
         {
             string json = File.ReadAllText(savePathDataTime);
             dataCollentTime = JsonUtility.FromJson<DataCollentTime>(json);
-            timeManager.dateTime = dataCollentTime.dateTime;
+            timeManager.dateTime.day = dataCollentTime.dateTime.day;
+            timeManager.dateTime.hour = dataCollentTime.dateTime.hour;
+            timeManager.dateTime.minutes= dataCollentTime.dateTime.minutes;
+            // timeManager.dateTime.sceneSystem = FindObjectOfType<SceneSystem>();
+            
         }
         else 
         {
