@@ -18,7 +18,9 @@ public class UImanger : MonoBehaviour
         BeaconUI,
         BeaconUpgradeUI,
         SmallGardenUI,
-        SmallGardenUpgradeButton
+        SmallGardenUpgradeButton,
+        MediumGardenUI,
+        MediumGardenUpgradeButton
 
     }
 
