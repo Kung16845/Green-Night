@@ -76,7 +76,7 @@ public class SaveAndLoadBuildManager : MonoBehaviour
         newBuildingObject.transform.position = newVector;
         newBuildingObject.GetComponent<UpgradeBuilding>().currentLevel = infoBuilding.levelBuild;
 
-        Instantiate(newBuildingObject, newVector);
+        Instantiate(newBuildingObject, newBuildingObject.transform);
     }
 
 }
