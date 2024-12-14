@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 public class GameManager : MonoBehaviour
 {
     [Header("Manager Game")]
@@ -63,5 +67,11 @@ public class GameManager : MonoBehaviour
         saveAndLoadListDoorStatusSceneEX.LoadDataListDoorStatus();
         saveAndLoadOutPostReward.LoadDataOutPostReward();
         saveAndLoadTimemanager.LoadDataTime();
+    }
+    public void QuitGame()
+    {
+        
+        Application.Quit();
+        
     }
 }
