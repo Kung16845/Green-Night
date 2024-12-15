@@ -147,7 +147,7 @@ public class Tunnel : MonoBehaviour
         {
             int currentDynamite = inventoryItemPresent.GetItemCountByID(1020304);
             int requiredDynamite = 5;
-            tunnelStatusText.text = $"The tunnel is blocked. If we clear it, we might find something useful. Rumor has it the military left supplies here. Dynamite collected: {currentDynamite}/{requiredDynamite}";
+            tunnelStatusText.text = $"The tunnel is blocked. If we clear it, we might find something useful. Rumor has it the military left supplies here. <color=#FFFF00>Dynamite collected: {currentDynamite}/{requiredDynamite}</color>";
         }
         else if (isclearing && !buildManager.iswateractive)
         {

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7577125230850006993}
   - component: {fileID: 5302322754830735688}
   - component: {fileID: 5891594428778067366}
+  - component: {fileID: 2086751910200163316}
   m_Layer: 0
   m_Name: Watch tower
   m_TagString: Untagged
@@ -54,7 +55,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: ef2e61aa6486dd748b327f28ee08b8d0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -120,6 +121,7 @@ MonoBehaviour:
     minutes: 0
     isDayNight: 0
     sceneSystem: {fileID: 0}
+    saveDataDDA: {fileID: 0}
   spriteRenderer: {fileID: 0}
   OriginalSprite: {fileID: 21300000, guid: b9ae5ac63f18a9a438117212e2b7b33b, type: 3}
   Constructhreshold: {fileID: 21300000, guid: 86de18d64ecddb940b59f1224df6a387, type: 3}
@@ -144,8 +146,22 @@ MonoBehaviour:
     minutes: 0
     isDayNight: 0
     sceneSystem: {fileID: 0}
+    saveDataDDA: {fileID: 0}
   buildManager: {fileID: 0}
   currentDay: 0
   building: {fileID: 0}
   upgradeBuilding: {fileID: 0}
   globalstat: {fileID: 0}
+--- !u!114 &2086751910200163316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4828145842393980435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75bc94be4751069448e151de6166726b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightColor: {r: 0, g: 1, b: 0, a: 1}
