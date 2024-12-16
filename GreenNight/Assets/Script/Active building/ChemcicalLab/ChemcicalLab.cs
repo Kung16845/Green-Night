@@ -42,6 +42,7 @@ public class ChemcicalLab : MonoBehaviour
     {
         IsElectricActive();
         IsElectricInactive();
+        craftManager.UpdateCraftingJobs();
     }
 
     void OnMouseDown()
