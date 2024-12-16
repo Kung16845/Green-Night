@@ -7,7 +7,13 @@ public class Explosion : MonoBehaviour
     private float barrierDamage;
     private float zombieDamage;
     private float radius;
-     private Barrier barrier;
+    private Barrier barrier;
+    private Collider2D collider2D;
+    void Start()
+    {
+        collider2D = GetComponent<Collider2D>();
+        StartCoroutine(DestroyAfterDelay(0.5f));
+    }
 
     public void Initialize(float barrierDamage, float zombieDamage, float radius)
     {
@@ -51,5 +57,12 @@ public class Explosion : MonoBehaviour
         {
             zombie.ZombieTakeDamage(zombieDamage, DamageType.Explosive);
         }
+    }
+     private IEnumerator DestroyAfterDelay(float Delay)
+    {
+        yield return new WaitForSeconds(Delay);
+        collider2D.enabled = false;
+        yield return new WaitForSeconds(0.60f);
+        Destroy(this.gameObject);
     }
 }

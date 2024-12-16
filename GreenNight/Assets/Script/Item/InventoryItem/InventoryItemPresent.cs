@@ -313,7 +313,7 @@ public class InventoryItemPresent : MonoBehaviour
 
         return newItemData;
     }
-    private Dictionary<int, Ammotype> ammoItemIdToAmmoType = new Dictionary<int, Ammotype>
+    public Dictionary<int, Ammotype> ammoItemIdToAmmoType = new Dictionary<int, Ammotype>
     {
         // Add mappings from ammo item IDs to their ammo types
         { 1020125, Ammotype.HighCaliber }, // Replace with actual ammo item IDs
