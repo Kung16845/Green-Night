@@ -27,6 +27,7 @@ public class SaveAndLoadBuildManager : MonoBehaviour
     }
     public void SaveBuildInScenes()
     {
+        ResetDataBuilding();
         AddDataListBuilding();
         string json = JsonUtility.ToJson(dataColletBuilding, true);
         File.WriteAllText(saveDataBuildingPath, json);
@@ -40,25 +41,32 @@ public class SaveAndLoadBuildManager : MonoBehaviour
             GameObject buildGameObject = build.buildingGameObject;
             Building building = buildGameObject.GetComponent<Building>();
             UpgradeBuilding upgradeLevel = building.GetComponent<UpgradeBuilding>();
+
             infoBuilding.nameBuild = building.nameBuild;
-            infoBuilding.dayFinist = building.finishDayBuildingTime;
+            infoBuilding.dayBuildingFinist = building.finishDayBuildingTime;
 
             infoBuilding.transformX = building.transform.position.x;
             infoBuilding.transformY = building.transform.position.y;
 
             infoBuilding.levelBuild = upgradeLevel.currentLevel;
+            infoBuilding.isBuildingUpgrad = upgradeLevel.isUpgradBuilding;
+            infoBuilding.isBuildFinishedUpgrad = upgradeLevel.isFinishedUpgrad;
+            infoBuilding.dayBuildingUpgradFinist = upgradeLevel.finishDayBuildingUpgradTime;
 
             if (infoBuilding.nameBuild == "Garden")
             {
                 InfoBuildSmallGarden infoBuildSmallGarden = new InfoBuildSmallGarden();
 
                 infoBuildSmallGarden.nameBuild = building.nameBuild;
-                infoBuildSmallGarden.dayFinist = building.finishDayBuildingTime;
+                infoBuildSmallGarden.dayBuildingFinist = building.finishDayBuildingTime;
 
                 infoBuildSmallGarden.transformX = building.transform.position.x;
                 infoBuildSmallGarden.transformY = building.transform.position.y;
 
                 infoBuildSmallGarden.levelBuild = upgradeLevel.currentLevel;
+                infoBuildSmallGarden.isBuildingUpgrad = upgradeLevel.isUpgradBuilding;
+                infoBuildSmallGarden.isBuildFinishedUpgrad = upgradeLevel.isFinishedUpgrad;
+                infoBuildSmallGarden.dayBuildingUpgradFinist = upgradeLevel.finishDayBuildingUpgradTime;
 
                 infoBuildSmallGarden.yielduration = buildGameObject.GetComponent<GardenBuilding>().yieldduration;
 
@@ -69,12 +77,15 @@ public class SaveAndLoadBuildManager : MonoBehaviour
                 InfoBuildMediumGarden infoBuildMediumGarden = new InfoBuildMediumGarden();
 
                 infoBuildMediumGarden.nameBuild = building.nameBuild;
-                infoBuildMediumGarden.dayFinist = building.finishDayBuildingTime;
+                infoBuildMediumGarden.dayBuildingFinist = building.finishDayBuildingTime;
 
                 infoBuildMediumGarden.transformX = building.transform.position.x;
                 infoBuildMediumGarden.transformY = building.transform.position.y;
 
                 infoBuildMediumGarden.levelBuild = upgradeLevel.currentLevel;
+                infoBuildMediumGarden.isBuildingUpgrad = upgradeLevel.isUpgradBuilding;
+                infoBuildMediumGarden.isBuildFinishedUpgrad = upgradeLevel.isFinishedUpgrad;
+                infoBuildMediumGarden.dayBuildingUpgradFinist = upgradeLevel.finishDayBuildingUpgradTime;
 
                 MediumGarden mediumGardenScript = buildGameObject.GetComponent<MediumGarden>();
                 infoBuildMediumGarden.isHerbalPlant = mediumGardenScript.isHerbalPlanted;
@@ -97,11 +108,31 @@ public class SaveAndLoadBuildManager : MonoBehaviour
             string json = File.ReadAllText(saveDataBuildingPath);
             dataColletBuilding = JsonUtility.FromJson<DataColletBuilding>(json);
 
-            foreach (InfoBuilding infoBuilding in dataColletBuilding.listInfoBuilding)
+            if (dataColletBuilding == null)
             {
-                CreateBuilding(infoBuilding);
+                dataColletBuilding = new DataColletBuilding();
             }
 
+            if (dataColletBuilding.listInfoBuilding == null)
+            {
+                dataColletBuilding.listInfoBuilding = new List<InfoBuilding>();
+            }
+            if (dataColletBuilding.listinfoBuildSmallGardens == null)
+            {
+                dataColletBuilding.listinfoBuildSmallGardens = new List<InfoBuildSmallGarden>();
+            }
+            if (dataColletBuilding.listinfoBuildMediumGardens == null)
+            {
+                dataColletBuilding.listinfoBuildMediumGardens = new List<InfoBuildMediumGarden>();
+            }
+
+            if (dataColletBuilding.listInfoBuilding.Count > 0)
+            {
+                foreach (InfoBuilding infoBuilding in dataColletBuilding.listInfoBuilding)
+                {
+                    CreateBuilding(infoBuilding);
+                }
+            }
             if (dataColletBuilding.listinfoBuildSmallGardens.Count > 0)
             {
                 foreach (InfoBuildSmallGarden infoBuilding in dataColletBuilding.listinfoBuildSmallGardens)
@@ -121,41 +152,58 @@ public class SaveAndLoadBuildManager : MonoBehaviour
         else
         {
             dataColletBuilding = new DataColletBuilding();
+            dataColletBuilding.listInfoBuilding = new List<InfoBuilding>();
+            dataColletBuilding.listinfoBuildSmallGardens = new List<InfoBuildSmallGarden>();
+            dataColletBuilding.listinfoBuildMediumGardens = new List<InfoBuildMediumGarden>();
         }
     }
     public void CreateBuilding(InfoBuilding infoBuilding)
     {
-        GameObject newBuildingObject = buildManager.listALLBuilding.FirstOrDefault(build => build.GetComponent<Building>().nameBuild == infoBuilding.nameBuild);
+        GameObject newBuildingObject = Instantiate(buildManager.listALLBuilding.FirstOrDefault(build
+        => build.GetComponent<Building>().nameBuild == infoBuilding.nameBuild));
         Building buildingScript = newBuildingObject.GetComponent<Building>();
 
         buildingScript.nameBuild = infoBuilding.nameBuild;
-        buildingScript.finishDayBuildingTime = infoBuilding.dayFinist;
+        buildingScript.finishDayBuildingTime = infoBuilding.dayBuildingFinist;
 
         Vector2 newVector = new Vector2(infoBuilding.transformX, infoBuilding.transformY);
         newBuildingObject.transform.position = newVector;
-        newBuildingObject.GetComponent<UpgradeBuilding>().currentLevel = infoBuilding.levelBuild;
 
-        Instantiate(newBuildingObject);
+        UpgradeBuilding upgradeBuildingScript = newBuildingObject.GetComponent<UpgradeBuilding>();
+        upgradeBuildingScript.currentLevel = infoBuilding.levelBuild;
+        upgradeBuildingScript.isUpgradBuilding = infoBuilding.isBuildingUpgrad;
+        upgradeBuildingScript.isFinishedUpgrad = infoBuilding.isBuildFinishedUpgrad;
+        upgradeBuildingScript.finishDayBuildingUpgradTime = infoBuilding.dayBuildingUpgradFinist;
+
+        Tile tile = buildManager.tiles.FirstOrDefault(tile => tile.transform.position.x == newVector.x && tile.transform.position.y == newVector.y);
+        tile.isOccupied = true;
 
         BuiltBuildingInfo newBuiltBuildingInfo = new BuiltBuildingInfo(newBuildingObject, infoBuilding.levelBuild, null);
         buildManager.builtBuildings.Add(newBuiltBuildingInfo);
     }
     public void CreateBuildingSmallGarden(InfoBuildSmallGarden infoBuildSmallGarden)
     {
-        GameObject newbuildSmallGarden = buildManager.listALLBuilding.FirstOrDefault(build => build.GetComponent<Building>().nameBuild == infoBuildSmallGarden.nameBuild);
+        GameObject newbuildSmallGarden = Instantiate(buildManager.listALLBuilding.FirstOrDefault(build =>
+        build.GetComponent<Building>().nameBuild == infoBuildSmallGarden.nameBuild));
         Building buildingScript = newbuildSmallGarden.GetComponent<Building>();
 
         buildingScript.nameBuild = infoBuildSmallGarden.nameBuild;
-        buildingScript.finishDayBuildingTime = infoBuildSmallGarden.dayFinist;
+        buildingScript.finishDayBuildingTime = infoBuildSmallGarden.dayBuildingFinist;
 
         Vector2 newVector = new Vector2(infoBuildSmallGarden.transformX, infoBuildSmallGarden.transformY);
         newbuildSmallGarden.transform.position = newVector;
-        newbuildSmallGarden.GetComponent<UpgradeBuilding>().currentLevel = infoBuildSmallGarden.levelBuild;
+
+        UpgradeBuilding upgradeBuildingScript = newbuildSmallGarden.GetComponent<UpgradeBuilding>();
+        upgradeBuildingScript.currentLevel = infoBuildSmallGarden.levelBuild;
+        upgradeBuildingScript.isUpgradBuilding = infoBuildSmallGarden.isBuildingUpgrad;
+        upgradeBuildingScript.isFinishedUpgrad = infoBuildSmallGarden.isBuildFinishedUpgrad;
+        upgradeBuildingScript.finishDayBuildingUpgradTime = infoBuildSmallGarden.dayBuildingUpgradFinist;
 
         GardenBuilding gardenBuildingScript = newbuildSmallGarden.GetComponent<GardenBuilding>();
         gardenBuildingScript.yieldduration = infoBuildSmallGarden.yielduration;
 
-        Instantiate(newbuildSmallGarden);
+        Tile tile = buildManager.tiles.FirstOrDefault(tile => tile.transform.position.x == newVector.x && tile.transform.position.y == newVector.y);
+        tile.isOccupied = true;
 
         BuiltBuildingInfo newBuiltBuildingInfo = new BuiltBuildingInfo(newbuildSmallGarden, infoBuildSmallGarden.levelBuild, null);
         buildManager.builtBuildings.Add(newBuiltBuildingInfo);
@@ -163,30 +211,38 @@ public class SaveAndLoadBuildManager : MonoBehaviour
     }
     public void CreateBuildingMediumGarden(InfoBuildMediumGarden infoBuildMediumlGarden)
     {
-        GameObject newbuildMediumGarden = buildManager.listALLBuilding.FirstOrDefault(build => build.GetComponent<Building>().nameBuild == infoBuildMediumlGarden.nameBuild);
+        GameObject newbuildMediumGarden = Instantiate(buildManager.listALLBuilding.FirstOrDefault(build
+        => build.GetComponent<Building>().nameBuild == infoBuildMediumlGarden.nameBuild));
         Building buildingScript = newbuildMediumGarden.GetComponent<Building>();
 
         buildingScript.nameBuild = infoBuildMediumlGarden.nameBuild;
-        buildingScript.finishDayBuildingTime = infoBuildMediumlGarden.dayFinist;
+        buildingScript.finishDayBuildingTime = infoBuildMediumlGarden.dayBuildingFinist;
 
         Vector2 newVector = new Vector2(infoBuildMediumlGarden.transformX, infoBuildMediumlGarden.transformY);
         newbuildMediumGarden.transform.position = newVector;
-        newbuildMediumGarden.GetComponent<UpgradeBuilding>().currentLevel = infoBuildMediumlGarden.levelBuild;
+
+        UpgradeBuilding upgradeBuildingScript = newbuildMediumGarden.GetComponent<UpgradeBuilding>();
+        upgradeBuildingScript.currentLevel = infoBuildMediumlGarden.levelBuild;
+        upgradeBuildingScript.isUpgradBuilding = infoBuildMediumlGarden.isBuildingUpgrad;
+        upgradeBuildingScript.isFinishedUpgrad = infoBuildMediumlGarden.isBuildFinishedUpgrad;
+        upgradeBuildingScript.finishDayBuildingUpgradTime = infoBuildMediumlGarden.dayBuildingUpgradFinist;
 
         MediumGarden gardenBuildingScript = newbuildMediumGarden.GetComponent<MediumGarden>();
         gardenBuildingScript.yieldduration = infoBuildMediumlGarden.yielduration;
         gardenBuildingScript.isHerbalPlanted = infoBuildMediumlGarden.isHerbalPlant;
 
-        Instantiate(newbuildMediumGarden);
+        Tile tile = buildManager.tiles.FirstOrDefault(tile => tile.transform.position.x == newVector.x && tile.transform.position.y == newVector.y);
+        tile.isOccupied = true;
 
         BuiltBuildingInfo newBuiltBuildingInfo = new BuiltBuildingInfo(newbuildMediumGarden, infoBuildMediumlGarden.levelBuild, null);
         buildManager.builtBuildings.Add(newBuiltBuildingInfo);
     }
     public void ResetDataBuilding()
     {
-        dataColletBuilding.listInfoBuilding.Clear();
-        dataColletBuilding.listinfoBuildSmallGardens.Clear();
-        dataColletBuilding.listinfoBuildMediumGardens.Clear();
+        dataColletBuilding = new DataColletBuilding();
+        dataColletBuilding.listInfoBuilding = new List<InfoBuilding>();
+        dataColletBuilding.listinfoBuildSmallGardens = new List<InfoBuildSmallGarden>();
+        dataColletBuilding.listinfoBuildMediumGardens = new List<InfoBuildMediumGarden>();
         string json = JsonUtility.ToJson(dataColletBuilding, true);
         File.WriteAllText(saveDataBuildingPath, json);
     }
@@ -205,7 +261,10 @@ public class InfoBuilding
     public float transformY;
     public string nameBuild;
     public int levelBuild;
-    public int dayFinist;
+    public int dayBuildingFinist;
+    public int dayBuildingUpgradFinist;
+    public bool isBuildingUpgrad;
+    public bool isBuildFinishedUpgrad;
 }
 [Serializable]
 public class InfoBuildWorkshop : InfoBuilding

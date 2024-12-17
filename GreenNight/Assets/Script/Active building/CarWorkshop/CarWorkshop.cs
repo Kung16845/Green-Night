@@ -42,7 +42,7 @@ public class CarWorkshop : MonoBehaviour
     
     void OnMouseDown()
     {
-        if (building.isfinsih && !upgradeBuilding.isBuilding)
+        if (building.isfinsih && !upgradeBuilding.isUpgradBuilding)
         {
             uImanger.ToggleUIPanel(UImanger.UIPanel.CarWorkshopUI);
             
