@@ -12,21 +12,23 @@ public class Tile : MonoBehaviour
     public Color redColor;
     public SpriteRenderer rend;
     public Building buildingOnTile;
-    private void Start() 
+    private void Start()
     {
         rend = GetComponent<SpriteRenderer>();
     }
     protected void Update()
     {
-        if(isOccupied)
+        if (isOccupied)
         {
             rend.color = redColor;
         }
-        else 
-        {   
+        else
+        {
             // Debug.Log("Grean Color");
             rend.color = greenColor;
         }
     }
+
+   
 }
 

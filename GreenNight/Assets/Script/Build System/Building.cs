@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Building : MonoBehaviour
-{   
+{
     public string nameBuild;
     public string detailBuild;
     public int steelCost;
@@ -25,37 +25,39 @@ public class Building : MonoBehaviour
     public Sprite Constructhreshold;
     public BuildManager buildManager;
     public bool isfinsih;
-    private void Start() 
+    private void Start()
     {
         timeManager = FindObjectOfType<TimeManager>();
         buildManager = FindObjectOfType<BuildManager>();
         dateTime = timeManager.dateTime;
-        finishDayBuildingTime += dateTime.day + dayCost;
+        // finishDayBuildingTime += dateTime.day + dayCost;
         spriteRenderer = GetComponent<SpriteRenderer>();
         isBuilding = true;
         isfinsih = false;
 
     }
-    private void Update() 
+    private void Update()
     {
         WaitBuilding();
     }
     public void WaitBuilding()
-    {      
+    {
         // Debug.Log("WaitBuilding");
-        
-        if(dateTime.day >= finishDayBuildingTime && isBuilding)
-        {   
+
+        if (dateTime.day >= finishDayBuildingTime && isBuilding)
+        {
             isBuilding = false;
             buildManager.npc += npcCost;
             spriteRenderer.sprite = OriginalSprite;
             isfinsih = true;
             return;
         }
-        else if(dateTime.day < finishDayBuildingTime)
-        {   
+        else if (dateTime.day < finishDayBuildingTime)
+        {
             // Debug.Log("Is Building");
             spriteRenderer.sprite = Constructhreshold;
         }
     }
+    
+    
 }

@@ -35,7 +35,7 @@ public class MediumBed : MonoBehaviour
             ApplyBedContribution(); // Apply initial bed contribution
         }
 
-        if (upgradeBuilding != null && upgradeBuilding.isFinished) 
+        if (upgradeBuilding != null && upgradeBuilding.isFinishedUpgrad) 
         {
             UpgradeBedContribution(); // Handle upgrade contribution
         }

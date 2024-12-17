@@ -174,8 +174,8 @@ public class UpgradeUi : MonoBehaviour
                     AssignSpecialistToUpgrade(nextLevel.requiredSpecialist);
                 }
 
-                currentBuildingScript.isBuilding = true;
-                currentBuildingScript.finishDayBuildingTime = dateTime.day + nextLevel.dayCost;
+                currentBuildingScript.isUpgradBuilding = true;
+                currentBuildingScript.finishDayBuildingUpgradTime = dateTime.day + nextLevel.dayCost;
 
                 this.gameObject.SetActive(false);
             }

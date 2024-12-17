@@ -46,7 +46,7 @@ public class MediumGarden : MonoBehaviour
     // This function is called when player clicks on the building
     void OnMouseDown()
     {
-        if (building.isfinsih && !upgradeBuilding.isBuilding)
+        if (building.isfinsih && !upgradeBuilding.isUpgradBuilding)
         {
             // Toggle UI panel for MediumGarden (similar to SmallGardenUI)
             // Assuming you have a UIPanel enum and a corresponding panel for MediumGarden:

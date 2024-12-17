@@ -12,8 +12,8 @@ public class UpgradeBuilding : MonoBehaviour
     public int currentLevel = 1;
     public int maxLevel;
 
-    public bool isBuilding;
-    public bool isFinished;
+    public bool isUpgradBuilding;
+    public bool isFinishedUpgrad;
 
     public UpgradeUi upgradeUi;
     public TimeManager timeManager;
@@ -26,7 +26,7 @@ public class UpgradeBuilding : MonoBehaviour
     public NpcClass assignedSpecialistNpc;
     public BuiltBuildingInfo builtBuildingInfo;
 
-    public int finishDayBuildingTime;
+    public int finishDayBuildingUpgradTime;
 
     void Awake()
     {
@@ -36,8 +36,8 @@ public class UpgradeBuilding : MonoBehaviour
         dateTime = timeManager.dateTime;
         building = GetComponent<Building>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        isBuilding = false;
-        isFinished = false;
+        isUpgradBuilding = false;
+        isFinishedUpgrad = false;
         maxLevel = upgradeLevels.Count+1;
     }
     void Start()
@@ -53,7 +53,7 @@ public class UpgradeBuilding : MonoBehaviour
     }
     void LateUpdate()
     {
-        if (isBuilding)
+        if (isUpgradBuilding)
         {
             WaitUpgrade();
         }
@@ -61,7 +61,7 @@ public class UpgradeBuilding : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (building.isfinsih && !isBuilding && currentLevel < maxLevel)
+        if (building.isfinsih && !isUpgradBuilding && currentLevel < maxLevel)
         {
             Debug.Log("showupgradeUI");
             // uImanger.ActiveUpgradeUI();
@@ -72,13 +72,13 @@ public class UpgradeBuilding : MonoBehaviour
 
     void WaitUpgrade()
     {
-        if (dateTime.day >= finishDayBuildingTime && isBuilding)
+        if (dateTime.day >= finishDayBuildingUpgradTime && isUpgradBuilding)
         {
             UpgradeLevel completedLevel = upgradeLevels[currentLevel - 1];
 
             buildManager.npc += completedLevel.npcCost;
             spriteRenderer.sprite = completedLevel.levelSprite;
-            isBuilding = false;
+            isUpgradBuilding = false;
             currentLevel++;
 
             // Update the level in builtBuildingInfo
@@ -89,7 +89,7 @@ public class UpgradeBuilding : MonoBehaviour
 
             if (currentLevel == maxLevel)
             {
-                isFinished = true;
+                isFinishedUpgrad = true;
             }
 
             // Return the assigned specialist NPC to the available list
@@ -103,7 +103,7 @@ public class UpgradeBuilding : MonoBehaviour
 
             Debug.Log("Upgraded to Level " + currentLevel);
         }
-        else if (dateTime.day < finishDayBuildingTime)
+        else if (dateTime.day < finishDayBuildingUpgradTime)
         {
             spriteRenderer.sprite = ConstructSprite;
         }
