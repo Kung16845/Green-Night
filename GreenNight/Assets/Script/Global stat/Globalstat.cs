@@ -40,7 +40,7 @@ public class Globalstat : MonoBehaviour
     public int ChemicalCraftingSlot;
     public int usedCraftingSlot;
     public int usedChemicalCraftingSlot;
-    public bool sattleliteonline;
+    public bool SatelliteOnline;
     [Header("Exipiditionaction")]
     public bool expiditionactiveeventactive = false;
     private int bedFactor = 0;
