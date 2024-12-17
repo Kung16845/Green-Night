@@ -41,6 +41,7 @@ public class Globalstat : MonoBehaviour
     public int usedCraftingSlot;
     public int usedChemicalCraftingSlot;
     public bool SatelliteOnline;
+    public bool ReconActive;
     [Header("Exipiditionaction")]
     public bool expiditionactiveeventactive = false;
     private int bedFactor = 0;

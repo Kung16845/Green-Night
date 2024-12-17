@@ -20,6 +20,15 @@ public class DailyGive : MonoBehaviour
     public DailyGiveUI dailyGiveUIHandler;
 
     private int lastRewardDay = -1; // Tracks the last day rewards were given
+     public List<ItemData> supplyDropItems = new List<ItemData>();
+    public List<ItemData> listItemsToGiveDaily = new List<ItemData>();
+
+    // Countdown Timer Variables
+    private bool isSupplyDropActive = false;
+    private int supplyDropCountdown;
+    private SuuplyDropType currentSupplyDropType;
+    public Button SupplyDropButton;
+
 
     void Start()
     {
@@ -147,22 +156,12 @@ public class DailyGive : MonoBehaviour
     public void AddItem(ItemData itemDataAdd)
     {
         ItemData itemDataInList = this.listItemsTogiveDaily.FirstOrDefault(item => item.idItem == itemDataAdd.idItem && item.count != item.maxCount);
-        int[] excludedItemIds = { 1020129, 1020130, 1020128, 1020131, 1020132 };
         if (itemDataInList != null)
         {
-            if (excludedItemIds.Contains(itemDataAdd.idItem))
-            {
-                return;
-            }
-            else
-                itemDataInList.count = itemDataInList.count + itemDataAdd.count;
+            itemDataInList.count = itemDataInList.count + itemDataAdd.count;
         }
         else if (itemDataInList == null)
         {
-            if (excludedItemIds.Contains(itemDataAdd.idItem))
-            {
-                return;
-            }
             listItemsTogiveDaily.Add(itemDataAdd);
         }
     }
