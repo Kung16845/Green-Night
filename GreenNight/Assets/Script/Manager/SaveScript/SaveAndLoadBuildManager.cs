@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 using System.IO;
 using System;
 using System.Linq;
+
+
 public class SaveAndLoadBuildManager : MonoBehaviour
 {
 
@@ -20,10 +22,22 @@ public class SaveAndLoadBuildManager : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         buildManager = gameManager.buildManager;
 
+        InfoBuildOne infoBuild = new InfoBuildOne();
+        infoBuild.transformX = 2;
+        infoBuild.transformY = 4;
+        infoBuild.nameBuild = "12";
+        infoBuild.levelBuild =1;
+        infoBuild.dayFinist = 18;
+        infoBuild.listNpciD = new List<int>() {0,1,2};
+        infoBuild.sizeBuild = "small";
+
+        Debug.Log(dataColletBuilding.listInfoBuilding.ElementAt(0));
+        dataColletBuilding.listInfoBuilding.Add(infoBuild);        
+        SaveBuildInScenes();
     }
     public void SaveBuildInScenes()
     {
-        AddDataListBuilding();
+        // AddDataListBuilding();
         string json = JsonUtility.ToJson(dataColletBuilding, true);
         File.WriteAllText(saveDataBuildingPath, json);
     }
@@ -68,7 +82,7 @@ public class SaveAndLoadBuildManager : MonoBehaviour
     {
         GameObject newBuildingObject = buildManager.listALLBuilding.FirstOrDefault(build => build.GetComponent<Building>().nameBuild == infoBuilding.nameBuild);
         Building buildingScript = newBuildingObject.GetComponent<Building>();
-
+        
         buildingScript.nameBuild = infoBuilding.nameBuild;
         buildingScript.finishDayBuildingTime = infoBuilding.dayFinist;
 
@@ -81,7 +95,7 @@ public class SaveAndLoadBuildManager : MonoBehaviour
 
 }
 [Serializable]
-public class DataColletBuilding
+public  class DataColletBuilding
 {
     public List<InfoBuilding> listInfoBuilding;
 }
@@ -93,4 +107,15 @@ public class InfoBuilding
     public string nameBuild;
     public int levelBuild;
     public int dayFinist;
+}
+[Serializable]
+public class InfoBuildOne : InfoBuilding
+{
+    public string sizeBuild;
+    public List<int> listNpciD;
+}
+[Serializable]
+public class InfoBuildTwo : InfoBuilding
+{
+    public List<int> listNpciD;
 }
