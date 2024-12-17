@@ -9,7 +9,7 @@ public class Sattlelite : MonoBehaviour
 {
     public bool SatelliteOnline = false;
     public bool RecondroneActive = false;
-    // public bool SuuplyDrop;
+    public int Reconduration;
     public TimeManager timeManager;
     public DateTime dateTime;
     public int currentDay;
@@ -30,6 +30,8 @@ public class Sattlelite : MonoBehaviour
     public TextMeshProUGUI SattleliteSteel; // Combined status and hint
     public Image newworkIcon;
     public Button RepariButton;
+    public Button ReconButton;
+    public Button SupplyDropButton;
     void Start()
     {
         dateTime = timeManager.dateTime;
@@ -41,23 +43,42 @@ public class Sattlelite : MonoBehaviour
 
         UpdateSattleliteStatusText();
         UpdateRepairButton();
-        UpdateNewWorkIcon(SpecialistRoleNpc.Network);
+        UpdateSpecialistIcon(SpecialistRoleNpc.Network);
     }
     void Update()
     {
         WaitRepair();
         CheckMaintenance();
+        ReconButton.interactable = SatelliteOnline;
+        SupplyDropButton.interactable = SatelliteOnline;
     }
-    private void UpdateNewWorkIcon(SpecialistRoleNpc requiredSpecialist)
+    private void UpdateSpecialistIcon(SpecialistRoleNpc requiredSpecialist)
     {
-        // Check if the required specialist exists
-        bool hasSpecialist = HasRequiredSpecialist(requiredSpecialist);
-
         if (newworkIcon != null)
         {
-            newworkIcon.gameObject.SetActive(hasSpecialist); // Show or hide the icon
+            // Check if the required specialist is available
+            bool hasSpecialist = HasRequiredSpecialist(requiredSpecialist);
+
+            // Use hexadecimal color codes
+            if (hasSpecialist)
+            {
+                Color whiteColor;
+                if (ColorUtility.TryParseHtmlString("#FFFFFF", out whiteColor))
+                {
+                    newworkIcon.color = whiteColor; // Set to white
+                }
+            }
+            else
+            {
+                Color greyColor;
+                if (ColorUtility.TryParseHtmlString("#8C8C8C", out greyColor))
+                {
+                    newworkIcon.color = greyColor; // Set to grey
+                }
+            }
         }
     }
+
     public void WaitRepair()
     {
         if (dateTime.day >= finishDayBuildingTime && isRepairing)
@@ -72,7 +93,7 @@ public class Sattlelite : MonoBehaviour
             {
                 spriteRenderer.sprite = repairedSpriteRenderer;
             }
-
+            npcManager.RemoveWorkerBySpecialist(SpecialistRoleNpc.Network);
             return;
         }
     }
@@ -123,9 +144,9 @@ public class Sattlelite : MonoBehaviour
         int requiredSteel = 3;
 
         // Update individual material UI
-        SattleliteCircuit.text = $"Circuits: <color=yellow>{currentCircuit}/{requiredCircuit}</color>";
-        SattleliteWire.text = $"Wires: <color=yellow>{currentWire}/{requiredWire}</color>";
-        SattleliteSteel.text = $"Steel: <color=yellow>{currentSteel}/{requiredSteel}</color>";
+        SattleliteCircuit.text = $"<color=yellow>Circuits:{currentCircuit}/{requiredCircuit}</color>";
+        SattleliteWire.text = $"<color=yellow>Wires: {currentWire}/{requiredWire}</color>";
+        SattleliteSteel.text = $"<color=yellow>Steel: {currentSteel}/{requiredSteel}</color>";
 
         // Update the main satellite status text
         if (!SatelliteOnline && !isRepairing)

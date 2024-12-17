@@ -195,5 +195,25 @@ public class NpcManager : MonoBehaviour
         Debug.Log("Specialist Player : " + specialistNpc);
 
     }
+    public void RemoveWorkerBySpecialist(SpecialistRoleNpc specialistToRemove)
+    {
+        // Find the first worker in the working list with the specified specialist role
+        NpcClass npcToRemove = listNpcWorking.FirstOrDefault(npc => npc.roleNpc == specialistToRemove);
+
+        if (npcToRemove != null)
+        {
+            // Remove the worker from the working list
+            listNpcWorking.Remove(npcToRemove);
+
+            // Optionally, move the worker back to the main NPC list
+            listNpc.Add(npcToRemove);
+
+            Debug.Log($"Removed worker with specialist role: {specialistToRemove} and returned them to available NPC list.");
+        }
+        else
+        {
+            Debug.LogWarning($"No worker found with specialist role: {specialistToRemove} in the working list.");
+        }
+    }
 
 }
