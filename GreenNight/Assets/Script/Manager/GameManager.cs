@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     public SaveDataDDA saveDataDDA;
     public SaveAndLoadListDoorStatusSceneEX saveAndLoadListDoorStatusSceneEX;
     public SaveAndLoadOutPostReward saveAndLoadOutPostReward;
+    public SaveAndLoadBuildManager saveAndLoadBuildManager;
     private void Awake()
     {
         timeManager = FindObjectOfType<TimeManager>();
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour
         npcManager = FindObjectOfType<NpcManager>();
         managerSceneEX = FindObjectOfType<ManagerSceneEX>();
         outpostSystem = FindObjectOfType<OutpostSystem>();
+        buildManager = FindObjectOfType<BuildManager>();
     }
     public void NewGame()
     {
@@ -46,6 +48,7 @@ public class GameManager : MonoBehaviour
         saveAndLoadListDoorStatusSceneEX.ResetDataListDoorStatus();
         saveAndLoadOutPostReward.ResetDataOutPostReward();
         saveAndLoadTimemanager.ResetDataTime();
+        saveAndLoadBuildManager.ResetDataBuilding();
         npcManager.StartGameCreateGropNpx();
     }
     public void SaveGame()
@@ -57,6 +60,7 @@ public class GameManager : MonoBehaviour
         saveAndLoadOutPostReward.SaveDataOutPostReward();
         // saveDataDDA.AddDataDDAAndSave();
         saveAndLoadTimemanager.SaveDataTime();
+        saveAndLoadBuildManager.SaveBuildInScenes();
     }
     public void LoadGane()
     {
@@ -67,6 +71,7 @@ public class GameManager : MonoBehaviour
         saveAndLoadListDoorStatusSceneEX.LoadDataListDoorStatus();
         saveAndLoadOutPostReward.LoadDataOutPostReward();
         saveAndLoadTimemanager.LoadDataTime();
+        saveAndLoadBuildManager.LoadBuildInScenes();
     }
     public void QuitGame()
     {

@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System.IO;
 using System;
 using System.Linq;
+using UnityEngine.Rendering.Universal;
 
 
 public class SaveAndLoadBuildManager : MonoBehaviour
@@ -22,22 +23,11 @@ public class SaveAndLoadBuildManager : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         buildManager = gameManager.buildManager;
 
-        InfoBuildOne infoBuild = new InfoBuildOne();
-        infoBuild.transformX = 2;
-        infoBuild.transformY = 4;
-        infoBuild.nameBuild = "12";
-        infoBuild.levelBuild =1;
-        infoBuild.dayFinist = 18;
-        infoBuild.listNpciD = new List<int>() {0,1,2};
-        infoBuild.sizeBuild = "small";
 
-        Debug.Log(dataColletBuilding.listInfoBuilding.ElementAt(0));
-        dataColletBuilding.listInfoBuilding.Add(infoBuild);        
-        SaveBuildInScenes();
     }
     public void SaveBuildInScenes()
     {
-        // AddDataListBuilding();
+        AddDataListBuilding();
         string json = JsonUtility.ToJson(dataColletBuilding, true);
         File.WriteAllText(saveDataBuildingPath, json);
     }
@@ -47,10 +37,10 @@ public class SaveAndLoadBuildManager : MonoBehaviour
         {
             InfoBuilding infoBuilding = new InfoBuilding();
 
-            Building building = build.buildingGameObject.GetComponent<Building>();
+            GameObject buildGameObject = build.buildingGameObject;
+            Building building = buildGameObject.GetComponent<Building>();
             UpgradeBuilding upgradeLevel = building.GetComponent<UpgradeBuilding>();
-
-            infoBuilding.nameBuild = building.name;
+            infoBuilding.nameBuild = building.nameBuild;
             infoBuilding.dayFinist = building.finishDayBuildingTime;
 
             infoBuilding.transformX = building.transform.position.x;
@@ -58,7 +48,46 @@ public class SaveAndLoadBuildManager : MonoBehaviour
 
             infoBuilding.levelBuild = upgradeLevel.currentLevel;
 
-            dataColletBuilding.listInfoBuilding.Add(infoBuilding);
+            if (infoBuilding.nameBuild == "Garden")
+            {
+                InfoBuildSmallGarden infoBuildSmallGarden = new InfoBuildSmallGarden();
+
+                infoBuildSmallGarden.nameBuild = building.nameBuild;
+                infoBuildSmallGarden.dayFinist = building.finishDayBuildingTime;
+
+                infoBuildSmallGarden.transformX = building.transform.position.x;
+                infoBuildSmallGarden.transformY = building.transform.position.y;
+
+                infoBuildSmallGarden.levelBuild = upgradeLevel.currentLevel;
+
+                infoBuildSmallGarden.yielduration = buildGameObject.GetComponent<GardenBuilding>().yieldduration;
+
+                dataColletBuilding.listinfoBuildSmallGardens.Add(infoBuildSmallGarden);
+            }
+            else if (infoBuilding.nameBuild == "Medium garden")
+            {
+                InfoBuildMediumGarden infoBuildMediumGarden = new InfoBuildMediumGarden();
+
+                infoBuildMediumGarden.nameBuild = building.nameBuild;
+                infoBuildMediumGarden.dayFinist = building.finishDayBuildingTime;
+
+                infoBuildMediumGarden.transformX = building.transform.position.x;
+                infoBuildMediumGarden.transformY = building.transform.position.y;
+
+                infoBuildMediumGarden.levelBuild = upgradeLevel.currentLevel;
+
+                MediumGarden mediumGardenScript = buildGameObject.GetComponent<MediumGarden>();
+                infoBuildMediumGarden.isHerbalPlant = mediumGardenScript.isHerbalPlanted;
+                infoBuildMediumGarden.yielduration = mediumGardenScript.yieldduration;
+
+                dataColletBuilding.listinfoBuildMediumGardens.Add(infoBuildMediumGarden);
+            }
+            else
+            {
+
+                dataColletBuilding.listInfoBuilding.Add(infoBuilding);
+            }
+
         }
     }
     public void LoadBuildInScenes()
@@ -72,6 +101,22 @@ public class SaveAndLoadBuildManager : MonoBehaviour
             {
                 CreateBuilding(infoBuilding);
             }
+
+            if (dataColletBuilding.listinfoBuildSmallGardens.Count > 0)
+            {
+                foreach (InfoBuildSmallGarden infoBuilding in dataColletBuilding.listinfoBuildSmallGardens)
+                {
+                    CreateBuildingSmallGarden(infoBuilding);
+                }
+            }
+
+            if (dataColletBuilding.listinfoBuildMediumGardens.Count > 0)
+            {
+                foreach (InfoBuildMediumGarden infoBuilding in dataColletBuilding.listinfoBuildMediumGardens)
+                {
+                    CreateBuildingMediumGarden(infoBuilding);
+                }
+            }
         }
         else
         {
@@ -82,7 +127,7 @@ public class SaveAndLoadBuildManager : MonoBehaviour
     {
         GameObject newBuildingObject = buildManager.listALLBuilding.FirstOrDefault(build => build.GetComponent<Building>().nameBuild == infoBuilding.nameBuild);
         Building buildingScript = newBuildingObject.GetComponent<Building>();
-        
+
         buildingScript.nameBuild = infoBuilding.nameBuild;
         buildingScript.finishDayBuildingTime = infoBuilding.dayFinist;
 
@@ -90,14 +135,68 @@ public class SaveAndLoadBuildManager : MonoBehaviour
         newBuildingObject.transform.position = newVector;
         newBuildingObject.GetComponent<UpgradeBuilding>().currentLevel = infoBuilding.levelBuild;
 
-        Instantiate(newBuildingObject, newBuildingObject.transform);
-    }
+        Instantiate(newBuildingObject);
 
+        BuiltBuildingInfo newBuiltBuildingInfo = new BuiltBuildingInfo(newBuildingObject, infoBuilding.levelBuild, null);
+        buildManager.builtBuildings.Add(newBuiltBuildingInfo);
+    }
+    public void CreateBuildingSmallGarden(InfoBuildSmallGarden infoBuildSmallGarden)
+    {
+        GameObject newbuildSmallGarden = buildManager.listALLBuilding.FirstOrDefault(build => build.GetComponent<Building>().nameBuild == infoBuildSmallGarden.nameBuild);
+        Building buildingScript = newbuildSmallGarden.GetComponent<Building>();
+
+        buildingScript.nameBuild = infoBuildSmallGarden.nameBuild;
+        buildingScript.finishDayBuildingTime = infoBuildSmallGarden.dayFinist;
+
+        Vector2 newVector = new Vector2(infoBuildSmallGarden.transformX, infoBuildSmallGarden.transformY);
+        newbuildSmallGarden.transform.position = newVector;
+        newbuildSmallGarden.GetComponent<UpgradeBuilding>().currentLevel = infoBuildSmallGarden.levelBuild;
+
+        GardenBuilding gardenBuildingScript = newbuildSmallGarden.GetComponent<GardenBuilding>();
+        gardenBuildingScript.yieldduration = infoBuildSmallGarden.yielduration;
+
+        Instantiate(newbuildSmallGarden);
+
+        BuiltBuildingInfo newBuiltBuildingInfo = new BuiltBuildingInfo(newbuildSmallGarden, infoBuildSmallGarden.levelBuild, null);
+        buildManager.builtBuildings.Add(newBuiltBuildingInfo);
+
+    }
+    public void CreateBuildingMediumGarden(InfoBuildMediumGarden infoBuildMediumlGarden)
+    {
+        GameObject newbuildMediumGarden = buildManager.listALLBuilding.FirstOrDefault(build => build.GetComponent<Building>().nameBuild == infoBuildMediumlGarden.nameBuild);
+        Building buildingScript = newbuildMediumGarden.GetComponent<Building>();
+
+        buildingScript.nameBuild = infoBuildMediumlGarden.nameBuild;
+        buildingScript.finishDayBuildingTime = infoBuildMediumlGarden.dayFinist;
+
+        Vector2 newVector = new Vector2(infoBuildMediumlGarden.transformX, infoBuildMediumlGarden.transformY);
+        newbuildMediumGarden.transform.position = newVector;
+        newbuildMediumGarden.GetComponent<UpgradeBuilding>().currentLevel = infoBuildMediumlGarden.levelBuild;
+
+        MediumGarden gardenBuildingScript = newbuildMediumGarden.GetComponent<MediumGarden>();
+        gardenBuildingScript.yieldduration = infoBuildMediumlGarden.yielduration;
+        gardenBuildingScript.isHerbalPlanted = infoBuildMediumlGarden.isHerbalPlant;
+
+        Instantiate(newbuildMediumGarden);
+
+        BuiltBuildingInfo newBuiltBuildingInfo = new BuiltBuildingInfo(newbuildMediumGarden, infoBuildMediumlGarden.levelBuild, null);
+        buildManager.builtBuildings.Add(newBuiltBuildingInfo);
+    }
+    public void ResetDataBuilding()
+    {
+        dataColletBuilding.listInfoBuilding.Clear();
+        dataColletBuilding.listinfoBuildSmallGardens.Clear();
+        dataColletBuilding.listinfoBuildMediumGardens.Clear();
+        string json = JsonUtility.ToJson(dataColletBuilding, true);
+        File.WriteAllText(saveDataBuildingPath, json);
+    }
 }
 [Serializable]
-public  class DataColletBuilding
+public class DataColletBuilding
 {
     public List<InfoBuilding> listInfoBuilding;
+    public List<InfoBuildSmallGarden> listinfoBuildSmallGardens;
+    public List<InfoBuildMediumGarden> listinfoBuildMediumGardens;
 }
 [Serializable]
 public class InfoBuilding
@@ -109,13 +208,76 @@ public class InfoBuilding
     public int dayFinist;
 }
 [Serializable]
-public class InfoBuildOne : InfoBuilding
+public class InfoBuildWorkshop : InfoBuilding
 {
-    public string sizeBuild;
-    public List<int> listNpciD;
+    //ไม่ต้องเก็บค่าอะไร
 }
 [Serializable]
-public class InfoBuildTwo : InfoBuilding
+public class InfoBuildWaterPump : InfoBuilding
 {
-    public List<int> listNpciD;
+    //ไม่ต้องเก็บค่าอะไร
+}
+[Serializable]
+public class InfoBuildSmallGarden : InfoBuilding
+{
+    public int yielduration;
+}
+[Serializable]
+public class InfoBuildSolar : InfoBuilding
+{
+    //ไม่ต้องเก็บค่าอะไร
+}
+[Serializable]
+public class InfoBuildBeacon : InfoBuilding
+{
+    //ไม่ต้องเก็บค่าอะไร
+}
+[Serializable]
+public class InfoBuildSmallBed : InfoBuilding
+{
+    //ไม่ต้องเก็บค่าอะไร
+}
+[Serializable]
+public class InfoBuildLounge : InfoBuilding
+{
+    //ไม่ต้องเก็บค่าอะไร
+}
+[Serializable]
+public class InfoBuildChemicallab : InfoBuilding
+{
+    //ไม่ต้องเก็บค่าอะไร
+}
+[Serializable]
+public class InfoBuildClinic : InfoBuilding
+{
+    //ไม่ต้องเก็บค่าอะไร
+}
+[Serializable]
+public class InfoBuildMediumBed : InfoBuilding
+{
+    //ไม่ต้องเก็บค่าอะไร
+}
+[Serializable]
+public class InfoBuildMoonshine : InfoBuilding
+{
+    //ไม่ต้องเก็บค่าอะไร
+}
+[Serializable]
+public class InfoBuildMediumGarden : InfoBuilding
+{
+    public int yielduration;
+    public bool isHerbalPlant;
+}
+[Serializable]
+public class InfoBuildCarWorkshop : InfoBuilding
+{
+    //ไม่ต้องเก็บค่าอะไร
+}
+public class InfoBuildFieldHospital : InfoBuilding
+{
+    //ไม่ต้องเก็บค่าอะไร
+}
+public class InfoBuildWatchTower : InfoBuilding
+{
+    //ไม่ต้องเก็บค่าอะไร
 }

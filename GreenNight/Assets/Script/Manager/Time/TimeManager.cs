@@ -127,7 +127,7 @@ public class DateTime
             {
                 SetTimeStartDay();
 
-                this.day++;
+                // this.day++;
             }
         }
         else if(isDayNight)
