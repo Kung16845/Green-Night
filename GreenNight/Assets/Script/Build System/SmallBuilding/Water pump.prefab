@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -1403080695954312902}
   - component: {fileID: 4376539036384696863}
   - component: {fileID: -489717814226675011}
+  - component: {fileID: 6671236787869829087}
   m_Layer: 0
   m_Name: Water pump
   m_TagString: Untagged
@@ -56,7 +57,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: ef2e61aa6486dd748b327f28ee08b8d0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -122,6 +123,7 @@ MonoBehaviour:
     minutes: 0
     isDayNight: 0
     sceneSystem: {fileID: 0}
+    saveDataDDA: {fileID: 0}
   spriteRenderer: {fileID: 0}
   OriginalSprite: {fileID: 21300000, guid: 373cbb80b46226346ac03f498a5c1272, type: 3}
   Constructhreshold: {fileID: 21300000, guid: 07b4a0e102a4f7c4bb870c4250e6d18e, type: 3}
@@ -149,6 +151,7 @@ MonoBehaviour:
     minutes: 0
     isDayNight: 0
     sceneSystem: {fileID: 0}
+    saveDataDDA: {fileID: 0}
   currentday: 0
   FuelCost: 2
 --- !u!61 &4376539036384696863
@@ -233,6 +236,7 @@ MonoBehaviour:
     minutes: 0
     isDayNight: 0
     sceneSystem: {fileID: 0}
+    saveDataDDA: {fileID: 0}
   spriteRenderer: {fileID: 0}
   ConstructSprite: {fileID: 21300000, guid: 07b4a0e102a4f7c4bb870c4250e6d18e, type: 3}
   buildManager: {fileID: 0}
@@ -261,3 +265,16 @@ MonoBehaviour:
     level: 0
     tile: {fileID: 0}
   finishDayBuildingTime: 0
+--- !u!114 &6671236787869829087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7655338572965771469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75bc94be4751069448e151de6166726b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightColor: {r: 0, g: 1, b: 0, a: 1}

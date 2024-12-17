@@ -643,5 +643,49 @@ public class UIInventory : MonoBehaviour
             Debug.LogWarning("Player does not have a NpcCoutume component.");
         }
     }
+    public void HighlightItemsInSlotsUI(Ammotype ammoType)
+    {
+        foreach (InvenrotySlots slot in listInvenrotySlotsUI)
+        {
+            UIItemData uiItemData = slot.GetComponentInChildren<UIItemData>();
+            if (uiItemData != null)
+            {
+                // Retrieve the item data
+                ItemData itemData = listItemDataInventorySlot.FirstOrDefault(item => item.idItem == uiItemData.idItem);
 
+                if (itemData != null && itemData.itemtype == Itemtype.Ammo)
+                {
+                    // Get the ammo type for this item
+                    if (inventoryItemPresent.ammoItemIdToAmmoType.TryGetValue(itemData.idItem, out Ammotype itemAmmoType))
+                    {
+                        if (itemAmmoType == ammoType)
+                        {
+                            // Highlight the item
+                            Image itemImage = uiItemData.itemIconImage;
+                            if (itemImage != null)
+                            {
+                                itemImage.color = Color.yellow; // Highlight color
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void ResetHighlightInSlotsUI()
+    {
+        foreach (InvenrotySlots slot in listInvenrotySlotsUI)
+        {
+            UIItemData uiItemData = slot.GetComponentInChildren<UIItemData>();
+            if (uiItemData != null)
+            {
+                Image itemImage = uiItemData.itemIconImage;
+                if (itemImage != null)
+                {
+                    itemImage.color = Color.white; // Reset to original color
+                }
+            }
+        }
+    }
 }

@@ -73,6 +73,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
              destinationSlotType != SlotType.SlotNpcTrade &&
              destinationSlotType != SlotType.SlotPlayerTrade &&
              destinationSlotType != SlotType.SlotNpcItem &&
+             itemClassInChild != null &&
              destinationSlotType != uIItemDataDrag.slotType))
         {
             Debug.Log("Invalid drop target.");
@@ -154,7 +155,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
             // Open UI for deciding the quantity if moving to non-boxes with multiple items
             openUI = true;
         }
-        if (itemClassMove.itemtype == Itemtype.Ammo) 
+        if (itemClassMove.itemtype == Itemtype.Ammo && destinationSlotType != SlotType.SlotNpcTrade) 
         {
             openUI = false;
             quantityToMove = itemClassMove.maxCountItem;
@@ -162,7 +163,11 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
         // Prevent invalid trade interactions
         if ((destinationSlotType == SlotType.SlotNpcTrade && originSlot.slotTypeInventory != SlotType.SlotNpcItem) ||
             (destinationSlotType == SlotType.SlotPlayerTrade && originSlot.slotTypeInventory == SlotType.SlotNpcItem) ||
+            (destinationSlotType == SlotType.SlotNpcItem && originSlot.slotTypeInventory == SlotType.SlotPlayerTrade) ||
+            (destinationSlotType == SlotType.SlotPlayerTrade && originSlot.slotTypeInventory == SlotType.SlotNpcTrade)||
             (destinationSlotType == SlotType.SlotBag && originSlot.slotTypeInventory == SlotType.SlotNpcItem)||
+            (destinationSlotType == SlotType.SlotBackpack && originSlot.slotTypeInventory == SlotType.SlotNpcItem)||
+            (destinationSlotType == SlotType.SlotBackpack && originSlot.slotTypeInventory == SlotType.SlotNpcTrade)||
             (destinationSlotType == SlotType.SlotBag && originSlot.slotTypeInventory == SlotType.SlotNpcTrade))
         {
             Debug.Log("Invalid trade interaction.");
@@ -323,7 +328,6 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
 
         if (originList == null) return;
         
-        tradesystemScript?.RefreshTrade();
         // Find and update or remove the item in the source list
         var originItem = originList.FirstOrDefault(i => i.idItem == sourceItem.idItem && i.itemtype == sourceItem.itemtype);
         if (originItem != null)
@@ -332,6 +336,10 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
             if (originItem.count <= 0)
                 originList.Remove(originItem);
         }
+        tradesystemScript?.RefreshTrade();
+        Debug.Log(originSlotType);
+        Debug.Log(quantity);
+        Debug.Log(sourceItem.nameItem);
     }
 }
 

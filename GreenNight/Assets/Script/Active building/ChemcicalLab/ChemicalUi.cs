@@ -32,20 +32,17 @@ public class ChemicalUi : MonoBehaviour
     public CraftingItem selectedCraftingItem;
     public Transform craftingJobsParent; // Parent object to hold crafting job UI elements
     public GameObject craftingJobUIPrefab;
+    public Globalstat globalstat;
+    public CraftManager craftManager;
 
     
 
     void Start()
     {
+        craftManager = FindObjectOfType<CraftManager>();
+        globalstat = FindObjectOfType<Globalstat>();
         chemcicalLab = FindObjectOfType<ChemcicalLab>();
-        AssignActionSpeedAndSlot();
         AutoAssignCraftingItemData();
-    }
-
-    void AssignActionSpeedAndSlot()
-    {
-        int Slotincrease = chemcicalLab.Craftingslot;
-        Craftingslot.text = "Crafting slot: +" + Slotincrease.ToString("F0");
     }
     void AutoAssignCraftingItemData()
     {
@@ -255,7 +252,7 @@ public class ChemicalUi : MonoBehaviour
         }
 
         // Display current crafting jobs
-        foreach (CraftingJob job in chemcicalLab.activeCraftingJobs)
+        foreach (CraftingJob job in craftManager.ChemicalactiveJobs)
         {
             GameObject jobUIObject = Instantiate(craftingJobUIPrefab, craftingJobsParent);
             CraftingJobUI jobUIScript = jobUIObject.GetComponent<CraftingJobUI>();

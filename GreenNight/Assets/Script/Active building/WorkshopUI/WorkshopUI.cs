@@ -31,11 +31,13 @@ public class WorkshopUI : MonoBehaviour
     public CraftingItem selectedCraftingItem;
     public Transform craftingJobsParent; // Parent object to hold crafting job UI elements
     public GameObject craftingJobUIPrefab;
-
-    
+    public CraftManager craftManager;
+    public Globalstat globalstat; // Reference to Globalstat
 
     void Start()
     {
+        globalstat = FindObjectOfType<Globalstat>();
+        craftManager = FindObjectOfType<CraftManager>();
         workshop = FindObjectOfType<Workshop>();
         AssignActionSpeedAndSlot();
         AutoAssignCraftingItemData();
@@ -43,9 +45,9 @@ public class WorkshopUI : MonoBehaviour
 
     void AssignActionSpeedAndSlot()
     {
-        float actionSpeedIncreasePercent = workshop.Actionspeedincrease * 100f;
+        float actionSpeedIncreasePercent = globalstat.ActionSpeed * 100f;
         ActionSpeed.text = "Action Speed: +" + actionSpeedIncreasePercent.ToString("F0") + "%";
-        int Slotincrease = workshop.Craftingslot;
+        int Slotincrease = globalstat.CraftingSlot;
         Craftingslot.text = "Crafting slot: +" + Slotincrease.ToString("F0");
     }
     void AutoAssignCraftingItemData()
@@ -148,7 +150,7 @@ public class WorkshopUI : MonoBehaviour
             }
         }
     }
-        public void DisplaySelectedItemDetails(CraftingItem selectedItem)
+    public void DisplaySelectedItemDetails(CraftingItem selectedItem)
     {
         selectedCraftingItem = selectedItem;
 
@@ -255,8 +257,8 @@ public class WorkshopUI : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        // Display current crafting jobs
-        foreach (CraftingJob job in workshop.activeCraftingJobs)
+        // Display current crafting jobs from CraftManager
+        foreach (CraftingJob job in craftManager.activeCraftingJobs)
         {
             GameObject jobUIObject = Instantiate(craftingJobUIPrefab, craftingJobsParent);
             CraftingJobUI jobUIScript = jobUIObject.GetComponent<CraftingJobUI>();
@@ -266,6 +268,7 @@ public class WorkshopUI : MonoBehaviour
             }
         }
     }
+
     void Update()
     {
         if (Input.GetMouseButtonDown(1))

@@ -68,8 +68,6 @@ public class GardenBuilding : MonoBehaviour
             buildManager.food += foodGainPerDay; // Add food gained to the total food count
             currentDay = dateTime.day; // Update the current day to reflect the new day
 
-            Debug.Log("Current Day: " + currentDay);
-            Debug.Log("Yield Duration: " + yieldduration);
         }
     }
 
@@ -105,8 +103,5 @@ public class GardenBuilding : MonoBehaviour
         {
             currentYield = foodGainPerDay; // No bonuses
         }
-
-        Debug.Log("Current Yield: " + currentYield);
-        Debug.Log("Yield Duration: " + yieldduration);
     }
 }
