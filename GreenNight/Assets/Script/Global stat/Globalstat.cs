@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -40,6 +40,7 @@ public class Globalstat : MonoBehaviour
     public int ChemicalCraftingSlot;
     public int usedCraftingSlot;
     public int usedChemicalCraftingSlot;
+    public bool sattleliteonline;
     [Header("Exipiditionaction")]
     public bool expiditionactiveeventactive = false;
     private int bedFactor = 0;

@@ -12161,6 +12161,8 @@ MonoBehaviour:
     rarity: 0
   craftingJobsParent: {fileID: 2123403084}
   craftingJobUIPrefab: {fileID: 6618598418823298495, guid: e932dc426fa21374b8580b1dae0bd03f, type: 3}
+  craftManager: {fileID: 0}
+  globalstat: {fileID: 0}
 --- !u!114 &366983579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15680,6 +15682,12 @@ MonoBehaviour:
     count: 1
     maxCount: 1
     itemtype: 3
+    parantslotType: 2
+  - nameItem: Gunpowerder
+    idItem: 1020110
+    count: 50
+    maxCount: 10
+    itemtype: 7
     parantslotType: 2
   listUIItemPrefab:
   - {fileID: 1291614654634707552, guid: db11bae3d5fad0d48b59cbceb79084a2, type: 3}
@@ -19891,7 +19899,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &620597052
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21701,8 +21709,10 @@ MonoBehaviour:
   inventoryItemPresent: {fileID: 483800078}
   craftingSlotsParent: {fileID: 2123403084}
   craftingSlotPrefab: {fileID: 6618598418823298495, guid: e932dc426fa21374b8580b1dae0bd03f, type: 3}
-  maxCraftingSlots: 5
+  globalstat: {fileID: 0}
+  maxCraftingSlots: 3
   confirmCraftingButton: {fileID: 1052223880}
+  activeCraftingSlots: []
 --- !u!114 &674469667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21722,6 +21732,7 @@ MonoBehaviour:
   craftingSlotPrefab: {fileID: 6618598418823298495, guid: e932dc426fa21374b8580b1dae0bd03f, type: 3}
   maxCraftingSlots: 3
   confirmCraftingButton: {fileID: 835302969}
+  globalstat: {fileID: 0}
 --- !u!1 &680519829
 GameObject:
   m_ObjectHideFlags: 0
@@ -24127,6 +24138,7 @@ Transform:
   - {fileID: 857123513}
   - {fileID: 1774649494}
   - {fileID: 341224662}
+  - {fileID: 1795293070}
   - {fileID: 1392033116}
   m_Father: {fileID: 0}
   m_RootOrder: 8
@@ -46429,6 +46441,10 @@ MonoBehaviour:
   activeCureBed: 0
   Discontent: 0
   Growingspeed: 1
+  CraftingSlot: 0
+  ChemicalCraftingSlot: 0
+  usedCraftingSlot: 0
+  usedChemicalCraftingSlot: 0
   expiditionactiveeventactive: 0
 --- !u!1 &1488158369
 GameObject:
@@ -57289,6 +57305,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1794924112}
   m_CullTransparentMesh: 1
+--- !u!1 &1795293069
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1795293070}
+  - component: {fileID: 1795293071}
+  m_Layer: 0
+  m_Name: Craftmanager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1795293070
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795293069}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 741425701}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1795293071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795293069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f696126f9098a8a4f83318bc48c5651d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeCraftingJobs: []
+  ChemicalactiveJobs: []
+  MedicineactiveJobs: []
+  inventoryItemPresent: {fileID: 0}
+  buildManager: {fileID: 0}
+  globalstat: {fileID: 0}
 --- !u!1 &1798246672
 GameObject:
   m_ObjectHideFlags: 0
@@ -60754,7 +60820,7 @@ MonoBehaviour:
   npc: 5
   npcDisplay: {fileID: 1457393210}
   iswateractive: 1
-  iselecticitiesactive: 0
+  iselecticitiesactive: 1
   building: {fileID: 0}
   buildingToPlace: {fileID: 0}
   customCursor: {fileID: 1852678143}
@@ -64988,6 +65054,8 @@ MonoBehaviour:
     rarity: 0
   craftingJobsParent: {fileID: 1253958673}
   craftingJobUIPrefab: {fileID: 6618598418823298495, guid: e932dc426fa21374b8580b1dae0bd03f, type: 3}
+  globalstat: {fileID: 0}
+  craftManager: {fileID: 0}
 --- !u!114 &1956858466
 MonoBehaviour:
   m_ObjectHideFlags: 0
