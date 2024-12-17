@@ -22,7 +22,15 @@ public class UImanger : MonoBehaviour
         MediumGardenUI,
         MediumGardenUpgradeButton,
         SattleliteUI,
-        SattleliteUpgradeButton
+        SattleliteUpgradeButton,
+        WaterPumpUI,
+        WaterPumpUpgradeUi,
+        SolarUI,
+        SolarUpgradeUI,
+        SmallBedUI,
+        SmallBedUpgradeButton,
+        MediumBedUI,
+        MediumBedUpgradeUI
 
     }
 
