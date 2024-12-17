@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 
 public class Sattlelite : MonoBehaviour
 {
-    public bool Sattleliteonline;
+    public bool SatelliteOnline = false;
+    public bool RecondroneActive = false;
+    // public bool SuuplyDrop;
     public TimeManager timeManager;
     public DateTime dateTime;
     public int currentDay;
@@ -15,12 +18,18 @@ public class Sattlelite : MonoBehaviour
     public Globalstat globalstat;
     public InventoryItemPresent inventoryItemPresent;
     public SpriteRenderer spriteRenderer;
+    public Sprite repairedSpriteRenderer;
     private int daycost = 2;
-    public bool isRepairing;
+    public bool isRepairing = false;
     private int npcCost = 1;
     public int finishDayBuildingTime = 0;
     public NpcManager npcManager;
-    public TextMeshProUGUI SattleliteStatusText; // Combined status and hint
+    public TextMeshProUGUI SattleliteStatusText;
+    public TextMeshProUGUI SattleliteWire;
+    public TextMeshProUGUI SattleliteCircuit;
+    public TextMeshProUGUI SattleliteSteel; // Combined status and hint
+    public Image newworkIcon;
+    public Button RepariButton;
     void Start()
     {
         dateTime = timeManager.dateTime;
@@ -28,39 +37,57 @@ public class Sattlelite : MonoBehaviour
 
     void OnMouseDown()
     {
-        uImanger.ToggleUIPanel(UImanger.UIPanel.TunnelUI);
+        uImanger.ToggleUIPanel(UImanger.UIPanel.SattleliteUI);
 
-        UpdateStallelitestatusText();
+        UpdateSattleliteStatusText();
+        UpdateRepairButton();
+        UpdateNewWorkIcon(SpecialistRoleNpc.Network);
     }
     void Update()
     {
         WaitRepair();
         CheckMaintenance();
     }
+    private void UpdateNewWorkIcon(SpecialistRoleNpc requiredSpecialist)
+    {
+        // Check if the required specialist exists
+        bool hasSpecialist = HasRequiredSpecialist(requiredSpecialist);
+
+        if (newworkIcon != null)
+        {
+            newworkIcon.gameObject.SetActive(hasSpecialist); // Show or hide the icon
+        }
+    }
     public void WaitRepair()
     {
-        if (dateTime.day >= finishDayBuildingTime &&  isRepairing)
+        if (dateTime.day >= finishDayBuildingTime && isRepairing)
         {
             isRepairing = false;
-            Sattleliteonline = true;
-            globalstat.sattleliteonline = Sattleliteonline;
+            SatelliteOnline = true;
+            globalstat.SatelliteOnline = SatelliteOnline;
             buildManager.npc += npcCost;
+
+            // Change the sprite to the repaired version
+            if (spriteRenderer != null && repairedSpriteRenderer != null)
+            {
+                spriteRenderer.sprite = repairedSpriteRenderer;
+            }
+
             return;
         }
     }
+
     void CheckMaintenance()
     {
-        if (Sattleliteonline&& !buildManager.iswateractive)
+        if (SatelliteOnline&& !buildManager.iselecticitiesactive)
         {
-            spriteRenderer.enabled = false;
-            Sattleliteonline= false;
-            globalstat.Tunnelaviable = false;
+            SatelliteOnline= false;
+            globalstat.SatelliteOnline = false;
         }
-        else if (Sattleliteonline)
+        else if (SatelliteOnline)
         {
-            spriteRenderer.enabled = false;
-            Sattleliteonline= true;
-            globalstat.Tunnelaviable = true;
+            SatelliteOnline= true;
+            globalstat.SatelliteOnline = true;
         }
     }
     public void InitializeRepair()
@@ -79,45 +106,80 @@ public class Sattlelite : MonoBehaviour
         };
         inventoryItemPresent.RemoveItem(itemDataToRemove2);
         dateTime = timeManager.dateTime;
+        buildManager.steel -= 3;
         finishDayBuildingTime += dateTime.day + daycost;
         buildManager.npc -= npcCost;
-        uImanger.DisableUIPanel(UImanger.UIPanel.ClearingTunnelUI);
-        uImanger.DisableUIPanel(UImanger.UIPanel.TunnelUI);
+        AssignSpecialistToUpgrade(SpecialistRoleNpc.Network);
+        uImanger.DisableUIPanel(UImanger.UIPanel.SattleliteUpgradeButton);
+        uImanger.DisableUIPanel(UImanger.UIPanel.SattleliteUI);
     }
-    private void UpdateStallelitestatusText()
+    private void UpdateSattleliteStatusText()
     {
-        if (!Sattleliteonline && !isRepairing)
+        int currentCircuit = inventoryItemPresent.GetItemCountByID(1020102);
+        int requiredCircuit = 20;
+        int currentWire = inventoryItemPresent.GetItemCountByID(1020103);
+        int requiredWire = 30;
+        int currentSteel = buildManager.steel;
+        int requiredSteel = 3;
+
+        // Update individual material UI
+        SattleliteCircuit.text = $"Circuits: <color=yellow>{currentCircuit}/{requiredCircuit}</color>";
+        SattleliteWire.text = $"Wires: <color=yellow>{currentWire}/{requiredWire}</color>";
+        SattleliteSteel.text = $"Steel: <color=yellow>{currentSteel}/{requiredSteel}</color>";
+
+        // Update the main satellite status text
+        if (!SatelliteOnline && !isRepairing)
         {
-            int currentCircuit = inventoryItemPresent.GetItemCountByID(1020102);
-            int requiredCircuit = 20;
-            int currentWire = inventoryItemPresent.GetItemCountByID(1020103);
-            int requiredWire = 30;
-            int currentsteel = buildManager.steel;
-            int RequieSteel = 3;
-            
-            SattleliteStatusText.text = $"The tunnel is blocked. If we clear it, we might find something useful. Rumor has it the military left supplies here. <color=#FFFF00>Dynamite collected: {currentsteel}/{RequieSteel}</color>";
+            SattleliteStatusText.text =
+                "The satellite is damaged. Once repaired, it can be used to call an airstrike during the night.";
         }
-        else if (isRepairing && !buildManager.iswateractive)
+        else if (isRepairing && !buildManager.iselecticitiesactive)
         {
-            SattleliteStatusText.text = "The tunnel is being cleared, but it's flooded. This might take longer than expected.";
+            SattleliteStatusText.text =
+                "The satellite is currently being repaired, but there’s no power supply. Even if repaired, it cannot be used without electricity.";
         }
-        else if (isRepairing && buildManager.iswateractive)
+        else if (isRepairing && buildManager.iselecticitiesactive)
         {
-            SattleliteStatusText.text = "The tunnel is being cleared, and the water is being drained.";
+            SattleliteStatusText.text =
+                "The satellite is being repaired and we have power. It should be operational soon.";
         }
-        else if (Sattleliteonline && !buildManager.iswateractive)
+        else if (SatelliteOnline && !buildManager.iselecticitiesactive)
         {
-            SattleliteStatusText.text = "The tunnel is open, but it's still flooded with water. We can't explore for supplies yet.";
+            SattleliteStatusText.text =
+                "The satellite is online, but there’s no electricity to power it. Restore power to use its functionality.";
         }
-        else if (Sattleliteonline && buildManager.iswateractive)
+        else if (SatelliteOnline && buildManager.iselecticitiesactive)
         {
-            SattleliteStatusText.text = "The tunnel is now open and clear! It's a safe route for expeditions and supplies are accessible.";
+            SattleliteStatusText.text =
+                "The satellite is fully operational and ready for use.";
         }
         else
         {
-            SattleliteStatusText.text = string.Empty;
+            SattleliteStatusText.text = string.Empty; // Fallback case
         }
     }
+    private void UpdateRepairButton()
+    {
+        int currentCircuit = inventoryItemPresent.GetItemCountByID(1020102);
+        int requiredCircuit = 20;
+        int currentWire = inventoryItemPresent.GetItemCountByID(1020103);
+        int requiredWire = 30;
+        int currentSteel = buildManager.steel;
+        int requiredSteel = 3;
+
+        // Check if sufficient materials are available
+        bool hasSufficientMaterials = currentCircuit >= requiredCircuit &&
+                                    currentWire >= requiredWire &&
+                                    currentSteel >= requiredSteel;
+
+        // Check if a specialist is available
+        bool hasRequiredSpecialist = HasRequiredSpecialist(SpecialistRoleNpc.Network);
+
+        // Update button interactability
+        RepariButton.interactable = hasSufficientMaterials && hasRequiredSpecialist;
+    }
+
+
     private void AssignSpecialistToUpgrade(SpecialistRoleNpc requiredSpecialist)
     {
         // Find the NPC with the required specialist role
@@ -136,4 +198,12 @@ public class Sattlelite : MonoBehaviour
         return npcManager.listNpc.Exists(npc => npc.roleNpc == requiredSpecialist);
     }
 
+}
+// <color=#FFFF00>Dynamite collected: {currentsteel}/{RequieSteel}</color>
+public enum SuuplyDropType
+{
+    FirePower,
+    Chemical,
+    Food,
+    Building
 }
