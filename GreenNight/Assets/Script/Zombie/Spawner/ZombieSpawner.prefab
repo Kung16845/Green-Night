@@ -430,7 +430,7 @@ MonoBehaviour:
       timeUntilNextWave: 50
   - deckName: Riot And FirefighterTeam
     deckDuration: 150
-    deckTier: 1
+    deckTier: 2
     deckID: 601010103
     spawnWaves:
     - laneSpawnConfigs:
@@ -768,52 +768,52 @@ MonoBehaviour:
       - laneID: 1
         zombieSpawnQueue:
         - zombiePrefab: {fileID: 3967098827264922691, guid: 3268839227ded5a4e88aeec54b32c564, type: 3}
-          quantity: 10
+          quantity: 15
           spawnInterval: 1.75
           zombieTier: 2
           mutationType: 0
         - zombiePrefab: {fileID: 3967098827264922691, guid: 3268839227ded5a4e88aeec54b32c564, type: 3}
-          quantity: 2
-          spawnInterval: 5
+          quantity: 1
+          spawnInterval: 3
           zombieTier: 1
           mutationType: 0
         - zombiePrefab: {fileID: 8826066288395687024, guid: d2edecf77f25da047bc61094d6c344a4, type: 3}
-          quantity: 2
-          spawnInterval: 5
+          quantity: 4
+          spawnInterval: 1.25
           zombieTier: 2
           mutationType: 0
         - zombiePrefab: {fileID: 3967098827264922691, guid: 3268839227ded5a4e88aeec54b32c564, type: 3}
           quantity: 5
-          spawnInterval: 5
+          spawnInterval: 1
           zombieTier: 3
           mutationType: 0
       - laneID: 2
         zombieSpawnQueue:
         - zombiePrefab: {fileID: 3967098827264922691, guid: 69598908740a29b4a912e9fc382d1c2d, type: 3}
-          quantity: 10
-          spawnInterval: 6
+          quantity: 20
+          spawnInterval: 2
           zombieTier: 1
           mutationType: 0
       - laneID: 3
         zombieSpawnQueue:
         - zombiePrefab: {fileID: 3967098827264922691, guid: 3268839227ded5a4e88aeec54b32c564, type: 3}
-          quantity: 8
+          quantity: 15
           spawnInterval: 1.75
-          zombieTier: 1
+          zombieTier: 2
           mutationType: 0
         - zombiePrefab: {fileID: 3967098827264922691, guid: 3268839227ded5a4e88aeec54b32c564, type: 3}
-          quantity: 2
-          spawnInterval: 15
+          quantity: 1
+          spawnInterval: 3
           zombieTier: 1
           mutationType: 0
         - zombiePrefab: {fileID: 8826066288395687024, guid: d2edecf77f25da047bc61094d6c344a4, type: 3}
-          quantity: 2
-          spawnInterval: 5
+          quantity: 4
+          spawnInterval: 1.25
           zombieTier: 2
           mutationType: 0
         - zombiePrefab: {fileID: 3967098827264922691, guid: 3268839227ded5a4e88aeec54b32c564, type: 3}
           quantity: 5
-          spawnInterval: 5
+          spawnInterval: 1
           zombieTier: 3
           mutationType: 0
       timeUntilNextWave: 50
@@ -823,10 +823,10 @@ MonoBehaviour:
         - zombiePrefab: {fileID: 3967098827264922691, guid: 3268839227ded5a4e88aeec54b32c564, type: 3}
           quantity: 10
           spawnInterval: 1.75
-          zombieTier: 1
+          zombieTier: 3
           mutationType: 0
         - zombiePrefab: {fileID: 3796076681768479923, guid: 400473ea6fd9f6245b4cf643f064d093, type: 3}
-          quantity: 3
+          quantity: 5
           spawnInterval: 1.5
           zombieTier: 3
           mutationType: 0
@@ -838,12 +838,12 @@ MonoBehaviour:
       - laneID: 2
         zombieSpawnQueue:
         - zombiePrefab: {fileID: 3583349133157957265, guid: bd6188368fd109d4d87743b5c70a7402, type: 3}
-          quantity: 2
-          spawnInterval: 8
+          quantity: 3
+          spawnInterval: 3
           zombieTier: 1
           mutationType: 0
         - zombiePrefab: {fileID: 3796076681768479923, guid: 400473ea6fd9f6245b4cf643f064d093, type: 3}
-          quantity: 3
+          quantity: 5
           spawnInterval: 3
           zombieTier: 3
           mutationType: 0
@@ -873,8 +873,13 @@ MonoBehaviour:
     - laneSpawnConfigs:
       - laneID: 1
         zombieSpawnQueue:
+        - zombiePrefab: {fileID: 1182796759674554525, guid: 971bc0e8238e5b84b995ddb5e7de643e, type: 3}
+          quantity: 2
+          spawnInterval: 1.5
+          zombieTier: 2
+          mutationType: 0
         - zombiePrefab: {fileID: 3440586278236064323, guid: e0adf57d03594614e85bf9a753e9b3d8, type: 3}
-          quantity: 5
+          quantity: 10
           spawnInterval: 1.75
           zombieTier: 2
           mutationType: 0
@@ -887,8 +892,8 @@ MonoBehaviour:
         zombieSpawnQueue:
         - zombiePrefab: {fileID: 8826066288395687024, guid: d2edecf77f25da047bc61094d6c344a4, type: 3}
           quantity: 5
-          spawnInterval: 7
-          zombieTier: 3
+          spawnInterval: 5
+          zombieTier: 2
           mutationType: 0
         - zombiePrefab: {fileID: 2822589981121301368, guid: d6f2e177f50cac44dab49594c8fd156e, type: 3}
           quantity: 8
@@ -897,8 +902,13 @@ MonoBehaviour:
           mutationType: 0
       - laneID: 3
         zombieSpawnQueue:
+        - zombiePrefab: {fileID: 1182796759674554525, guid: 971bc0e8238e5b84b995ddb5e7de643e, type: 3}
+          quantity: 2
+          spawnInterval: 1.5
+          zombieTier: 2
+          mutationType: 0
         - zombiePrefab: {fileID: 3440586278236064323, guid: e0adf57d03594614e85bf9a753e9b3d8, type: 3}
-          quantity: 5
+          quantity: 10
           spawnInterval: 1.75
           zombieTier: 2
           mutationType: 0
@@ -1339,11 +1349,11 @@ MonoBehaviour:
         zombieSpawnQueue:
         - zombiePrefab: {fileID: 8826066288395687024, guid: d2edecf77f25da047bc61094d6c344a4, type: 3}
           quantity: 5
-          spawnInterval: 3
+          spawnInterval: 1.5
           zombieTier: 3
           mutationType: 0
         - zombiePrefab: {fileID: 3967098827264922691, guid: 69598908740a29b4a912e9fc382d1c2d, type: 3}
-          quantity: 15
+          quantity: 25
           spawnInterval: 1.75
           zombieTier: 3
           mutationType: 0
@@ -1356,11 +1366,11 @@ MonoBehaviour:
         zombieSpawnQueue:
         - zombiePrefab: {fileID: 8826066288395687024, guid: d2edecf77f25da047bc61094d6c344a4, type: 3}
           quantity: 5
-          spawnInterval: 3
+          spawnInterval: 1.5
           zombieTier: 3
           mutationType: 0
         - zombiePrefab: {fileID: 3967098827264922691, guid: 69598908740a29b4a912e9fc382d1c2d, type: 3}
-          quantity: 15
+          quantity: 25
           spawnInterval: 1.75
           zombieTier: 3
           mutationType: 0
@@ -1373,10 +1383,158 @@ MonoBehaviour:
         zombieSpawnQueue:
         - zombiePrefab: {fileID: 3796076681768479923, guid: 400473ea6fd9f6245b4cf643f064d093, type: 3}
           quantity: 15
-          spawnInterval: 5
+          spawnInterval: 1.5
           zombieTier: 3
           mutationType: 0
-      timeUntilNextWave: 140
+      timeUntilNextWave: 90
+    - laneSpawnConfigs:
+      - laneID: 1
+        zombieSpawnQueue:
+        - zombiePrefab: {fileID: 1182796759674554525, guid: 971bc0e8238e5b84b995ddb5e7de643e, type: 3}
+          quantity: 2
+          spawnInterval: 1.5
+          zombieTier: 3
+          mutationType: 0
+        - zombiePrefab: {fileID: 3967098827264922691, guid: 69598908740a29b4a912e9fc382d1c2d, type: 3}
+          quantity: 20
+          spawnInterval: 1.75
+          zombieTier: 3
+          mutationType: 0
+      - laneID: 2
+        zombieSpawnQueue:
+        - zombiePrefab: {fileID: 1182796759674554525, guid: 971bc0e8238e5b84b995ddb5e7de643e, type: 3}
+          quantity: 2
+          spawnInterval: 1.5
+          zombieTier: 3
+          mutationType: 0
+        - zombiePrefab: {fileID: 3967098827264922691, guid: 69598908740a29b4a912e9fc382d1c2d, type: 3}
+          quantity: 20
+          spawnInterval: 1.75
+          zombieTier: 3
+          mutationType: 0
+      - laneID: 3
+        zombieSpawnQueue:
+        - zombiePrefab: {fileID: 1182796759674554525, guid: 971bc0e8238e5b84b995ddb5e7de643e, type: 3}
+          quantity: 2
+          spawnInterval: 1.5
+          zombieTier: 3
+          mutationType: 0
+        - zombiePrefab: {fileID: 3967098827264922691, guid: 69598908740a29b4a912e9fc382d1c2d, type: 3}
+          quantity: 20
+          spawnInterval: 1.75
+          zombieTier: 3
+          mutationType: 0
+      timeUntilNextWave: 50
+  - deckName: Unknown
+    deckDuration: 330
+    deckTier: 5
+    deckID: 601010203
+    spawnWaves:
+    - laneSpawnConfigs:
+      - laneID: 1
+        zombieSpawnQueue:
+        - zombiePrefab: {fileID: 3967098827264922691, guid: 3268839227ded5a4e88aeec54b32c564, type: 3}
+          quantity: 15
+          spawnInterval: 1.75
+          zombieTier: 2
+          mutationType: 0
+        - zombiePrefab: {fileID: 3796076681768479923, guid: 400473ea6fd9f6245b4cf643f064d093, type: 3}
+          quantity: 3
+          spawnInterval: 2
+          zombieTier: 3
+          mutationType: 0
+        - zombiePrefab: {fileID: 3967098827264922691, guid: 69598908740a29b4a912e9fc382d1c2d, type: 3}
+          quantity: 30
+          spawnInterval: 1
+          zombieTier: 2
+          mutationType: 0
+      - laneID: 2
+        zombieSpawnQueue:
+        - zombiePrefab: {fileID: 3967098827264922691, guid: 3268839227ded5a4e88aeec54b32c564, type: 3}
+          quantity: 5
+          spawnInterval: 3
+          zombieTier: 1
+          mutationType: 0
+        - zombiePrefab: {fileID: 8826066288395687024, guid: d2edecf77f25da047bc61094d6c344a4, type: 3}
+          quantity: 10
+          spawnInterval: 2
+          zombieTier: 1
+          mutationType: 0
+        - zombiePrefab: {fileID: 2822589981121301368, guid: d6f2e177f50cac44dab49594c8fd156e, type: 3}
+          quantity: 5
+          spawnInterval: 1.75
+          zombieTier: 2
+          mutationType: 0
+        - zombiePrefab: {fileID: 3440586278236064323, guid: e0adf57d03594614e85bf9a753e9b3d8, type: 3}
+          quantity: 5
+          spawnInterval: 2.5
+          zombieTier: 2
+          mutationType: 0
+      - laneID: 3
+        zombieSpawnQueue:
+        - zombiePrefab: {fileID: 3967098827264922691, guid: 69598908740a29b4a912e9fc382d1c2d, type: 3}
+          quantity: 20
+          spawnInterval: 1.557913
+          zombieTier: 1
+          mutationType: 0
+        - zombiePrefab: {fileID: 3583349133157957265, guid: bd6188368fd109d4d87743b5c70a7402, type: 3}
+          quantity: 10
+          spawnInterval: 1
+          zombieTier: 2
+          mutationType: 0
+        - zombiePrefab: {fileID: 3967098827264922691, guid: 3268839227ded5a4e88aeec54b32c564, type: 3}
+          quantity: 15
+          spawnInterval: 1
+          zombieTier: 1
+          mutationType: 0
+      timeUntilNextWave: 120
+    - laneSpawnConfigs:
+      - laneID: 1
+        zombieSpawnQueue:
+        - zombiePrefab: {fileID: 3967098827264922691, guid: 3268839227ded5a4e88aeec54b32c564, type: 3}
+          quantity: 100
+          spawnInterval: 2
+          zombieTier: 2
+          mutationType: 0
+      - laneID: 2
+        zombieSpawnQueue:
+        - zombiePrefab: {fileID: 3967098827264922691, guid: 69598908740a29b4a912e9fc382d1c2d, type: 3}
+          quantity: 20
+          spawnInterval: 5
+          zombieTier: 2
+          mutationType: 0
+        - zombiePrefab: {fileID: 1182796759674554525, guid: 971bc0e8238e5b84b995ddb5e7de643e, type: 3}
+          quantity: 20
+          spawnInterval: 5
+          zombieTier: 2
+          mutationType: 0
+      - laneID: 3
+        zombieSpawnQueue:
+        - zombiePrefab: {fileID: 3796076681768479923, guid: 400473ea6fd9f6245b4cf643f064d093, type: 3}
+          quantity: 5
+          spawnInterval: 10
+          zombieTier: 2
+          mutationType: 0
+        - zombiePrefab: {fileID: 3583349133157957265, guid: bd6188368fd109d4d87743b5c70a7402, type: 3}
+          quantity: 30
+          spawnInterval: 3
+          zombieTier: 2
+          mutationType: 0
+      timeUntilNextWave: 210
+  - deckName: TutorialDeck
+    deckDuration: 180
+    deckTier: 0
+    deckID: 601010001
+    spawnWaves:
+    - laneSpawnConfigs:
+      - laneID: 2
+        zombieSpawnQueue:
+        - zombiePrefab: {fileID: 3967098827264922691, guid: 3441dad9d3d1df24f8ff19ce4fce72a8, type: 3}
+          quantity: 50
+          spawnInterval: 2.5
+          zombieTier: 1
+          mutationType: 0
+      timeUntilNextWave: 180
   persistentMutations: 
   mutationSelectionRules:
   - minSkillPoint: 320
@@ -1384,18 +1542,20 @@ MonoBehaviour:
     availableMutations: 01000000020000000300000004000000
   - minSkillPoint: 225
     mutationsToSelect: 2
-    availableMutations: 01000000020000000300000004000000
+    availableMutations: 03000000010000000200000004000000
   - minSkillPoint: 150
     mutationsToSelect: 1
-    availableMutations: 010000000200000003000000
+    availableMutations: 01000000020000000400000003000000
   - minSkillPoint: 50
     mutationsToSelect: 1
-    availableMutations: 0100000003000000
+    availableMutations: 0300000001000000
   globalMutationType: 0
   mutationApplyRate: 0.568
   useDDA: 1
+  tutorialManager: {fileID: 0}
   startDelayText: {fileID: 0}
-  startDelay: 30
+  Waveannoucer: {fileID: 0}
+  startDelay: 35
   desiredDeckTier: 1
   currentDeckDurationLeft: 0
   totalDurationLeft: 0
@@ -1403,3 +1563,4 @@ MonoBehaviour:
   currentDeckZombiesLeft: 0
   remainingDecks: []
   checkUsingDDA: {fileID: 0}
+  isCompleteSpawned: 0
