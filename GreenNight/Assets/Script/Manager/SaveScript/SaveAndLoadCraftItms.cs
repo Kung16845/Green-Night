@@ -44,13 +44,13 @@ public class SaveAndLoadCraftItms : MonoBehaviour
 
         foreach (CraftingJob itemMedicine in craftManager.MedicineactiveJobs)
         {
-      
+
             dataCollentCraftItems.listMedicineactiveJobs.Add(ConventDataCraftingJobToDataItemCraft(itemMedicine));
         }
 
         foreach (CraftingJob itemMedicine in craftManager.MedicineactiveJobs)
         {
-    
+
             dataCollentCraftItems.listMedicineactiveJobs.Add(ConventDataCraftingJobToDataItemCraft(itemMedicine));
         }
     }
@@ -59,7 +59,7 @@ public class SaveAndLoadCraftItms : MonoBehaviour
         DataItemsCraft dataItemsCraft = new DataItemsCraft();
 
         dataItemsCraft.idItem = itemsCraftingJob.craftingItem.itemID;
-        dataItemsCraft.timeRemaining =itemsCraftingJob.timeRemaining;
+        dataItemsCraft.timeRemaining = itemsCraftingJob.timeRemaining;
         dataItemsCraft.isComplete = itemsCraftingJob.isComplete;
 
         dataItemsCraft.numCraftingSource = (int)itemsCraftingJob.source;
@@ -120,12 +120,9 @@ public class SaveAndLoadCraftItms : MonoBehaviour
             {
                 foreach (DataItemsCraft dataItem in dataCollentCraftItems.listMedicineactiveJobs)
                 {
-                    CraftingItem newCraftingItem = new CraftingItem();
 
-                    CraftingJob newCraftingItemJob = new CraftingJob(newCraftingItem, dataItem.timeRemaining
-                    , (CraftingSource)dataItem.numCraftingSource);
 
-                    craftManager.MedicineactiveJobs.Add(newCraftingItemJob);
+                    // craftManager.MedicineactiveJobs.Add(newCraftingItemJob);
                 }
             }
         }
@@ -137,10 +134,15 @@ public class SaveAndLoadCraftItms : MonoBehaviour
             dataCollentCraftItems.listChemicalactiveJobs = new List<DataItemsCraft>();
         }
     }
-    // public CraftingJob ConventDataItemCraftToDataCraftingJob(DataItemsCraft dataItemsCraft)
-    // {
-    //     return 
-    // }
+    public CraftingJob ConventDataItemCraftToDataCraftingJob(DataItemsCraft dataItemsCraft)
+    {
+        CraftingItem newCraftingItem = new CraftingItem();
+        // newCraftingItem
+        CraftingJob newCraftingItemJob = new CraftingJob(newCraftingItem, dataItemsCraft.timeRemaining
+        , (CraftingSource)dataItemsCraft.numCraftingSource);
+
+        return newCraftingItemJob;
+    }
     public void ResetDataCraftItems()
     {
         dataCollentCraftItems = new DataCollentCraftItems();
