@@ -27932,6 +27932,7 @@ Transform:
   - {fileID: 1211882391}
   - {fileID: 825417874}
   - {fileID: 741525833}
+  - {fileID: 1170278000}
   - {fileID: 1553585330}
   - {fileID: 725400159}
   - {fileID: 1890103466}
@@ -42859,6 +42860,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1167214564}
   m_CullTransparentMesh: 1
+--- !u!1 &1170277999
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1170278000}
+  m_Layer: 0
+  m_Name: Save Resouce
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1170278000
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1170277999}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 741425701}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1171667429
 GameObject:
   m_ObjectHideFlags: 0
@@ -57432,6 +57464,7 @@ MonoBehaviour:
   npcManager: {fileID: 2063404514}
   managerSceneEX: {fileID: 1899714283}
   outpostSystem: {fileID: 1392033117}
+  craftManager: {fileID: 0}
   saveAndLoadTimemanager: {fileID: 1720518020}
   saveAndLoadLIstItemsDataBoxes: {fileID: 949315569}
   saveAndLoadListNpc: {fileID: 273439451}
@@ -57440,6 +57473,8 @@ MonoBehaviour:
   saveAndLoadListDoorStatusSceneEX: {fileID: 606755760}
   saveAndLoadOutPostReward: {fileID: 1211882392}
   saveAndLoadBuildManager: {fileID: 825417875}
+  saveAndLoadResoure: {fileID: 0}
+  saveAndLoadCraftItms: {fileID: 0}
 --- !u!1 &1557188244
 GameObject:
   m_ObjectHideFlags: 0
@@ -65936,7 +65971,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f696126f9098a8a4f83318bc48c5651d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeCraftingJobs: []
+  activeCraftingJobs:
+  - craftingItem:
+      itemID: 0
+      craftingTime: 0
+      recipeItems: []
+      Ammoneeded: 0
+      Fuelneeded: 0
+      Steelneeded: 0
+      Plankneeded: 0
+      Foodneeded: 0
+      amountProduced: 0
+      itemName: 
+      itemIcon: {fileID: 0}
+      rarity: 0
+    timeRemaining: 0
+    isComplete: 0
+    source: 0
   ChemicalactiveJobs: []
   MedicineactiveJobs: []
   inventoryItemPresent: {fileID: 0}

@@ -249,7 +249,7 @@ public class SaveAndLoadBuildManager : MonoBehaviour
 }
 [Serializable]
 public class DataColletBuilding
-{
+{   
     public List<InfoBuilding> listInfoBuilding;
     public List<InfoBuildSmallGarden> listinfoBuildSmallGardens;
     public List<InfoBuildMediumGarden> listinfoBuildMediumGardens;
