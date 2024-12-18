@@ -67,13 +67,12 @@ public class PatientUIItem : MonoBehaviour
 
     }
 
-    public void InitializeButton(System.Action onClickAction, string buttonText)
+    public void InitializeButton(System.Action onClickAction)
     {
         if (actionButton != null)
         {
             actionButton.onClick.RemoveAllListeners();
             actionButton.onClick.AddListener(() => onClickAction());
-            actionButton.GetComponentInChildren<TextMeshProUGUI>().text = buttonText;
         }
     }
 }

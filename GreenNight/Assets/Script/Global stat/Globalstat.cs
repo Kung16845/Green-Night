@@ -33,7 +33,9 @@ public class Globalstat : MonoBehaviour
     public float illResistance;
     public float Npcchange;
     public int activeBed;
-    public int activeCureBed;
+    public int Totalcurebed;
+    public int Activecurebed;
+    public int Usedcurebed;
     public float Discontent;
     public float Growingspeed;
     public int CraftingSlot;
@@ -84,11 +86,12 @@ public class Globalstat : MonoBehaviour
     //Active Curebed
     public void IncreaseCurebed(int Curebedcontribution)
     {
-        activeCureBed += Curebedcontribution;
+        Totalcurebed += Curebedcontribution;
     }
     public void UpdateCurebedContribution(int oldContribution, int newContribution)
     {
-        activeCureBed = activeCureBed + newContribution - oldContribution;
+        Totalcurebed = Totalcurebed + newContribution - oldContribution;
+        Activecurebed += newContribution; 
     }
     //Discontent
     public void DecreaseDiscontent(float discontentContribution)

@@ -18,6 +18,7 @@ public class ClinicUI : MonoBehaviour
     public UImanger uImanger;
     private PatienManger patienManger;
     private NpcManager npcManager;
+    private Globalstat globalstat;
 
     // Keep a reference of injured NPCs currently displayed for selection
     private List<NpcClass> displayedInjuredNpcs = new List<NpcClass>();
@@ -28,6 +29,8 @@ public class ClinicUI : MonoBehaviour
         npcManager = FindObjectOfType<NpcManager>();
         patienManger = FindObjectOfType<PatienManger>();
         clinic = FindObjectOfType<Clinic>();
+        globalstat = FindObjectOfType<Globalstat>();
+        globalstat.Activecurebed = globalstat.Totalcurebed - globalstat.Usedcurebed; 
         UpdateUI();
     }
 
@@ -44,13 +47,12 @@ public class ClinicUI : MonoBehaviour
         foreach (Transform child in SelectParent)
             Destroy(child.gameObject);
 
-        int totalSlots = 2; 
+        int totalSlots = globalstat.Activecurebed; 
         int displayedCount = 0;
 
         // Display currently healing patients in the clinic
          foreach (var patient in patienManger.activeHealingClinicPatient)
         {
-            if (displayedCount >= totalSlots) break;
 
             // Instantiate a select slot for this patient
 
@@ -125,7 +127,7 @@ public class ClinicUI : MonoBehaviour
                 uiItem.SetData(npcData.nameNpc, faceSprite, npcData.hp);
 
                 // Initialize button with a valid Action and label
-                uiItem.InitializeButton(() => AddPatientToHealing(npcData.idnpc), "Add Patient");
+                uiItem.InitializeButton(() => AddPatientToHealing(npcData.idnpc));
             }
 
             displayedInjuredNpcs.Add(npcData);
@@ -200,16 +202,14 @@ public class ClinicUI : MonoBehaviour
     }
     public void OpenApplyMedicineUI()
     {
-        // Display patients currently healing
+        Debug.Log("OpenMedicine");
         DisplayPatientsWithAction((uiItem, patient) =>
         {
-            int medicineItemID = 1001; // Replace with actual medicine item ID
+            int medicineItemID = 1020122; // Replace with actual medicine item ID
             if (InventoryItemPresent.Instance.HasItem(medicineItemID))
             {
-                uiItem.InitializeButton(() =>
-                {
-                    ApplyMedicineToPatient(patient, medicineItemID);
-                }, "Apply Medicine");
+                Debug.Log("HasPIll");
+                uiItem.InitializeButton(() =>ApplyMedicineToPatient(patient, medicineItemID));
             }
         });
     }
@@ -219,13 +219,10 @@ public class ClinicUI : MonoBehaviour
         // Display patients currently healing
         DisplayPatientsWithAction((uiItem, patient) =>
         {
-            int bandageItemID = 1002; // Replace with actual bandage item ID
+            int bandageItemID = 1020121; // Replace with actual bandage item ID
             if (InventoryItemPresent.Instance.HasItem(bandageItemID))
             {
-                uiItem.InitializeButton(() =>
-                {
-                    ApplyBandageToPatient(patient, bandageItemID);
-                }, "Apply Bandage");
+                uiItem.InitializeButton(() =>ApplyBandageToPatient(patient, bandageItemID));
             }
         });
     }
@@ -249,7 +246,7 @@ public class ClinicUI : MonoBehaviour
     private void DisplayPatientsWithAction(System.Action<PatientUIItem, CurePatient> setupAction)
     {
         // Clear existing UI
-        foreach (Transform child in DisplayParent)
+        foreach (Transform child in SelectParent)
         {
             Destroy(child.gameObject);
         }
@@ -257,7 +254,7 @@ public class ClinicUI : MonoBehaviour
         // Display each patient with the specified action
         foreach (var patient in patienManger.activeHealingClinicPatient)
         {
-            GameObject patientObj = Instantiate(PatienPrefab, DisplayParent);
+            GameObject patientObj = Instantiate(PatienPrefab, SelectParent);
             PatientUIItem uiItem = patientObj.GetComponent<PatientUIItem>();
 
             if (uiItem != null)
