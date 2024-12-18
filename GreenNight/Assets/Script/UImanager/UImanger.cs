@@ -30,7 +30,11 @@ public class UImanger : MonoBehaviour
         SmallBedUI,
         SmallBedUpgradeButton,
         MediumBedUI,
-        MediumBedUpgradeUI
+        MediumBedUpgradeUI,
+        ClinicUI,
+        ClinicUpgradeUI,
+        ClinicInhuredNpcUI,
+
 
     }
 
@@ -45,6 +49,7 @@ public class UImanger : MonoBehaviour
     private Dictionary<UIPanel, GameObject> uiPanels;
 
     public Globalstat globalstat;
+    public List<GameObject> objectsToDisableColliders;
     private bool isExpeditionUIActive;
 
     void Awake()

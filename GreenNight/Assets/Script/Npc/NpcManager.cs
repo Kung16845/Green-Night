@@ -215,5 +215,44 @@ public class NpcManager : MonoBehaviour
             Debug.LogWarning($"No worker found with specialist role: {specialistToRemove} in the working list.");
         }
     }
+    public void MoveNpcToWorking(int npcId)
+    {
+        // Find the NPC in the normal list
+        NpcClass npcToMove = listNpc.FirstOrDefault(npc => npc.idnpc == npcId);
+        if (npcToMove != null)
+        {
+            // Remove from normal list
+            listNpc.Remove(npcToMove);
+            // Add to working list
+            listNpcWorking.Add(npcToMove);
+            // Set isActive to false
+            npcToMove.isActive = false;
+            Debug.Log($"NPC {npcToMove.nameNpc} (ID: {npcId}) moved to working list and set as inactive.");
+        }
+        else
+        {
+            Debug.LogWarning($"No NPC with ID {npcId} found in the normal NPC list.");
+        }
+    }
+
+    public void MoveNpcBackToNormalList(int npcId)
+    {
+        // Find the NPC in the working list
+        NpcClass npcToMoveBack = listNpcWorking.FirstOrDefault(npc => npc.idnpc == npcId);
+        if (npcToMoveBack != null)
+        {
+            // Remove from working list
+            listNpcWorking.Remove(npcToMoveBack);
+            // Add back to normal list
+            listNpc.Add(npcToMoveBack);
+            // Set isActive to true
+            npcToMoveBack.isActive = true;
+            Debug.Log($"NPC {npcToMoveBack.nameNpc} (ID: {npcId}) moved back to normal list and set as active.");
+        }
+        else
+        {
+            Debug.LogWarning($"No NPC with ID {npcId} found in the working list.");
+        }
+    }
 
 }

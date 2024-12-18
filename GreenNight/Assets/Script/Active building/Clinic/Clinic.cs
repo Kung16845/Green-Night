@@ -7,12 +7,17 @@ public class Clinic : MonoBehaviour
     public TimeManager timeManager;
     public DateTime dateTime;
     public BuildManager buildManager;
-    public Building building;
+    public int currentDay;
     public UpgradeBuilding upgradeBuilding;
     public Globalstat globalstat;
+    public Building building;
+    public UImanger uImanger;
+    public UpgradeUi upgradeUi;
+    private PatienManger patienManger;
+    public float Healingrate;
 
     private float currentDiscontentContribution = 0f;
-    private int CurrentActiveCurebed = 0;
+    public int CurrentActiveCurebed = 0;
     private int previousLevel = 0;
 
     private bool abilitiesApplied = false; // Ensure abilities apply only once
@@ -22,8 +27,10 @@ public class Clinic : MonoBehaviour
         timeManager = FindObjectOfType<TimeManager>();
         globalstat = FindObjectOfType<Globalstat>();
         buildManager = FindObjectOfType<BuildManager>();
-        building = GetComponent<Building>();
+        building = FindObjectOfType<Building>();
         upgradeBuilding = GetComponent<UpgradeBuilding>();
+        patienManger = FindObjectOfType<PatienManger>();
+        uImanger = FindObjectOfType<UImanger>();
         dateTime = timeManager.dateTime;
 
         previousLevel = upgradeBuilding.currentLevel; // Sync level on start
@@ -43,8 +50,24 @@ public class Clinic : MonoBehaviour
             UpgradeAbilities();
             previousLevel = upgradeBuilding.currentLevel;
         }
+        patienManger.UpdateJobs(patienManger.activeHealingClinicPatient);
     }
-
+    void OnMouseDown()
+    {
+        if (building.isfinsih && !upgradeBuilding.isUpgradBuilding)
+        {
+            uImanger.ToggleUIPanel(UImanger.UIPanel.ClinicUI);
+            if (upgradeBuilding.currentLevel == upgradeBuilding.maxLevel)
+            {
+                uImanger.DisableUIPanel(UImanger.UIPanel.ClinicUpgradeUI);
+            }
+        }
+    }
+    public void AssignUpgradeData()
+    {
+        upgradeUi = FindObjectOfType<UpgradeUi>();
+        upgradeUi.Initialize(upgradeBuilding);
+    }
     void ApplyAbilities()
     {
         // Get the current contributions based on the level
