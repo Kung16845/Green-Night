@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public TimeManager timeManager;
     public BuildManager buildManager;
     public InventoryItemPresent inventoryItemPresent;
+    public DailyGive dailyGive;
     public ExpenditionManager expenditionManager;
     public Globalstat globalstat;
     public NpcManager npcManager;
@@ -21,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Script Save and Load Game")]
     public SaveAndLoadTimemanager saveAndLoadTimemanager;
-    public SaveAndLoadLIstItemsDataBoxes saveAndLoadLIstItemsDataBoxes;
+    public SaveAndLoadLIstItemsDataBoxesAndDailyGive saveAndLoadLIstItemsDataBoxes;
     public SaveAndLoadListNpc saveAndLoadListNpc;
     public SaveAndLoadExpendition saveAndLoadExpendition;
     public SaveDataDDA saveDataDDA;
@@ -30,11 +31,13 @@ public class GameManager : MonoBehaviour
     public SaveAndLoadBuildManager saveAndLoadBuildManager;
     public SaveAndLoadResoure saveAndLoadResoure;
     public SaveAndLoadCraftItms saveAndLoadCraftItms;
+    public SaveAndLoadTunnutAndBroken saveAndLoadTunnutAndBroken;
     private void Awake()
     {
         timeManager = FindObjectOfType<TimeManager>();
         buildManager = FindObjectOfType<BuildManager>();
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
+        dailyGive = FindObjectOfType<DailyGive>();
         expenditionManager = FindObjectOfType<ExpenditionManager>();
         globalstat = FindObjectOfType<Globalstat>();
         npcManager = FindObjectOfType<NpcManager>();
@@ -47,7 +50,7 @@ public class GameManager : MonoBehaviour
     {
         saveAndLoadExpendition.ResetDataUIEX();
         saveAndLoadListNpc.ResetDataListNpc();
-        saveAndLoadLIstItemsDataBoxes.ResetDataListItemBoxes();
+        saveAndLoadLIstItemsDataBoxes.ResetDataListItemBoxesAndDailyGive();
         saveDataDDA.ResetDataDDA();
         saveAndLoadListDoorStatusSceneEX.ResetDataListDoorStatus();
         saveAndLoadOutPostReward.ResetDataOutPostReward();
@@ -56,11 +59,13 @@ public class GameManager : MonoBehaviour
         saveAndLoadResoure.ResetDataResoure();
         saveAndLoadCraftItms.ResetDataCraftItems();
         npcManager.StartGameCreateGropNpx();
+        saveAndLoadTunnutAndBroken.ResetDataTunnutAndBroken();
+        
     }
     public void SaveGame()
     {
         saveAndLoadListNpc.SaveListNpc();
-        saveAndLoadLIstItemsDataBoxes.SaveListItemsDataBoxes();
+        saveAndLoadLIstItemsDataBoxes.SaveListItemsDataBoxesAndDailyGive();
         saveAndLoadExpendition.SaveUIExpemdition();
         saveAndLoadListDoorStatusSceneEX.SaveDataListDoorStatus();
         saveAndLoadOutPostReward.SaveDataOutPostReward();
@@ -69,11 +74,12 @@ public class GameManager : MonoBehaviour
         saveAndLoadBuildManager.SaveBuildInScenes();
         saveAndLoadResoure.SaveDataResoure();
         saveAndLoadCraftItms.SaveDataCraftItems();
+        saveAndLoadTunnutAndBroken.SaveDataTunnutAndBroken();
     }
     public void LoadGane()
     {
         saveAndLoadListNpc.LoadDataListNpc();
-        saveAndLoadLIstItemsDataBoxes.LoadDataListItemDataBoxes();
+        saveAndLoadLIstItemsDataBoxes.LoadDataListItemDataBoxesAndDailyGive();
         saveAndLoadExpendition.LoadDataUIExFromJsonToScriptData();
         saveDataDDA.LoadDataDDAFromJsonToScriptData();
         saveAndLoadListDoorStatusSceneEX.LoadDataListDoorStatus();
@@ -82,6 +88,7 @@ public class GameManager : MonoBehaviour
         saveAndLoadBuildManager.LoadBuildInScenes();
         saveAndLoadResoure.LoadDataResore();
         saveAndLoadCraftItms.LoadDataCraftItems();
+        saveAndLoadTunnutAndBroken.LoadDataTunnutAndBroken();
     }
     public void QuitGame()
     {

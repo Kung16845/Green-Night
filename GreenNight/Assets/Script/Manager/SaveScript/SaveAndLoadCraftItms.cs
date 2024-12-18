@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System;
+using System.Linq;
 
 public class SaveAndLoadCraftItms : MonoBehaviour
 {
@@ -92,37 +93,44 @@ public class SaveAndLoadCraftItms : MonoBehaviour
 
             if (dataCollentCraftItems.listActiveCraftingJobs.Count > 0)
             {
-                foreach (DataItemsCraft dataItem in dataCollentCraftItems.listActiveCraftingJobs)
+                foreach (DataItemsCraft dataItemCraft in dataCollentCraftItems.listActiveCraftingJobs)
                 {
                     CraftingItem newCraftingItem = new CraftingItem();
+                    newCraftingItem = listCrafttingWorkShop.FirstOrDefault(item => item.itemID == dataItemCraft.idItem);
 
-                    CraftingJob newCraftingItemJob = new CraftingJob(newCraftingItem, dataItem.timeRemaining
-                    , (CraftingSource)dataItem.numCraftingSource);
-
-                    craftManager.activeCraftingJobs.Add(newCraftingItemJob);
+                    craftManager.MedicineactiveJobs.Add(ConventDataItemCraftToDataCraftingJob(dataItemCraft, newCraftingItem));
                 }
             }
 
             if (dataCollentCraftItems.listChemicalactiveJobs.Count > 0)
             {
-                foreach (DataItemsCraft dataItem in dataCollentCraftItems.listChemicalactiveJobs)
+                foreach (DataItemsCraft dataItemCraft in dataCollentCraftItems.listChemicalactiveJobs)
                 {
                     CraftingItem newCraftingItem = new CraftingItem();
+                    newCraftingItem = listCrafttingChemical.FirstOrDefault(item => item.itemID == dataItemCraft.idItem);
 
-                    CraftingJob newCraftingItemJob = new CraftingJob(newCraftingItem, dataItem.timeRemaining
-                    , (CraftingSource)dataItem.numCraftingSource);
-
-                    craftManager.ChemicalactiveJobs.Add(newCraftingItemJob);
+                    craftManager.MedicineactiveJobs.Add(ConventDataItemCraftToDataCraftingJob(dataItemCraft, newCraftingItem));
                 }
             }
 
             if (dataCollentCraftItems.listMedicineactiveJobs.Count > 0)
             {
-                foreach (DataItemsCraft dataItem in dataCollentCraftItems.listMedicineactiveJobs)
+                foreach (DataItemsCraft dataItemCraft in dataCollentCraftItems.listMedicineactiveJobs)
                 {
+                    CraftingItem newCraftingItem = new CraftingItem();
+                    newCraftingItem = listCrafttingMedicine.FirstOrDefault(item => item.itemID == dataItemCraft.idItem);
 
+                    craftManager.MedicineactiveJobs.Add(ConventDataItemCraftToDataCraftingJob(dataItemCraft, newCraftingItem));
+                }
+            }
+            if(dataCollentCraftItems.listCrafttingMoonShine.Count > 0)
+            {
+                foreach (DataItemsCraft dataItemCraft in dataCollentCraftItems.listCrafttingMoonShine)
+                {
+                    CraftingItem newCraftingItem = new CraftingItem();
+                    newCraftingItem = listCrafttingMoonShine.FirstOrDefault(item => item.itemID == dataItemCraft.idItem);
 
-                    // craftManager.MedicineactiveJobs.Add(newCraftingItemJob);
+                    craftManager.MedicineactiveJobs.Add(ConventDataItemCraftToDataCraftingJob(dataItemCraft, newCraftingItem));
                 }
             }
         }
@@ -134,10 +142,9 @@ public class SaveAndLoadCraftItms : MonoBehaviour
             dataCollentCraftItems.listChemicalactiveJobs = new List<DataItemsCraft>();
         }
     }
-    public CraftingJob ConventDataItemCraftToDataCraftingJob(DataItemsCraft dataItemsCraft)
+    public CraftingJob ConventDataItemCraftToDataCraftingJob(DataItemsCraft dataItemsCraft, CraftingItem newCraftingItem)
     {
-        CraftingItem newCraftingItem = new CraftingItem();
-        // newCraftingItem
+
         CraftingJob newCraftingItemJob = new CraftingJob(newCraftingItem, dataItemsCraft.timeRemaining
         , (CraftingSource)dataItemsCraft.numCraftingSource);
 

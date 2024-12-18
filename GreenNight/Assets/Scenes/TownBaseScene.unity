@@ -13268,6 +13268,10 @@ PrefabInstance:
       propertyPath: inventoryItemPresent
       value: 
       objectReference: {fileID: 483800078}
+    - target: {fileID: 7735417185392816751, guid: 9254c0465025f954d86d5d9ba8bdcb76, type: 3}
+      propertyPath: listItemsTogiveDaily.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -21492,7 +21496,7 @@ GameObject:
   - component: {fileID: 567217297}
   - component: {fileID: 567217296}
   m_Layer: 5
-  m_Name: Test Load Build
+  m_Name: Test Load TunnutAndBroken
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21563,9 +21567,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 825417875}
-        m_TargetAssemblyTypeName: SaveAndLoadBuildManager, Assembly-CSharp
-        m_MethodName: LoadBuildInScenes
+      - m_Target: {fileID: 741525834}
+        m_TargetAssemblyTypeName: SaveAndLoadTunnutAndBroken, Assembly-CSharp
+        m_MethodName: LoadDataTunnutAndBroken
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -35949,8 +35953,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataCollentListItemsBoxes:
     listItemBoxes: []
+    listItemsDailyGive: []
   gameManager: {fileID: 1553585331}
   inventoryItemPresent: {fileID: 483800078}
+  dailyGive: {fileID: 341224663}
   savePathDataListItemsBoxes: 
 --- !u!1 &952860721
 GameObject:
@@ -45785,7 +45791,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Load Build
+  m_text: Load TunnutAndBroken
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -57806,6 +57812,7 @@ MonoBehaviour:
   timeManager: {fileID: 725400160}
   buildManager: {fileID: 1890103467}
   inventoryItemPresent: {fileID: 483800078}
+  dailyGive: {fileID: 341224663}
   expenditionManager: {fileID: 1960134154}
   globalstat: {fileID: 1484128885}
   npcManager: {fileID: 2063404514}
@@ -57822,6 +57829,7 @@ MonoBehaviour:
   saveAndLoadBuildManager: {fileID: 825417875}
   saveAndLoadResoure: {fileID: 1170278001}
   saveAndLoadCraftItms: {fileID: 203286839}
+  saveAndLoadTunnutAndBroken: {fileID: 741525834}
 --- !u!1 &1557188244
 GameObject:
   m_ObjectHideFlags: 0
@@ -65173,7 +65181,7 @@ GameObject:
   - component: {fileID: 1772877298}
   - component: {fileID: 1772877297}
   m_Layer: 5
-  m_Name: Test Save Build
+  m_Name: Test Save TunnutAndBroken
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65244,9 +65252,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 825417875}
-        m_TargetAssemblyTypeName: SaveAndLoadBuildManager, Assembly-CSharp
-        m_MethodName: SaveBuildInScenes
+      - m_Target: {fileID: 741525834}
+        m_TargetAssemblyTypeName: SaveAndLoadTunnutAndBroken, Assembly-CSharp
+        m_MethodName: SaveDataTunnutAndBroken
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -78059,7 +78067,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Save Build
+  m_text: Save TunnutAndBroken
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

@@ -4,25 +4,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Linq;
-public class SaveAndLoadLIstItemsDataBoxes : MonoBehaviour
+public class SaveAndLoadLIstItemsDataBoxesAndDailyGive : MonoBehaviour
 {
     public DataCollentListItemsBoxes dataCollentListItemsBoxes;
     public GameManager gameManager;
     public InventoryItemPresent inventoryItemPresent;
+    public DailyGive dailyGive;
     [SerializeField] private string savePathDataListItemsBoxes;
     private void Start()
     {
         savePathDataListItemsBoxes = Path.Combine(Application.dataPath, "dataListItemsDataBoxes.json");
         gameManager = FindObjectOfType<GameManager>();
         inventoryItemPresent = gameManager.inventoryItemPresent;
+        dailyGive = gameManager.dailyGive;
     }
-    public void SaveListItemsDataBoxes()
+    public void SaveListItemsDataBoxesAndDailyGive()
     {
         dataCollentListItemsBoxes.listItemBoxes = inventoryItemPresent.listItemsDataBox;
+        dataCollentListItemsBoxes.listItemsDailyGive = dailyGive.listItemsTogiveDaily;
         string json = JsonUtility.ToJson(dataCollentListItemsBoxes,true);
         File.WriteAllText(savePathDataListItemsBoxes,json);
     }
-    public void LoadDataListItemDataBoxes()
+    public void LoadDataListItemDataBoxesAndDailyGive()
     {
         if(File.Exists(savePathDataListItemsBoxes))
         {
@@ -35,7 +38,7 @@ public class SaveAndLoadLIstItemsDataBoxes : MonoBehaviour
             dataCollentListItemsBoxes = new DataCollentListItemsBoxes();
         }
     }
-    public void ResetDataListItemBoxes()
+    public void ResetDataListItemBoxesAndDailyGive()
     {
         dataCollentListItemsBoxes = new DataCollentListItemsBoxes();
         string json = JsonUtility.ToJson(dataCollentListItemsBoxes,true);
@@ -46,4 +49,5 @@ public class SaveAndLoadLIstItemsDataBoxes : MonoBehaviour
 public class DataCollentListItemsBoxes
 {
     public List<ItemData> listItemBoxes;
+    public List<ItemData> listItemsDailyGive;
 }
