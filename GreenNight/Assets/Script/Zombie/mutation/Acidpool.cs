@@ -13,7 +13,13 @@ public class AcidPool : MonoBehaviour
     private Dictionary<Zombie, Coroutine> zombieDamageCoroutines = new Dictionary<Zombie, Coroutine>();
     private Coroutine barrierDamageCoroutine;
     private Barrier barrier;
-
+    private Collider2D collider2D;
+    
+    void Start()
+    {
+        collider2D = GetComponent<Collider2D>();
+        StartCoroutine(DestroyAfterDelay(0.5f));
+    }
     public void Initialize(float barrierDamage, float zombieDamage, float duration, float radius, float interval)
     {
         this.barrierDamagePerTick = barrierDamage;
@@ -131,5 +137,12 @@ public class AcidPool : MonoBehaviour
             StopCoroutine(barrierDamageCoroutine);
             barrierDamageCoroutine = null;
         }
+    }
+     private IEnumerator DestroyAfterDelay(float Delay)
+    {
+        yield return new WaitForSeconds(Delay);
+        collider2D.enabled = false;
+        yield return new WaitForSeconds(0.60f);
+        Destroy(this.gameObject);
     }
 }

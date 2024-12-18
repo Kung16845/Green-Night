@@ -11,11 +11,13 @@ public class ChemCraftingController : MonoBehaviour
     public GameObject craftingSlotPrefab; // Prefab for crafting slot
     public int maxCraftingSlots = 3; // Max number of crafting slots
     public Button confirmCraftingButton;
+    public Globalstat globalstat;
     private List<GameObject> activeCraftingSlots = new List<GameObject>();
     
 
     void Start()
     {
+        globalstat = FindObjectOfType<Globalstat>();
         if (confirmCraftingButton != null)
         {
             confirmCraftingButton.onClick.AddListener(OnConfirmCraftingButtonClicked);
@@ -82,5 +84,18 @@ public class ChemCraftingController : MonoBehaviour
             activeCraftingSlots.Remove(slotObject);
             Destroy(slotObject);
         }
+    }
+     public void UpdateCraftingSlotUI()
+    {
+        if (confirmCraftingButton != null)
+        {
+            confirmCraftingButton.interactable = globalstat.ChemicalCraftingSlot > 0;
+        }
+        else
+             confirmCraftingButton.interactable = false;
+    }
+    void Update()
+    {
+        UpdateCraftingSlotUI(); 
     }
 }

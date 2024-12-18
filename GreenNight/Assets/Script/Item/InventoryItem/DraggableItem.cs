@@ -17,17 +17,21 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     // Reference to InventoryItemPresent
     private InventoryItemPresent inventoryItemPresent;
+    private UIInventory uIInventory;
     private void Start()
     {
         inventoryItemPresent = FindAnyObjectByType<InventoryItemPresent>();
+        uIInventory = FindAnyObjectByType<UIInventory>();
     }
 
     
     public void OnBeginDrag(PointerEventData eventData)
     {
+        // Store the parent transform
         parentAfterDray = transform.parent;
         parentBeforeDray = parentAfterDray.transform;
 
+        // Temporarily re-parent the dragged item to the root
         transform.SetParent(transform.root);
         transform.SetAsLastSibling();
         imageItem.raycastTarget = false;
@@ -47,11 +51,25 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             ItemWeapon weapon = itemClass as ItemWeapon;
             Ammotype weaponAmmoType = weapon.ammoType;
 
-            // Highlight the corresponding ammo items in the inventory
+            // Highlight the weapon itself
+            HighlightItem(transform, Color.yellow);
+
+            // Highlight the corresponding ammo items in the inventory UI
             inventoryItemPresent.HighlightAmmoItems(weaponAmmoType);
+
+            // Highlight items in listInvenrotySlotsUI
+            uIInventory.HighlightItemsInSlotsUI(weaponAmmoType);
         }
     }
 
+    private void HighlightItem(Transform itemTransform, Color highlightColor)
+    {
+        Image itemImage = itemTransform.GetComponentInChildren<Image>();
+        if (itemImage != null)
+        {
+            itemImage.color = highlightColor;
+        }
+    }
 
     public void OnDrag(PointerEventData eventData)
     {
@@ -68,6 +86,11 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         {
             inventoryItemPresent.ResetAmmoHighlighting();
         }
-        
+        Image itemImage = GetComponentInChildren<Image>();
+        if (itemImage != null)
+        {
+            itemImage.color = Color.white;
+        }
+         uIInventory.ResetHighlightInSlotsUI();
     }
 }

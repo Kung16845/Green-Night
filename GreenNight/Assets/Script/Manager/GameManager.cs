@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public NpcManager npcManager;
     public ManagerSceneEX managerSceneEX;
     public OutpostSystem outpostSystem;
+    public CraftManager craftManager;
 
     [Header("Script Save and Load Game")]
     public SaveAndLoadTimemanager saveAndLoadTimemanager;
@@ -26,6 +27,9 @@ public class GameManager : MonoBehaviour
     public SaveDataDDA saveDataDDA;
     public SaveAndLoadListDoorStatusSceneEX saveAndLoadListDoorStatusSceneEX;
     public SaveAndLoadOutPostReward saveAndLoadOutPostReward;
+    public SaveAndLoadBuildManager saveAndLoadBuildManager;
+    public SaveAndLoadResoure saveAndLoadResoure;
+    public SaveAndLoadCraftItms saveAndLoadCraftItms;
     private void Awake()
     {
         timeManager = FindObjectOfType<TimeManager>();
@@ -36,6 +40,8 @@ public class GameManager : MonoBehaviour
         npcManager = FindObjectOfType<NpcManager>();
         managerSceneEX = FindObjectOfType<ManagerSceneEX>();
         outpostSystem = FindObjectOfType<OutpostSystem>();
+        buildManager = FindObjectOfType<BuildManager>();
+        craftManager = FindObjectOfType<CraftManager>();
     }
     public void NewGame()
     {
@@ -46,6 +52,9 @@ public class GameManager : MonoBehaviour
         saveAndLoadListDoorStatusSceneEX.ResetDataListDoorStatus();
         saveAndLoadOutPostReward.ResetDataOutPostReward();
         saveAndLoadTimemanager.ResetDataTime();
+        saveAndLoadBuildManager.ResetDataBuilding();
+        saveAndLoadResoure.ResetDataResoure();
+        saveAndLoadCraftItms.ResetDataCraftItems();
         npcManager.StartGameCreateGropNpx();
     }
     public void SaveGame()
@@ -57,6 +66,9 @@ public class GameManager : MonoBehaviour
         saveAndLoadOutPostReward.SaveDataOutPostReward();
         // saveDataDDA.AddDataDDAAndSave();
         saveAndLoadTimemanager.SaveDataTime();
+        saveAndLoadBuildManager.SaveBuildInScenes();
+        saveAndLoadResoure.SaveDataResoure();
+        saveAndLoadCraftItms.SaveDataCraftItems();
     }
     public void LoadGane()
     {
@@ -67,6 +79,9 @@ public class GameManager : MonoBehaviour
         saveAndLoadListDoorStatusSceneEX.LoadDataListDoorStatus();
         saveAndLoadOutPostReward.LoadDataOutPostReward();
         saveAndLoadTimemanager.LoadDataTime();
+        saveAndLoadBuildManager.LoadBuildInScenes();
+        saveAndLoadResoure.LoadDataResore();
+        saveAndLoadCraftItms.LoadDataCraftItems();
     }
     public void QuitGame()
     {

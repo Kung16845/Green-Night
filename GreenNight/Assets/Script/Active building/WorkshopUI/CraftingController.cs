@@ -9,13 +9,15 @@ public class CraftingController : MonoBehaviour
     public InventoryItemPresent inventoryItemPresent; // Reference to inventory
     public Transform craftingSlotsParent; // Parent object containing crafting slots
     public GameObject craftingSlotPrefab; // Prefab for crafting slot
+    public Globalstat globalstat;
     public int maxCraftingSlots = 3; // Max number of crafting slots
     public Button confirmCraftingButton;
-    private List<GameObject> activeCraftingSlots = new List<GameObject>();
+    public List<GameObject> activeCraftingSlots = new List<GameObject>();
     
 
     void Start()
     {
+        globalstat = FindObjectOfType<Globalstat>();
         if (confirmCraftingButton != null)
         {
             confirmCraftingButton.onClick.AddListener(OnConfirmCraftingButtonClicked);
@@ -57,23 +59,6 @@ public class CraftingController : MonoBehaviour
         }
     }
 
-    void AddCraftingSlot(CraftingItem craftingItem)
-    {
-        // Instantiate the crafting slot prefab
-        GameObject craftingSlotObject = Instantiate(craftingSlotPrefab, craftingSlotsParent);
-        CraftingSlot craftingSlot = craftingSlotObject.GetComponent<CraftingSlot>();
-        if (craftingSlot != null)
-        {
-            craftingSlot.Initialize(craftingItem, inventoryItemPresent);
-            activeCraftingSlots.Add(craftingSlotObject);
-        }
-        else
-        {
-            Debug.LogError("CraftingSlot component not found on crafting slot prefab.");
-            Destroy(craftingSlotObject);
-        }
-    }
-
     public void RemoveCraftingSlot(GameObject slotObject)
     {
         if (activeCraftingSlots.Contains(slotObject))
@@ -81,5 +66,18 @@ public class CraftingController : MonoBehaviour
             activeCraftingSlots.Remove(slotObject);
             Destroy(slotObject);
         }
+    }
+     public void UpdateCraftingSlotUI()
+    {
+        if (confirmCraftingButton != null)
+        {
+            confirmCraftingButton.interactable = globalstat.CraftingSlot > 0;
+        }
+        else
+             confirmCraftingButton.interactable = false;
+    }
+    void Update()
+    {
+        UpdateCraftingSlotUI(); 
     }
 }

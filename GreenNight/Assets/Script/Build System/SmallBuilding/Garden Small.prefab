@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7655338572965771469}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.81, y: 3.42, z: 0}
+  m_LocalPosition: {x: 1.56, y: -3.82, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -184,8 +184,8 @@ MonoBehaviour:
     requiredSpecialist: 0
   currentLevel: 1
   maxLevel: 0
-  isBuilding: 0
-  isFinished: 0
+  isUpgradBuilding: 0
+  isFinishedUpgrad: 0
   upgradeUi: {fileID: 0}
   timeManager: {fileID: 0}
   dateTime:
@@ -222,7 +222,7 @@ MonoBehaviour:
     buildingGameObject: {fileID: 0}
     level: 0
     tile: {fileID: 0}
-  finishDayBuildingTime: 0
+  finishDayBuildingUpgradTime: 0
 --- !u!61 &-6672396067321963644
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -252,7 +252,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

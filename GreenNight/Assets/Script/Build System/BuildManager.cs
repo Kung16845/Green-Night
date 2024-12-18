@@ -131,6 +131,9 @@ public class BuildManager : MonoBehaviour
                 // Instantiate the building and get a reference to it
                 GameObject newBuilding = Instantiate(buildingToPlace.gameObject, nearstTile.transform.position, Quaternion.identity);
 
+                DateTime dateTime = FindObjectOfType<TimeManager>().dateTime;
+                Building buildingScript = newBuilding.GetComponent<Building>();
+                buildingScript .finishDayBuildingTime = dateTime.day + buildingScript.dayCost; 
                 // Update tile status
                 nearstTile.isOccupied = true;
                 nearstTile.buildingOnTile = newBuilding.GetComponent<Building>();

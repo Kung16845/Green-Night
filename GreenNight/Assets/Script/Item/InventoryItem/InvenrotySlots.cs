@@ -73,6 +73,7 @@ public class InvenrotySlots : MonoBehaviour, IDropHandler
              destinationSlotType != SlotType.SlotNpcTrade &&
              destinationSlotType != SlotType.SlotPlayerTrade &&
              destinationSlotType != SlotType.SlotNpcItem &&
+             itemClassInChild != null &&
              destinationSlotType != uIItemDataDrag.slotType))
         {
             Debug.Log("Invalid drop target.");

@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,6 +36,12 @@ public class Globalstat : MonoBehaviour
     public int activeCureBed;
     public float Discontent;
     public float Growingspeed;
+    public int CraftingSlot;
+    public int ChemicalCraftingSlot;
+    public int usedCraftingSlot;
+    public int usedChemicalCraftingSlot;
+    public bool SatelliteOnline;
+    public bool ReconActive;
     [Header("Exipiditionaction")]
     public bool expiditionactiveeventactive = false;
     private int bedFactor = 0;
@@ -133,5 +139,15 @@ public class Globalstat : MonoBehaviour
     public void CalculateActionSpeed(float factornumber)
     {
         ActionSpeed = 1 + factornumber; 
+    }
+     public void UpdateCraftingSlots(int newSlotValue)
+    {
+        CraftingSlot = newSlotValue;
+        Debug.Log($"CraftingSlot updated: {CraftingSlot}");
+    }
+     public void UpdateChemicalCraftingSlot(int newSlotValue)
+    {
+        ChemicalCraftingSlot = newSlotValue;
+        Debug.Log($"CraftingSlot updated: {CraftingSlot}");
     }
 }

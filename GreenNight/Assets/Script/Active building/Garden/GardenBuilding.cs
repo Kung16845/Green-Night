@@ -24,12 +24,12 @@ public class GardenBuilding : MonoBehaviour
         building = FindObjectOfType<Building>();
         upgradeBuilding = GetComponent<UpgradeBuilding>();
         dateTime = timeManager.dateTime;
-        currentDay = dateTime.day;
+        currentDay = dateTime.day - 1;
     }
 
     void OnMouseDown()
     {
-        if (building.isfinsih && !upgradeBuilding.isBuilding)
+        if (building.isfinsih && !upgradeBuilding.isUpgradBuilding)
         {
             uImanger.ToggleUIPanel(UImanger.UIPanel.SmallGardenUI);
             

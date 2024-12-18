@@ -9,10 +9,13 @@ public class Solar : MonoBehaviour
     public TimeManager timeManager;
     public UpgradeBuilding upgradeBuilding;
     public DateTime dateTime;
+    public UImanger uImanger;
+    public UpgradeUi upgradeUi;
     public int currentday;
     public int steelCost;
     void Start()
     {
+        uImanger = FindObjectOfType<UImanger>();
         timeManager = FindObjectOfType<TimeManager>();
         buildManager = FindObjectOfType<BuildManager>();
         upgradeBuilding = FindObjectOfType<UpgradeBuilding>();
@@ -24,7 +27,7 @@ public class Solar : MonoBehaviour
     {
         if(currentday != dateTime.day)
         {
-            if(upgradeBuilding.currentLevel != 2)
+            if(upgradeBuilding.currentLevel == 1)
             {
                 if(buildManager.steel >= steelCost)
                 {
@@ -36,12 +39,30 @@ public class Solar : MonoBehaviour
                     DeactiveElecticities();
                 }
             }
-            else if(upgradeBuilding.currentLevel == 2)
+            else if(upgradeBuilding.currentLevel == upgradeBuilding.maxLevel)
             {
                 ActiveElecticities();
             }
             currentday = dateTime.day;  
         }
+    }
+    void OnMouseDown()
+    {
+        if (building.isfinsih && !upgradeBuilding.isUpgradBuilding)
+        {
+            uImanger.ToggleUIPanel(UImanger.UIPanel.SolarUI);
+            
+            if (upgradeBuilding.currentLevel == upgradeBuilding.maxLevel)
+            {
+                steelCost = 0;
+                uImanger.DisableUIPanel(UImanger.UIPanel.SolarUpgradeUI);
+            }
+        }
+    }
+    public void AssignUpgradeData()
+    {
+        upgradeUi = FindObjectOfType<UpgradeUi>();
+        upgradeUi.Initialize(upgradeBuilding);
     }
     void ActiveElecticities()
     {

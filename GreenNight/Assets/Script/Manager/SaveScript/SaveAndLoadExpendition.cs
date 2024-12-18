@@ -35,6 +35,8 @@ public class SaveAndLoadExpendition : MonoBehaviour
 
         UIInventoryEX[] listUIEX = transformParentUIEx.GetComponentsInChildren<UIInventoryEX>(true);
 
+        dataCollentUIEX = new DataCollentUIEX();
+        
         foreach (UIInventoryEX uIEx in listUIEX)
         {
             DataSaveExpendition dataExpenditionSave = new DataSaveExpendition();
