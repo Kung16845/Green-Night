@@ -6121,7 +6121,7 @@ GameObject:
   - component: {fileID: 182994043}
   - component: {fileID: 182994042}
   m_Layer: 5
-  m_Name: 'Test Save '
+  m_Name: Test Save Game
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6951,10 +6951,211 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1553585331}
   craftManager: {fileID: 1795293071}
+  listCrafttingWorkShop:
+  - itemID: 1020502
+    craftingTime: 1500
+    recipeItems:
+    - itemID: 1020101
+      amountNeeded: 35
+      itemName: Wire
+      itemIcon: {fileID: 0}
+    Ammoneeded: 0
+    Fuelneeded: 0
+    Steelneeded: 0
+    Plankneeded: 0
+    Foodneeded: 0
+    amountProduced: 1
+    itemName: Circuit
+    itemIcon: {fileID: 21300000, guid: 8bb4babf1a9c6e647bcca9b4d04d4c5b, type: 3}
+    rarity: 2
+  - itemID: 1020501
+    craftingTime: 1000
+    recipeItems:
+    - itemID: 1020101
+      amountNeeded: 10
+      itemName: Scrap
+      itemIcon: {fileID: 0}
+    Ammoneeded: 0
+    Fuelneeded: 0
+    Steelneeded: 0
+    Plankneeded: 0
+    Foodneeded: 0
+    amountProduced: 1
+    itemName: Circuit
+    itemIcon: {fileID: 21300000, guid: 8bb4babf1a9c6e647bcca9b4d04d4c5b, type: 3}
+    rarity: 2
+  - itemID: 1020503
+    craftingTime: 2500
+    recipeItems:
+    - itemID: 1020101
+      amountNeeded: 45
+      itemName: Scrap
+      itemIcon: {fileID: 0}
+    Ammoneeded: 0
+    Fuelneeded: 0
+    Steelneeded: 0
+    Plankneeded: 0
+    Foodneeded: 0
+    amountProduced: 1
+    itemName: Circuit
+    itemIcon: {fileID: 21300000, guid: 8bb4babf1a9c6e647bcca9b4d04d4c5b, type: 3}
+    rarity: 2
+  - itemID: 1020101
+    craftingTime: 1500
+    recipeItems: []
+    Ammoneeded: 0
+    Fuelneeded: 0
+    Steelneeded: 1
+    Plankneeded: 0
+    Foodneeded: 0
+    amountProduced: 25
+    itemName: Circuit
+    itemIcon: {fileID: 21300000, guid: 8bb4babf1a9c6e647bcca9b4d04d4c5b, type: 3}
+    rarity: 2
+  - itemID: 1020116
+    craftingTime: 2000
+    recipeItems:
+    - itemID: 1020101
+      amountNeeded: 1
+      itemName: Scrap
+      itemIcon: {fileID: 0}
+    - itemID: 1020104
+      amountNeeded: 1
+      itemName: Scrap
+      itemIcon: {fileID: 0}
+    Ammoneeded: 0
+    Fuelneeded: 0
+    Steelneeded: 0
+    Plankneeded: 0
+    Foodneeded: 0
+    amountProduced: 5
+    itemName: Circuit
+    itemIcon: {fileID: 21300000, guid: 8bb4babf1a9c6e647bcca9b4d04d4c5b, type: 3}
+    rarity: 2
+  - itemID: 1020124
+    craftingTime: 2000
+    recipeItems:
+    - itemID: 1020123
+      amountNeeded: 15
+      itemName: Scrap
+      itemIcon: {fileID: 0}
+    - itemID: 1020110
+      amountNeeded: 7
+      itemName: Scrap
+      itemIcon: {fileID: 0}
+    Ammoneeded: 2
+    Fuelneeded: 0
+    Steelneeded: 0
+    Plankneeded: 0
+    Foodneeded: 0
+    amountProduced: 80
+    itemName: Circuit
+    itemIcon: {fileID: 21300000, guid: 8bb4babf1a9c6e647bcca9b4d04d4c5b, type: 3}
+    rarity: 2
+  - itemID: 1020126
+    craftingTime: 3000
+    recipeItems:
+    - itemID: 1020123
+      amountNeeded: 25
+      itemName: Scrap
+      itemIcon: {fileID: 0}
+    - itemID: 1020110
+      amountNeeded: 8
+      itemName: Scrap
+      itemIcon: {fileID: 0}
+    Ammoneeded: 3
+    Fuelneeded: 0
+    Steelneeded: 0
+    Plankneeded: 0
+    Foodneeded: 0
+    amountProduced: 60
+    itemName: Circuit
+    itemIcon: {fileID: 21300000, guid: 8bb4babf1a9c6e647bcca9b4d04d4c5b, type: 3}
+    rarity: 2
+  - itemID: 1020127
+    craftingTime: 3000
+    recipeItems:
+    - itemID: 1020123
+      amountNeeded: 25
+      itemName: Scrap
+      itemIcon: {fileID: 0}
+    - itemID: 1020110
+      amountNeeded: 8
+      itemName: Scrap
+      itemIcon: {fileID: 0}
+    Ammoneeded: 3
+    Fuelneeded: 0
+    Steelneeded: 0
+    Plankneeded: 0
+    Foodneeded: 0
+    amountProduced: 70
+    itemName: Circuit
+    itemIcon: {fileID: 21300000, guid: 8bb4babf1a9c6e647bcca9b4d04d4c5b, type: 3}
+    rarity: 2
+  - itemID: 1020203
+    craftingTime: 6000
+    recipeItems:
+    - itemID: 1020101
+      amountNeeded: 30
+      itemName: Scrap
+      itemIcon: {fileID: 0}
+    - itemID: 1020112
+      amountNeeded: 1
+      itemName: Scrap
+      itemIcon: {fileID: 0}
+    Ammoneeded: 0
+    Fuelneeded: 0
+    Steelneeded: 0
+    Plankneeded: 0
+    Foodneeded: 0
+    amountProduced: 1
+    itemName: Circuit
+    itemIcon: {fileID: 21300000, guid: 8bb4babf1a9c6e647bcca9b4d04d4c5b, type: 3}
+    rarity: 2
+  - itemID: 1020401
+    craftingTime: 3500
+    recipeItems:
+    - itemID: 1020120
+      amountNeeded: 1
+      itemName: Scrap
+      itemIcon: {fileID: 0}
+    Ammoneeded: 0
+    Fuelneeded: 0
+    Steelneeded: 0
+    Plankneeded: 2
+    Foodneeded: 0
+    amountProduced: 1
+    itemName: Circuit
+    itemIcon: {fileID: 21300000, guid: 8bb4babf1a9c6e647bcca9b4d04d4c5b, type: 3}
+    rarity: 2
+  - itemID: 1020403
+    craftingTime: 6000
+    recipeItems:
+    - itemID: 1020101
+      amountNeeded: 20
+      itemName: Scrap
+      itemIcon: {fileID: 0}
+    - itemID: 1020120
+      amountNeeded: 1
+      itemName: Scrap
+      itemIcon: {fileID: 0}
+    Ammoneeded: 0
+    Fuelneeded: 0
+    Steelneeded: 0
+    Plankneeded: 0
+    Foodneeded: 0
+    amountProduced: 1
+    itemName: Circuit
+    itemIcon: {fileID: 21300000, guid: 8bb4babf1a9c6e647bcca9b4d04d4c5b, type: 3}
+    rarity: 2
+  listCrafttingChemical: []
+  listCrafttingMedicine: []
+  listCrafttingMoonShine: []
   dataCollentCraftItems:
     listActiveCraftingJobs: []
     listChemicalactiveJobs: []
     listMedicineactiveJobs: []
+    listCrafttingMoonShine: []
   savePathDataCraftItmes: 
 --- !u!4 &203286840
 Transform:
@@ -17696,7 +17897,7 @@ GameObject:
   - component: {fileID: 481925388}
   - component: {fileID: 481925387}
   m_Layer: 5
-  m_Name: 'Test Load '
+  m_Name: Test Load Load
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21430,7 +21631,7 @@ GameObject:
   - component: {fileID: 567217297}
   - component: {fileID: 567217296}
   m_Layer: 5
-  m_Name: Test Load Build
+  m_Name: Test Load Funtion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21501,9 +21702,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 825417875}
-        m_TargetAssemblyTypeName: SaveAndLoadBuildManager, Assembly-CSharp
-        m_MethodName: LoadBuildInScenes
+      - m_Target: {fileID: 834141727}
+        m_TargetAssemblyTypeName: SaveAndLoadPatint, Assembly-CSharp
+        m_MethodName: LoadDataPatint
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -28282,6 +28483,7 @@ Transform:
   - {fileID: 1170278000}
   - {fileID: 741525833}
   - {fileID: 203286840}
+  - {fileID: 834141728}
   - {fileID: 1553585330}
   - {fileID: 725400159}
   - {fileID: 1890103466}
@@ -28289,6 +28491,7 @@ Transform:
   - {fileID: 1960134153}
   - {fileID: 1484128884}
   - {fileID: 2063404513}
+  - {fileID: 1506762821}
   - {fileID: 334400778}
   - {fileID: 1398455260}
   - {fileID: 1899714282}
@@ -28362,6 +28565,18 @@ MonoBehaviour:
   gameManager: {fileID: 1553585331}
   tunnel: {fileID: 1896437823}
   sattlelite: {fileID: 748564886}
+  dataCollentTunnutAndBroken:
+    sattleliteOnline: 0
+    reconActiveSattlelite: 0
+    recondurationSattlelite: 0
+    supplyDropActive: 0
+    supplyDropCountdownSattlelite: 0
+    isRepireSattlelite: 0
+    listsupplyDropItemsSattlelite: []
+    finishDayBuildingSattleliteTime: 0
+    tuneelIsopen: 0
+    isclearingTuneel: 0
+    finishDayBuildingTunnutTime: 0
   savePathDataTunnutAndBroken: 
 --- !u!1 &742579863
 GameObject:
@@ -31367,6 +31582,56 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
+--- !u!1 &834141726
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 834141728}
+  - component: {fileID: 834141727}
+  m_Layer: 0
+  m_Name: 'Save Patint '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &834141727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 834141726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a422a680ae7b9ec46906b51650aee9e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patienManger: {fileID: 1506762822}
+  gameManager: {fileID: 1553585331}
+  dataCollentPatint:
+    listactiveHealingClinicPatient: []
+    listactiveHealingHospitalPatient: []
+  savePathDataPatint: 
+--- !u!4 &834141728
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 834141726}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 741425701}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &835302967
 GameObject:
   m_ObjectHideFlags: 0
@@ -36045,8 +36310,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataCollentListItemsBoxes:
     listItemBoxes: []
+    listItemsDailyGive: []
   gameManager: {fileID: 1553585331}
   inventoryItemPresent: {fileID: 483800078}
+  dailyGive: {fileID: 341224663}
   savePathDataListItemsBoxes: 
 --- !u!1 &952860721
 GameObject:
@@ -38595,7 +38862,6 @@ RectTransform:
   - {fileID: 1411944746}
   - {fileID: 1521246281}
   - {fileID: 1895319155}
-  - {fileID: 1506762821}
   - {fileID: 1405571903}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -45881,7 +46147,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Load Build
+  m_text: Load Funtion
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -54910,26 +55176,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &1506762821
-RectTransform:
+--- !u!4 &1506762821
+Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1506762820}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1018277092}
+  m_Father: {fileID: 741425701}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1506762822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57902,12 +58163,14 @@ MonoBehaviour:
   timeManager: {fileID: 725400160}
   buildManager: {fileID: 1890103467}
   inventoryItemPresent: {fileID: 483800078}
+  dailyGive: {fileID: 341224663}
   expenditionManager: {fileID: 1960134154}
   globalstat: {fileID: 1484128885}
   npcManager: {fileID: 2063404514}
   managerSceneEX: {fileID: 1899714283}
   outpostSystem: {fileID: 1392033117}
   craftManager: {fileID: 1795293071}
+  patienManger: {fileID: 1506762822}
   saveAndLoadTimemanager: {fileID: 1720518020}
   saveAndLoadLIstItemsDataBoxes: {fileID: 949315569}
   saveAndLoadListNpc: {fileID: 273439451}
@@ -57918,6 +58181,8 @@ MonoBehaviour:
   saveAndLoadBuildManager: {fileID: 825417875}
   saveAndLoadResoure: {fileID: 1170278001}
   saveAndLoadCraftItms: {fileID: 203286839}
+  saveAndLoadTunnutAndBroken: {fileID: 741525834}
+  saveAndLoadPatint: {fileID: 834141727}
 --- !u!1 &1557188244
 GameObject:
   m_ObjectHideFlags: 0
@@ -65269,7 +65534,7 @@ GameObject:
   - component: {fileID: 1772877298}
   - component: {fileID: 1772877297}
   m_Layer: 5
-  m_Name: Test Save Build
+  m_Name: Test Save Funtion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65340,9 +65605,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 825417875}
-        m_TargetAssemblyTypeName: SaveAndLoadBuildManager, Assembly-CSharp
-        m_MethodName: SaveBuildInScenes
+      - m_Target: {fileID: 834141727}
+        m_TargetAssemblyTypeName: SaveAndLoadPatint, Assembly-CSharp
+        m_MethodName: SaveDataPatint
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -66414,23 +66679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f696126f9098a8a4f83318bc48c5651d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeCraftingJobs:
-  - craftingItem:
-      itemID: 0
-      craftingTime: 0
-      recipeItems: []
-      Ammoneeded: 0
-      Fuelneeded: 0
-      Steelneeded: 0
-      Plankneeded: 0
-      Foodneeded: 0
-      amountProduced: 0
-      itemName: 
-      itemIcon: {fileID: 0}
-      rarity: 0
-    timeRemaining: 0
-    isComplete: 0
-    source: 0
+  activeCraftingJobs: []
   ChemicalactiveJobs: []
   MedicineactiveJobs: []
   MoonshienactiveJobs: []
@@ -78171,7 +78420,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Save Build
+  m_text: Save Funtion
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

@@ -21,10 +21,9 @@ public class TimeManager : MonoBehaviour
     private void Awake()
     {   
         
-        dateTime = new DateTime(0, 0, 0, true, sceneSystem1,saveDataDDA);
+        dateTime = new DateTime(0, 0, 0, true, sceneSystem1,saveDataDDA,FindObjectOfType<GameManager>());
         dateTime.SetTimeStartDay();
         currentTickSeconedIncrease = tickSeconedIncrease;
-
     }
     public void SkipDayTime()
     {
@@ -83,7 +82,8 @@ public class DateTime
     public bool isDayNight;
     public SceneSystem sceneSystem;
     public SaveDataDDA saveDataDDA;
-    public DateTime(int day, int hour, int minutes, bool isHaveDayNight, SceneSystem sceneSystem, SaveDataDDA saveDataDDA)
+    public GameManager gameManager;
+    public DateTime(int day, int hour, int minutes, bool isHaveDayNight, SceneSystem sceneSystem, SaveDataDDA saveDataDDA,GameManager gameManager)
     {
         this.day = day;
         this.hour = hour;
@@ -91,14 +91,15 @@ public class DateTime
         this.isDayNight = isHaveDayNight;
         this.sceneSystem = sceneSystem;
         this.saveDataDDA = saveDataDDA;
+        this.gameManager = gameManager;
     }
     public void SetTimeStartDay()
-    {
+    {   
+        
         this.day++;
-        // this.hour = 6;
-        // this.minutes = 0;
-        this.hour = 17;
-        this.minutes = 30;
+        this.hour = 6;
+        this.minutes = 0;
+        gameManager.SaveGame();
     }
     public void SetTimeNightDay()
     {
