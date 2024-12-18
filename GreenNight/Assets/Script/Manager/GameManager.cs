@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public ManagerSceneEX managerSceneEX;
     public OutpostSystem outpostSystem;
     public CraftManager craftManager;
+    public PatienManger patienManger;
 
     [Header("Script Save and Load Game")]
     public SaveAndLoadTimemanager saveAndLoadTimemanager;
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
     public SaveAndLoadResoure saveAndLoadResoure;
     public SaveAndLoadCraftItms saveAndLoadCraftItms;
     public SaveAndLoadTunnutAndBroken saveAndLoadTunnutAndBroken;
+    public SaveAndLoadPatint saveAndLoadPatint;
     private void Awake()
     {
         timeManager = FindObjectOfType<TimeManager>();
@@ -45,6 +47,7 @@ public class GameManager : MonoBehaviour
         outpostSystem = FindObjectOfType<OutpostSystem>();
         buildManager = FindObjectOfType<BuildManager>();
         craftManager = FindObjectOfType<CraftManager>();
+        patienManger = FindObjectOfType<PatienManger>();
     }
     public void NewGame()
     {
@@ -60,6 +63,7 @@ public class GameManager : MonoBehaviour
         saveAndLoadCraftItms.ResetDataCraftItems();
         npcManager.StartGameCreateGropNpx();
         saveAndLoadTunnutAndBroken.ResetDataTunnutAndBroken();
+        saveAndLoadPatint.ResetDataPatint();
         
     }
     public void SaveGame()
@@ -75,6 +79,7 @@ public class GameManager : MonoBehaviour
         saveAndLoadResoure.SaveDataResoure();
         saveAndLoadCraftItms.SaveDataCraftItems();
         saveAndLoadTunnutAndBroken.SaveDataTunnutAndBroken();
+        saveAndLoadPatint.SaveDataPatint();
     }
     public void LoadGane()
     {
@@ -89,6 +94,7 @@ public class GameManager : MonoBehaviour
         saveAndLoadResoure.LoadDataResore();
         saveAndLoadCraftItms.LoadDataCraftItems();
         saveAndLoadTunnutAndBroken.LoadDataTunnutAndBroken();
+        saveAndLoadPatint.LoadDataPatint();
     }
     public void QuitGame()
     {
