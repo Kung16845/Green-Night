@@ -8,6 +8,10 @@ public class SaveAndLoadCraftItms : MonoBehaviour
 {
     public GameManager gameManager;
     public CraftManager craftManager;
+    public List<CraftingItem> listCrafttingWorkShop = new List<CraftingItem>();
+    public List<CraftingItem> listCrafttingChemical = new List<CraftingItem>();
+    public List<CraftingItem> listCrafttingMedicine = new List<CraftingItem>();
+    public List<CraftingItem> listCrafttingMoonShine = new List<CraftingItem>();
     public DataCollentCraftItems dataCollentCraftItems;
     [SerializeField] private string savePathDataCraftItmes;
     private void Start()
@@ -28,39 +32,39 @@ public class SaveAndLoadCraftItms : MonoBehaviour
 
         foreach (CraftingJob itemCraftJobs in craftManager.activeCraftingJobs)
         {
-            DataItemsCraft dataItemsCraft = new DataItemsCraft();
 
-            dataItemsCraft.idItem = itemCraftJobs.craftingItem.itemID;
-            dataItemsCraft.timeRemaining = itemCraftJobs.timeRemaining;
-            dataItemsCraft.isComplete = itemCraftJobs.isComplete;
-            dataItemsCraft.numCraftingSource = (int)itemCraftJobs.source;
-
-            dataCollentCraftItems.listActiveCraftingJobs.Add(dataItemsCraft);
+            dataCollentCraftItems.listActiveCraftingJobs.Add(ConventDataCraftingJobToDataItemCraft(itemCraftJobs));
         }
 
         foreach (CraftingJob itemChemical in craftManager.ChemicalactiveJobs)
         {
-            DataItemsCraft dataItemsCraft = new DataItemsCraft();
 
-            dataItemsCraft.idItem = itemChemical.craftingItem.itemID;
-            dataItemsCraft.timeRemaining = itemChemical.timeRemaining;
-            dataItemsCraft.isComplete = itemChemical.isComplete;
-            dataItemsCraft.numCraftingSource = (int)itemChemical.source;
-
-            dataCollentCraftItems.listChemicalactiveJobs.Add(dataItemsCraft);
+            dataCollentCraftItems.listChemicalactiveJobs.Add(ConventDataCraftingJobToDataItemCraft(itemChemical));
         }
 
         foreach (CraftingJob itemMedicine in craftManager.MedicineactiveJobs)
         {
-            DataItemsCraft dataItemsCraft = new DataItemsCraft();
-
-            dataItemsCraft.idItem = itemMedicine.craftingItem.itemID;
-            dataItemsCraft.timeRemaining = itemMedicine.timeRemaining;
-            dataItemsCraft.isComplete = itemMedicine.isComplete;
-            dataItemsCraft.numCraftingSource = (int)itemMedicine.source;
-
-            dataCollentCraftItems.listMedicineactiveJobs.Add(dataItemsCraft);
+      
+            dataCollentCraftItems.listMedicineactiveJobs.Add(ConventDataCraftingJobToDataItemCraft(itemMedicine));
         }
+
+        foreach (CraftingJob itemMedicine in craftManager.MedicineactiveJobs)
+        {
+    
+            dataCollentCraftItems.listMedicineactiveJobs.Add(ConventDataCraftingJobToDataItemCraft(itemMedicine));
+        }
+    }
+    public DataItemsCraft ConventDataCraftingJobToDataItemCraft(CraftingJob itemsCraftingJob)
+    {
+        DataItemsCraft dataItemsCraft = new DataItemsCraft();
+
+        dataItemsCraft.idItem = itemsCraftingJob.craftingItem.itemID;
+        dataItemsCraft.timeRemaining =itemsCraftingJob.timeRemaining;
+        dataItemsCraft.isComplete = itemsCraftingJob.isComplete;
+
+        dataItemsCraft.numCraftingSource = (int)itemsCraftingJob.source;
+
+        return dataItemsCraft;
     }
     public void LoadDataCraftItems()
     {
@@ -132,14 +136,18 @@ public class SaveAndLoadCraftItms : MonoBehaviour
             dataCollentCraftItems.listMedicineactiveJobs = new List<DataItemsCraft>();
             dataCollentCraftItems.listChemicalactiveJobs = new List<DataItemsCraft>();
         }
-
     }
+    // public CraftingJob ConventDataItemCraftToDataCraftingJob(DataItemsCraft dataItemsCraft)
+    // {
+    //     return 
+    // }
     public void ResetDataCraftItems()
     {
         dataCollentCraftItems = new DataCollentCraftItems();
         dataCollentCraftItems.listActiveCraftingJobs = new List<DataItemsCraft>();
         dataCollentCraftItems.listMedicineactiveJobs = new List<DataItemsCraft>();
         dataCollentCraftItems.listChemicalactiveJobs = new List<DataItemsCraft>();
+        dataCollentCraftItems.listCrafttingMoonShine = new List<DataItemsCraft>();
         string json = JsonUtility.ToJson(dataCollentCraftItems, true);
         File.WriteAllText(savePathDataCraftItmes, json);
     }
@@ -150,6 +158,7 @@ public class DataCollentCraftItems
     public List<DataItemsCraft> listActiveCraftingJobs;
     public List<DataItemsCraft> listChemicalactiveJobs;
     public List<DataItemsCraft> listMedicineactiveJobs;
+    public List<DataItemsCraft> listCrafttingMoonShine;
 }
 [Serializable]
 public class DataItemsCraft
