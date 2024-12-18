@@ -8,7 +8,7 @@ public class PatientUIItem : MonoBehaviour
     public Image faceImage;
     public TextMeshProUGUI hpText;
     public Slider hpSlider;
-    public Button addButton; // Assign via Inspector
+    public Button actionButton; // Assign via Inspector
 
     private int npcId;
     private ClinicUI clinicUIRef;
@@ -67,15 +67,13 @@ public class PatientUIItem : MonoBehaviour
 
     }
 
-    public void InitializeButton(ClinicUI clinicUI, int id)
+    public void InitializeButton(System.Action onClickAction, string buttonText)
     {
-        clinicUIRef = clinicUI;
-        npcId = id;
-
-        if (addButton != null)
+        if (actionButton != null)
         {
-            addButton.onClick.RemoveAllListeners();
-            addButton.onClick.AddListener(() => clinicUIRef.AddPatient(npcId));
+            actionButton.onClick.RemoveAllListeners();
+            actionButton.onClick.AddListener(() => onClickAction());
+            actionButton.GetComponentInChildren<TextMeshProUGUI>().text = buttonText;
         }
     }
 }

@@ -99,6 +99,8 @@ public class ClinicUI : MonoBehaviour
     public void DisplayInjuredNpc()
     {
         uImanger.ToggleUIPanel(UImanger.UIPanel.ClinicInhuredNpcUI);
+
+        // Clear existing children in the display and select parents
         foreach (Transform child in DisplayParent)
             Destroy(child.gameObject);
         foreach (Transform child in SelectParent)
@@ -121,12 +123,25 @@ public class ClinicUI : MonoBehaviour
             if (uiItem != null)
             {
                 uiItem.SetData(npcData.nameNpc, faceSprite, npcData.hp);
-                uiItem.InitializeButton(this, npcData.idnpc); // Button on PatienPrefab
+
+                // Initialize button with a valid Action and label
+                uiItem.InitializeButton(() => AddPatientToHealing(npcData.idnpc), "Add Patient");
             }
+
             displayedInjuredNpcs.Add(npcData);
         }
     }
 
+    private void AddPatientToHealing(int npcId)
+    {
+        Debug.Log($"Adding patient with ID: {npcId} to healing");
+        // Call the method to add the patient to the manager
+        patienManger.AddPatient(npcId, npcManager.listNpc.First(npc => npc.idnpc == npcId).hp, 2f, PatienSourceSource.Clinic);
+
+        // Refresh UI after adding
+        DisplayInjuredNpc();
+        displayPatient();
+    }
     // Updated AddPatient function to take an npcId
     public void AddPatient(int npcId)
     {
@@ -182,5 +197,79 @@ public class ClinicUI : MonoBehaviour
             return headCoutume.spriteHead;
         }
         return null;
+    }
+    public void OpenApplyMedicineUI()
+    {
+        // Display patients currently healing
+        DisplayPatientsWithAction((uiItem, patient) =>
+        {
+            int medicineItemID = 1001; // Replace with actual medicine item ID
+            if (InventoryItemPresent.Instance.HasItem(medicineItemID))
+            {
+                uiItem.InitializeButton(() =>
+                {
+                    ApplyMedicineToPatient(patient, medicineItemID);
+                }, "Apply Medicine");
+            }
+        });
+    }
+
+    public void OpenApplyBandageUI()
+    {
+        // Display patients currently healing
+        DisplayPatientsWithAction((uiItem, patient) =>
+        {
+            int bandageItemID = 1002; // Replace with actual bandage item ID
+            if (InventoryItemPresent.Instance.HasItem(bandageItemID))
+            {
+                uiItem.InitializeButton(() =>
+                {
+                    ApplyBandageToPatient(patient, bandageItemID);
+                }, "Apply Bandage");
+            }
+        });
+    }
+
+    private void ApplyMedicineToPatient(CurePatient patient, int medicineItemID)
+    {
+        float healingBoost = 5f; // Increase healing rate by this value
+        patient.Healingrate += healingBoost;
+        InventoryItemPresent.Instance.RemoveItem(new ItemData { idItem = medicineItemID, count = 1 });
+        Debug.Log($"Applied medicine to Patient ID: {patient.NpcID}, new healing rate: {patient.Healingrate}");
+    }
+
+    private void ApplyBandageToPatient(CurePatient patient, int bandageItemID)
+    {
+        float instantHealAmount = 20f; // Heal this amount instantly
+        patient.Npchp = Mathf.Min(patient.Npchp + instantHealAmount, 100f);
+        InventoryItemPresent.Instance.RemoveItem(new ItemData { idItem = bandageItemID, count = 1 });
+        Debug.Log($"Applied bandage to Patient ID: {patient.NpcID}, new HP: {patient.Npchp}");
+    }
+
+    private void DisplayPatientsWithAction(System.Action<PatientUIItem, CurePatient> setupAction)
+    {
+        // Clear existing UI
+        foreach (Transform child in DisplayParent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // Display each patient with the specified action
+        foreach (var patient in patienManger.activeHealingClinicPatient)
+        {
+            GameObject patientObj = Instantiate(PatienPrefab, DisplayParent);
+            PatientUIItem uiItem = patientObj.GetComponent<PatientUIItem>();
+
+            if (uiItem != null)
+            {
+                NpcClass npcData = npcManager.listNpcWorking.FirstOrDefault(npc => npc.idnpc == patient.NpcID);
+                Sprite faceSprite = npcData != null ? GetNpcFaceSprite(npcData) : null;
+
+                uiItem.SetData(npcData?.nameNpc ?? $"NPC {patient.NpcID}", faceSprite, patient.Npchp);
+
+                // Allow the caller to define the specific setup for this patient
+                setupAction(uiItem, patient);
+            }
+        }
     }
 }
