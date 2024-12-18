@@ -34,6 +34,9 @@ public class UImanger : MonoBehaviour
         ClinicUI,
         ClinicUpgradeUI,
         ClinicInhuredNpcUI,
+        FieldHospitalUI,
+        FieldHospitalUpgradeUI,
+        FieldHospitalInhuredNpcUI
 
 
     }

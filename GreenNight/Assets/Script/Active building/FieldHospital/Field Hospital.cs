@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class FieldHospital : MonoBehaviour
 {
-     public TimeManager timeManager;
+    public TimeManager timeManager;
     public DateTime dateTime;
     public BuildManager buildManager;
-    public Building building;
+    public int currentDay;
     public UpgradeBuilding upgradeBuilding;
     public Globalstat globalstat;
+    public Building building;
+    public UImanger uImanger;
+    public UpgradeUi upgradeUi;
+    private PatienManger patienManger;
+    public float Healingrate;
 
     private float currentDiscontentContribution = 0f;
-    private int CurrentActiveCurebed = 0;
-    private float CurrentHealingSpeed = 0;
+    public int CurrentActiveCurebed = 0;
+    public float CurrentHealingSpeed = 0;
     private int previousLevel = 0;
 
     private bool abilitiesApplied = false; // Ensure abilities apply only once
@@ -23,8 +28,10 @@ public class FieldHospital : MonoBehaviour
         timeManager = FindObjectOfType<TimeManager>();
         globalstat = FindObjectOfType<Globalstat>();
         buildManager = FindObjectOfType<BuildManager>();
-        building = GetComponent<Building>();
+        building = FindObjectOfType<Building>();
         upgradeBuilding = GetComponent<UpgradeBuilding>();
+        patienManger = FindObjectOfType<PatienManger>();
+        uImanger = FindObjectOfType<UImanger>();
         dateTime = timeManager.dateTime;
 
         previousLevel = upgradeBuilding.currentLevel; // Sync level on start
@@ -44,8 +51,24 @@ public class FieldHospital : MonoBehaviour
             UpgradeAbilities();
             previousLevel = upgradeBuilding.currentLevel;
         }
+        patienManger.UpdateJobs(patienManger.activeHealingHospitalPatient);
     }
-
+    void OnMouseDown()
+    {
+        if (building.isfinsih && !upgradeBuilding.isUpgradBuilding)
+        {
+            uImanger.ToggleUIPanel(UImanger.UIPanel.FieldHospitalUI);
+            if (upgradeBuilding.currentLevel == upgradeBuilding.maxLevel)
+            {
+                uImanger.DisableUIPanel(UImanger.UIPanel.FieldHospitalUpgradeUI);
+            }
+        }
+    }
+    public void AssignUpgradeData()
+    {
+        upgradeUi = FindObjectOfType<UpgradeUi>();
+        upgradeUi.Initialize(upgradeBuilding);
+    }
     void ApplyAbilities()
     {
         // Get the current contributions based on the level
