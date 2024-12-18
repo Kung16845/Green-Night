@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class MediumBed : MonoBehaviour
 {
-     public TimeManager timeManager;
+    public TimeManager timeManager;
     public DateTime dateTime;
     public BuildManager buildManager;
     public int currentDay;
-    public Building building;
     public UpgradeBuilding upgradeBuilding;
     public Globalstat globalstat;
+    public Building building;
+    public UImanger uImanger;
+    public UpgradeUi upgradeUi;
     
-    private int currentBedContribution = 0; // Track the bed contribution for this building
+    
+    public int currentBedContribution = 0; // Track the bed contribution for this building
     private bool isApplied = false;         // Ensure we apply once per stage
 
     void Start()
@@ -22,6 +25,7 @@ public class MediumBed : MonoBehaviour
         buildManager = FindObjectOfType<BuildManager>();
         building = FindObjectOfType<Building>();
         upgradeBuilding = GetComponent<UpgradeBuilding>();
+        uImanger = FindObjectOfType<UImanger>();
 
         dateTime = timeManager.dateTime;
         currentDay = dateTime.day;
@@ -35,7 +39,7 @@ public class MediumBed : MonoBehaviour
             ApplyBedContribution(); // Apply initial bed contribution
         }
 
-        if (upgradeBuilding != null && upgradeBuilding.isFinishedUpgrad) 
+        if (upgradeBuilding.currentLevel == upgradeBuilding.maxLevel) 
         {
             UpgradeBedContribution(); // Handle upgrade contribution
         }
@@ -47,7 +51,22 @@ public class MediumBed : MonoBehaviour
         globalstat.AddBedsFromBuilding(currentBedContribution);
         isApplied = true; // Ensure this runs only once after the building finishes
     }
-
+    void OnMouseDown()
+    {
+        if (building.isfinsih && !upgradeBuilding.isUpgradBuilding)
+        {
+            uImanger.ToggleUIPanel(UImanger.UIPanel.MediumBedUI);
+            if (upgradeBuilding.currentLevel == upgradeBuilding.maxLevel)
+            {
+                uImanger.DisableUIPanel(UImanger.UIPanel.MediumBedUpgradeUI);
+            }
+        }
+    }
+    public void AssignUpgradeData()
+    {
+        upgradeUi = FindObjectOfType<UpgradeUi>();
+        upgradeUi.Initialize(upgradeBuilding);
+    }
     void UpgradeBedContribution()
     {
         int newBedContribution = GetBedValueBasedOnLevel();
