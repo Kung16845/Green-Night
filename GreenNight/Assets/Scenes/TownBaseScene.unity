@@ -6920,6 +6920,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 196402006}
   m_CullTransparentMesh: 1
+--- !u!1 &203286838
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 203286840}
+  - component: {fileID: 203286839}
+  m_Layer: 0
+  m_Name: Save CraftItem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &203286839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203286838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db75546024d3e254b93342105f9efda2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 1553585331}
+  craftManager: {fileID: 1795293071}
+  dataCollentCraftItems:
+    listActiveCraftingJobs: []
+    listChemicalactiveJobs: []
+    listMedicineactiveJobs: []
+  savePathDataCraftItmes: 
+--- !u!4 &203286840
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203286838}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 741425701}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &206506750
 GameObject:
   m_ObjectHideFlags: 0
@@ -27931,8 +27982,9 @@ Transform:
   - {fileID: 606755759}
   - {fileID: 1211882391}
   - {fileID: 825417874}
-  - {fileID: 741525833}
   - {fileID: 1170278000}
+  - {fileID: 741525833}
+  - {fileID: 203286840}
   - {fileID: 1553585330}
   - {fileID: 725400159}
   - {fileID: 1890103466}
@@ -27975,6 +28027,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 741525833}
+  - component: {fileID: 741525834}
   m_Layer: 0
   m_Name: Save Tunnut And Broken
   m_TagString: Untagged
@@ -27997,6 +28050,22 @@ Transform:
   m_Father: {fileID: 741425701}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &741525834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 741525832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49793b8a2b4c0f1419f24faf080ab34f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 1553585331}
+  tunnel: {fileID: 1896437823}
+  sattlelite: {fileID: 748564886}
+  savePathDataTunnutAndBroken: 
 --- !u!1 &742579863
 GameObject:
   m_ObjectHideFlags: 0
@@ -42869,8 +42938,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1170278000}
+  - component: {fileID: 1170278001}
   m_Layer: 0
-  m_Name: Save Resouce
+  m_Name: Save Resoure
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42891,6 +42961,28 @@ Transform:
   m_Father: {fileID: 741425701}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1170278001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1170277999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b990e4125b7bcf84e9041fac24e730fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildManager: {fileID: 1890103467}
+  gameManager: {fileID: 1553585331}
+  dataCollentResoure:
+    steel: 0
+    plank: 0
+    food: 0
+    fuel: 0
+    ammo: 0
+    npc: 0
+  savePathDataResoure: 
 --- !u!1 &1171667429
 GameObject:
   m_ObjectHideFlags: 0
@@ -57464,7 +57556,7 @@ MonoBehaviour:
   npcManager: {fileID: 2063404514}
   managerSceneEX: {fileID: 1899714283}
   outpostSystem: {fileID: 1392033117}
-  craftManager: {fileID: 0}
+  craftManager: {fileID: 1795293071}
   saveAndLoadTimemanager: {fileID: 1720518020}
   saveAndLoadLIstItemsDataBoxes: {fileID: 949315569}
   saveAndLoadListNpc: {fileID: 273439451}
@@ -57473,8 +57565,8 @@ MonoBehaviour:
   saveAndLoadListDoorStatusSceneEX: {fileID: 606755760}
   saveAndLoadOutPostReward: {fileID: 1211882392}
   saveAndLoadBuildManager: {fileID: 825417875}
-  saveAndLoadResoure: {fileID: 0}
-  saveAndLoadCraftItms: {fileID: 0}
+  saveAndLoadResoure: {fileID: 1170278001}
+  saveAndLoadCraftItms: {fileID: 203286839}
 --- !u!1 &1557188244
 GameObject:
   m_ObjectHideFlags: 0
