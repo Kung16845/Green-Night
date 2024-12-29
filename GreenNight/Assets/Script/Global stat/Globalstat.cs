@@ -146,11 +146,9 @@ public class Globalstat : MonoBehaviour
      public void UpdateCraftingSlots(int newSlotValue)
     {
         CraftingSlot = newSlotValue;
-        Debug.Log($"CraftingSlot updated: {CraftingSlot}");
     }
      public void UpdateChemicalCraftingSlot(int newSlotValue)
     {
         ChemicalCraftingSlot = newSlotValue;
-        Debug.Log($"CraftingSlot updated: {CraftingSlot}");
     }
 }

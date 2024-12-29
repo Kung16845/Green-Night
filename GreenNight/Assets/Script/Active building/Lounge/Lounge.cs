@@ -10,9 +10,11 @@ public class Lounge : MonoBehaviour
     public Building building;
     public UpgradeBuilding upgradeBuilding;
     public Globalstat globalstat;
+    public UImanger uImanger;
+    public UpgradeUi upgradeUi;
 
-    private float currentDiscontentContribution = 0f;
-    private int currentBedContribution = 0;
+    public float currentDiscontentContribution = 0f;
+    public int currentBedContribution = 0;
     private int previousLevel = 0;
 
     private bool abilitiesApplied = false; // Ensure abilities apply only once
@@ -22,8 +24,9 @@ public class Lounge : MonoBehaviour
         timeManager = FindObjectOfType<TimeManager>();
         globalstat = FindObjectOfType<Globalstat>();
         buildManager = FindObjectOfType<BuildManager>();
-        building = GetComponent<Building>();
+        building = FindObjectOfType<Building>();
         upgradeBuilding = GetComponent<UpgradeBuilding>();
+        uImanger = FindObjectOfType<UImanger>();
         dateTime = timeManager.dateTime;
 
         previousLevel = upgradeBuilding.currentLevel; // Sync level on start
@@ -44,7 +47,24 @@ public class Lounge : MonoBehaviour
             previousLevel = upgradeBuilding.currentLevel;
         }
     }
+     void OnMouseDown()
+    {
+        if (building.isfinsih && !upgradeBuilding.isUpgradBuilding)
+        {
+            uImanger.ToggleUIPanel(UImanger.UIPanel.LoungeUI);
+            
+            if (upgradeBuilding.currentLevel == upgradeBuilding.maxLevel)
+            {
+                uImanger.DisableUIPanel(UImanger.UIPanel.LoungeUpgradeButton);
+            }
+        }
+    }
 
+    public void AssignUpgradeData()
+    {
+        upgradeUi = FindObjectOfType<UpgradeUi>();
+        upgradeUi.Initialize(upgradeBuilding);
+    }
     void ApplyAbilities()
     {
         // Get the current contributions based on the level
@@ -73,9 +93,10 @@ public class Lounge : MonoBehaviour
         Debug.Log($"Upgraded to Level {upgradeBuilding.currentLevel}");
     }
 
-    int GetBedValueBasedOnLevel()
+    public int GetBedValueBasedOnLevel(int level = -1)
     {
-        switch (upgradeBuilding.currentLevel)
+        int targetLevel = (level == -1) ? upgradeBuilding.currentLevel : level;
+        switch (targetLevel)
         {
             case 2: return 3; // Level 2
             case 3: return 5; // Level 3
@@ -83,15 +104,17 @@ public class Lounge : MonoBehaviour
         }
     }
 
-    float GetDiscontentValueBasedOnLevel()
+    public float GetDiscontentValueBasedOnLevel(int level = -1)
     {
-        switch (upgradeBuilding.currentLevel)
+        int targetLevel = (level == -1) ? upgradeBuilding.currentLevel : level;
+        switch (targetLevel)
         {
             case 2: return 25f; // Level 2
             case 3: return 35f; // Level 3
             default: return 15f; // Level 1
         }
     }
+
 }
 
 
