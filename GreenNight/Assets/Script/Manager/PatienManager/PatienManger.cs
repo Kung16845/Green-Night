@@ -9,11 +9,13 @@ public class PatienManger : MonoBehaviour
 
     // Reference to the NpcManager (can be assigned in the inspector or found at runtime)
     public NpcManager npcManager;
+    public Globalstat globalStat;
     public void AddPatient(int npcId, float currentHp, float healingRate, PatienSourceSource source)
     {
         // Create a new CurePatient object
         CurePatient newPatient = new CurePatient(npcId, currentHp, healingRate, source);
-
+        globalStat.Usedcurebed +=1;
+        globalStat.Activecurebed = globalStat.Totalcurebed - globalStat.Usedcurebed;
         // Decide which list to add the patient to based on the source
         switch (source)
         {
@@ -41,30 +43,39 @@ public class PatienManger : MonoBehaviour
 
     public void UpdateJobs(List<CurePatient> jobList)
     {
-        // Assume 2 HP per minute healing (implementation depends on your requirement)
-        float healingPerSecond = 2f / 60f;
-        
         for (int i = jobList.Count - 1; i >= 0; i--)
         {
             CurePatient job = jobList[i];
             if (!job.isfullyhealed)
             {
+                // Use the patient's dynamic healing rate
+                float healingPerSecond = job.Healingrate / 60f;
+
+                // Apply healing over time
                 job.Npchp += healingPerSecond * Time.deltaTime;
 
+                // Check if the patient is fully healed
                 if (job.Npchp >= 100)
                 {
+                    job.Npchp = 100; // Cap HP at 100
                     job.isfullyhealed = true;
+
+                    // Handle the completion logic
                     CompleteHealingPatient(job);
+
+                    // Remove the patient from the healing list
                     jobList.RemoveAt(i);
                 }
             }
         }
     }
 
+
     private void CompleteHealingPatient(CurePatient job)
     {
         // Once the patient is fully healed, they should be moved back to the normal NPC list
-        // and set active again.
+        globalStat.Usedcurebed -=1;
+        globalStat.Activecurebed = globalStat.Totalcurebed - globalStat.Usedcurebed;
         if (npcManager != null)
         {
             npcManager.MoveNpcBackToNormalList(job.NpcID);

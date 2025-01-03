@@ -4,10 +4,9 @@ using System.Linq;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-
-public class ClinicUI : MonoBehaviour
+public class FieldHospitalUI : MonoBehaviour
 {
-    private Clinic clinic;
+    private FieldHospital fieldHospital;
     public TextMeshProUGUI AviableBed;
     public TextMeshProUGUI UpgradeBenefits;
     public TextMeshProUGUI HealingLate;
@@ -28,7 +27,7 @@ public class ClinicUI : MonoBehaviour
         uImanger = FindObjectOfType<UImanger>();
         npcManager = FindObjectOfType<NpcManager>();
         patienManger = FindObjectOfType<PatienManger>();
-        clinic = FindObjectOfType<Clinic>();
+        fieldHospital = FindObjectOfType<FieldHospital>();
         globalstat = FindObjectOfType<Globalstat>();
         globalstat.Activecurebed = globalstat.Totalcurebed - globalstat.Usedcurebed; 
         UpdateUI();
@@ -36,7 +35,7 @@ public class ClinicUI : MonoBehaviour
 
     public void InitializeUpgradeData()
     {
-        clinic.AssignUpgradeData();
+        fieldHospital.AssignUpgradeData();
     }
 
     public void displayPatient()
@@ -47,11 +46,11 @@ public class ClinicUI : MonoBehaviour
         foreach (Transform child in SelectParent)
             Destroy(child.gameObject);
 
-        int totalSlots = globalstat.Activecurebed; 
+        int totalSlots = globalstat.Totalcurebed; 
         int displayedCount = 0;
 
-        // Display currently healing patients in the clinic
-         foreach (var patient in patienManger.activeHealingClinicPatient)
+        // Display currently healing patients in the fieldHospital
+        foreach (var patient in patienManger.activeHealingHospitalPatient)
         {
 
             // Instantiate a select slot for this patient
@@ -80,6 +79,7 @@ public class ClinicUI : MonoBehaviour
             }
 
             displayedCount++;
+            Debug.Log(displayedCount);
         }
 
         int remainingSlots = totalSlots - displayedCount;
@@ -92,7 +92,7 @@ public class ClinicUI : MonoBehaviour
             if (selectButtonItem != null)
             {
                 // For empty slots, clicking the button should display injured NPCs
-                selectButtonItem.InitializeForEmptySlot(this);
+                selectButtonItem.InitializeFieldForEmptySlot(this);
             }
         }
     }
@@ -100,7 +100,7 @@ public class ClinicUI : MonoBehaviour
 
     public void DisplayInjuredNpc()
     {
-        uImanger.ToggleUIPanel(UImanger.UIPanel.ClinicInhuredNpcUI);
+        uImanger.ToggleUIPanel(UImanger.UIPanel.FieldHospitalInhuredNpcUI);
 
         // Clear existing children in the display and select parents
         foreach (Transform child in DisplayParent)
@@ -138,7 +138,7 @@ public class ClinicUI : MonoBehaviour
     {
         Debug.Log($"Adding patient with ID: {npcId} to healing");
         // Call the method to add the patient to the manager
-        patienManger.AddPatient(npcId, npcManager.listNpc.First(npc => npc.idnpc == npcId).hp, 2f, PatienSourceSource.Clinic);
+        patienManger.AddPatient(npcId, npcManager.listNpc.First(npc => npc.idnpc == npcId).hp, 2f, PatienSourceSource.FieldHaspital);
 
         // Refresh UI after adding
         DisplayInjuredNpc();
@@ -152,10 +152,10 @@ public class ClinicUI : MonoBehaviour
         if (npcToAdd != null)
         {
             float healingRate = 2f; // example healing rate
-            patienManger.AddPatient(npcToAdd.idnpc, npcToAdd.hp, healingRate, PatienSourceSource.Clinic);
+            patienManger.AddPatient(npcToAdd.idnpc, npcToAdd.hp, healingRate, PatienSourceSource.FieldHaspital);
             npcManager.MoveNpcToWorking(npcToAdd.idnpc);
 
-            Debug.Log($"Added NPC {npcToAdd.nameNpc}(ID: {npcToAdd.idnpc}) as a patient to the clinic.");
+            Debug.Log($"Added NPC {npcToAdd.nameNpc}(ID: {npcToAdd.idnpc}) as a patient to the fieldHospital.");
 
             // Refresh UI
             DisplayInjuredNpc();
@@ -169,12 +169,12 @@ public class ClinicUI : MonoBehaviour
 
     void UpdateUI()
     {
-        if (clinic != null)
+        if (fieldHospital != null)
         {
-            int bed = clinic.CurrentActiveCurebed;
+            int bed = fieldHospital.CurrentActiveCurebed;
             AviableBed.text = $"Bed Count: {bed} ";
 
-            if (clinic.upgradeBuilding.currentLevel < clinic.upgradeBuilding.maxLevel)
+            if (fieldHospital.upgradeBuilding.currentLevel < fieldHospital.upgradeBuilding.maxLevel)
             {
                 UpgradeBenefits.text = $"Upgrade Benefit: Provide 2 Bed.";
             }
@@ -185,7 +185,7 @@ public class ClinicUI : MonoBehaviour
         }
         else
         {
-            AviableBed.text = "clinic not found";
+            AviableBed.text = "fieldHospital not found";
             UpgradeBenefits.text = string.Empty;
         }
     }
@@ -252,7 +252,7 @@ public class ClinicUI : MonoBehaviour
         }
 
         // Display each patient with the specified action
-        foreach (var patient in patienManger.activeHealingClinicPatient)
+        foreach (var patient in patienManger.activeHealingHospitalPatient)
         {
             GameObject patientObj = Instantiate(PatienPrefab, SelectParent);
             PatientUIItem uiItem = patientObj.GetComponent<PatientUIItem>();
