@@ -2,18 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FieldHospital : MonoBehaviour
+public class Lounge : MonoBehaviour
 {
-     public TimeManager timeManager;
+    public TimeManager timeManager;
     public DateTime dateTime;
     public BuildManager buildManager;
     public Building building;
     public UpgradeBuilding upgradeBuilding;
     public Globalstat globalstat;
+    public UImanger uImanger;
+    public UpgradeUi upgradeUi;
 
-    private float currentDiscontentContribution = 0f;
-    private int CurrentActiveCurebed = 0;
-    private float CurrentHealingSpeed = 0;
+    public float currentDiscontentContribution = 0f;
+    public int currentBedContribution = 0;
     private int previousLevel = 0;
 
     private bool abilitiesApplied = false; // Ensure abilities apply only once
@@ -23,8 +24,9 @@ public class FieldHospital : MonoBehaviour
         timeManager = FindObjectOfType<TimeManager>();
         globalstat = FindObjectOfType<Globalstat>();
         buildManager = FindObjectOfType<BuildManager>();
-        building = GetComponent<Building>();
+        building = FindObjectOfType<Building>();
         upgradeBuilding = GetComponent<UpgradeBuilding>();
+        uImanger = FindObjectOfType<UImanger>();
         dateTime = timeManager.dateTime;
 
         previousLevel = upgradeBuilding.currentLevel; // Sync level on start
@@ -45,18 +47,33 @@ public class FieldHospital : MonoBehaviour
             previousLevel = upgradeBuilding.currentLevel;
         }
     }
+     void OnMouseDown()
+    {
+        if (building.isfinsih && !upgradeBuilding.isUpgradBuilding)
+        {
+            uImanger.ToggleUIPanel(UImanger.UIPanel.LoungeUI);
+            
+            if (upgradeBuilding.currentLevel == upgradeBuilding.maxLevel)
+            {
+                uImanger.DisableUIPanel(UImanger.UIPanel.LoungeUpgradeButton);
+            }
+        }
+    }
 
+    public void AssignUpgradeData()
+    {
+        upgradeUi = FindObjectOfType<UpgradeUi>();
+        upgradeUi.Initialize(upgradeBuilding);
+    }
     void ApplyAbilities()
     {
         // Get the current contributions based on the level
-        CurrentActiveCurebed = GetActiveCurebedbaseonvalue();
+        currentBedContribution = GetBedValueBasedOnLevel();
         currentDiscontentContribution = GetDiscontentValueBasedOnLevel();
-        CurrentHealingSpeed = GetHealingSpeedbaseonvalue();
 
         // Apply contributions
-        globalstat.IncreaseCurebed(CurrentActiveCurebed);
+        globalstat.AddBedsFromBuilding(currentBedContribution);
         globalstat.DecreaseDiscontent(currentDiscontentContribution);
-        globalstat.IncreaseHealingSpeed(CurrentHealingSpeed);
 
         Debug.Log($"Applied abilities for Level {upgradeBuilding.currentLevel}");
     }
@@ -64,44 +81,43 @@ public class FieldHospital : MonoBehaviour
     void UpgradeAbilities()
     {
         // Calculate and replace old contributions with new ones
-        int NewCurebedcontribution = GetActiveCurebedbaseonvalue();
+        int newBedContribution = GetBedValueBasedOnLevel();
         float newDiscontentContribution = GetDiscontentValueBasedOnLevel();
-        float NewhealingspeedContribution = GetHealingSpeedbaseonvalue();
 
-        globalstat.UpdateCurebedContribution(CurrentActiveCurebed, NewCurebedcontribution);
+        globalstat.UpdateBuildingBedContribution(currentBedContribution, newBedContribution);
         globalstat.UpdateDiscontentContribution(currentDiscontentContribution, newDiscontentContribution);
-        globalstat.UpdateHealingSpeedContribution(CurrentHealingSpeed, NewhealingspeedContribution);
 
-        CurrentActiveCurebed = NewCurebedcontribution;
+        currentBedContribution = newBedContribution;
         currentDiscontentContribution = newDiscontentContribution;
-        CurrentHealingSpeed = NewhealingspeedContribution;
 
         Debug.Log($"Upgraded to Level {upgradeBuilding.currentLevel}");
     }
 
-    int GetActiveCurebedbaseonvalue()
+    public int GetBedValueBasedOnLevel(int level = -1)
     {
-        switch (upgradeBuilding.currentLevel)
+        int targetLevel = (level == -1) ? upgradeBuilding.currentLevel : level;
+        switch (targetLevel)
         {
-            case 2: return 7; // Level 2
-            default: return 3; // Level 1
-        }
-    }
-    int GetHealingSpeedbaseonvalue()
-    {
-        switch (upgradeBuilding.currentLevel)
-        {
-            case 2: return 10; // Level 2
-            default: return 0; // Level 1
+            case 2: return 3; // Level 2
+            case 3: return 5; // Level 3
+            default: return 1; // Level 1
         }
     }
 
-    float GetDiscontentValueBasedOnLevel()
+    public float GetDiscontentValueBasedOnLevel(int level = -1)
     {
-        switch (upgradeBuilding.currentLevel)
+        int targetLevel = (level == -1) ? upgradeBuilding.currentLevel : level;
+        switch (targetLevel)
         {
             case 2: return 25f; // Level 2
-            default: return 20f; // Level 1
+            case 3: return 35f; // Level 3
+            default: return 15f; // Level 1
         }
     }
+
 }
+
+
+
+
+

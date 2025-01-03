@@ -39,6 +39,7 @@ public class UpgradeBuilding : MonoBehaviour
         isUpgradBuilding = false;
         isFinishedUpgrad = false;
         maxLevel = upgradeLevels.Count+1;
+        WaitUpgrade();
     }
     void Start()
     {

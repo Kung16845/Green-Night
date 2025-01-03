@@ -7,6 +7,7 @@ public class CraftManager : MonoBehaviour
     public List<CraftingJob> activeCraftingJobs = new List<CraftingJob>();
     public List<CraftingJob> ChemicalactiveJobs = new List<CraftingJob>();
     public List<CraftingJob> MedicineactiveJobs = new List<CraftingJob>();
+    public List<CraftingJob> MoonshienactiveJobs = new List<CraftingJob>();
     public InventoryItemPresent inventoryItemPresent;
     public BuildManager buildManager;
     public Globalstat globalstat; // Reference to Globalstat

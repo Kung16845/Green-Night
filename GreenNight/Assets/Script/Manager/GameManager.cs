@@ -12,16 +12,18 @@ public class GameManager : MonoBehaviour
     public TimeManager timeManager;
     public BuildManager buildManager;
     public InventoryItemPresent inventoryItemPresent;
+    public DailyGive dailyGive;
     public ExpenditionManager expenditionManager;
     public Globalstat globalstat;
     public NpcManager npcManager;
     public ManagerSceneEX managerSceneEX;
     public OutpostSystem outpostSystem;
     public CraftManager craftManager;
+    public PatienManger patienManger;
 
     [Header("Script Save and Load Game")]
     public SaveAndLoadTimemanager saveAndLoadTimemanager;
-    public SaveAndLoadLIstItemsDataBoxes saveAndLoadLIstItemsDataBoxes;
+    public SaveAndLoadLIstItemsDataBoxesAndDailyGive saveAndLoadLIstItemsDataBoxes;
     public SaveAndLoadListNpc saveAndLoadListNpc;
     public SaveAndLoadExpendition saveAndLoadExpendition;
     public SaveDataDDA saveDataDDA;
@@ -30,11 +32,14 @@ public class GameManager : MonoBehaviour
     public SaveAndLoadBuildManager saveAndLoadBuildManager;
     public SaveAndLoadResoure saveAndLoadResoure;
     public SaveAndLoadCraftItms saveAndLoadCraftItms;
+    public SaveAndLoadTunnutAndBroken saveAndLoadTunnutAndBroken;
+    public SaveAndLoadPatint saveAndLoadPatint;
     private void Awake()
     {
         timeManager = FindObjectOfType<TimeManager>();
         buildManager = FindObjectOfType<BuildManager>();
         inventoryItemPresent = FindObjectOfType<InventoryItemPresent>();
+        dailyGive = FindObjectOfType<DailyGive>();
         expenditionManager = FindObjectOfType<ExpenditionManager>();
         globalstat = FindObjectOfType<Globalstat>();
         npcManager = FindObjectOfType<NpcManager>();
@@ -42,12 +47,13 @@ public class GameManager : MonoBehaviour
         outpostSystem = FindObjectOfType<OutpostSystem>();
         buildManager = FindObjectOfType<BuildManager>();
         craftManager = FindObjectOfType<CraftManager>();
+        patienManger = FindObjectOfType<PatienManger>();
     }
     public void NewGame()
     {
         saveAndLoadExpendition.ResetDataUIEX();
         saveAndLoadListNpc.ResetDataListNpc();
-        saveAndLoadLIstItemsDataBoxes.ResetDataListItemBoxes();
+        saveAndLoadLIstItemsDataBoxes.ResetDataListItemBoxesAndDailyGive();
         saveDataDDA.ResetDataDDA();
         saveAndLoadListDoorStatusSceneEX.ResetDataListDoorStatus();
         saveAndLoadOutPostReward.ResetDataOutPostReward();
@@ -56,11 +62,14 @@ public class GameManager : MonoBehaviour
         saveAndLoadResoure.ResetDataResoure();
         saveAndLoadCraftItms.ResetDataCraftItems();
         npcManager.StartGameCreateGropNpx();
+        saveAndLoadTunnutAndBroken.ResetDataTunnutAndBroken();
+        saveAndLoadPatint.ResetDataPatint();
+        
     }
     public void SaveGame()
     {
         saveAndLoadListNpc.SaveListNpc();
-        saveAndLoadLIstItemsDataBoxes.SaveListItemsDataBoxes();
+        saveAndLoadLIstItemsDataBoxes.SaveListItemsDataBoxesAndDailyGive();
         saveAndLoadExpendition.SaveUIExpemdition();
         saveAndLoadListDoorStatusSceneEX.SaveDataListDoorStatus();
         saveAndLoadOutPostReward.SaveDataOutPostReward();
@@ -69,11 +78,13 @@ public class GameManager : MonoBehaviour
         saveAndLoadBuildManager.SaveBuildInScenes();
         saveAndLoadResoure.SaveDataResoure();
         saveAndLoadCraftItms.SaveDataCraftItems();
+        saveAndLoadTunnutAndBroken.SaveDataTunnutAndBroken();
+        saveAndLoadPatint.SaveDataPatint();
     }
     public void LoadGane()
     {
         saveAndLoadListNpc.LoadDataListNpc();
-        saveAndLoadLIstItemsDataBoxes.LoadDataListItemDataBoxes();
+        saveAndLoadLIstItemsDataBoxes.LoadDataListItemDataBoxesAndDailyGive();
         saveAndLoadExpendition.LoadDataUIExFromJsonToScriptData();
         saveDataDDA.LoadDataDDAFromJsonToScriptData();
         saveAndLoadListDoorStatusSceneEX.LoadDataListDoorStatus();
@@ -82,6 +93,8 @@ public class GameManager : MonoBehaviour
         saveAndLoadBuildManager.LoadBuildInScenes();
         saveAndLoadResoure.LoadDataResore();
         saveAndLoadCraftItms.LoadDataCraftItems();
+        saveAndLoadTunnutAndBroken.LoadDataTunnutAndBroken();
+        saveAndLoadPatint.LoadDataPatint();
     }
     public void QuitGame()
     {
