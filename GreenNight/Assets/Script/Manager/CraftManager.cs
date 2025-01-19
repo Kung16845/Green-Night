@@ -41,7 +41,14 @@ public class CraftManager : MonoBehaviour
                     return CraftingResult.NoAvailableSlots;
                 }
                 break;
-
+            case CraftingSource.Moonshine:
+                if (globalstat.MoonshineCraftingSlot <= 0)
+                {
+                    Debug.LogWarning("Crafting is not allowed in Chemical Lab: No active crafting slots.");
+                    return CraftingResult.NoAvailableSlots;
+                }
+                break;
+            
             default:
                 Debug.LogWarning("Unknown crafting source.");
                 return CraftingResult.NoAvailableSlots;
@@ -91,6 +98,11 @@ public class CraftManager : MonoBehaviour
                 ChemicalactiveJobs.Add(newJob);
                 globalstat.ChemicalCraftingSlot -= 1;
                 break;
+            
+            case CraftingSource.Moonshine:
+                MoonshienactiveJobs.Add(newJob);
+                globalstat.MoonshineCraftingSlot -= 1;
+                break;
 
             default:
                 Debug.LogWarning("Unknown Crafting Source.");
@@ -107,7 +119,7 @@ public class CraftManager : MonoBehaviour
     {
         UpdateJobs(activeCraftingJobs);
         UpdateJobs(ChemicalactiveJobs);
-
+        UpdateJobs(MoonshienactiveJobs);
         // Update used slots after processing jobs
         UpdateUsedSlots();
     }
@@ -179,6 +191,9 @@ public class CraftManager : MonoBehaviour
             case CraftingSource.ChemicalLab:
                 globalstat.ChemicalCraftingSlot += 1; // Free up a Chemical Lab slot
                 break;
+            case CraftingSource.Moonshine:
+                globalstat.MoonshineCraftingSlot += 1;
+                break;
             default:
                 Debug.LogWarning("Unknown crafting source when completing job.");
                 break;
@@ -196,6 +211,7 @@ public class CraftManager : MonoBehaviour
         // Update the globalstat used slot values
         globalstat.usedCraftingSlot = activeCraftingJobs.Count;
         globalstat.usedChemicalCraftingSlot = ChemicalactiveJobs.Count;
+        globalstat.usedMoonshineCraftingSlot = MoonshienactiveJobs.Count;
     }
 
     private bool HasRequiredResources(CraftingItem craftingItem)

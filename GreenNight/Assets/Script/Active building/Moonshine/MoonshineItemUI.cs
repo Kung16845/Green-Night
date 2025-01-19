@@ -3,21 +3,21 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
-public class ChemicalItemUI : MonoBehaviour
+public class MoonshineItemUI : MonoBehaviour
 {
     public Image itemIconImage;
     public TextMeshProUGUI itemNameText;
     public TextMeshProUGUI craftingTimeText;
 
     private CraftingItem craftingItemData;
-    private ChemicalUi chemicalUi;
+    private MoonshinUI moonshinUI;
 
     public Button buttonComponent; // Assign this in the Inspector
 
-    public void Initialize(CraftingItem itemData, ChemicalUi parentUI)
+    public void Initialize(CraftingItem itemData, MoonshinUI parentUI)
     {
         craftingItemData = itemData;
-        chemicalUi = parentUI;
+        moonshinUI = parentUI;
 
         if (itemIconImage != null)
             itemIconImage.sprite = itemData.itemIcon;
@@ -37,9 +37,9 @@ public class ChemicalItemUI : MonoBehaviour
 
     private void OnClick()
     {
-        if (chemicalUi != null)
+        if (moonshinUI != null)
         {
-            chemicalUi.DisplaySelectedItemDetails(craftingItemData);
+            moonshinUI.DisplaySelectedItemDetails(craftingItemData);
         }
     }
 
