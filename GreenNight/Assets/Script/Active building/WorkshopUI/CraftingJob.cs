@@ -18,5 +18,6 @@ public enum CraftingSource
 {
     Workshop,
     ChemicalLab,
+    Moonshine,
     // Add other crafting sources as needed
 }

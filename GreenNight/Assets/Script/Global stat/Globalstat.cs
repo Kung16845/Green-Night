@@ -40,8 +40,10 @@ public class Globalstat : MonoBehaviour
     public float Growingspeed;
     public int CraftingSlot;
     public int ChemicalCraftingSlot;
+    public int MoonshineCraftingSlot;
     public int usedCraftingSlot;
     public int usedChemicalCraftingSlot;
+    public int usedMoonshineCraftingSlot;
     public bool SatelliteOnline;
     public bool ReconActive;
     [Header("Exipiditionaction")]
@@ -150,5 +152,9 @@ public class Globalstat : MonoBehaviour
      public void UpdateChemicalCraftingSlot(int newSlotValue)
     {
         ChemicalCraftingSlot = newSlotValue;
+    }
+    public void UpdateMoonshineCraftingSlot(int newSlotValue)
+    {
+        MoonshineCraftingSlot = newSlotValue;
     }
 }

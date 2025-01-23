@@ -38,8 +38,9 @@ public class UImanger : MonoBehaviour
         FieldHospitalUpgradeUI,
         FieldHospitalInhuredNpcUI,
         LoungeUI,
-        LoungeUpgradeButton
-
+        LoungeUpgradeButton,
+        MoonshineUI,
+        MoonshineUpgradeButton,
 
     }
 
