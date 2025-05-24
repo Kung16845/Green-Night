@@ -20,20 +20,67 @@ public class DataDDACollection
     public List<DataDDA> records = new List<DataDDA>();
     public DataDDA averageData = new DataDDA();
 }
-
+public enum DDALevel
+{
+    Level1,
+    Level2,
+    Level3,
+    Level4,
+}
 public class SaveDataDDA : MonoBehaviour
 {
     public DDAdataCollector scriptDDAdataCollector;
     public DataDDACollection dataDDACollection;
     [SerializeField] private string savePathDataDDA;
-
+    public DDALevel dDALevel;
     private void Start()
     {
         scriptDDAdataCollector = FindObjectOfType<DDAdataCollector>();
-        savePathDataDDA = Path.Combine(Application.dataPath,"dda_data.json");
+        savePathDataDDA = Path.Combine(Application.dataPath, "dda_data.json");
         // LoadDataFromDataJsonToScriptData();
     }
+    public void OnDropdownDDAChanged(int selectedIndex)
+    {
+        ResetDataDDA();
 
+        if (selectedIndex >= 0 && selectedIndex < Enum.GetValues(typeof(DDALevel)).Length)
+        {
+            dDALevel = (DDALevel)selectedIndex;
+            Debug.Log($"Current DDA Level: {dDALevel}");
+            SetDataAverageData();
+        }
+        else
+        {
+            Debug.LogWarning("Selected DDA Level index is out of range.");
+        }
+    }
+    public void SetDataAverageData()
+    {
+        switch (dDALevel)
+        {
+            case DDALevel.Level1:
+                SetDataDDA(0, 0, 0, 0, 0);
+                break;
+            case DDALevel.Level2:
+                SetDataDDA(80.0f, 0, 0, 0, 0);
+                break;
+            case DDALevel.Level3:
+                SetDataDDA(130.0f, 0, 0, 0, 0);
+                break;
+            case DDALevel.Level4:
+                SetDataDDA(200.0f, 0, 0, 0, 0);
+                break;
+        }
+
+    }
+    public void SetDataDDA(float killPerMinute, float accuracy, float multiKillCount, float barrierDamage, float valueFail)
+    {
+        dataDDACollection.averageData.killPerMinute = killPerMinute;
+        dataDDACollection.averageData.accuracy = accuracy;
+        dataDDACollection.averageData.multiKillCount = multiKillCount;
+        dataDDACollection.averageData.barrierDamage = barrierDamage;
+        dataDDACollection.averageData.valueFail = valueFail;
+    }
     public void AddDataDDAAndSave()
     {
         // ดึงข้อมูลปัจจุบันจากตัวเก็บข้อมูล
@@ -92,14 +139,14 @@ public class SaveDataDDA : MonoBehaviour
         File.WriteAllText(savePathDataDDA, json);
         Debug.Log($"Data saved to {savePathDataDDA}");
     }
- 
+
     public void LoadDataDDAFromJsonToScriptData()
     {
         if (File.Exists(savePathDataDDA))
         {
             string json = File.ReadAllText(savePathDataDDA);
             dataDDACollection = JsonUtility.FromJson<DataDDACollection>(json);
-            
+
             Debug.Log($"Data loaded from {savePathDataDDA}");
         }
         else
